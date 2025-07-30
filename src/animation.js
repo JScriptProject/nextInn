@@ -36,7 +36,6 @@ export const stickyHeaderAnimation = (nav, logo) => {
         onEnter: () => {
           gsap.to(nav, {
             backgroundColor: "#1f2937",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
             paddingTop: "0.5rem",
             paddingBottom: "0.5rem",
             duration: 0.4,
@@ -52,7 +51,6 @@ export const stickyHeaderAnimation = (nav, logo) => {
         onLeaveBack: () => {
           gsap.to(nav, {
             backgroundColor: "transparent",
-            boxShadow: "none",
             paddingTop: "1.5rem",
             paddingBottom: "1.5rem",
             duration: 0.3,
