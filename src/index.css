@@ -79,7 +79,7 @@ main {
 }
 
 nav .nav-toggle {
-  @apply absolute translate-x-[100%] right-[-2rem] top-0 md:hidden  ;
+  @apply absolute translate-x-[100%] right-[-2rem] top-0 md:hidden;
 }
 
 .nav-toggle.nav-toggle-open{
