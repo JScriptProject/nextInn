@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+
 export const stickyHeaderAnimation = (nav, logo) => {
   ScrollTrigger.matchMedia({
     "(min-width: 768px)": function () {
@@ -138,3 +139,30 @@ export const headerAnimation = (element, isOpening) => {
     });
   }
 };
+
+
+
+export const bannerTimeline = (subtitle, title, btn)=>{
+  const tl = gsap.timeline();
+  console.log("function execution");
+  tl.from(subtitle,{
+    y:30,
+    opacity:0,
+    duration:0.8,
+    ease:"power2.out"
+  })
+  .from(title,{
+    y:30,
+    opacity:0,
+    duration:0.8,
+    ease:"power2.out",
+    delay:0.2
+  })
+  .from(btn,{
+      y:30,
+      opacity:0,
+      duration:0.8,
+      ease:"power2.out",
+      delay:0.4
+  })
+} 
