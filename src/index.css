@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 @import "tailwindcss";
 
 :root {
@@ -190,7 +193,7 @@ nav .nav-links .nav-link {
 /* Banner */
 .banner-slider{
   z-index: 22;
-@apply w-full h-[800px] bg-cover bg-center relative ;
+@apply w-full h-[800px] bg-cover bg-center relative  ;
  
 }
 
@@ -278,11 +281,11 @@ section{
   @apply text-[var(--accent-cta-sunset-orange)] text-[0.9rem] md:text-[1.1rem] pb-[0.2rem];
 }
 .section-title-wrap h2{
-  @apply text-[3rem]  text-[var(--text-primary-dark-Charcoal)];
+  @apply text-[3rem] pb-[2rem] md:pb-0 text-[var(--text-primary-dark-Charcoal)];
 }
 .rooms-header-wrapper{
   line-height: 1.5;
-  @apply grid grid-cols-[50%_50%] text-[1.1rem]
+  @apply grid grid-cols-1 md:grid-cols-[50%_50%] text-[1.1rem]
   text-[var(--text-secondary-gray)] items-center;
 
 }
@@ -294,13 +297,67 @@ section{
 .rooms-swiper-container{
   @apply w-full h-[500px] md:h-[600px];
 }
-.swiper-slide{
+.room-swiper-slide{
   background: fixed;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  @apply  w-full h-full;
+  transition: all 0.3s ease;
+  @apply  w-full h-full rounded-sm relative;
 }
+
+
+
+.room-slider-inside{
+ background: #4E4613;
+ background: linear-gradient(178deg,#11111100 , #111111c0);
+/* background: linear-gradient(178deg,#134e4a07 1%, #134e4a83 100%); */
+  height: 100%;
+  width: 100%;
+  color:#fff;
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  transform: translateY(70px);
+  transition:all 0.3s linear;
+  padding-inline:1.8rem;
+}
+
+.room-slider-inside h3{
+  font-weight: 300;
+  @apply text-[2rem] ;
+}
+
+.room-slider-inside h4{
+  font-family: inherit;
+  font-weight: 300;
+  @apply text-[1rem] italic pb-[1rem];
+}
+
+.room-slider-inside .room-guest-info{
+  @apply flex flex-row items-center justify-start gap-[2rem];
+}
+.room-slider-inside .room-guest-info p{
+  @apply flex flex-row items-center gap-[0.5rem] text-[1rem] pb-[1rem]; 
+}
+
+
+.room-slider-inside .room-price{
+   font-family: 'Roboto', sans-serif;
+   font-weight: 200;
+   @apply text-[2.5rem] flex flex-row items-center pb-[1rem];
+}
+
+.room-swiper-book-btn{
+  color: var(  --accent-cta-sunset-orange);
+  border-bottom:  2px solid var(  --accent-cta-sunset-orange);
+   @apply text-[1.2rem] mb-[2rem] ;
+}
+.room-slider-inside:Hover{
+  transform: translateY(0px);
+}
+
 
 /* swiper button */
 
@@ -333,6 +390,13 @@ section{
   right:1rem !important;
 }
 }
-.swiper-pagination-bullet-active{
-  background-color: #f97316 !important;
+
+.rooms-swiper-container .swiper-pagination-fraction, .rooms-swiper-container .swiper-pagination-custom, .rooms-swiper-container .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal
+{
+  bottom:-0.7rem !important;
+  z-index: 100 !important;
 }
+
+.rooms-swiper-container .swiper-scrollbar ,.rooms-swiper-container .swiper-scrollbar-drag{
+  background: unset!important;
+} 
