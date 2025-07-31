@@ -265,5 +265,74 @@ nav .nav-links .nav-link {
   background-color: #f97316 !important;
 }
 
- 
-  
+/* section */
+
+section{
+  @apply py-15 md:py-20 px-[2rem] md:px-[4rem];
+}
+
+.section-title-wrap{
+  @apply relative;
+}
+.section-title-wrap h4{
+  @apply text-[var(--accent-cta-sunset-orange)] text-[0.9rem] md:text-[1.1rem] pb-[0.2rem];
+}
+.section-title-wrap h2{
+  @apply text-[3rem]  text-[var(--text-primary-dark-Charcoal)];
+}
+.rooms-header-wrapper{
+  line-height: 1.5;
+  @apply grid grid-cols-[50%_50%] text-[1.1rem]
+  text-[var(--text-secondary-gray)] items-center;
+
+}
+
+.rooms-slider-container{
+  @apply mt-20;
+}
+
+.rooms-swiper-container{
+  @apply w-full h-[500px] md:h-[600px];
+}
+.swiper-slide{
+  background: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  @apply  w-full h-full;
+}
+
+/* swiper button */
+
+.rooms-swiper-container .swiper-button-prev:after,.rooms-swiper-container  .swiper-button-next:after{
+  font-size: 1.1rem !important;
+}
+.rooms-swiper-container .swiper-button-prev, .rooms-swiper-container .swiper-button-next{
+  width: 1rem !important;
+  height: 1rem !important;
+  border-radius: 50%;
+  background-color: transparent !important;
+  color: #fff !important;
+  font-weight: 800;
+}
+.rooms-swiper-container .swiper-button-prev{
+  left:1rem !important;
+}
+.rooms-swiper-container .swiper-button-next{
+  right:1rem !important;
+}
+@media screen and (min-width: 768px) {
+   .rooms-swiper-container .swiper-button-prev, .rooms-swiper-container .swiper-button-next{
+    width: 4rem !important;
+    height: 4rem !important;
+  }
+  .rooms-swiper-container .swiper-button-prev{
+  left:1rem !important;
+}
+.rooms-swiper-container .swiper-button-next{
+  right:1rem !important;
+}
+}
+.swiper-pagination-bullet-active{
+  background-color: #f97316 !important;
+}
