@@ -35,24 +35,25 @@ function RoomDetails() {
             </div>
             
           </div>
-          <h3 className="page-internal-titles">Room Amenities</h3>
+          <h3 className="page-internal-title">Room Amenities</h3>
           <RoomAmenities amenities={room.amenities} />
           <div className="sliding-moving-image">
-            <img src={room.images[2]} alt={room.name} />
+            <ParallaxImageBox imgSrc = {room.images[2]} />
+            
           </div>
         </div>
         <div className="room-features">
-          <h3 className="page-internal-titles">Room Features</h3>
+          <h3 className="page-internal-title">Room Features</h3>
           <div className="room-features-section">
             <ul>
-              <li>Children and extra beds</li>
-              <li>Climate Control</li>
-              <li>Art and Decor</li>
-              <li>Coffee/Tea Maker</li>
-              <li>High-End Bedding</li>
-              <li>Smart Technology</li>
+              <li><span></span>Children and extra beds</li>
+              <li><span></span>Climate Control</li>
+              <li><span></span>Art and Decor</li>
+              <li><span></span>Coffee/Tea Maker</li>
+              <li><span></span>High-End Bedding</li>
+              <li><span></span>Smart Technology</li>
             </ul>
-            <p className="features-info">
+            <p className="features-info room-desc">
               Our elegantly appointed rooms and suites are designed to offer the
               utmost in comfort and style. Each room features modern amenities,
               plush furnishings, and thoughtful touches to ensure a relaxing
@@ -61,7 +62,7 @@ function RoomDetails() {
           </div>
         </div>
         <div className="availability-calendar-container">
-           <h3 className="page-internal-titles">Availability Calendar</h3>
+           <h3 className="page-internal-title">Availability Calendar</h3>
           <AvailabilityCalendar />
         </div>
       </div>

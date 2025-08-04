@@ -7,20 +7,20 @@ function ParallaxImageBox({ imgSrc }) {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end end"],
+    offset: ["start end", "end start"],
   });
 
 
 
-  const y = useTransform(scrollYProgress, [0, 1], ["-150px", "150px"]);
+  const y = useTransform(scrollYProgress, [1, 0], ["150px", "-150px"]);
   const smoothY = useSpring(y,{stiffness:100, damping:30, mass:1,})
   return (
-    <motion.div className="relative h-[400px] overflow-hidden moving-img" ref={ref}>
+    <motion.div className="relative h-[400px] overflow-hidden rounded-2xl moving-img" ref={ref}>
       <motion.img 
         src={imgSrc}
         alt="room"
         className="w-full h-full object-cover"
-        style={{ y:smoothY, scale: 2 , transform: 'translateZ(0)'}}
+        style={{ y:smoothY, scale: 1.5 , transform: 'translateZ(0)'}}
       />
     </motion.div>
   );

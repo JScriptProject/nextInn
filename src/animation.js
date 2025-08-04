@@ -1,7 +1,6 @@
 // gsapAnimations.js
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -69,55 +68,6 @@ export const stickyHeaderAnimation = (nav, logo) => {
 };
 
 
-// export const stickyHeaderAnimation = (nav, logo) => {
-//   ScrollTrigger.matchMedia({
-//     "(min-width :768px)": function (){
-//   ScrollTrigger.create({
-//     trigger: document.body,
-//     start: "top -50px",
-//     toggleActions: "play none none reverse",
-//     onEnter: () => {
-//       // Animate background and shadow (not transform)
-//       gsap.to(nav, {
-//         backgroundColor: "#1f2937",
-//         boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-//         duration: 0.4,
-//         position:"sticky",
-//         top:"0",
-//         paddingTop:"0.5rem",
-//         paddingBottom:"0.5rem",
-      
-//       });
-
-//       gsap.to(logo, {
-//         scale: 0.8,
-//         duration: 0.4,
-//       });
-//     },
-//     onLeaveBack: () => {
-//       // Revert when scrolling back to top
-//       gsap.to(nav, {
-//         backgroundColor: "transparent",
-//         boxShadow: "none",
-//         duration: 0.3,
-//         paddingTop:"1.5rem",
-//         paddingBottom:"1.5rem",
-//         position:"absolute",
-        
-//       });
-
-//       gsap.to(logo, {
-//         scale: 1,
-//         duration: 0.3,
-       
-//       });
-//     },
-//   });
-//     }
-//   })
-  
-  
-// };
 
 
 export const headerAnimation = (element, isOpening) => {
