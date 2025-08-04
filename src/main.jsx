@@ -5,11 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import "./assets/fonts/fonts.css";
 import "./index.css";
 import App from "./App.jsx";
+import SmoothScrollProvider from './SmoothScrollWrapper';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <SmoothScrollProvider>
+        <App />
+      </SmoothScrollProvider>
     </BrowserRouter>
   </StrictMode>
 );

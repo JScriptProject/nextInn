@@ -23,6 +23,7 @@ html {
 
 body {
   font-family: "Lato", sans-serif;
+  overflow: hidden;
   @apply w-full h-full relative;
 }
 
@@ -400,3 +401,77 @@ section{
 .rooms-swiper-container .swiper-scrollbar ,.rooms-swiper-container .swiper-scrollbar-drag{
   background: unset!important;
 } 
+
+/* Room Details Page */
+
+/* page banner */
+
+.page-container{
+  @apply w-full h-full relative;
+}
+.page-banner{
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+   @apply w-full h-[360px] md:h-[500px] lg:h-[650px] flex items-center justify-center;
+
+}
+
+.page-banner h2{
+  letter-spacing: 2px;
+  filter:drop-shadow(0px 0px 30px var(--primary-deep-teal));
+  @apply text-[2rem] md:text-[3rem] lg:text-[3.5rem] font-bold text-[#fff];
+}
+
+.room-details-section{
+  position:relative;
+  width: 100%;
+  height:auto;
+  margin-top: 3rem;
+  padding-inline:2rem;
+}
+
+.room-details-section .room-info{
+  @apply relative w-full;
+}
+
+.page-title{
+  letter-spacing: 2px;
+  @apply text-[3.5rem] md:text-[4rem] pb-[2rem] text-[var(--text-primary-dark-Charcoal)];
+}
+
+.room-features-icons{
+  @apply relative w-full pb-[2rem];
+}
+
+.room-features-icons ul{
+  @apply flex flex-row items-center justify-between; 
+}
+.room-features-icons ul li{
+  @apply flex flex-row items-center justify-center;
+}
+
+.room-features-icons ul li .feature-icon{
+  @apply text-[var(--accent-cta-sunset-orange)] w-[1rem] h-[1rem] mr-[5px];
+}
+
+.room-features-icons ul li .feature-text{
+  @apply text-[var(--text-secondary-gray)] text-[0.95rem] lg:text-[1.1rem];
+}
+
+.room-description-container .room-desc{
+  @apply pb-[2rem] text-[1.1rem] text-[var(--text-secondary-gray)];
+}
+
+.room-info .room-details-images{
+  @apply grid grid-cols-1 gap-[2rem]; 
+}
+.moving-img{
+  border:1px solid black;
+}
+
+.moving-img img{
+  will-change: transform;
+  transform:translateZ(0);
+}
+
