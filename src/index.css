@@ -23,7 +23,8 @@ body {
 
 body {
   font-family: "Lato", sans-serif;
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-y: auto;
   @apply w-full h-full relative;
 }
 
