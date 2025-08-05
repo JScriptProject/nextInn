@@ -15,14 +15,14 @@ function AvailabilityCalendar() {
     <div className="avialability-calendar">
         <DateRange edittableDataInputs={true} 
         onChange={(item)=> setRange([item.selection])}
-        ranges={range}
         moveRangeOnFirstSelection={false}
+        ranges={range}
         direction="horizontal"
         months={2}
         />
         <div className="calendar-control">
-            <button className='calendar-btn-apply btn'>Apply</button>
-            <button className='calendar-btn-cancel btn'>Cancel</button>
+            <button className='calendar-btn-apply btn btn-sm btn-fill-calendar'>Apply</button>
+            <button className='calendar-btn-cancel btn btn-sm btn-outline-calendar'>Cancel</button>
         </div>
     </div>
   )

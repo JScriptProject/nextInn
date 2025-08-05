@@ -450,7 +450,7 @@ section {
   @apply text-[var(--text-secondary-gray)] text-[0.95rem] lg:text-[1.1rem];
 }
 
- .room-desc {
+.room-desc {
   @apply pb-[2rem] text-[1.1rem] text-[var(--text-secondary-gray)];
 }
 
@@ -494,30 +494,216 @@ section {
 }
 
 .room-amenities-container ul li .amenity-icon {
-  @apply w-[1.5rem] h-auto text-[var(--accent-cta-sunset-orange)] ; 
+  @apply w-[1.5rem] h-auto text-[var(--accent-cta-sunset-orange)];
 }
 
 .room-amenities-container ul li .amenity-text {
   @apply text-[var(--text-secondary-gray)] text-[1.2rem] lg:text-[1.3rem];
 }
 
-.room-features{
+.room-features {
   @apply pb-[1rem];
 }
 
-.room-features-section ul{
+.room-features-section ul {
   @apply pb-[2rem] grid grid-cols-2;
 }
 
-.room-features-section ul li{
+.room-features-section ul li {
   @apply pb-[0.5rem] text-[1.2rem] text-[var(--text-secondary-gray)] flex items-center justify-start gap-[0.5rem];
 }
-.room-features-section ul li span{
+.room-features-section ul li span {
   @apply w-[7px] h-[7px] rounded-full bg-[var(--accent-cta-sunset-orange)] inline-block;
 }
 
-.features-info{
+.features-info {
   @apply pb-0;
 }
 
+/* availability calendar */
 
+.availability-calendar-container {
+  @apply relative w-full  pb-[2rem];
+}
+
+.avialability-calendar {
+  border: 1px solid var(--border-lightUI-softGray);
+  @apply w-full h-auto relative;
+}
+
+.avialability-calendar .rdrMonthAndYearWrapper {
+  @apply hidden;
+}
+
+.avialability-calendar .rdrCalendarWrapper {
+  max-width: 100%;
+}
+
+.rdrDayStartPreview,
+.rdrDayEndPreview {
+  color: #f97316 !important;
+}
+
+.rdrSelected,
+.rdrInRange,
+.rdrStartEdge,
+.rdrEndEdge {
+  background-color: #f97316 !important;
+}
+
+.rdrDayInPreview {
+  color: #f97316 !important;
+}
+
+.rdrDateDisplayItemActive {
+  border-color: #f97316 !important;
+}
+
+.calendar-control {
+  position: relative;
+  @apply p-[0.5rem] flex flex-row items-center justify-start gap-[1rem];
+}
+
+.calendar-control .btn-fill-calendar {
+  border: 1px solid var(--accent-cta-sunset-orange);
+  @apply bg-[var(--accent-cta-sunset-orange)] text-[var(--background-offWhite-linen)] hover:bg-[var(--background-offWhite-linen)] hover:text-[var(--text-primary-dark-Charcoal)];
+}
+
+.calendar-control .btn-outline-calendar {
+  border: 1px solid var(--accent-cta-sunset-orange);
+  @apply bg-[var(--background-offWhite-linen)] text-[var(--text-primary-dark-Charcoal)] hover:bg-[var(--accent-cta-sunset-orange)] hover:text-[var(--background-offWhite-linen)];
+}
+
+/* Booking form */
+
+.booking-form-container {
+  @apply relative px-[2rem];
+}
+
+.booking-form {
+  @apply bg-[var(--primary-deep-teal)] px-[1rem] py-[3rem] text-[var(--background-offWhite-linen)];
+}
+
+.booking-form label{
+  @apply text-white text-[1rem] font-light;
+}
+
+.booking-form .form-header {
+  @apply flex flex-row items-center justify-between pb-[3rem];
+}
+
+.booking-form .form-header h2 {
+  @apply text-[1.8rem];
+}
+
+.booking-form .form-header h3 {
+  @apply text-[1rem];
+}
+.booking-form .form-header h3 span {
+  @apply text-[1.7rem];
+}
+
+.input-group {
+  @apply grid grid-cols-1 md:grid-cols-2;
+}
+
+.input-group .input-subgroup {
+  @apply flex flex-col items-center justify-center gap-[1.5rem] mb-[2rem];
+}
+/* Hide default calendar icon - Chrome/Safari/Edge */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+  position: absolute; /* optional for better control */
+}
+
+/* Hide in Firefox */
+input[type="date"]::-moz-calendar-picker-indicator {
+  display: none;
+}
+
+.input-calendar-wrapper{
+  border: 1px solid var(--text-secondary-gray);
+  @apply relative w-full flex items-center justify-center md:w-[20rem] ;
+}
+
+
+input[type="date"]{
+  outline: none;
+  
+  width: fit-content;
+  text-align: center;
+  padding: 5px;
+}
+.input-container-counter{
+  @apply flex flex-row items-center justify-center gap-[1.5rem];
+}
+
+.input-container-counter input{
+  @apply w-fit bg-transparent text-white text-[1.5rem] mr-[-2rem];
+}
+.input-container-counter button{
+  @apply w-[2.5rem] h-[2.5rem] rounded-full bg-[var(--accent-cta-sunset-orange)] flex items-center justify-center ;
+}
+
+.available-rooms-span{
+  @apply text-[0.8rem];  
+}
+
+.booking-form h2{
+  @apply text-[1.6rem] pb-[1.5rem];
+}
+.input-group-checkbox{
+  @apply grid grid-cols-1 pb-[2rem];
+}
+
+.input-group .form-checkInput{
+  @apply flex flex-row items-center justify-between pb-[0.5rem] ;
+}
+
+.checkinput-group input[type="checkbox"] {
+  display: none;
+}
+
+.checkinput-group label {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--accent-cta-sunset-orange);
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checkinput-group input[type="checkbox"]:checked + .checkbox-box::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--accent-cta-sunset-orange);
+}
+.checkbox-label {
+  margin-left: 30px;
+  font-size: 16px;
+  color: white; /* or black depending on your background */
+  vertical-align: middle;
+  white-space: nowrap;
+
+}
+.checkinput-group-pricing{
+  @apply text-[var(--accent-cta-sunset-orange)] text-[0.9rem];
+}
+
+.input-group-totalCost{
+  @apply flex flex-row items-center justify-between;
+}
+
+.booking-form .booking-form-button{
+  transition: all 0.3s linear;
+  @apply w-full flex items-center justify-center bg-[var(--accent-cta-sunset-orange)] text-[var(--background-offWhite-linen)] py-[0.5rem] text-[1.1rem] rounded-sm cursor-pointer hover:bg-white hover:text-[var(--text-primary-dark-Charcoal)] ;
+}

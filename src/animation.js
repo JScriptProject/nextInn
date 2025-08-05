@@ -92,7 +92,7 @@ export const headerAnimation = (element, isOpening) => {
 
 export const bannerTimeline = (subtitle, title, btn)=>{
   const tl = gsap.timeline();
-  console.log("function execution");
+ 
   tl.from(subtitle,{
     y:30,
     opacity:0,

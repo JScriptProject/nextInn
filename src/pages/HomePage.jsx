@@ -19,7 +19,7 @@ function HomePage() {
     const title = activeSlide.querySelector("h1");
     const bannerBtn = activeSlide.querySelector(".banner-cta");
     bannerTimeline(subTitle, title, bannerBtn);
-    console.log("slide changes");
+   
   };
 
   return (
