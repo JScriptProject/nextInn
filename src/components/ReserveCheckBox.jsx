@@ -6,13 +6,13 @@ function ReserveCheckBox({ title, price, qItem }) {
       <div className="checkinput-group">
         <label htmlFor={title}>
           <input type="checkbox" name={title} id={title} />
-          <span class="checkbox-box"></span>
-          <span class="checkbox-label">{title}</span>
+          <span className="checkbox-box"></span>
+          <span className="checkbox-label">{title}</span>
         </label>
       </div>
       <div className="checkinput-group checkinput-group-pricing ">
-        <span>
-          ${price} / {qItem}
+        <span style={{fontFamily:"Roboto"}}>
+          <span>₹</span>{price} / {qItem}
         </span>
       </div>
     </div>

@@ -45,13 +45,13 @@ export const rooms = [
     info: "City View Suite",
     description: [
       "Our Metropolitan Suite combines urban sophistication with coastal charm. Enjoy sweeping city views through large windows, unwind in spacious interiors, and experience true Goan hospitality.",
-      "Treat yourself to fine dining at our rooftop restaurant, where modern flavors meet traditional Goan recipes in a chic, elevated setting."
+      "Treat yourself to fine dining at our rooftop restaurant, where modern flavors meet traditional Goan recipes in a chic, elevated setting.",
     ],
     features: [
       { icon: "users", text: "2 Guests" },
       { icon: "ruler", text: "35 Feet Size" },
       { icon: "link", text: "Connecting Rooms" },
-      { icon: "bed-double", text: "1 King Bed" }
+      { icon: "bed-double", text: "1 King Bed" },
     ],
     amenities: [
       [
@@ -81,14 +81,14 @@ export const rooms = [
     info: "Ocean View Room",
     description: [
       "Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.",
-      "Enjoy fresh seafood and sunset cocktails at our beachfront grill."
+      "Enjoy fresh seafood and sunset cocktails at our beachfront grill.",
     ],
 
-  features: [
+    features: [
       { icon: "users", text: "3 Guests" },
       { icon: "ruler", text: "40 Feet Size" },
       { icon: "link", text: "Connecting Rooms" },
-      { icon: "bed-double", text: "2 Twin Beds" }
+      { icon: "bed-double", text: "2 Twin Beds" },
     ],
     amenities: [
       [
@@ -118,15 +118,14 @@ export const rooms = [
     info: "Mountain View Room",
     description: [
       "Surround yourself with the peace of the mountains in our Twin Room Suite. Ideal for family or friends, this suite offers dual bedding, panoramic views of the Sahyadris, and a calm, airy design to match the serene outdoors.",
-      "The perfect hideaway for nature lovers."
+      "The perfect hideaway for nature lovers.",
     ],
-
 
     features: [
       { icon: "users", text: "2 Guests" },
       { icon: "ruler", text: "38 Feet Size" },
       { icon: "link", text: "Connecting Rooms" },
-      { icon: "bed-double", text: "2 Twin Beds" }
+      { icon: "bed-double", text: "2 Twin Beds" },
     ],
     amenities: [
       [
@@ -156,15 +155,14 @@ export const rooms = [
     info: "Lake View Room",
     description: [
       "Enjoy refined comfort in our Executive Suites overlooking tranquil lakescapes. With premium amenities, a private workspace, and elegant modern décor, this suite is perfect for both business and leisure travelers.",
-      "Dining options include curated chef’s menus with lakeside seating."
+      "Dining options include curated chef’s menus with lakeside seating.",
     ],
-
 
     features: [
       { icon: "users", text: "2 Guests" },
       { icon: "ruler", text: "42 Feet Size" },
       { icon: "link", text: "Connecting Rooms" },
-      { icon: "bed-double", text: "1 King Bed" }
+      { icon: "bed-double", text: "1 King Bed" },
     ],
     amenities: [
       [
@@ -186,6 +184,29 @@ export const rooms = [
   },
 ];
 
+export function rateCalculation({
+  rate,
+  days,
+  adults,
+  children,
+  rooms,
+  extraBed,
+  extra: { petFriendly, steamRoom, laundry },
+}) {
+  let totalCost = rate * days;
+
+  if (adults > 1) {
+  }
+
+  return totalCost;
+}
+
+export function formatDateForInput(date) {
+  const dd = String(date.getDate()).padStart(2, '0');
+  const mm = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-based
+  const yyyy = date.getFullYear();
+  return `${yyyy}-${mm}-${dd}`;
+}
 
 // export const rooms = [
 //   {
@@ -266,7 +287,6 @@ export const rooms = [
 //   },
 // ];
 
-
 // export const rooms = [
 //   {
 //     id: "rm001",
@@ -329,5 +349,3 @@ export const bannerSlides = [
     image: bannerImg4,
   },
 ];
-
-

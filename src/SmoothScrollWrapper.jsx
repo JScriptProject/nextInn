@@ -7,25 +7,26 @@ function SmoothScrollWrapper({ children }) {
     const lenis = new Lenis({
       duration: 1.2,
       smooth: true,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // optional easing
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
-    // ✅ Sync ScrollTrigger with Lenis
-    lenis.on("scroll", ScrollTrigger.update);
+    // ✅ Sync ScrollTrigger without infinite loop
+    const update = () => {
+      ScrollTrigger.update();
+    };
+    lenis.on("scroll", update);
 
-      // ✅ Optional: Also dispatch 'scroll' event for Framer Motion + other listeners
-    lenis.on("scroll", () => {
-      window.dispatchEvent(new Event("scroll"));
-    });
-
-    function raf(time) {
+    // ✅ Use requestAnimationFrame
+    let frame;
+    const raf = (time) => {
       lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
+      frame = requestAnimationFrame(raf);
+    };
+    frame = requestAnimationFrame(raf);
 
     return () => {
+      lenis.off("scroll", update); // cleanup listener
+      cancelAnimationFrame(frame);
       lenis.destroy();
     };
   }, []);

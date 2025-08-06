@@ -69,7 +69,7 @@ main {
     rgba(45, 60, 84, 1) 100%
   );
   z-index: 99;
-  @apply flex flex-col relative  px-[2rem] py-[2rem] gap-[1.4rem] md:flex-row  rounded-tr-3xl rounded-br-3xl  translate-x-[-100%] transform  md:!translate-x-0  md:items-center md:justify-between md:py-[0.5rem] md:px-[4rem];
+  @apply flex flex-col relative  px-[2rem] py-[2rem] gap-[1.4rem] md:flex-row  rounded-tr-3xl rounded-br-3xl  translate-x-[-100%] transform  md:!translate-x-0  md:items-center md:justify-between md:py-[0.5rem] md:h-[74px];
 }
 
 @media screen and (min-width: 768px) {
@@ -400,7 +400,11 @@ section {
 /* page banner */
 
 .page-container {
-  @apply w-full h-full relative;
+  @apply w-full max-h-full relative;
+}
+
+.page-container-wrapper{
+  @apply w-full max-w-[1700px] mx-auto grid-cols-1 lg:grid lg:grid-cols-[55%_auto] px-[2rem] lg:gap-[1rem] lg:pt-[5rem] lg:h-fit items-start;
 }
 .page-banner {
   background-position: center center;
@@ -416,12 +420,14 @@ section {
 }
 
 .room-details-section {
-  position: relative;
-  width: 100%;
-  height: auto;
-  margin-top: 3rem;
-  padding-inline: 2rem;
+  @apply relative w-full max-h-fit mt-[3rem] lg:mt-0;
 }
+/* @media screen and (min-width: 768px) {
+ .page-container{
+  
+ }
+  
+} */
 
 .room-details-section .room-info {
   @apply relative w-full;
@@ -456,7 +462,7 @@ section {
 }
 
 .room-info .room-details-images {
-  @apply grid grid-cols-1 gap-[2rem];
+  @apply grid grid-cols-1 gap-[2rem] sm:grid-cols-2 h-auto sm:h-[400px];
 }
 
 .moving-img img {
@@ -479,7 +485,7 @@ section {
 
 .room-amenities-container ul {
   border-bottom: 1px solid var(--border-lightUI-softGray);
-  @apply py-[1rem] grid grid-cols-1 md:grid-cols-3 items-start justify-center md:justify-between gap-[0.5rem];
+  @apply py-[1rem] grid grid-cols-1 sm:grid-cols-3 items-start justify-center sm:justify-between gap-[0.5rem];
 }
 
 .room-amenities-container ul:nth-of-type(1) {
@@ -500,6 +506,10 @@ section {
 
 .room-amenities-container ul li .amenity-text {
   @apply text-[var(--text-secondary-gray)] text-[1.2rem] lg:text-[1.3rem];
+}
+/* sliding-moving-image */
+.sliding-moving-image{
+  @apply w-full max-h-fit;
 }
 
 .room-features {
@@ -529,7 +539,7 @@ section {
 
 .avialability-calendar {
   border: 1px solid var(--border-lightUI-softGray);
-  @apply w-full h-auto relative;
+  @apply w-full max-w-[600px] h-auto relative;
 }
 
 .avialability-calendar .rdrMonthAndYearWrapper {
@@ -578,7 +588,29 @@ section {
 /* Booking form */
 
 .booking-form-container {
-  @apply relative px-[2rem];
+ position: relative;
+}
+.stickyUp{
+  position: relative;
+}
+.stickyDown{
+  position: relative;
+}
+@media (min-width: 1024px) {
+  .stickyDown{
+  position: sticky;
+    top: 74px;
+    bottom:unset;
+    z-index: 10;
+    align-self: start;
+}
+.stickyUp{
+  position: sticky;
+  top: 0px;
+    bottom:0px;
+    z-index: 10;
+    align-self: start;
+}
 }
 
 .booking-form {
@@ -594,7 +626,7 @@ section {
 }
 
 .booking-form .form-header h2 {
-  @apply text-[1.8rem];
+  @apply text-[1.8rem] pb-0;
 }
 
 .booking-form .form-header h3 {
@@ -609,7 +641,7 @@ section {
 }
 
 .input-group .input-subgroup {
-  @apply flex flex-col items-center justify-center gap-[1.5rem] mb-[2rem];
+  @apply relative flex flex-col items-center justify-start gap-[1.5rem] mb-[2rem];
 }
 /* Hide default calendar icon - Chrome/Safari/Edge */
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -625,7 +657,7 @@ input[type="date"]::-moz-calendar-picker-indicator {
 
 .input-calendar-wrapper{
   border: 1px solid var(--text-secondary-gray);
-  @apply relative w-full flex items-center justify-center md:w-[20rem] ;
+  @apply relative max-w-full flex items-center justify-center md:w-[20rem] ;
 }
 
 
@@ -636,6 +668,14 @@ input[type="date"]{
   text-align: center;
   padding: 5px;
 }
+
+.date-range-popup {
+  position: absolute;
+  z-index: 1200;
+  top: 100%;
+  left: 0;
+}
+
 .input-container-counter{
   @apply flex flex-row items-center justify-center gap-[1.5rem];
 }
