@@ -77,7 +77,7 @@ function RoomDetails() {
             </div>
           </div>
 
-          <BookingForm hotelRate={room.price} />
+          <BookingForm roomId= {room.id} hotelName ={room.name} hotelRate={room.price} roomCapacity={room.room_capacity} />
         </div>
       </div>
     </BookingProvider>

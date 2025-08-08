@@ -2,8 +2,16 @@ import React, { useEffect, useRef, useState, useContext } from "react";
 import CheckInOutInput from "./CheckInOutInput";
 import ReserveCheckBox from "./ReserveCheckBox";
 import CounterInput from "./CounterInput";
-import {BookingContext } from "../assets/context/BookingContext";
-function BookingForm({ hotelRate }) {
+import { BookingContext } from "../assets/context/BookingContext";
+import { rateCalculation } from "../data/rooms.js";
+import { createPortal } from "react-dom";
+
+function BookingForm({ hotelRate, roomCapacity, hotelName, roomId }) {
+  // Booking form data capture
+  const { bookingData, setBookingData } = useContext(BookingContext);
+  const [totalPrice, setTotalPrice] = useState(rateCalculation(bookingData));
+  const [formModal, setFormModal] = useState({isModalOpen:false, message:"", isError:false});
+
   const [stickyForm, setStickyForm] = useState("up");
   let lastScrollRef = useRef(window.scrollY);
 
@@ -20,21 +28,29 @@ function BookingForm({ hotelRate }) {
     };
   }, [lastScrollRef.current]);
 
- 
-  // Booking form data capture
- const {bookingData,setBookingData} = useContext(BookingContext);
+  useEffect(() => {
+    setBookingData((prevData) => ({ ...prevData, rate: hotelRate }));
+  }, [hotelRate]);
 
- useEffect(()=>{
- setBookingData(prevData => (
-    {...prevData,
-    rate: hotelRate, 
-  }));
- },[hotelRate]) 
-console.log(bookingData);
+  useEffect(() => {
+    rateCalculation(bookingData, roomCapacity);
+
+    // const price = rateCalculation(bookingData);
+    // setTotalPrice(price);
+  }, [bookingData]);
+
+
   function handleBookingFormSubmit(FormData) {
     console.log(FormData.get("Rooms"));
   }
+  console.log("Room Capacity", roomCapacity);
+  if(!roomCapacity)
+  {
+    console.log("Room capacity is underfined");
+    return null;
+  }
   return (
+    
     <div
       className={
         stickyForm === "down"
@@ -42,6 +58,12 @@ console.log(bookingData);
           : "booking-form-container stickyUp"
       }
     >
+      {formModal.isModalOpen && createPortal(
+        <p className={formModal.isError ? "errorModal" : "warningModal"}>{formModal.message}</p>,
+        document.getElementById("portal")
+      )}
+
+
       <form className="booking-form" action={handleBookingFormSubmit}>
         <div className="form-header">
           <h2>Reserve</h2>
@@ -53,17 +75,27 @@ console.log(bookingData);
           </h3>
         </div>
         <div className="input-group">
-          <CheckInOutInput text="Check In" name="checkIn" />
-          <CheckInOutInput text="Check Out" name="checkOut" />
+          <CheckInOutInput text="Check In" name="checkIn" setFormModal={setFormModal} />
+          <CheckInOutInput text="Check Out" name="checkOut" setFormModal={setFormModal}  />
         </div>
         <div className="input-group">
-          <CounterInput text="Adults" name="adults" />
-          <CounterInput text="Children" name="children" />
+          <CounterInput text="Adults" name="adults"  maxCount={roomCapacity.adults} maxExtraCount={roomCapacity.maxExtraAdults} extraCharge = {roomCapacity.extraAdultCharges} setFormModal={setFormModal} />
+
+
+          <CounterInput text="Children" name="children" maxCount= {roomCapacity.children} maxExtraCount = {roomCapacity.maxExtraChildren} extraCharge = {roomCapacity.extraChildCharges} setFormModal={setFormModal} />
         </div>
         <div className="input-group ">
-          <CounterInput text="Rooms" name="rooms" />
+          <CounterInput
+            text="Rooms"
+            name="rooms"
+            availableRooms={roomCapacity.available_rooms} 
+            extraCharge={hotelRate} setFormModal={setFormModal} 
+          />
 
-          <CounterInput text="Extra Bed" name="extraBed" />
+          <CounterInput text="Extra Bed" name="bed" maxExtraCount= {roomCapacity.maxExtraBed} extraCharge = {roomCapacity.extraBedCharge} 
+          maxCount={roomCapacity.bed}
+        
+          setFormModal={setFormModal} />
         </div>
         <h2>Extra Services</h2>
         <div className="input-group input-group-checkbox">
@@ -89,14 +121,13 @@ console.log(bookingData);
         <div className="input-group input-group-totalCost">
           <h2>Total Cost</h2>
           <h2 style={{ fontFamily: "Roboto" }}>
-            <span>₹</span>205
+            <span>₹</span>{totalPrice}
           </h2>
         </div>
 
         <button className="booking-form-button">Book Your Stay</button>
       </form>
     </div>
- 
   );
 }
 

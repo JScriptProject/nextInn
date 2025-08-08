@@ -42,6 +42,42 @@ img {
 }
 
 /* navigation */
+#portal{
+  z-index: 2000;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  @apply fixed top-[2rem] w-full ;
+}
+
+#portal p{
+  animation:modalAnimation 0.5s ease-in-out forwards ;
+}
+
+@keyframes modalAnimation {
+  0%{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+#portal .errorModal{
+  @apply relative bg-red-500 text-[#fff]  mx-auto block px-[1rem] py-[0.2rem];
+}
+
+#portal .warningModal{
+  @apply relative bg-yellow-500 text-[#111] mx-auto block px-[1rem] py-[0.2rem];
+}
+
+#portal .successModal{
+  @apply relative bg-green-500 text-[#fff] mx-auto block px-[1rem] py-[0.2rem];
+}
 
 main {
   @apply relative;
@@ -643,37 +679,22 @@ section {
 .input-group .input-subgroup {
   @apply relative flex flex-col items-center justify-start gap-[1.5rem] mb-[2rem];
 }
-/* Hide default calendar icon - Chrome/Safari/Edge */
-input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  cursor: pointer;
-  position: absolute; /* optional for better control */
-}
-
-/* Hide in Firefox */
-input[type="date"]::-moz-calendar-picker-indicator {
-  display: none;
-}
 
 .input-calendar-wrapper{
   border: 1px solid var(--text-secondary-gray);
-  @apply relative max-w-full flex items-center justify-center md:w-[20rem] ;
+  @apply relative max-w-full flex items-center justify-center md:w-[20rem] px-[1rem] py-[4px] ;
 }
 
-
-input[type="date"]{
-  outline: none;
-  
-  width: fit-content;
-  text-align: center;
-  padding: 5px;
+.input-calendar-wrapper input{
+  @apply outline-none;
 }
-
 .date-range-popup {
   position: absolute;
+  display:block;
   z-index: 1200;
   top: 100%;
-  left: 0;
+  left: 50%;
+  transform:translateX(-50%)
 }
 
 .input-container-counter{
@@ -684,7 +705,7 @@ input[type="date"]{
   @apply w-fit bg-transparent text-white text-[1.5rem] mr-[-2rem];
 }
 .input-container-counter button{
-  @apply w-[2.5rem] h-[2.5rem] rounded-full bg-[var(--accent-cta-sunset-orange)] flex items-center justify-center ;
+  @apply w-[2.5rem] h-[2.5rem] text-[1.5rem] rounded-full bg-[var(--accent-cta-sunset-orange)] flex items-center justify-center ;
 }
 
 .available-rooms-span{

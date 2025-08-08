@@ -1,71 +1,85 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { BookingContext } from "../assets/context/BookingContext";
+import { formatDateForInput } from "../data/rooms.js";
 import { DateRange } from "react-date-range";
-import format from "date-fns/format";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-function CheckInOutInput({ text, name }) {
-  
+import { addDays } from "date-fns";
+
+function CheckInOutInput({ text, name, setFormModal }) {
   const { bookingData, setBookingData } = useContext(BookingContext);
   const [openCalendar, setOpenCalendar] = useState(false);
-  const [range ,setRange]  = useState([{ startDate: bookingData.checkIn ? new Date(bookingData.checkIn) : new Date(),
-      endDate: bookingData.checkOut ? new Date(bookingData.checkOut) : new Date(),
-      key: "selection",},]);
-  // function handleDateChange(e) {
-  //   const dateType = e.target.name;
-  //   const dateDiff =
-  //     (new Date(e.target.value) - new Date(bookingData.checkIn)) /
-  //     (1000 * 60 * 60 * 24);
-  //   if (dateDiff < 0) {
-  //     if (dateType === "checkIn") {
-  //       console.error("Oppss seleceted future date");
-  //     } else {
-  //       console.error("Checkout Date should be larger than chekin date");
-  //     }
-  //   }
+  const [range, setRange] = useState([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 1),
+      key: "selection",
+    },
+  ]);
+  const calenderRef = useRef();
 
-  //   if (dateDiff >= 0) {
-  //     if (dateType === "checkIn") {
-  //       setBookingData({ ...bookingData, [dateType]: e.target.value });
-  //     }
-  //     if (dateType === "checkOut") {
-  //       console.log("Executed");
-  //       setBookingData({
-  //         ...bookingData,
-  //         [dateType]: e.target.value,
-  //         days: dateDiff + 1,
-  //       });
-  //     }
-  //   }
-  // }
-
-  console.log(bookingData);
-
-    const handleSelect = (ranges) => {
-    const { startDate, endDate } = ranges.selection;
+  const handleSelect = (ranges) => {
+    const rangeSelected = ranges.selection;
+    const daysBooking = Math.abs(
+      (new Date(rangeSelected.startDate) - new Date(rangeSelected.endDate)) /
+        (1000 * 60 * 60 * 24)
+    );
+    if (daysBooking >= 30) {
+      setFormModal({isModalOpen:true, message:`Opps! you tried booking for ${daysBooking} maximum 30 days booking allowed as of now.`, isError:true});
+      setTimeout(()=>{
+        setFormModal({isModalOpen:false, message:"", isError:false});
+      }, 3000);
+      return;
+    }
     setRange([ranges.selection]);
-    setBookingData({
-      ...bookingData,
-      checkIn: format(startDate, "yyyy-MM-dd"),
-      checkOut: format(endDate, "yyyy-MM-dd"),
-      days:
-        Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1,
-    });
-    setOpenCalendar(false); // hide calendar after selection
+    setBookingData((prevData) => ({
+      ...prevData,
+      checkIn: formatDateForInput(rangeSelected.startDate),
+      checkOut: formatDateForInput(rangeSelected.endDate),
+      days: Math.abs(
+        (new Date(rangeSelected.startDate) - new Date(rangeSelected.endDate)) /
+          (1000 * 60 * 60 * 24)
+      ),
+    }));
+    if (
+      rangeSelected.startDate &&
+      rangeSelected.endDate &&
+      rangeSelected.startDate.getTime() !== rangeSelected.endDate.getTime()
+    ) {
+      setOpenCalendar(false);
+    }
   };
+
+  //close the calender pop-up when user clicks outside of the pop-up
+  useEffect(() => {
+    function handlePopUpClose(event) {
+      if (openCalendar && !calenderRef.current.contains(event.target)) {
+        setOpenCalendar(false);
+      }
+    }
+    document.addEventListener("mousedown", handlePopUpClose);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePopUpClose);
+    };
+  }, [openCalendar]);
+
   return (
-    <div className="input-subgroup">
+    <div className="input-subgroup" ref={calenderRef}>
       <label htmlFor={text}>{text}</label>
-      <div className="input-calendar-wrapper" onClick={() => setOpenCalendar(!openCalendar)}>
+      <div
+        className="input-calendar-wrapper"
+        onClick={() => setOpenCalendar(!openCalendar)}
+      >
         <input
           type="text"
           readOnly
           value={
-            bookingData.checkIn && bookingData.checkOut
-              ? `${bookingData.checkIn} to ${bookingData.checkOut}`
-              : ""
+            name === "checkIn" ? bookingData.checkIn : bookingData.checkOut
           }
-          placeholder="Select check-in & check-out"
+          placeholder={
+            name === "checkIn" ? "Select check-in" : "Select check-out"
+          }
         />
         <span className="calendar-icon">📅</span>
       </div>
@@ -75,7 +89,11 @@ function CheckInOutInput({ text, name }) {
             editableDateInputs={true}
             onChange={handleSelect}
             moveRangeOnFirstSelection={false}
+            months={2}
+            direction="vertical"
             ranges={range}
+            showDateDisplay={true}
+            showSelectionPreview={true}
             minDate={new Date()}
           />
         </div>
@@ -85,3 +103,31 @@ function CheckInOutInput({ text, name }) {
 }
 
 export default CheckInOutInput;
+
+// function handleDateChange(e) {
+//   const dateType = e.target.name;
+//   const dateDiff =
+//     (new Date(e.target.value) - new Date(bookingData.checkIn)) /
+//     (1000 * 60 * 60 * 24);
+//   if (dateDiff < 0) {
+//     if (dateType === "checkIn") {
+//       console.error("Oppss seleceted future date");
+//     } else {
+//       console.error("Checkout Date should be larger than chekin date");
+//     }
+//   }
+
+//   if (dateDiff >= 0) {
+//     if (dateType === "checkIn") {
+//       setBookingData({ ...bookingData, [dateType]: e.target.value });
+//     }
+//     if (dateType === "checkOut") {
+//       console.log("Executed");
+//       setBookingData({
+//         ...bookingData,
+//         [dateType]: e.target.value,
+//         days: dateDiff + 1,
+//       });
+//     }
+//   }
+// }
