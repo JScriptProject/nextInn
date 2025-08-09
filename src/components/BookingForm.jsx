@@ -9,7 +9,7 @@ import { createPortal } from "react-dom";
 function BookingForm({ hotelRate, roomCapacity, hotelName, roomId }) {
   // Booking form data capture
   const { bookingData, setBookingData } = useContext(BookingContext);
-  const [totalPrice, setTotalPrice] = useState(rateCalculation(bookingData));
+  const [totalPrice, setTotalPrice] = useState(rateCalculation(bookingData,roomCapacity));
   const [formModal, setFormModal] = useState({isModalOpen:false, message:"", isError:false});
 
   const [stickyForm, setStickyForm] = useState("up");
@@ -33,21 +33,27 @@ function BookingForm({ hotelRate, roomCapacity, hotelName, roomId }) {
   }, [hotelRate]);
 
   useEffect(() => {
-    rateCalculation(bookingData, roomCapacity);
-
-    // const price = rateCalculation(bookingData);
-    // setTotalPrice(price);
-  }, [bookingData]);
+    console.log("useEffect executed");
+    console.log(roomCapacity);
+    if(roomCapacity)
+    {
+       console.log("if executed");
+    console.log(roomCapacity);
+       const price = rateCalculation(bookingData);
+       setTotalPrice(price);
+    }
+    
+  }, [bookingData, roomCapacity !== undefined]);
 
 
   function handleBookingFormSubmit(FormData) {
     console.log(FormData.get("Rooms"));
   }
-  console.log("Room Capacity", roomCapacity);
-  if(!roomCapacity)
+
+  if(roomCapacity)
   {
-    console.log("Room capacity is underfined");
-    return null;
+    console.log("Room capacity is", roomCapacity);
+    return <h3>Form Data loading...</h3>;
   }
   return (
     
@@ -79,21 +85,21 @@ function BookingForm({ hotelRate, roomCapacity, hotelName, roomId }) {
           <CheckInOutInput text="Check Out" name="checkOut" setFormModal={setFormModal}  />
         </div>
         <div className="input-group">
-          <CounterInput text="Adults" name="adults"  maxCount={roomCapacity.adults} maxExtraCount={roomCapacity.maxExtraAdults} extraCharge = {roomCapacity.extraAdultCharges} setFormModal={setFormModal} />
+          <CounterInput text="Adults" name="adults"  maxCount={roomCapacity?.adults??0} maxExtraCount={roomCapacity?.maxExtraAdults??0} extraCharge = {roomCapacity?.extraAdultCharges??0} setFormModal={setFormModal} />
 
 
-          <CounterInput text="Children" name="children" maxCount= {roomCapacity.children} maxExtraCount = {roomCapacity.maxExtraChildren} extraCharge = {roomCapacity.extraChildCharges} setFormModal={setFormModal} />
+          <CounterInput text="Children" name="children" maxCount= {roomCapacity?.children??0} maxExtraCount = {roomCapacity?.maxExtraChildren??0} extraCharge = {roomCapacity?.extraChildCharges??0} setFormModal={setFormModal} />
         </div>
         <div className="input-group ">
           <CounterInput
             text="Rooms"
             name="rooms"
-            availableRooms={roomCapacity.available_rooms} 
+            availableRooms={roomCapacity?.available_rooms??0} 
             extraCharge={hotelRate} setFormModal={setFormModal} 
           />
 
-          <CounterInput text="Extra Bed" name="bed" maxExtraCount= {roomCapacity.maxExtraBed} extraCharge = {roomCapacity.extraBedCharge} 
-          maxCount={roomCapacity.bed}
+          <CounterInput text="Extra Bed" name="bed" maxExtraCount= {roomCapacity?.maxExtraBed??0} extraCharge = {roomCapacity?.extraBedCharge??0} 
+          maxCount={roomCapacity?.bed??0}
         
           setFormModal={setFormModal} />
         </div>

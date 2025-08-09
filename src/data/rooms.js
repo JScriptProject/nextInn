@@ -255,12 +255,30 @@ export const rooms = [
 
 export function rateCalculation(bookingData, roomCapacity)
 {
-  let totalCost = bookingData.rate * bookingData.days;
-  if(!roomCapacity)
+  
+  let totalCost = (bookingData?.rate) * (bookingData?.days);
+   console.log(roomCapacity);
+  //optional chaininng the fallback
+  const adults = bookingData.adults ?? 0;
+  const children = bookingData.children ?? 0;
+  const rooms = bookingData.rooms ?? 0;
+  
+  const adultCapacity = roomCapacity.adults ?? 0;
+  const childCapacity = roomCapacity.children ?? 0;
+  const exatraAdultCapacity = roomCapacity.maxExtraAdults ?? 0;
+  const exatraChildCapacity = roomCapacity.maxExtraChildren ?? 0;
+  const extraBedCapacity = roomCapacity.maxExtraBed ?? 0;
+  const extraAdultCharges = roomCapacity.extraAdultCharges ?? 0;
+  const extraChildCharges = roomCapacity.extraChildCharges ?? 0;
+  const extraBedCharge = roomCapacity.extraBedCharge ?? 0;
+
+  if(adults > adultCapacity)
   {
-    console.log("Room capacity is underfined");
+    console.log("adult", adults);
+    console.log("adultCapacity", adultCapacity);
+    console.log("I am in this");
+    totalCost += (adults - adultCapacity) * extraAdultCharges;
   }
-  console.log("Room Capacity",roomCapacity);
 
   return totalCost;
 }

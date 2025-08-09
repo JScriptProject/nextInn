@@ -10,7 +10,7 @@ import { BookingProvider } from "../assets/context/BookingContext";
 function RoomDetails() {
   const location = useLocation();
   const room = location.state;
-  console.log(room);
+  
   return (
     <BookingProvider>
       <div className="page-container">

@@ -28,15 +28,11 @@ function CounterInput({
   useEffect(()=>{
   setBookingData((prevData)=>({...prevData, [name]:inputValue}));
   },[inputValue]);
-  console.log(bookingData);
+ 
+  
   //handle Increament function
   function handleIncreament(e) {
     e.preventDefault();
-    console.log("I am pressed");
-    console.log("max count", maxCount);
-    console.log("max exatra count", maxExtraCount);
-    console.log("total count", totalCount);
-
     const nextValue = inputValue + 1;
     if (nextValue > totalCount) {
       const errorMessage = `Maximum limit of ${text} reached`;
@@ -100,7 +96,6 @@ function CounterInput({
          return;
       }
     }
- 
    }
 
   return (
