@@ -48,6 +48,9 @@ const PreviewBooking = forwardRef(function PreviewBooking(
   );
   console.log("Addon Services", addonServicesList);
 
+  const onConfirmSubmit =()=>{
+    console.log();
+  }
   return (
     <>
       <dialog ref={previewRef} onClose={onClose}>
