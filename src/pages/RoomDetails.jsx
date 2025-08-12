@@ -10,7 +10,6 @@ import { BookingProvider } from "../assets/context/BookingContext";
 function RoomDetails() {
   const location = useLocation();
   const room = location.state;
-  
   return (
     <BookingProvider>
       <div className="page-container">
@@ -77,7 +76,7 @@ function RoomDetails() {
             </div>
           </div>
 
-          <BookingForm roomId= {room.id} hotelName ={room.name} hotelRate={room.price} roomCapacity={room.room_capacity} />
+          <BookingForm addonServicesCharges={room.addonServicesCharges} roomId= {room.id} hotelName ={room.name} hotelRate={room.price} roomCapacity={room.room_capacity} />
         </div>
       </div>
     </BookingProvider>

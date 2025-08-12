@@ -52,6 +52,7 @@ export const rooms = [
       extraChildCharges: 500,
       extraBedCharge: 200,
     },
+    addonServicesCharges: { petFriendly: 200, steamRoom: 400, laundry: 80 },
 
     bannerImg: metSuiteBanner,
     images: [single1, single2, single3, single4],
@@ -102,6 +103,7 @@ export const rooms = [
       extraChildCharges: 600,
       extraBedCharge: 200,
     },
+    addonServicesCharges: { petFriendly: 250, steamRoom: 400, laundry: 100 },
     bannerImg: deluxeBanner,
     images: [double1, double2, double3, double4],
     info: "Ocean View Room",
@@ -152,6 +154,7 @@ export const rooms = [
       extraChildCharges: 500,
       extraBedCharge: 200,
     },
+    addonServicesCharges: { petFriendly: 350, steamRoom: 350, laundry: 120 },
     bannerImg: twinSuiteBanner,
     images: [twin1, twin2, twin3, twin4],
     info: "Mountain View Room",
@@ -201,6 +204,7 @@ export const rooms = [
       extraChildCharges: 750,
       extraBedCharge: 300,
     },
+    addonServicesCharges: { petFriendly: 550, steamRoom: 450, laundry: 145 },
 
     bannerImg: execSuiteBanner,
     images: [suite1, suite2, suite3, suite4],
@@ -253,15 +257,17 @@ export const rooms = [
 //   return totalCost;
 // }
 
-export function rateCalculation(bookingData, roomCapacity)
+export function rateCalculation(bookingData, roomCapacity, addonServicesCharges )
 {
   
   let totalCost = (bookingData?.rate) * (bookingData?.days);
-   console.log(roomCapacity);
+
+
   //optional chaininng the fallback
   const adults = bookingData.adults ?? 0;
   const children = bookingData.children ?? 0;
   const rooms = bookingData.rooms ?? 0;
+  const extraBed = bookingData.bed ?? 0;
   
   const adultCapacity = roomCapacity.adults ?? 0;
   const childCapacity = roomCapacity.children ?? 0;
@@ -271,16 +277,57 @@ export function rateCalculation(bookingData, roomCapacity)
   const extraAdultCharges = roomCapacity.extraAdultCharges ?? 0;
   const extraChildCharges = roomCapacity.extraChildCharges ?? 0;
   const extraBedCharge = roomCapacity.extraBedCharge ?? 0;
+  
+  const priceBreakDown =[{label:"days", amount:(bookingData?.days) * (bookingData?.rate)}];
 
   if(adults > adultCapacity)
   {
-    console.log("adult", adults);
-    console.log("adultCapacity", adultCapacity);
-    console.log("I am in this");
-    totalCost += (adults - adultCapacity) * extraAdultCharges;
+    const amountAdult = (adults - adultCapacity) * extraAdultCharges
+    totalCost += amountAdult ;
+    priceBreakDown.push({label:"adults", amount:amountAdult})
+
+  }
+  if(children > childCapacity)
+  {
+    const amountChildren = (children - childCapacity) * extraChildCharges;
+    totalCost += amountChildren;
+    priceBreakDown.push({label:"children", amount:amountChildren});
+  }
+  if(rooms > 1)
+  {
+    const roomsAmount = (rooms - 1) * ((bookingData?.rate) * (bookingData?.days));
+    totalCost += roomsAmount;
+    priceBreakDown.push({label:"rooms", amount:roomsAmount});
   }
 
-  return totalCost;
+  if(extraBed > 0)
+  {
+    const extraBedAmount = extraBed * extraBedCharge;
+    totalCost += extraBedAmount;
+    priceBreakDown.push({label:"extraBed", amount:extraBedAmount});
+  }
+
+  if(bookingData.addonServices.petFriendly)
+  {  const petFriendlyAmount =  addonServicesCharges?.petFriendly
+     totalCost +=petFriendlyAmount ;
+     priceBreakDown.push({label:"petFriendly", amount:petFriendlyAmount});
+  }
+  if(bookingData.addonServices.steamRoom)
+  {
+    const steamRoomAmount = addonServicesCharges?.steamRoom;
+    totalCost += steamRoomAmount;
+    priceBreakDown.push({label:"steamRoom", amount:steamRoomAmount});
+
+  }
+  if(bookingData.addonServices.laundry)
+  {
+    const laundryAmount = (addonServicesCharges?.laundry * (adults + children) * bookingData?.days);
+
+    totalCost += laundryAmount;
+    priceBreakDown.push({label:"laundry", amount:laundryAmount});
+  }
+
+  return [totalCost,priceBreakDown];
 }
 
 export function formatDateForInput(date) {

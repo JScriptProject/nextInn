@@ -15,6 +15,7 @@ export function BookingProvider({ children }) {
     rooms: 1,
     adults: 1,
     children: 0,
+    bed:0,
     addonServices: { petFriendly: false, steamRoom: false, laundry: false },
   });
 
