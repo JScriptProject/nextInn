@@ -92,7 +92,7 @@ const PreviewBooking = forwardRef(function PreviewBooking(
                   <input type="text" name="name" placeholder="Please Enter Name" required />
                 </div>
                 <div className="preview-form-block">
-                  <input type="number" name="phone" placeholder="Phone Number" required />
+                  <input type="number" name="phone" placeholder="Phone Number" maxLength={10} required />
                 </div>
                 <div className="preview-form-block">
                   <input type="email" name="email" placeholder="Email Id" required />
