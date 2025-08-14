@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { BookingContext } from "../assets/context/BookingContext";
+import { BookingContext } from "../../assets/context/BookingContext";
 
 function CounterInput({
   text,

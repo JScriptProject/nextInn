@@ -1,10 +1,10 @@
 import React from "react";
 import PageBanner from "../components/PageBanner";
 import { useLocation } from "react-router-dom";
-import RoomAmenities from "../components/RoomAmenities";
+import RoomAmenities from "../components/booking-components/RoomAmenities";
 import RoomFeaturesIcon from "../components/RoomFeaturesIcon";
-import AvailabilityCalendar from "../components/AvailabilityCalendar";
-import BookingForm from "../components/BookingForm";
+import AvailabilityCalendar from "../components/booking-components/AvailabilityCalendar";
+import BookingForm from "../components/booking-components/BookingForm";
 import ParallaxImageBox from "../components/ParallaxImageBox";
 import { BookingProvider } from "../assets/context/BookingContext";
 function RoomDetails() {

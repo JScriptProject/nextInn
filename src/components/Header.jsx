@@ -19,7 +19,7 @@ import { headerAnimation } from "../animation.js";
 import {stickyHeaderAnimation} from '../animation.js';
 import Button from "./Button.jsx";
 
-function Header() {
+function Header({websiteHeader}) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   
   const navRef = useRef();
@@ -51,41 +51,20 @@ function Header() {
         <div ref={logoRef} className="logo-section">
           <img src={logoImg} alt="NextInn" />
         </div>
-        <div className="cta-section">
-          <Link to="/login">
-            <Button className="btn btn-sm btn-outline">Sign In</Button>
-          </Link>
-
-          <Link to="/book">
-            <Button className="btn btn-sm  btn-fill">Book Now</Button>
-          </Link>
+        
+         <div className="cta-section">
+          {websiteHeader.login === null && <p className="text-[#fff]">Admin</p>}
+          {websiteHeader?.login?.map((navLoginItem, index) =>(<Link to={navLoginItem.to} key={index}>
+            <Button className={websiteHeader.login[index].btnClass}>{navLoginItem.label}</Button>
+          </Link>))}
         </div>
         <hr className="nav-hr" />
         <ul className="nav-links">
-          <li>
-            <Link to="/" className="nav-link">
-              <House className="nav-icon" /> Home
+          {websiteHeader?.webNav?.map((navItem, index) =>(<li key={index}>
+            <Link to={navItem.to} className="nav-link">
+              <House className="nav-icon" /> {navItem.label}
             </Link>
-          </li>
-          <li>
-            <Link to="/book/:id" className="nav-link">
-              <BedDouble className="nav-icon" />
-              Add Room
-            </Link>
-          </li>
-          <li>
-            <Link to="/about" className="nav-link">
-              <Info className="nav-icon" />
-              About
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact" className="nav-link">
-              <Mail className="nav-icon" />
-              Contact
-            </Link>
-          </li>
-         
+          </li>))}  
         </ul>
         <hr className="nav-hr" />
         <h3 className="block md:hidden text-[var(--text-secondary-gray)] text-[0.8rem] font-normal">

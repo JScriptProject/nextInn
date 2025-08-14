@@ -1,6 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
-import { BookingContext } from "../assets/context/BookingContext";
-import { formatDateForInput } from "../data/rooms.js";
+import { BookingContext } from "../../assets/context/BookingContext.jsx";
+import { formatDateForInput } from "../../data/rooms.js";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";

@@ -30,7 +30,7 @@ export const stickyHeaderAnimation = (nav, logo) => {
       // Stage 2: Animate when scrolled 200px or more
       ScrollTrigger.create({
         trigger: document.body,
-        start: "top -400px", // when body has scrolled up 200px
+        start: "top -250px", // when body has scrolled up 200px
         toggleActions: "play none none reverse",
         onEnter: () => {
           gsap.to(nav, {

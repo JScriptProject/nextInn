@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
+
+:root {
+  --primary-deep-teal: #134e4a;
+  --accent-cta-sunset-orange: #f97316;
+  --background-offWhite-linen: #faf9f6;
+  --text-primary-dark-Charcoal: #1f2937;
+  --text-secondary-gray: #6b7280;
+  --border-lightUI-softGray: #e5e7eb;
+}
+
+.admin-container{
+    @apply w-full h-[200rem] relative;
+}
+
+.admin-header{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @apply w-full h-[500px] flex items-center justify-center relative;
+}
+
+.admin-header::before{
+  position: absolute;
+  content: "";
+  left:0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.555);
+}
+
+.admin-header h1{
+    font-weight: 700;
+    filter: drop-shadow(0,0,50px, #3125d3);
+    @apply text-[2rem] md:text-[3rem] text-[#fff] relative block z-1000;
+}
+
+
