@@ -1,0 +1,238 @@
+[
+  {
+    "id": "rm001",
+    "name": "Metropolitan Suite",
+    "categoryId": "cat001",
+    "location": "Panjim, Goa",
+    "price": 2755,
+    "room_capacity": {
+      "adults": 2,
+      "children": 1,
+      "available_rooms": 10,
+      "bed": 1,
+      "maxExtraAdults": 1,
+      "maxExtraChildren": 0,
+      "maxExtraBed": 1,
+      "extraAdultCharges": 1000,
+      "extraChildCharges": 500,
+      "extraBedCharge": 200
+    },
+    "addonServicesCharges": {
+      "petFriendly": 200,
+      "steamRoom": 400,
+      "laundry": 80
+    },
+    "bannerImg": "http://localhost:8000/media/rooms-images/Metropolitan Suite.jpg",
+    "images": [
+      "http://localhost:8000/media/rooms-images/single-room-imgs/single-room1.jpg",
+      "http://localhost:8000/media/rooms-images/single-room-imgs/single-room2.jpg",
+      "http://localhost:8000/media/rooms-images/single-room-imgs/single-room3.jpg",
+      "http://localhost:8000/media/rooms-images/single-room-imgs/single-room4.jpg"
+    ],
+    "info": "City View Suite",
+    "description": [
+      "Our Metropolitan Suite combines urban sophistication with coastal charm. Enjoy sweeping city views through large windows, unwind in spacious interiors, and experience true Goan hospitality.",
+      "Treat yourself to fine dining at our rooftop restaurant, where modern flavors meet traditional Goan recipes in a chic, elevated setting."
+    ],
+    "features": [
+      { "icon": "users", "text": "2 Guests" },
+      { "icon": "ruler", "text": "35 Feet Size" },
+      { "icon": "link", "text": "Connecting Rooms" },
+      { "icon": "bed-double", "text": "1 King Bed" }
+    ],
+    "amenities": [
+      [
+        { "text": "Free Wifi", "icon": "wifi" },
+        { "text": "Shower", "icon": "shower-head" },
+        { "text": "Airport Transport", "icon": "plane" }
+      ],
+      [
+        { "text": "Balcony", "icon": "panel-top-open" },
+        { "text": "Refrigerator", "icon": "fridge" },
+        { "text": "24/7 Support", "icon": "headphones" }
+      ],
+      [
+        { "text": "Work Desk", "icon": "laptop" },
+        { "text": "Fitness Center", "icon": "dumbbell" },
+        { "text": "Swimming Pool", "icon": "swimming" }
+      ]
+    ]
+  },
+  {
+    "id": "rm002",
+    "name": "Premium Deluxe Room",
+    "categoryId": "cat002",
+    "location": "Mahim East, Mumbai",
+    "price": 3400,
+    "room_capacity": {
+      "adults": 3,
+      "children": 1,
+      "available_rooms": 10,
+      "bed": 2,
+      "maxExtraAdults": 1,
+      "maxExtraChildren": 1,
+      "maxExtraBed": 1,
+      "extraAdultCharges": 1200,
+      "extraChildCharges": 600,
+      "extraBedCharge": 200
+    },
+    "addonServicesCharges": {
+      "petFriendly": 250,
+      "steamRoom": 400,
+      "laundry": 100
+    },
+    "bannerImg": "http://localhost:8000/media/rooms-images/Premium Deluxe Room.jpg",
+    "images": [
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-1.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-2.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-3.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-4.jpg"
+    ],
+    "info": "Ocean View Room",
+    "description": [
+      "Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.",
+      "Enjoy fresh seafood and sunset cocktails at our beachfront grill."
+    ],
+    "features": [
+      { "icon": "users", "text": "3 Guests" },
+      { "icon": "ruler", "text": "40 Feet Size" },
+      { "icon": "link", "text": "Connecting Rooms" },
+      { "icon": "bed-double", "text": "2 Twin Beds" }
+    ],
+    "amenities": [
+      [
+        { "text": "Free Wifi", "icon": "wifi" },
+        { "text": "Balcony", "icon": "panel-top-open" },
+        { "text": "Refrigerator", "icon": "fridge" }
+      ],
+      [
+        { "text": "Work Desk", "icon": "laptop" },
+        { "text": "Shower", "icon": "shower-head" },
+        { "text": "Fitness Center", "icon": "dumbbell" }
+      ],
+      [
+        { "text": "24/7 Support", "icon": "headphones" },
+        { "text": "Swimming Pool", "icon": "swimming" },
+        { "text": "Airport Transport", "icon": "plane" }
+      ]
+    ]
+  },
+  {
+    "id": "rm101",
+    "name": "Twin Room Suite",
+    "categoryId": "cat101",
+    "location": "Tarkarli, Malvan",
+    "price": 3900,
+    "room_capacity": {
+      "adults": 2,
+      "children": 2,
+      "available_rooms": 5,
+      "bed": 2,
+      "maxExtraAdults": 1,
+      "maxExtraChildren": 2,
+      "maxExtraBed": 2,
+      "extraAdultCharges": 1000,
+      "extraChildCharges": 500,
+      "extraBedCharge": 200
+    },
+    "addonServicesCharges": {
+      "petFriendly": 350,
+      "steamRoom": 350,
+      "laundry": 120
+    },
+    "bannerImg": "http://localhost:8000/media/rooms-images/Twin Room Suite.jpg",
+    "images": [
+      "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-1.jpg",
+      "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-2.jpg",
+      "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-3.jpg",
+      "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-4.jpg"
+    ],
+    "info": "Mountain View Room",
+    "description": [
+      "Surround yourself with the peace of the mountains in our Twin Room Suite. Ideal for family or friends, this suite offers dual bedding, panoramic views of the Sahyadris, and a calm, airy design to match the serene outdoors.",
+      "The perfect hideaway for nature lovers."
+    ],
+    "features": [
+      { "icon": "users", "text": "2 Guests" },
+      { "icon": "ruler", "text": "38 Feet Size" },
+      { "icon": "link", "text": "Connecting Rooms" },
+      { "icon": "bed-double", "text": "2 Twin Beds" }
+    ],
+    "amenities": [
+      [
+        { "text": "Free Wifi", "icon": "wifi" },
+        { "text": "Balcony", "icon": "panel-top-open" },
+        { "text": "24/7 Support", "icon": "headphones" }
+      ],
+      [
+        { "text": "Work Desk", "icon": "laptop" },
+        { "text": "Refrigerator", "icon": "fridge" },
+        { "text": "Shower", "icon": "shower-head" }
+      ],
+      [
+        { "text": "Fitness Center", "icon": "dumbbell" },
+        { "text": "Swimming Pool", "icon": "swimming" },
+        { "text": "Airport Transport", "icon": "plane" }
+      ]
+    ]
+  },
+  {
+    "id": "rm202",
+    "name": "Executive Suites",
+    "categoryId": "cat202",
+    "location": "Mumbai, India",
+    "price": 6400,
+    "room_capacity": {
+      "adults": 2,
+      "children": 1,
+      "available_rooms": 5,
+      "bed": 2,
+      "maxExtraAdults": 1,
+      "maxExtraChildren": 1,
+      "maxExtraBed": 2,
+      "extraAdultCharges": 1500,
+      "extraChildCharges": 750,
+      "extraBedCharge": 300
+    },
+    "addonServicesCharges": {
+      "petFriendly": 550,
+      "steamRoom": 450,
+      "laundry": 145
+    },
+    "bannerImg": "http://localhost:8000/media/rooms-images/Executive Suites.jpg",
+    "images": [
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-1.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-2.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-3.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-4.jpg"
+    ],
+    "info": "Lake View Room",
+    "description": [
+      "Enjoy refined comfort in our Executive Suites overlooking tranquil lakescapes. With premium amenities, a private workspace, and elegant modern décor, this suite is perfect for both business and leisure travelers.",
+      "Dining options include curated chef’s menus with lakeside seating."
+    ],
+    "features": [
+      { "icon": "users", "text": "2 Guests" },
+      { "icon": "ruler", "text": "42 Feet Size" },
+      { "icon": "link", "text": "Connecting Rooms" },
+      { "icon": "bed-double", "text": "1 King Bed" }
+    ],
+    "amenities": [
+      [
+        { "text": "Free Wifi", "icon": "wifi" },
+        { "text": "Work Desk", "icon": "laptop" },
+        { "text": "Shower", "icon": "shower-head" }
+      ],
+      [
+        { "text": "Balcony", "icon": "panel-top-open" },
+        { "text": "Fitness Center", "icon": "dumbbell" },
+        { "text": "Swimming Pool", "icon": "swimming" }
+      ],
+      [
+        { "text": "24/7 Support", "icon": "headphones" },
+        { "text": "Refrigerator", "icon": "fridge" },
+        { "text": "Airport Transport", "icon": "plane" }
+      ]
+    ]
+  }
+]

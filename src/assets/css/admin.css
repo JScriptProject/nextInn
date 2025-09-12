@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
+
+:root {
+  --primary-deep-teal: #134e4a;
+  --accent-cta-sunset-orange: #f97316;
+  --background-offWhite-linen: #faf9f6;
+  --text-primary-dark-Charcoal: #1f2937;
+  --text-secondary-gray: #6b7280;
+  --border-lightUI-softGray: #e5e7eb;
+  --box-shadow: 0 2px 10px #1111112d;
+}
+
+.admin-container {
+  @apply w-full h-[200rem] relative bg-[var(--background-offWhite-linen)];
+}
+
+.admin-header {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @apply w-full h-[500px] flex items-center justify-center relative;
+}
+
+.admin-header::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.555);
+}
+
+.admin-header h1 {
+  font-weight: 700;
+  filter: drop-shadow(0, 0, 50px, #3125d3);
+  @apply text-[2rem] md:text-[3rem] text-[#fff] relative block z-1000;
+}
+
+.admin-body-container {
+  @apply px-[2rem] md:px-[4rem] relative;
+}
+
+.dashbord-cards {
+  @apply py-[3rem] w-full flex items-center justify-center;
+}
+
+.admin-dashboard-wrapper {
+  @apply w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-[1rem] mx-auto max-w-[950px];
+  justify-content: center;
+}
+
+.admin-dashboard-wrapper .card {
+  box-shadow: var(--box-shadow);
+  @apply bg-[var(--background-offWhite-linen)] rounded-xl p-[1rem] sm:px-[1.5rem] sm:py-[2rem] flex flex-row items-center justify-start gap-[1.5rem] transition-all duration-800 ease-in-out cursor-pointer w-full md:max-w-[225px];
+}
+
+.admin-dashboard-wrapper .card .card-icon {
+  @apply bg-[#f9741625] w-[3.5rem] h-[3.5rem] rounded-md flex items-center justify-center transition-all duration-500 ease-in-out;
+}
+
+.admin-dashboard-wrapper .card .card-icon-item {
+  @apply text-[#f97316] transition-all duration-500 ease-in-out;
+}
+.admin-dashboard-wrapper .card:hover {
+  box-shadow: 0 10px 20px #1111114f;
+}
+.admin-dashboard-wrapper .card:hover .card-icon-item {
+  @apply text-[#fff];
+}
+
+.admin-dashboard-wrapper .card:hover .card-icon {
+  @apply bg-[#f97316];
+}
+
+.admin-dashboard-wrapper .card .card-service {
+  @apply flex flex-col items-start justify-center;
+}
+
+.admin-dashboard-wrapper .card .card-service .card-service-count {
+  @apply text-[1.5rem] font-extrabold;
+}
+
+.admin-dashboard-wrapper .card .card-service .card-service-name {
+  @apply text-[var(--text-secondary-gray)] font-normal text-[0.8rem];
+}
+
+/* admin category management */
+.roomsCategoryBlock {
+  box-shadow: var(--box-shadow);
+  @apply grid grid-rows-[auto_1fr] rounded-xl gap-[2rem] px-[2rem] py-[1rem];
+}
+.roomsCategoryBlock .roomsCategoryTitle {
+  @apply h-full w-full flex items-center justify-center;
+}
+
+.roomsCategoryBlock .roomsCategoryTitle ul {
+  @apply h-full w-full flex items-center flex-wrap justify-center gap-[2rem];
+}
+
+.roomsCategoryBlock .roomsCategoryTitle ul li {
+  background: #134e4a;
+  background: linear-gradient(
+    160deg,
+    rgba(19, 78, 74, 1) 0%,
+    rgba(19, 78, 74, 1) 50%,
+    rgba(31, 41, 55, 1) 100%
+  );
+  transition: all 0.3s ease-in-out;
+  @apply w-[6.5rem] h-[6rem] text-center px-[0.5rem] py-[0.5rem] flex items-center justify-center rounded-md  text-[var(--background-offWhite-linen)] text-[0.9rem] font-bold cursor-pointer;
+}
+
+.roomsCategoryBlock .roomsCategoryTitle ul li:hover {
+  background: #134e4a;
+  background: linear-gradient(
+    140deg,
+    rgba(19, 78, 74, 1) 0%,
+    rgba(19, 78, 74, 1) 10%,
+    rgba(31, 41, 55, 1) 100%
+  );
+}
+
+.roomsCategoryBlock .roomsCategoryTitle ul .room-active {
+  background: #f97316;
+  background: linear-gradient(
+    140deg,
+    rgba(249, 115, 22, 1) 0%,
+    rgba(249, 115, 22, 1) 50%,
+    rgba(31, 41, 55, 1) 100%
+  );
+}
+.roomsCategoryBlock .roomsCategoryTitle ul .room-active:hover {
+  background: #f97316;
+  background: linear-gradient(
+    140deg,
+    rgba(249, 115, 22, 1) 0%,
+    rgba(249, 115, 22, 1) 10%,
+    rgba(31, 41, 55, 1) 100%
+  );
+}
+
+.roomsCategoryBlock img {
+  @apply w-[1rem] h-[1rem];
+}
+
+/* roomsCategoryInfo */
+
+.roomsCategoryInfo {
+  @apply bg-[var(--text-primary-dark-Charcoal)] px-[1rem] py-[2rem] text-[var(--background-offWhite-linen)] rounded-md;
+}
+
+.info-block {
+  border-bottom: 1px solid gray;
+  @apply py-[0.5rem];
+}
+.room-block-header {
+  @apply flex flex-row items-center justify-between pb-[1rem];
+}
+.info-block-title {
+  @apply text-[1.2rem] text-[var(--accent-cta-sunset-orange)];
+}
+.info-block-btn {
+  @apply bg-[var(--accent-cta-sunset-orange)] px-[1.5rem] py-[0.2rem] rounded-md hover:font-bold cursor-pointer;
+}
+.info-block-btn-edit {
+  @apply bg-[var(--background-offWhite-linen)] text-[var(--accent-cta-sunset-orange)] hover:font-bold hover:bg-[var(--background-offWhite-linen)] hover:text-[(--accent-cta-sunset-orange)];
+}
+.grid2-center {
+  @apply grid-cols-2 justify-items-center items-center;
+}
+
+.grid2-start {
+  @apply grid-cols-2 justify-items-start items-center;
+}
+.grid1-full {
+  @apply grid-cols-1 justify-items-start items-start;
+}
+.info-content-row {
+  @apply grid pb-[1rem];
+}
+
+.info-content-row .info-content-block {
+  @apply flex flex-row items-center gap-[.5rem] w-full;
+}
+
+.info-content-block-aligned-top {
+  @apply !items-start !justify-start;
+}
+
+.info-content-row textarea{
+  width:100% !important;
+}
+
+.info-content-row input, .info-content-row textarea{
+@apply text-[0.9rem] bg-amber-50 text-black p-[0.5rem] py-[0.1rem] outline-none;
+}
+
