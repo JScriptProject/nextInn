@@ -1,7 +1,8 @@
 import React,{useState} from "react";
 import InfoContentBlock from "./InfoContentBlock.jsx";
 import CategoryInfoBlock from "./CategoryInfoBlock.jsx";
-
+import CategoryCapacityBlock from "./CategoryCapacityBlock.jsx";
+import CategoryAddonChargesBlock from "./CategoryAddonChargesBlock.jsx";
 
 function RoomscategoryInfo({ roomsObj,setRooms }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -29,7 +30,8 @@ function RoomscategoryInfo({ roomsObj,setRooms }) {
         </div>
       </div>
       <CategoryInfoBlock isEditing={isEditing} onClickEdit={onClickEdit} setUpdatedRooms={setUpdatedRooms} roomsObj={roomsObj} />
-      
+      <CategoryCapacityBlock isEditing={isEditing} onClickEdit={onClickEdit} setUpdatedRooms={setUpdatedRooms} roomsObj={roomsObj} />
+      <CategoryAddonChargesBlock isEditing={isEditing} onClickEdit={onClickEdit} setUpdatedRooms={setUpdatedRooms} roomsObj={roomsObj}  />
     </div>
   );
 }

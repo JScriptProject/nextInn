@@ -21,7 +21,7 @@ function CategoryManagement({ setErrors, errors }) {
       }
     })();
   }, []);
-  console.log("Check this--",rooms);
+
   return (
     <div>
       <h3 className="page-internal-title">Rooms Category management</h3>

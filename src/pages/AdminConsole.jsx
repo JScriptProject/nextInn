@@ -9,7 +9,6 @@ import GuestList from "./GuestList";
 
 function AdminConsole() {
   //create Route
- console.log("admin console")
   return (
     <Routes>
       <Route path="/" element={<LayoutAdmin />}>

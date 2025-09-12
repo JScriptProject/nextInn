@@ -148,7 +148,7 @@
 /* roomsCategoryInfo */
 
 .roomsCategoryInfo {
-  @apply bg-[var(--text-primary-dark-Charcoal)] px-[1rem] py-[2rem] text-[var(--background-offWhite-linen)] rounded-md;
+  @apply bg-[var(--text-primary-dark-Charcoal)] px-[2rem] sm:px-[3rem] py-[2rem] text-[var(--background-offWhite-linen)] rounded-md;
 }
 
 .info-block {
@@ -172,17 +172,27 @@
 }
 
 .grid2-start {
-  @apply grid-cols-2 justify-items-start items-center;
+  @apply grid-cols-1 sm:grid-cols-2 justify-items-start items-center;
 }
+
+
 .grid1-full {
   @apply grid-cols-1 justify-items-start items-start;
 }
 .info-content-row {
-  @apply grid pb-[1rem];
+  @apply grid;
 }
 
 .info-content-row .info-content-block {
-  @apply flex flex-row items-center gap-[.5rem] w-full;
+  @apply  w-full pb-[1rem];
+}
+
+.info-content-block  label{
+  @apply font-bold text-[1.1rem];
+}
+
+.info-content-block p{
+  @apply font-light;
 }
 
 .info-content-block-aligned-top {
@@ -194,6 +204,7 @@
 }
 
 .info-content-row input, .info-content-row textarea{
-@apply text-[0.9rem] bg-amber-50 text-black p-[0.5rem] py-[0.1rem] outline-none;
+  border-bottom: 1px solid var(--accent-cta-sunset-orange);
+@apply text-[0.9rem]  p-[0.5rem] py-[0.1rem] outline-none;
 }
 
