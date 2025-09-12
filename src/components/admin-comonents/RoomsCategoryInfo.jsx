@@ -3,6 +3,7 @@ import InfoContentBlock from "./InfoContentBlock.jsx";
 import CategoryInfoBlock from "./CategoryInfoBlock.jsx";
 import CategoryCapacityBlock from "./CategoryCapacityBlock.jsx";
 import CategoryAddonChargesBlock from "./CategoryAddonChargesBlock.jsx";
+import CategoryAmenitiesBlock from "./CategoryAmenitiesBlock.jsx";
 
 function RoomscategoryInfo({ roomsObj,setRooms }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -11,16 +12,12 @@ function RoomscategoryInfo({ roomsObj,setRooms }) {
   const onClickEdit = ()=>{
     setIsEditing(prev=> !prev);
     if(isEditing){
-      console.log("data saved", updatedRooms);
+     
       const newRoomsData = {...roomsObj, ...updatedRooms};
-      console.log(newRoomsData)
       setRooms((prev)=> prev.map((room)=> room.id === roomsObj.id ? newRoomsData : room));
       setUpdatedRooms({});
     }
   }
-
-  console.log(roomsObj);
-  console.log("Updated Data: ", updatedRooms);
   return (
     <div className="roomsCategoryInfo">
       <div className="info-block">
@@ -32,6 +29,7 @@ function RoomscategoryInfo({ roomsObj,setRooms }) {
       <CategoryInfoBlock isEditing={isEditing} onClickEdit={onClickEdit} setUpdatedRooms={setUpdatedRooms} roomsObj={roomsObj} />
       <CategoryCapacityBlock isEditing={isEditing} onClickEdit={onClickEdit} setUpdatedRooms={setUpdatedRooms} roomsObj={roomsObj} />
       <CategoryAddonChargesBlock isEditing={isEditing} onClickEdit={onClickEdit} setUpdatedRooms={setUpdatedRooms} roomsObj={roomsObj}  />
+      <CategoryAmenitiesBlock isEditing={isEditing} onClickEdit={onClickEdit} setUpdatedRooms={setUpdatedRooms} roomsObj={roomsObj} />
     </div>
   );
 }

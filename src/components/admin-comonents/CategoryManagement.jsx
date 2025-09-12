@@ -12,8 +12,8 @@ function CategoryManagement({ setErrors, errors }) {
   useEffect(() => {
     (async () => {
       try {
-        const rooms = await getRoomsData();
-        setRooms(rooms);
+        const roomsData = await getRoomsData();
+        setRooms(roomsData);
       } catch (error) {
         console.error("failed to fetch rooms:", error);
         setErrors(error.message);
@@ -21,7 +21,6 @@ function CategoryManagement({ setErrors, errors }) {
       }
     })();
   }, []);
-
   return (
     <div>
       <h3 className="page-internal-title">Rooms Category management</h3>

@@ -69,21 +69,15 @@ export const rooms = [
       { icon: "bed-double", text: "1 King Bed" },
     ],
     amenities: [
-      [
-        { text: "Free Wifi", icon: "wifi" },
-        { text: "Shower", icon: "shower-head" },
-        { text: "Airport Transport", icon: "plane" },
-      ],
-      [
-        { text: "Balcony", icon: "panel-top-open" },
-        { text: "Refrigerator", icon: "fridge" },
-        { text: "24/7 Support", icon: "headphones" },
-      ],
-      [
-        { text: "Work Desk", icon: "laptop" },
-        { text: "Fitness Center", icon: "dumbbell" },
-        { text: "Swimming Pool", icon: "swimming" },
-      ],
+      { text: "Free Wifi", icon: "wifi" },
+      { text: "Shower", icon: "shower-head" },
+      { text: "Airport Transport", icon: "plane" },
+      { text: "Balcony", icon: "panel-top-open" },
+      { text: "Refrigerator", icon: "fridge" },
+      { text: "24/7 Support", icon: "headphones" },
+      { text: "Work Desk", icon: "laptop" },
+      { text: "Fitness Center", icon: "dumbbell" },
+      { text: "Swimming Pool", icon: "swimming" },
     ],
   },
   {
@@ -92,7 +86,7 @@ export const rooms = [
     categoryId: "cat002",
     location: "Mahim East, Mumbai",
     price: 3400,
-    
+
     room_capacity: {
       adults: 3,
       children: 1,
@@ -121,21 +115,17 @@ export const rooms = [
       { icon: "bed-double", text: "2 Twin Beds" },
     ],
     amenities: [
-      [
-        { text: "Free Wifi", icon: "wifi" },
-        { text: "Balcony", icon: "panel-top-open" },
-        { text: "Refrigerator", icon: "fridge" },
-      ],
-      [
-        { text: "Work Desk", icon: "laptop" },
-        { text: "Shower", icon: "shower-head" },
-        { text: "Fitness Center", icon: "dumbbell" },
-      ],
-      [
-        { text: "24/7 Support", icon: "headphones" },
-        { text: "Swimming Pool", icon: "swimming" },
-        { text: "Airport Transport", icon: "plane" },
-      ],
+      { text: "Free Wifi", icon: "wifi" },
+      { text: "Balcony", icon: "panel-top-open" },
+      { text: "Refrigerator", icon: "fridge" },
+
+      { text: "Work Desk", icon: "laptop" },
+      { text: "Shower", icon: "shower-head" },
+      { text: "Fitness Center", icon: "dumbbell" },
+
+      { text: "24/7 Support", icon: "headphones" },
+      { text: "Swimming Pool", icon: "swimming" },
+      { text: "Airport Transport", icon: "plane" },
     ],
   },
   {
@@ -144,7 +134,7 @@ export const rooms = [
     categoryId: "cat101",
     location: "Tarkarli, Malvan",
     price: 3900,
-    
+
     room_capacity: {
       adults: 2,
       children: 2,
@@ -173,21 +163,17 @@ export const rooms = [
       { icon: "bed-double", text: "2 Twin Beds" },
     ],
     amenities: [
-      [
-        { text: "Free Wifi", icon: "wifi" },
-        { text: "Balcony", icon: "panel-top-open" },
-        { text: "24/7 Support", icon: "headphones" },
-      ],
-      [
-        { text: "Work Desk", icon: "laptop" },
-        { text: "Refrigerator", icon: "fridge" },
-        { text: "Shower", icon: "shower-head" },
-      ],
-      [
-        { text: "Fitness Center", icon: "dumbbell" },
-        { text: "Swimming Pool", icon: "swimming" },
-        { text: "Airport Transport", icon: "plane" },
-      ],
+      { text: "Free Wifi", icon: "wifi" },
+      { text: "Balcony", icon: "panel-top-open" },
+      { text: "24/7 Support", icon: "headphones" },
+
+      { text: "Work Desk", icon: "laptop" },
+      { text: "Refrigerator", icon: "fridge" },
+      { text: "Shower", icon: "shower-head" },
+
+      { text: "Fitness Center", icon: "dumbbell" },
+      { text: "Swimming Pool", icon: "swimming" },
+      { text: "Airport Transport", icon: "plane" },
     ],
   },
   {
@@ -225,21 +211,17 @@ export const rooms = [
       { icon: "bed-double", text: "1 King Bed" },
     ],
     amenities: [
-      [
-        { text: "Free Wifi", icon: "wifi" },
-        { text: "Work Desk", icon: "laptop" },
-        { text: "Shower", icon: "shower-head" },
-      ],
-      [
-        { text: "Balcony", icon: "panel-top-open" },
-        { text: "Fitness Center", icon: "dumbbell" },
-        { text: "Swimming Pool", icon: "swimming" },
-      ],
-      [
-        { text: "24/7 Support", icon: "headphones" },
-        { text: "Refrigerator", icon: "fridge" },
-        { text: "Airport Transport", icon: "plane" },
-      ],
+      { text: "Free Wifi", icon: "wifi" },
+      { text: "Work Desk", icon: "laptop" },
+      { text: "Shower", icon: "shower-head" },
+
+      { text: "Balcony", icon: "panel-top-open" },
+      { text: "Fitness Center", icon: "dumbbell" },
+      { text: "Swimming Pool", icon: "swimming" },
+
+      { text: "24/7 Support", icon: "headphones" },
+      { text: "Refrigerator", icon: "fridge" },
+      { text: "Airport Transport", icon: "plane" },
     ],
   },
 ];
@@ -261,18 +243,19 @@ export const rooms = [
 //   return totalCost;
 // }
 
-export function rateCalculation(bookingData, roomCapacity, addonServicesCharges )
-{
-  
-  let totalCost = (bookingData?.rate) * (bookingData?.days);
-
+export function rateCalculation(
+  bookingData,
+  roomCapacity,
+  addonServicesCharges
+) {
+  let totalCost = bookingData?.rate * bookingData?.days;
 
   //optional chaininng the fallback
   const adults = bookingData.adults ?? 0;
   const children = bookingData.children ?? 0;
   const rooms = bookingData.rooms ?? 0;
   const extraBed = bookingData.bed ?? 0;
-  
+
   const adultCapacity = roomCapacity.adults ?? 0;
   const childCapacity = roomCapacity.children ?? 0;
   const exatraAdultCapacity = roomCapacity.maxExtraAdults ?? 0;
@@ -281,57 +264,52 @@ export function rateCalculation(bookingData, roomCapacity, addonServicesCharges 
   const extraAdultCharges = roomCapacity.extraAdultCharges ?? 0;
   const extraChildCharges = roomCapacity.extraChildCharges ?? 0;
   const extraBedCharge = roomCapacity.extraBedCharge ?? 0;
-  
-  const priceBreakDown =[{label:"days", amount:(bookingData?.days) * (bookingData?.rate)}];
 
-  if(adults > adultCapacity)
-  {
-    const amountAdult = (adults - adultCapacity) * extraAdultCharges
-    totalCost += amountAdult ;
-    priceBreakDown.push({label:"adults", amount:amountAdult})
+  const priceBreakDown = [
+    { label: "days", amount: bookingData?.days * bookingData?.rate },
+  ];
 
+  if (adults > adultCapacity) {
+    const amountAdult = (adults - adultCapacity) * extraAdultCharges;
+    totalCost += amountAdult;
+    priceBreakDown.push({ label: "adults", amount: amountAdult });
   }
-  if(children > childCapacity)
-  {
+  if (children > childCapacity) {
     const amountChildren = (children - childCapacity) * extraChildCharges;
     totalCost += amountChildren;
-    priceBreakDown.push({label:"children", amount:amountChildren});
+    priceBreakDown.push({ label: "children", amount: amountChildren });
   }
-  if(rooms > 1)
-  {
-    const roomsAmount = (rooms - 1) * ((bookingData?.rate) * (bookingData?.days));
+  if (rooms > 1) {
+    const roomsAmount = (rooms - 1) * (bookingData?.rate * bookingData?.days);
     totalCost += roomsAmount;
-    priceBreakDown.push({label:"rooms", amount:roomsAmount});
+    priceBreakDown.push({ label: "rooms", amount: roomsAmount });
   }
 
-  if(extraBed > 0)
-  {
+  if (extraBed > 0) {
     const extraBedAmount = extraBed * extraBedCharge;
     totalCost += extraBedAmount;
-    priceBreakDown.push({label:"extraBed", amount:extraBedAmount});
+    priceBreakDown.push({ label: "extraBed", amount: extraBedAmount });
   }
 
-  if(bookingData.addonServices.petFriendly)
-  {  const petFriendlyAmount =  addonServicesCharges?.petFriendly
-     totalCost +=petFriendlyAmount ;
-     priceBreakDown.push({label:"petFriendly", amount:petFriendlyAmount});
+  if (bookingData.addonServices.petFriendly) {
+    const petFriendlyAmount = addonServicesCharges?.petFriendly;
+    totalCost += petFriendlyAmount;
+    priceBreakDown.push({ label: "petFriendly", amount: petFriendlyAmount });
   }
-  if(bookingData.addonServices.steamRoom)
-  {
+  if (bookingData.addonServices.steamRoom) {
     const steamRoomAmount = addonServicesCharges?.steamRoom;
     totalCost += steamRoomAmount;
-    priceBreakDown.push({label:"steamRoom", amount:steamRoomAmount});
-
+    priceBreakDown.push({ label: "steamRoom", amount: steamRoomAmount });
   }
-  if(bookingData.addonServices.laundry)
-  {
-    const laundryAmount = (addonServicesCharges?.laundry * (adults + children) * bookingData?.days);
+  if (bookingData.addonServices.laundry) {
+    const laundryAmount =
+      addonServicesCharges?.laundry * (adults + children) * bookingData?.days;
 
     totalCost += laundryAmount;
-    priceBreakDown.push({label:"laundry", amount:laundryAmount});
+    priceBreakDown.push({ label: "laundry", amount: laundryAmount });
   }
 
-  return [totalCost,priceBreakDown];
+  return [totalCost, priceBreakDown];
 }
 
 export function formatDateForInput(date) {

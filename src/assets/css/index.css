@@ -521,12 +521,9 @@ section {
 
 .room-amenities-container ul {
   border-bottom: 1px solid var(--border-lightUI-softGray);
-  @apply py-[1rem] grid grid-cols-1 sm:grid-cols-3 items-start justify-center sm:justify-between gap-[0.5rem];
+  @apply pb-[1rem] grid grid-cols-1 sm:grid-cols-3 gap-[1rem] items-start justify-center sm:justify-between gap-[0.5rem];
 }
 
-.room-amenities-container ul:nth-of-type(1) {
-  @apply pt-0;
-}
 
 .room-amenities-container ul:last-of-type {
   border: none;

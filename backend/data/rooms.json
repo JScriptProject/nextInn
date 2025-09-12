@@ -41,21 +41,21 @@
       { "icon": "bed-double", "text": "1 King Bed" }
     ],
     "amenities": [
-      [
+      
         { "text": "Free Wifi", "icon": "wifi" },
         { "text": "Shower", "icon": "shower-head" },
         { "text": "Airport Transport", "icon": "plane" }
-      ],
-      [
+      ,
+      
         { "text": "Balcony", "icon": "panel-top-open" },
         { "text": "Refrigerator", "icon": "fridge" },
         { "text": "24/7 Support", "icon": "headphones" }
-      ],
-      [
+      ,
+      
         { "text": "Work Desk", "icon": "laptop" },
         { "text": "Fitness Center", "icon": "dumbbell" },
         { "text": "Swimming Pool", "icon": "swimming" }
-      ]
+      
     ]
   },
   {
@@ -100,21 +100,21 @@
       { "icon": "bed-double", "text": "2 Twin Beds" }
     ],
     "amenities": [
-      [
+      
         { "text": "Free Wifi", "icon": "wifi" },
         { "text": "Balcony", "icon": "panel-top-open" },
         { "text": "Refrigerator", "icon": "fridge" }
-      ],
-      [
+      ,
+      
         { "text": "Work Desk", "icon": "laptop" },
         { "text": "Shower", "icon": "shower-head" },
         { "text": "Fitness Center", "icon": "dumbbell" }
-      ],
-      [
+      ,
+      
         { "text": "24/7 Support", "icon": "headphones" },
         { "text": "Swimming Pool", "icon": "swimming" },
         { "text": "Airport Transport", "icon": "plane" }
-      ]
+      
     ]
   },
   {
@@ -159,21 +159,16 @@
       { "icon": "bed-double", "text": "2 Twin Beds" }
     ],
     "amenities": [
-      [
+    
         { "text": "Free Wifi", "icon": "wifi" },
         { "text": "Balcony", "icon": "panel-top-open" },
-        { "text": "24/7 Support", "icon": "headphones" }
-      ],
-      [
+        { "text": "24/7 Support", "icon": "headphones" },
         { "text": "Work Desk", "icon": "laptop" },
         { "text": "Refrigerator", "icon": "fridge" },
-        { "text": "Shower", "icon": "shower-head" }
-      ],
-      [
+        { "text": "Shower", "icon": "shower-head" },
         { "text": "Fitness Center", "icon": "dumbbell" },
         { "text": "Swimming Pool", "icon": "swimming" },
         { "text": "Airport Transport", "icon": "plane" }
-      ]
     ]
   },
   {
@@ -218,21 +213,15 @@
       { "icon": "bed-double", "text": "1 King Bed" }
     ],
     "amenities": [
-      [
-        { "text": "Free Wifi", "icon": "wifi" },
-        { "text": "Work Desk", "icon": "laptop" },
-        { "text": "Shower", "icon": "shower-head" }
-      ],
-      [
-        { "text": "Balcony", "icon": "panel-top-open" },
-        { "text": "Fitness Center", "icon": "dumbbell" },
-        { "text": "Swimming Pool", "icon": "swimming" }
-      ],
-      [
-        { "text": "24/7 Support", "icon": "headphones" },
-        { "text": "Refrigerator", "icon": "fridge" },
-        { "text": "Airport Transport", "icon": "plane" }
-      ]
+      { "text": "Free Wifi", "icon": "wifi" },
+      { "text": "Work Desk", "icon": "laptop" },
+      { "text": "Shower", "icon": "shower-head" },
+      { "text": "Balcony", "icon": "panel-top-open" },
+      { "text": "Fitness Center", "icon": "dumbbell" },
+      { "text": "Swimming Pool", "icon": "swimming" },
+      { "text": "24/7 Support", "icon": "headphones" },
+      { "text": "Refrigerator", "icon": "fridge" },
+      { "text": "Airport Transport", "icon": "plane" }
     ]
   }
 ]

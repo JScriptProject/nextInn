@@ -7,9 +7,7 @@ function InfoContentBlock({title, value, extraClass,isEditing, setUpdatedRooms,i
         setInputValue(e.target.value);
         setUpdatedRooms((prev)=>({...prev, [title]: e.target.value}));
     }
-
-    console.log("Title= ", title);
-    console.log("value= ", value);
+    
     //whenevr props value change after selecting diff category, its not automatically assigning hence useEffect.
     useEffect(()=>{
       setInputValue(value);
