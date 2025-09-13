@@ -1,15 +1,37 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import InfoContentBlock from "./InfoContentBlock.jsx";
 
 function CategoryAddonChargesBlock({
+  setIsEditing,
   isEditing,
-  setUpdatedRooms,
   roomsObj,
-  onClickEdit,
+  setRooms,
 }) {
+  const [updatedRooms, setUpdatedRooms] = useState({});
+  const [isAddonChargeEditing, setIsAddonChargeEditing] = useState(false);
+
   const serviceChargeData = new Map(
     Object.entries(roomsObj.addonServicesCharges)
   );
+
+  useEffect(() => {
+    if (isAddonChargeEditing) {
+      setIsEditing(true);
+    } else {
+      setIsEditing(false);
+    }
+  }, [isAddonChargeEditing]);
+
+  function onClickEdit() {
+    setIsAddonChargeEditing((prev) => !prev);
+    if (isAddonChargeEditing) {
+      const newRoomsData = { ...roomsObj, ...updatedRooms };
+      setRooms((prev) =>
+        prev.map((room) => (room.id === roomsObj.id ? newRoomsData : room))
+      );
+      setUpdatedRooms({});
+    }
+  }
 
   return (
     <div className="info-block">
@@ -17,11 +39,14 @@ function CategoryAddonChargesBlock({
         <h3 className="info-block-title">Room Info</h3>
         <button
           className={
-            isEditing ? "info-block-btn info-block-btn-edit" : "info-block-btn"
+            isAddonChargeEditing
+              ? "info-block-btn info-block-btn-edit"
+              : "info-block-btn"
           }
           onClick={onClickEdit}
+          disabled={isEditing === true && isAddonChargeEditing === false}
         >
-          {isEditing ? "Save" : "Edit"}
+          {isAddonChargeEditing ? "Save" : "Edit"}
         </button>
       </div>
       <div className="info-content-row grid2-start">
@@ -30,7 +55,7 @@ function CategoryAddonChargesBlock({
             <InfoContentBlock
               title={service_name}
               value={service_charges}
-              isEditing={isEditing}
+              isEditing={isAddonChargeEditing}
               setUpdatedRooms={setUpdatedRooms}
               key={service_name}
             />

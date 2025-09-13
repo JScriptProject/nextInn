@@ -7,7 +7,7 @@ import CategoryAmenitiesBlock from "./CategoryAmenitiesBlock.jsx";
 
 function RoomscategoryInfo({ roomsObj,setRooms }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [updatedRooms, setUpdatedRooms] = useState({});
+ 
 
   const onClickEdit = ()=>{
     setIsEditing(prev=> !prev);
@@ -26,10 +26,10 @@ function RoomscategoryInfo({ roomsObj,setRooms }) {
           <InfoContentBlock title="Category ID" value={roomsObj.categoryId} />
         </div>
       </div>
-      <CategoryInfoBlock isEditing={isEditing} onClickEdit={onClickEdit} setUpdatedRooms={setUpdatedRooms} roomsObj={roomsObj} />
-      <CategoryCapacityBlock isEditing={isEditing} onClickEdit={onClickEdit} setUpdatedRooms={setUpdatedRooms} roomsObj={roomsObj} />
-      <CategoryAddonChargesBlock isEditing={isEditing} onClickEdit={onClickEdit} setUpdatedRooms={setUpdatedRooms} roomsObj={roomsObj}  />
-      <CategoryAmenitiesBlock isEditing={isEditing} onClickEdit={onClickEdit} setUpdatedRooms={setUpdatedRooms} roomsObj={roomsObj} />
+      <CategoryInfoBlock setIsEditing={setIsEditing} isEditing={isEditing} roomsObj={roomsObj} setRooms={setRooms} />
+      <CategoryCapacityBlock setIsEditing={setIsEditing} isEditing={isEditing}  roomsObj={roomsObj} setRooms={setRooms} />
+      <CategoryAddonChargesBlock setIsEditing={setIsEditing} isEditing={isEditing} roomsObj={roomsObj} setRooms={setRooms}  />
+      <CategoryAmenitiesBlock setIsEditing={setIsEditing} isEditing={isEditing} roomsObj={roomsObj} setRooms={setRooms} />
     </div>
   );
 }

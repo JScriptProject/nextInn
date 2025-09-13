@@ -208,3 +208,58 @@
 @apply text-[0.9rem]  p-[0.5rem] py-[0.1rem] outline-none;
 }
 
+button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Amenities */
+.info-checklist-block{
+  @apply flex flex-row gap-[1rem] items-center justify-start pb-[0.5rem];
+}
+.info-checklist-block label{
+  @apply flex flex-row items-center justify-start gap-[0.2rem];
+}
+
+.checkedLit-icon{
+  @apply text-[var(--primary-deep-teal)]; 
+}
+
+/* Base checkbox */
+input[type="checkbox"] {
+  appearance: none;       /* Remove default browser style */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 22px;            /* Make it bigger */
+  height: 22px;
+  border: 2px solid #aaa; /* Border around */
+  border-radius: 4px;     /* Optional: make corners rounded */
+  background-color: #fff; /* White background */
+  cursor: pointer;
+  position: relative;
+}
+
+/* Checked state */
+input[type="checkbox"]:checked {
+  border-color: var(----accent-cta-sunset-orange);
+}
+
+/* Red checkmark */
+input[type="checkbox"]:checked::after {
+  content: "✔";
+  color:var(--accent-cta-sunset-orange);
+  font-size: 18px;
+  position: absolute;
+  top: -2px;
+  left: 3px;
+}
+
+.category-add-amenities-btn {
+  @apply bg-[var(--accent-cta-sunset-orange)] px-[1.5rem] py-[0.2rem] rounded-md hover:font-bold cursor-pointer;
+}
+.category-add-amenities-btn-edit {
+  @apply bg-[var(--background-offWhite-linen)] text-[var(--accent-cta-sunset-orange)] hover:font-bold hover:bg-[var(--background-offWhite-linen)] hover:text-[(--accent-cta-sunset-orange)];
+}

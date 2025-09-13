@@ -1,36 +1,60 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import InfoContentBlock from "./InfoContentBlock.jsx";
 
 function CategoryCapacityBlock({
   isEditing,
-  setUpdatedRooms,
+  setIsEditing,
   roomsObj,
-  onClickEdit,
+  setRooms
 }) {
+
+  const [updatedRooms, setUpdatedRooms] = useState({});
+  const [isCapacityEditing, setCapacityEditing] = useState(false);
+
+    useEffect(()=>{
+      if(isCapacityEditing){
+      setIsEditing(true);
+      }
+      else{
+        setIsEditing(false);
+      }
+    },[isCapacityEditing])
+    
+  
+    function onClickEdit(){
+      setCapacityEditing(prev=> !prev);   
+      if(isCapacityEditing){
+         const newRoomsData = {...roomsObj, ...updatedRooms};
+        setRooms((prev)=> prev.map((room)=> room.id === roomsObj.id ? newRoomsData : room));
+        setUpdatedRooms({});
+      } 
+    }
+
   return (
     <div className="info-block">
       <div className="room-block-header">
         <h3 className="info-block-title">Room Info</h3>
         <button
           className={
-            isEditing ? "info-block-btn info-block-btn-edit" : "info-block-btn"
+            isCapacityEditing ? "info-block-btn info-block-btn-edit" : "info-block-btn"
           }
           onClick={onClickEdit}
+          disabled={isEditing === true && isCapacityEditing === false}
         >
-          {isEditing ? "Save" : "Edit"}
+          {isCapacityEditing ? "Save" : "Edit"}
         </button>
       </div>
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Adults"
           value={roomsObj.room_capacity.adults}
-          isEditing={isEditing}
+          isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
         />
         <InfoContentBlock
           title="Children"
           value={roomsObj.room_capacity.children}
-          isEditing={isEditing}
+          isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
         />
       </div>
@@ -38,14 +62,14 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Available Rooms"
           value={roomsObj.room_capacity.available_rooms}
-          isEditing={isEditing}
+          isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
         />
         <InfoContentBlock
           title="Bed each Room"
           value={roomsObj.room_capacity.bed}
-          isEditing={isEditing}
+          isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
         />
@@ -54,14 +78,14 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Max Extra Adults"
           value={roomsObj.room_capacity.maxExtraAdults}
-          isEditing={isEditing}
+          isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
         />
         <InfoContentBlock
           title="Extra Adult Charge"
           value={roomsObj.room_capacity.extraAdultCharges}
-          isEditing={isEditing}
+          isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
         />
@@ -70,14 +94,14 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Max Extra Children"
           value={roomsObj.room_capacity.maxExtraChildren}
-          isEditing={isEditing}
+          isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
         />
         <InfoContentBlock
           title="Extra Children Charge"
           value={roomsObj.room_capacity.extraChildCharges}
-          isEditing={isEditing}
+          isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
         />
@@ -86,7 +110,7 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Max Extra Bed"
           value={roomsObj.room_capacity.maxExtraBed}
-          isEditing={isEditing}
+          isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
         />
@@ -94,7 +118,7 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Extra Bed Charge"
           value={roomsObj.room_capacity.extraBedCharge}
-          isEditing={isEditing}
+          isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
         />
