@@ -1,10 +1,11 @@
-import express from "express";
+import express from 'express';
+import app from './app.js';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from "url";
-import roomsRouter from './routers/roomsRouter.js';
+import {connectDB} from './db/index.js';
 
-const app = express();
+import roomsRouter from './routers/roomsRouter.js';
 
 const PORT = process.env.PORT || 8000;
 
@@ -30,6 +31,18 @@ console.log(filePath);
 const mediaPath = path.join(filePath,"assets","media");
 app.use("/media", express.static(mediaPath))
 
-app.listen(PORT, ()=>{
-    console.log(`NextInn backend Server started on Port ${PORT}`);
+connectDB()
+.then(()=>{
+    app.listen(PORT, ()=>{
+        console.log(`NextInn backend Server started on Port ${PORT}`);
+    })
+    app.on("error", (err)=>{
+    console.log(`Error occured: ${err.message}`);
 })
+})
+
+
+
+// app.listen(PORT, ()=>{
+//     console.log(`NextInn backend Server started on Port ${PORT}`);
+// })
