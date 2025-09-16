@@ -35,37 +35,70 @@
       "Treat yourself to fine dining at our rooftop restaurant, where modern flavors meet traditional Goan recipes in a chic, elevated setting."
     ],
     "features": [
-      { "icon": "users", "text": "2 Guests" },
-      { "icon": "ruler", "text": "35 Feet Size" },
-      { "icon": "link", "text": "Connecting Rooms" },
-      { "icon": "bed-double", "text": "1 King Bed" }
+      {
+        "icon": "users",
+        "text": "2 Guests"
+      },
+      {
+        "icon": "ruler",
+        "text": "35 Feet Size"
+      },
+      {
+        "icon": "link",
+        "text": "Connecting Rooms"
+      },
+      {
+        "icon": "bed-double",
+        "text": "1 King Bed"
+      }
     ],
     "amenities": [
-      
-        { "text": "Free Wifi", "icon": "wifi" },
-        { "text": "Shower", "icon": "shower-head" },
-        { "text": "Airport Transport", "icon": "plane" }
-      ,
-      
-        { "text": "Balcony", "icon": "panel-top-open" },
-        { "text": "Refrigerator", "icon": "fridge" },
-        { "text": "24/7 Support", "icon": "headphones" }
-      ,
-      
-        { "text": "Work Desk", "icon": "laptop" },
-        { "text": "Fitness Center", "icon": "dumbbell" },
-        { "text": "Swimming Pool", "icon": "swimming" }
-      
+      {
+        "text": "Free Wifi",
+        "icon": "wifi"
+      },
+      {
+        "text": "Shower",
+        "icon": "shower-head"
+      },
+      {
+        "text": "Airport Transport",
+        "icon": "plane"
+      },
+      {
+        "text": "Balcony",
+        "icon": "panel-top-open"
+      },
+      {
+        "text": "Refrigerator",
+        "icon": "fridge"
+      },
+      {
+        "text": "24/7 Support",
+        "icon": "headphones"
+      },
+      {
+        "text": "Work Desk",
+        "icon": "laptop"
+      },
+      {
+        "text": "Fitness Center",
+        "icon": "dumbbell"
+      },
+      {
+        "text": "Swimming Pool",
+        "icon": "swimming"
+      }
     ]
   },
   {
     "id": "rm002",
     "name": "Premium Deluxe Room",
     "categoryId": "cat002",
-    "location": "Mahim East, Mumbai",
+    "location": "Mahim East, Mumbai 12",
     "price": 3400,
     "room_capacity": {
-      "adults": 3,
+      "adults": "3",
       "children": 1,
       "available_rooms": 10,
       "bed": 2,
@@ -74,12 +107,12 @@
       "maxExtraBed": 1,
       "extraAdultCharges": 1200,
       "extraChildCharges": 600,
-      "extraBedCharge": 200
+      "extraBedCharge": "200"
     },
     "addonServicesCharges": {
       "petFriendly": 250,
-      "steamRoom": 400,
-      "laundry": 100
+      "steamRoom": "400",
+      "laundry": "100"
     },
     "bannerImg": "http://localhost:8000/media/rooms-images/Premium Deluxe Room.jpg",
     "images": [
@@ -89,32 +122,46 @@
       "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-4.jpg"
     ],
     "info": "Ocean View Room",
-    "description": [
-      "Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.",
-      "Enjoy fresh seafood and sunset cocktails at our beachfront grill."
-    ],
+    "description": "NEW Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.,Enjoy fresh seafood and sunset cocktails at our beachfront grill.",
     "features": [
-      { "icon": "users", "text": "3 Guests" },
-      { "icon": "ruler", "text": "40 Feet Size" },
-      { "icon": "link", "text": "Connecting Rooms" },
-      { "icon": "bed-double", "text": "2 Twin Beds" }
+      {
+        "icon": "users",
+        "text": "3 Guests"
+      },
+      {
+        "icon": "ruler",
+        "text": "40 Feet Size"
+      },
+      {
+        "icon": "link",
+        "text": "Connecting Rooms"
+      },
+      {
+        "icon": "bed-double",
+        "text": "2 Twin Beds"
+      }
     ],
     "amenities": [
-      
-        { "text": "Free Wifi", "icon": "wifi" },
-        { "text": "Balcony", "icon": "panel-top-open" },
-        { "text": "Refrigerator", "icon": "fridge" }
-      ,
-      
-        { "text": "Work Desk", "icon": "laptop" },
-        { "text": "Shower", "icon": "shower-head" },
-        { "text": "Fitness Center", "icon": "dumbbell" }
-      ,
-      
-        { "text": "24/7 Support", "icon": "headphones" },
-        { "text": "Swimming Pool", "icon": "swimming" },
-        { "text": "Airport Transport", "icon": "plane" }
-      
+      {
+        "text": "Free Wifi",
+        "icon": "wifi"
+      },
+      {
+        "text": "Refrigerator",
+        "icon": "fridge"
+      },
+      {
+        "text": "Shower",
+        "icon": "shower-head"
+      },
+      {
+        "text": "Parking",
+        "icon": "parking"
+      },
+      {
+        "text": "Child Friendly",
+        "icon": "kids"
+      }
     ]
   },
   {
@@ -148,27 +195,62 @@
       "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-4.jpg"
     ],
     "info": "Mountain View Room",
-    "description": [
-      "Surround yourself with the peace of the mountains in our Twin Room Suite. Ideal for family or friends, this suite offers dual bedding, panoramic views of the Sahyadris, and a calm, airy design to match the serene outdoors.",
-      "The perfect hideaway for nature lovers."
-    ],
+    "description": "Surround yourself with the peace of the mountains in our Twin Room Suite. Ideal for family or friends, this suite offers dual bedding, panoramic views of the Sahyadris, and a calm, airy design to match the serene outdoors. The perfect hideaway for nature lovers.",
     "features": [
-      { "icon": "users", "text": "2 Guests" },
-      { "icon": "ruler", "text": "38 Feet Size" },
-      { "icon": "link", "text": "Connecting Rooms" },
-      { "icon": "bed-double", "text": "2 Twin Beds" }
+      {
+        "icon": "users",
+        "text": "2 Guests"
+      },
+      {
+        "icon": "ruler",
+        "text": "38 Feet Size"
+      },
+      {
+        "icon": "link",
+        "text": "Connecting Rooms"
+      },
+      {
+        "icon": "bed-double",
+        "text": "2 Twin Beds"
+      }
     ],
     "amenities": [
-    
-        { "text": "Free Wifi", "icon": "wifi" },
-        { "text": "Balcony", "icon": "panel-top-open" },
-        { "text": "24/7 Support", "icon": "headphones" },
-        { "text": "Work Desk", "icon": "laptop" },
-        { "text": "Refrigerator", "icon": "fridge" },
-        { "text": "Shower", "icon": "shower-head" },
-        { "text": "Fitness Center", "icon": "dumbbell" },
-        { "text": "Swimming Pool", "icon": "swimming" },
-        { "text": "Airport Transport", "icon": "plane" }
+      {
+        "text": "Free Wifi",
+        "icon": "wifi"
+      },
+      {
+        "text": "Balcony",
+        "icon": "panel-top-open"
+      },
+      {
+        "text": "24/7 Support",
+        "icon": "headphones"
+      },
+      {
+        "text": "Work Desk",
+        "icon": "laptop"
+      },
+      {
+        "text": "Refrigerator",
+        "icon": "fridge"
+      },
+      {
+        "text": "Shower",
+        "icon": "shower-head"
+      },
+      {
+        "text": "Fitness Center",
+        "icon": "dumbbell"
+      },
+      {
+        "text": "Swimming Pool",
+        "icon": "swimming"
+      },
+      {
+        "text": "Airport Transport",
+        "icon": "plane"
+      }
     ]
   },
   {
@@ -202,26 +284,62 @@
       "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-4.jpg"
     ],
     "info": "Lake View Room",
-    "description": [
-      "Enjoy refined comfort in our Executive Suites overlooking tranquil lakescapes. With premium amenities, a private workspace, and elegant modern décor, this suite is perfect for both business and leisure travelers.",
-      "Dining options include curated chef’s menus with lakeside seating."
-    ],
+    "description": "Enjoy refined comfort in our Executive Suites overlooking tranquil lakescapes. With premium amenities, a private workspace, and elegant modern décor, this suite is perfect for both business and leisure travelers.Dining options include curated chef’s menus with lakeside seating.",
     "features": [
-      { "icon": "users", "text": "2 Guests" },
-      { "icon": "ruler", "text": "42 Feet Size" },
-      { "icon": "link", "text": "Connecting Rooms" },
-      { "icon": "bed-double", "text": "1 King Bed" }
+      {
+        "icon": "users",
+        "text": "2 Guests"
+      },
+      {
+        "icon": "ruler",
+        "text": "42 Feet Size"
+      },
+      {
+        "icon": "link",
+        "text": "Connecting Rooms"
+      },
+      {
+        "icon": "bed-double",
+        "text": "1 King Bed"
+      }
     ],
     "amenities": [
-      { "text": "Free Wifi", "icon": "wifi" },
-      { "text": "Work Desk", "icon": "laptop" },
-      { "text": "Shower", "icon": "shower-head" },
-      { "text": "Balcony", "icon": "panel-top-open" },
-      { "text": "Fitness Center", "icon": "dumbbell" },
-      { "text": "Swimming Pool", "icon": "swimming" },
-      { "text": "24/7 Support", "icon": "headphones" },
-      { "text": "Refrigerator", "icon": "fridge" },
-      { "text": "Airport Transport", "icon": "plane" }
+      {
+        "text": "Free Wifi",
+        "icon": "wifi"
+      },
+      {
+        "text": "Work Desk",
+        "icon": "laptop"
+      },
+      {
+        "text": "Shower",
+        "icon": "shower-head"
+      },
+      {
+        "text": "Balcony",
+        "icon": "panel-top-open"
+      },
+      {
+        "text": "Fitness Center",
+        "icon": "dumbbell"
+      },
+      {
+        "text": "Swimming Pool",
+        "icon": "swimming"
+      },
+      {
+        "text": "24/7 Support",
+        "icon": "headphones"
+      },
+      {
+        "text": "Refrigerator",
+        "icon": "fridge"
+      },
+      {
+        "text": "Airport Transport",
+        "icon": "plane"
+      }
     ]
   }
 ]

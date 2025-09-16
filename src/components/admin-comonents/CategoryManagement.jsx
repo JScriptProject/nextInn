@@ -5,6 +5,7 @@ import RoomsCategoryInfo from "./RoomsCategoryInfo.jsx";
 
 function CategoryManagement({ setErrors, errors }) {
   const [rooms, setRooms] = useState([]);
+  const [roomCopy, setRoomCopy] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(
     "Premium Deluxe Room"
   );
@@ -13,6 +14,7 @@ function CategoryManagement({ setErrors, errors }) {
     (async () => {
       try {
         const roomsData = await getRoomsData();
+        setRoomCopy(roomsData);
         setRooms(roomsData);
       } catch (error) {
         console.error("failed to fetch rooms:", error);
@@ -21,6 +23,8 @@ function CategoryManagement({ setErrors, errors }) {
       }
     })();
   }, []);
+
+  console.log(rooms);
   return (
     <div>
       <h3 className="page-internal-title">Rooms Category management</h3>
@@ -36,6 +40,8 @@ function CategoryManagement({ setErrors, errors }) {
           <RoomsCategoryInfo
             roomsObj={rooms.find((room) => room.name === selectedCategory)}
             setRooms={setRooms}
+            rooms={rooms}
+            roomCopy={roomCopy}
           />
         </div>
       ) : localErrors === null ? (

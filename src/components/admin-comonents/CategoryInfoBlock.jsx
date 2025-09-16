@@ -19,7 +19,9 @@ function CategoryInfoBlock({ setIsEditing, isEditing, roomsObj,setRooms  }) {
   function onClickEdit(){
     setIsInfoEditing(prev=> !prev);   
     if(isInfoEditing){
+      console.log("Updated Rooms:", updatedRooms);
        const newRoomsData = {...roomsObj, ...updatedRooms};
+       console.log(newRoomsData);
       setRooms((prev)=> prev.map((room)=> room.id === roomsObj.id ? newRoomsData : room));
       setUpdatedRooms({});
     } 
@@ -43,12 +45,14 @@ function CategoryInfoBlock({ setIsEditing, isEditing, roomsObj,setRooms  }) {
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Room Name"
+          valueLable = "name"
           value={roomsObj.name}
           isEditing={isInfoEditing}
           setUpdatedRooms={setUpdatedRooms}
         />
         <InfoContentBlock
           title="Location"
+          valueLable = "location"
           value={roomsObj.location}
           isEditing={isInfoEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -57,6 +61,7 @@ function CategoryInfoBlock({ setIsEditing, isEditing, roomsObj,setRooms  }) {
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Price"
+          valueLable = "price"
           value={roomsObj.price}
           isEditing={isInfoEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -64,6 +69,7 @@ function CategoryInfoBlock({ setIsEditing, isEditing, roomsObj,setRooms  }) {
         />
         <InfoContentBlock
           title="Info"
+          valueLable = "info"
           value={roomsObj.info}
           isEditing={isInfoEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -72,6 +78,7 @@ function CategoryInfoBlock({ setIsEditing, isEditing, roomsObj,setRooms  }) {
       <div className="info-content-row grid1-full">
         <InfoContentBlock
           title="Description"
+          valueLable = "description"
           value={roomsObj.description}
           extraClass="info-content-block-aligned-top"
           isEditing={isInfoEditing}

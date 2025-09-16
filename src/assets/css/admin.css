@@ -251,10 +251,16 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]:checked::after {
   content: "✔";
   color:var(--accent-cta-sunset-orange);
-  font-size: 18px;
+  font-size: 17px;
   position: absolute;
   top: -2px;
   left: 3px;
+}
+
+/* disabled checkbox */
+input[type="checkbox"]:disabled {
+  background-color: gray;
+  border-color: gray;
 }
 
 .category-add-amenities-btn {
@@ -262,4 +268,30 @@ input[type="checkbox"]:checked::after {
 }
 .category-add-amenities-btn-edit {
   @apply bg-[var(--background-offWhite-linen)] text-[var(--accent-cta-sunset-orange)] hover:font-bold hover:bg-[var(--background-offWhite-linen)] hover:text-[(--accent-cta-sunset-orange)];
+}
+
+.new-amenities-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(180px, 1fr));
+  @apply bg-[var(--background-offWhite-linen)] my-[1rem] p-[1rem] gap-[1rem] rounded-md;
+}
+
+.new-amenities-list input[type="checkbox"]{
+  background-color: var(--accent-cta-sunset-orange);
+}
+
+.new-amenities-list input[type="checkbox"]:checked::after {
+  color:var(--background-offWhite-linen);
+  font-size: 16px;
+}
+
+.new-amenities-list-item{
+  @apply flex flex-row items-start justify-start gap-[0.3rem];
+}
+.new-amenities-list-item .all-amenities-icon{
+  @apply text-[var(--primary-deep-teal)] ;
+}
+
+.new-amenities-list .all-amenities-text{
+  @apply text-[var(--text-primary-dark-Charcoal)] ;
 }

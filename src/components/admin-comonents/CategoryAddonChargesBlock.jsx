@@ -22,10 +22,12 @@ function CategoryAddonChargesBlock({
     }
   }, [isAddonChargeEditing]);
 
-  function onClickEdit() {
+  function onClickEdit(e) {
+    e.preventDefault();
     setIsAddonChargeEditing((prev) => !prev);
     if (isAddonChargeEditing) {
-      const newRoomsData = { ...roomsObj, ...updatedRooms };
+      const objAddonCharge = roomsObj.addonServicesCharges;
+      const newRoomsData = { ...roomsObj, addonServicesCharges:{...objAddonCharge, ...updatedRooms} };
       setRooms((prev) =>
         prev.map((room) => (room.id === roomsObj.id ? newRoomsData : room))
       );
@@ -36,8 +38,8 @@ function CategoryAddonChargesBlock({
   return (
     <div className="info-block">
       <div className="room-block-header">
-        <h3 className="info-block-title">Room Info</h3>
-        <button
+        <h3 className="info-block-title">Room Addon Charges</h3>
+        <button type="button"
           className={
             isAddonChargeEditing
               ? "info-block-btn info-block-btn-edit"
@@ -54,6 +56,7 @@ function CategoryAddonChargesBlock({
           [...serviceChargeData].map(([service_name, service_charges]) => (
             <InfoContentBlock
               title={service_name}
+              valueLable = {service_name}
               value={service_charges}
               isEditing={isAddonChargeEditing}
               setUpdatedRooms={setUpdatedRooms}

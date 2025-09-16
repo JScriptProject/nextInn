@@ -24,7 +24,8 @@ function CategoryCapacityBlock({
     function onClickEdit(){
       setCapacityEditing(prev=> !prev);   
       if(isCapacityEditing){
-         const newRoomsData = {...roomsObj, ...updatedRooms};
+        const roomCapacityData = roomsObj.room_capacity
+         const newRoomsData = {...roomsObj, room_capacity:{...roomCapacityData,...updatedRooms}};
         setRooms((prev)=> prev.map((room)=> room.id === roomsObj.id ? newRoomsData : room));
         setUpdatedRooms({});
       } 
@@ -33,7 +34,7 @@ function CategoryCapacityBlock({
   return (
     <div className="info-block">
       <div className="room-block-header">
-        <h3 className="info-block-title">Room Info</h3>
+        <h3 className="info-block-title">Room Capacity Info</h3>
         <button
           className={
             isCapacityEditing ? "info-block-btn info-block-btn-edit" : "info-block-btn"
@@ -47,12 +48,14 @@ function CategoryCapacityBlock({
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Adults"
+          valueLable = "adults"
           value={roomsObj.room_capacity.adults}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
         />
         <InfoContentBlock
           title="Children"
+          valueLable = "children"
           value={roomsObj.room_capacity.children}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -61,6 +64,7 @@ function CategoryCapacityBlock({
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Available Rooms"
+          valueLable = "available_rooms"
           value={roomsObj.room_capacity.available_rooms}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -68,6 +72,7 @@ function CategoryCapacityBlock({
         />
         <InfoContentBlock
           title="Bed each Room"
+          valueLable = "bed"
           value={roomsObj.room_capacity.bed}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -77,6 +82,7 @@ function CategoryCapacityBlock({
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Max Extra Adults"
+          valueLable = "maxExtraAdults"
           value={roomsObj.room_capacity.maxExtraAdults}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -84,6 +90,7 @@ function CategoryCapacityBlock({
         />
         <InfoContentBlock
           title="Extra Adult Charge"
+          valueLable = "extraAdultCharges"
           value={roomsObj.room_capacity.extraAdultCharges}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -93,6 +100,7 @@ function CategoryCapacityBlock({
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Max Extra Children"
+          valueLable = "maxExtraChildren"
           value={roomsObj.room_capacity.maxExtraChildren}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -100,6 +108,7 @@ function CategoryCapacityBlock({
         />
         <InfoContentBlock
           title="Extra Children Charge"
+          valueLable = "extraChildCharges"
           value={roomsObj.room_capacity.extraChildCharges}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -109,6 +118,7 @@ function CategoryCapacityBlock({
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Max Extra Bed"
+          valueLable = "maxExtraBed"
           value={roomsObj.room_capacity.maxExtraBed}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -117,6 +127,7 @@ function CategoryCapacityBlock({
 
         <InfoContentBlock
           title="Extra Bed Charge"
+          valueLable = "extraBedCharge"
           value={roomsObj.room_capacity.extraBedCharge}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}

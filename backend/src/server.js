@@ -8,6 +8,10 @@ const app = express();
 
 const PORT = process.env.PORT || 8000;
 
+//parse JSON
+app.use(express.json());
+
+
 //handle cors
 app.use(cors(
     {origin: 'http://localhost:5173',
@@ -19,21 +23,12 @@ app.use(cors(
 //routers
 app.use('/api', roomsRouter);
 
-
 // create static files for images 
 
 const filePath = path.dirname(fileURLToPath(import.meta.url));
 console.log(filePath);
 const mediaPath = path.join(filePath,"assets","media");
 app.use("/media", express.static(mediaPath))
-
-
-// GET /api/rooms
-
-app.get('/api/rooms',(req, res)=>{
-    res.status(200).json(rooms);
-})
-
 
 app.listen(PORT, ()=>{
     console.log(`NextInn backend Server started on Port ${PORT}`);

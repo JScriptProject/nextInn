@@ -9,3 +9,15 @@ export const getRoomsData = async()=>{
         throw error;
     }
 }
+
+export const saveToRoom = async(newData)=>{
+    try {
+          const res = await axios.post('http://localhost:8000/api/rooms',{
+            rooms:newData,
+          });
+        return res.data;
+    } catch (error) {
+        console.error("Error saving to rooms:", error);
+        throw error;
+    }
+}

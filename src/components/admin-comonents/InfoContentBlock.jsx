@@ -1,11 +1,12 @@
 import React,{useEffect, useState} from "react";
 
-function InfoContentBlock({title, value, extraClass,isEditing, setUpdatedRooms,inputType, inputMode}) {
+function InfoContentBlock({title,valueLable, value, extraClass,isEditing, setUpdatedRooms,inputType, inputMode}) {
     const [inputValue, setInputValue] = useState(value);
     
     const handleInputChange = (e) =>{
+      e.preventDefault();
         setInputValue(e.target.value);
-        setUpdatedRooms((prev)=>({...prev, [title]: e.target.value}));
+        setUpdatedRooms((prev)=>({...prev, [valueLable]: e.target.value}));
     }
     
     //whenevr props value change after selecting diff category, its not automatically assigning hence useEffect.

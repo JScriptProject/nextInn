@@ -8,9 +8,8 @@ function InfoChecklistBlock({
   setRemovedItems,
   removedItems,
   addedItems,
-  iconMap
+  iconMap,
 }) {
- 
   const Icon = iconMap[icon];
 
   const handleCheckboxChange = (e, text) => {
@@ -21,24 +20,25 @@ function InfoChecklistBlock({
       if (removedItems.length > 0) {
         setRemovedItems((prev) => prev.filter((item) => item !== text));
       }
-    }
-    else{
-      setRemovedItems((prev)=>[...prev, text]);
-      if(addedItems.length >0){
-        setAddedItems((prev)=> prev.filter((item)=> item !== text));
+    } else {
+      setRemovedItems((prev) => [...prev, text]);
+      if (addedItems.length > 0) {
+        setAddedItems((prev) => prev.filter((item) => item !== text));
       }
     }
   };
-  
+
   return (
     <div className="info-checklist-block">
       <input
         type="checkbox"
+        id={`checkbox-${text}`}
+        checked={addedItems.includes(text)}
         disabled={!isEditing}
         onChange={(e) => handleCheckboxChange(e, text)}
       />
-      <label htmlFor="checkbox">
-       <Icon className="checkedLit-icon" />{" "}
+      <label htmlFor={`checkbox-${text}`}>
+        <Icon className="checkedLit-icon" />{" "}
         <span className="checkedList-text">{text}</span>
       </label>
     </div>
