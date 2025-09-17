@@ -4,7 +4,8 @@ import path from 'path';
 import { fileURLToPath } from "url";
 import {connectDB} from './db/index.js';
 import coresMiddleware from './midlewares/cors.middleware.js';
-import loggerMiddleware from './midlewares/logger.midleware.js';    
+import loggerMiddleware from './midlewares/logger.midleware.js'; 
+import { errorhandler } from './midlewares/errorsHandler.middleware.js';
 
 import roomsRouter from './routers/roomsRouter.js';
 
@@ -16,11 +17,12 @@ app.use(express.json());
 //handle cors
 app.use(coresMiddleware);
 
+//logger middleware
+app.use(loggerMiddleware);
+
 //routers
 app.use('/api', roomsRouter);
 
-//logger middleware
-app.use(loggerMiddleware);
 // create static files for images 
 
 const filePath = path.dirname(fileURLToPath(import.meta.url));
@@ -38,6 +40,7 @@ connectDB()
 })
 })
 
+app.use(errorhandler);
 
 
 // app.listen(PORT, ()=>{
