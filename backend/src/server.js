@@ -1,9 +1,10 @@
 import express from 'express';
 import app from './app.js';
-import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from "url";
 import {connectDB} from './db/index.js';
+import coresMiddleware from './midlewares/cors.middleware.js';
+import loggerMiddleware from './midlewares/logger.midleware.js';    
 
 import roomsRouter from './routers/roomsRouter.js';
 
@@ -12,18 +13,14 @@ const PORT = process.env.PORT || 8000;
 //parse JSON
 app.use(express.json());
 
-
 //handle cors
-app.use(cors(
-    {origin: 'http://localhost:5173',
-        methods:["GET"],
-        credentials: true
-    }
-))
+app.use(coresMiddleware);
 
 //routers
 app.use('/api', roomsRouter);
 
+//logger middleware
+app.use(loggerMiddleware);
 // create static files for images 
 
 const filePath = path.dirname(fileURLToPath(import.meta.url));
