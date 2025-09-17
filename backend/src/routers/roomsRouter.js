@@ -1,6 +1,6 @@
 import express from 'express';
-import { roomController } from '../controllers/roomController.js';
-import { roomControllerPost } from '../controllers/roomControllerPost.js'
+import { roomController } from '../controllers/room.controller.js';
+import { roomControllerPost } from '../controllers/roomPost.controller.js'
 const router = express.Router();
 
 router.get("/rooms", roomController);
