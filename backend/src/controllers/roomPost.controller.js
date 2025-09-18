@@ -9,7 +9,7 @@ export const roomControllerPost = asyncHandler(async (req, res, next) => {
     const filePath = path.join(srcPath, "data", "rooms.json");
     const { rooms } = req.body;
     if (!rooms) {
-      return res.status(404).json({ message: "Data not recieved" });
+      return res.status(404).json({ message: "Data not recieved!!" });
     }
     fs.writeFile(filePath, JSON.stringify(rooms, null, 2));
     res.status(200).json({ message: "Data Saved succesfuly", rooms });
