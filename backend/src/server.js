@@ -15,6 +15,8 @@ const PORT = process.env.PORT || 8000;
 //parse JSON
 app.use(express.json());
 
+app.use(express.text({ type: "*/*" }));
+
 //handle cors
 app.use(coresMiddleware);
 

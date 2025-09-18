@@ -97,6 +97,16 @@ const roomCategorySchema = new mongoose.Schema(
         required: true,
       },
     },
+    banner_img: {
+      type: String,
+      required: true,
+    },
+    room_images: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     features: [
       {
         icon: {
