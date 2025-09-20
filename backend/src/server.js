@@ -1,4 +1,5 @@
 import express from "express";
+import bodyparser from "body-parser";
 import app from "./app.js";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -13,9 +14,9 @@ dotenv.config();
 const PORT = process.env.PORT || 8000;
 
 //parse JSON
-app.use(express.json());
+app.use(bodyparser.json({limit:"100mb"}));
 
-app.use(express.text({ type: "*/*" }));
+app.use(bodyparser.urlencoded({limit:"100mb", extended: true }));
 
 //handle cors
 app.use(coresMiddleware);
@@ -44,6 +45,3 @@ connectDB().then(() => {
 
 app.use(errorhandler);
 
-// app.listen(PORT, ()=>{
-//     console.log(`NextInn backend Server started on Port ${PORT}`);
-// })

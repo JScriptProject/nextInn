@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE abiword PUBLIC "-//ABISOURCE//DTD AWML 1.0 Strict//EN" "http://www.abisource.com/awml.dtd">
+<abiword template="false" xmlns:ct="http://www.abisource.com/changetracking.dtd" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:math="http://www.w3.org/1998/Math/MathML" xid-max="338" xmlns:dc="http://purl.org/dc/elements/1.1/" styles="unlocked" fileformat="1.0" xmlns:svg="http://www.w3.org/2000/svg" xmlns:awml="http://www.abisource.com/awml.dtd" xmlns="http://www.abisource.com/awml.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" version="0.99.2" xml:space="preserve" props="dom-dir:ltr; document-footnote-restart-section:0; document-endnote-type:numeric; document-endnote-place-enddoc:1; document-endnote-initial:1; lang:en-US; document-endnote-restart-section:0; document-footnote-restart-page:0; document-footnote-type:numeric; document-footnote-initial:1; document-endnote-place-endsection:0">
+<!-- ======================================================================== -->
+<!-- This file is an AbiWord document.                                        -->
+<!-- AbiWord is a free, Open Source word processor.                           -->
+<!-- More information about AbiWord is available at http://www.abisource.com/ -->
+<!-- You should not edit this file by hand.                                   -->
+<!-- ======================================================================== -->
+
+<metadata>
+<m key="abiword.generator">AbiWord</m>
+<m key="dc.creator">PC</m>
+<m key="dc.format">application/x-abiword</m>
+</metadata>
+<rdf>
+</rdf>
+<history version="44" edit-time="29742" last-saved="1756202455" uid="3390d35e-80dd-11f0-974f-c427c5a8260b">
+<version id="11" started="1756034892" uid="05880acc-80fb-11f0-974f-c427c5a8260b" auto="0" top-xid="2"/>
+<version id="27" started="1756081991" uid="515d4218-8156-11f0-8ea4-ec180c7cd5b3" auto="0" top-xid="80"/>
+<version id="30" started="1756120640" uid="701117d0-81aa-11f0-8097-b18b0d68b7c6" auto="0" top-xid="202"/>
+<version id="42" started="1756172427" uid="925d1df4-8225-11f0-9287-b8003eec9efa" auto="0" top-xid="213"/>
+<version id="44" started="1756202436" uid="8eb7aef6-8263-11f0-97b4-a433a9597fe2" auto="0" top-xid="338"/>
+</history>
+<styles>
+<s type="P" name="Heading 1" basedon="Normal" followedby="Normal" props="keep-with-next:1; margin-top:22pt; font-weight:bold; margin-bottom:3pt; font-family:Arial; font-size:17pt"/>
+<s type="P" name="Normal" followedby="Current Settings" props="font-family:Times New Roman; margin-top:0pt; font-style:normal; margin-left:0pt; bgcolor:transparent; widows:2; text-align:left; text-indent:0in; text-position:normal; margin-bottom:0pt; font-weight:normal; margin-right:0pt; font-size:12pt; font-variant:normal; text-decoration:none; line-height:1.0; color:000000; font-stretch:normal"/>
+<s type="P" name="Heading 2" basedon="Normal" followedby="Normal" props="font-size:14pt; margin-top:22pt; font-weight:bold; margin-bottom:3pt; font-family:Arial; keep-with-next:1"/>
+</styles>
+<pagesize pagetype="Letter" orientation="portrait" width="8.500000" height="11.000000" units="in" page-scale="1.000000"/>
+<section xid="1" props="page-margin-footer:0.5in; page-margin-header:0.5in">
+<p style="Heading 1" xid="2">Complete Backend - Hitesh Bhai <c></c></p>
+<p style="Normal" xid="3"><c></c><c></c></p>
+<p style="Normal" xid="4"><c></c><c></c></p>
+<p style="Normal" xid="5">file structure fir backend <c></c></p>
+<p style="Normal" xid="6">- package.json<c></c></p>
+<p style="Normal" xid="10">- .env<c></c></p>
+<p style="Normal" xid="11">- redme, git, etc<c></c></p>
+<p style="Normal" xid="7">-src <c></c></p>
+<p style="Normal" xid="8">    - index (DB connects)<c></c></p>
+<p style="Normal" xid="12">    - App  (config, cookies)<c></c></p>
+<p style="Normal" xid="13">    - constant  (enums, db-name)<c></c></p>
+<p style="Normal" xid="15">- DB (database initialization code)<c></c></p>
+<p style="Normal" xid="16">- Models (create structure of schema for database to store data in structure)<c></c></p>
+<p style="Normal" xid="17">- Controllers (all functionality written in this folder)<c></c></p>
+<p style="Normal" xid="18">- Routes (page routing related data)<c></c></p>
+<p style="Normal" xid="19">- middlewares ()<c></c></p>
+<p style="Normal" xid="20">- utils (some utility function, like mail sending, file upload etc. these functions whould be used across the app and repeated)<c></c></p>
+<p style="Normal" xid="21">- More (depends)<c></c></p>
+<p style="Normal" xid="22"><c></c><c></c></p>
+<p style="Normal" xid="23"><c></c><c></c></p>
+<p style="Heading 1" xid="24">Start the project<c></c></p>
+<p style="Normal" xid="25"><c></c><c></c></p>
+<p style="Normal" xid="27">1. check node js and npm <c></c></p>
+<p style="Normal" xid="28">node -v<c></c></p>
+<p style="Normal" xid="29">npm -v<c></c></p>
+<p style="Normal" xid="30"><c></c><c></c></p>
+<p style="Normal" xid="31">2. create package.json<c></c></p>
+<p style="Normal" xid="32">npm init<c></c></p>
+<p style="Normal" xid="33"><c></c><c></c></p>
+<p style="Normal" xid="34">3. install express <c></c></p>
+<p style="Normal" xid="35">npm install express<c></c></p>
+<p style="Normal" xid="36"><c></c><c></c></p>
+<p style="Normal" xid="37">4. create a server<c></c></p>
+<p style="Normal" xid="38"><c></c><c></c></p>
+<p style="Normal" xid="39">****************************<c></c></p>
+<p style="Normal" xid="44" props="text-align:left; dom-dir:ltr">const express = require('express');<c></c></p>
+<p style="Normal" xid="45" props="text-align:left; dom-dir:ltr">require('dotenv').config();<c></c></p>
+<p style="Normal" xid="46" props="text-align:left; dom-dir:ltr">const app = express();<c></c></p>
+<p style="Normal" xid="47" props="text-align:left; dom-dir:ltr">const port = process.env.PORT || 5000;<c></c></p>
+<p style="Normal" xid="48" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="49" props="text-align:left; dom-dir:ltr">app.get('/', (req, res)=&gt;{<c></c></p>
+<p style="Normal" xid="50" props="text-align:left; dom-dir:ltr">    res.send("hello world");<c></c></p>
+<p style="Normal" xid="51" props="text-align:left; dom-dir:ltr">})<c></c></p>
+<p style="Normal" xid="52" props="text-align:left; dom-dir:ltr">app.get('/main', (req, res)=&gt;{<c></c></p>
+<p style="Normal" xid="53" props="text-align:left; dom-dir:ltr">    res.send("&lt;h1&gt;Main page of the backend&lt;/h1&gt;");<c></c></p>
+<p style="Normal" xid="54" props="text-align:left; dom-dir:ltr">})<c></c></p>
+<p style="Normal" xid="55" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="56" props="text-align:left; dom-dir:ltr">app.listen(port, ()=&gt;{<c></c></p>
+<p style="Normal" xid="57" props="text-align:left; dom-dir:ltr">    console.log(`Server at started on port number ${port}`);<c></c></p>
+<p style="Normal" xid="58" props="text-align:left; dom-dir:ltr">    <c></c></p>
+<p style="Normal" xid="59" props="text-align:left; dom-dir:ltr">})<c></c></p>
+<p style="Normal" xid="60" props="text-align:left; dom-dir:ltr">*****************************************<c></c></p>
+<p style="Normal" xid="61" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="62" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="41">5. install .env<c></c></p>
+<p style="Normal" xid="42">npm instal dotenv<c></c></p>
+<p style="Normal" xid="63"><c></c><c></c></p>
+<p style="Normal" xid="64">6. Deploye the application <c></c></p>
+<p style="Normal" xid="65"><c></c><c></c></p>
+<p style="Normal" xid="66">- make a use of .gitignore<c></c></p>
+<p style="Normal" xid="67">- connect the git repository to server and create envournmental variabe to host backend<c></c></p>
+<p style="Normal" xid="68"><c></c><c></c></p>
+<p style="Normal" xid="69"><c></c><c></c></p>
+<p style="Normal" xid="70"><c></c><c></c></p>
+<p style="Normal" xid="71"><c></c><c></c></p>
+<p style="Normal" xid="72"><c></c><c></c></p>
+<p style="Normal" xid="73">**********************************************************************<c></c></p>
+<p style="Normal" xid="74"><c></c><c></c></p>
+<p style="Heading 1" xid="75">Connect backend with frontEnd<c></c></p>
+<p style="Normal" xid="76"><c></c><c></c></p>
+<p style="Normal" xid="77">1. create a seperate folder for front end</p>
+<p style="Normal" xid="78">2. install the vite</p>
+<p style="Normal" xid="79">3. install tha axious, npm install axious</p>
+<p style="Normal" xid="80"><c></c><c></c></p>
+<p style="Normal" xid="81"><c props="font-weight:bold">Benefit of using axious over fetch </c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="82"><c></c><c></c></p>
+<p style="Normal" xid="83"><c props="font-weight:bold">1. It autopatimcally parses the JSON, so you dont need to call .json like fetch.</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="85"><c></c><c></c></p>
+<p style="Normal" xid="86">//fetch</p>
+<p style="Normal" xid="87">fetch(‘/api/data’)</p>
+<p style="Normal" xid="88">.then(res=&gt; res.json())</p>
+<p style="Normal" xid="89">.then(data =&gt; console.log(data));</p>
+<p style="Normal" xid="90"><c></c><c></c></p>
+<p style="Normal" xid="91">//axious</p>
+<p style="Normal" xid="92"><c></c><c></c></p>
+<p style="Normal" xid="93">axious.get(“/api/data”)</p>
+<p style="Normal" xid="94">.then(res =&gt;console.log(res.data));</p>
+<p style="Normal" xid="95"><c></c><c></c></p>
+<p style="Normal" xid="96"><c props="font-weight:bold">2. Better error handling</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="133"><c props="font-weight:bold"></c><c></c></p>
+<p style="Normal" xid="97">  - Fetch only reject on network errors. HTTP erross (like 404 or 500) dont throw automatically.</p>
+<p style="Normal" xid="98">  - axious reject on both network errors and bad status code making error handling easier. </p>
+<p style="Normal" xid="99"><c></c><c></c></p>
+<p style="Normal" xid="100"><c props="font-weight:bold">3. Request and Response Interceptors</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="134"><c></c><c></c></p>
+<p style="Normal" xid="101">- axious allows you to add the middleware-like function before a request leaves and after response arrives. </p>
+<p style="Normal" xid="102">- Its good for the things like attaching auth tokens. </p>
+<p style="Normal" xid="103"><c></c><c></c></p>
+<p style="Normal" xid="104"><c props="font-weight:bold">4. Request cancellation</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="135"><c></c><c></c></p>
+<p style="Normal" xid="105">- Axious support request cancelation using the AbortController. </p>
+<p style="Normal" xid="128">-  Request cancellation will process at clients end, the request may have recived to server and server may send response as well. But request cancellation at clients end means, client no more process the response of that request or no more listen for the response. Its to manage memory leak. </p>
+<p style="Normal" xid="131">- If user left page then cancel the request, is an example . </p>
+<p style="Normal" xid="132"><c></c><c></c></p>
+<p style="Normal" xid="106"><c props="font-weight:bold">5. Automatic timeout</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="107"><c></c><c></c></p>
+<p style="Normal" xid="108">- axious lets you set timeout easily</p>
+<p style="Normal" xid="109"><c></c><c></c></p>
+<p style="Normal" xid="110">axious.get(‘/api/data’,{timeout:5000})</p>
+<p style="Normal" xid="136"><c></c><c></c></p>
+<p style="Normal" xid="111">- with fetch need extra logic with AbortController.</p>
+<p style="Normal" xid="112"><c></c><c></c></p>
+<p style="Normal" xid="113"><c props="font-weight:bold">6. Wide browser and Node.js support</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="137"><c props="font-weight:bold"></c><c></c></p>
+<p style="Normal" xid="115">- Axous works consistenly across environments.</p>
+<p style="Normal" xid="116">- fetch is not available natively in older browser and had limitted Node.js support until recently.</p>
+<p style="Normal" xid="117"><c></c><c></c></p>
+<p style="Normal" xid="118"><c props="font-weight:bold">7. Upload/ Download Progress</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="138"><c props="font-weight:bold"></c><c></c></p>
+<p style="Normal" xid="119">- Axious can track progress for file uplaod/download using onUploadProgress or onDownloadProgress. </p>
+<p style="Normal" xid="120"><c></c><c></c></p>
+<p style="Normal" xid="121">- with fetch, need the more complex streaming API’s.</p>
+<p style="Normal" xid="122"><c></c><c></c></p>
+<p style="Normal" xid="123"><c props="font-weight:bold">8. Convenience features</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="139"><c props="font-weight:bold"></c><c></c></p>
+<p style="Normal" xid="124">- Handles every string parameters easily with params.</p>
+<p style="Normal" xid="125">- Automatically serializes JSON request bodies.</p>
+<p style="Normal" xid="126">- Cleaner support for posting form data or files. </p>
+<p style="Normal" xid="127"><c></c><c></c></p>
+<p style="Normal" xid="140"><c></c><c></c></p>
+<p style="Heading 1" xid="141">URL Standalization and using proxy</p>
+<p style="Normal" xid="142"><c></c><c></c></p>
+<p style="Normal" xid="144">Whenever we initiate the fetch or axious requet we write the complete adddress of the server from where we are fetching api. </p>
+<p style="Normal" xid="145"><c></c><c></c></p>
+<p style="Normal" xid="146">example. </p>
+<p style="Normal" xid="147"><c></c><c></c></p>
+<p style="Normal" xid="148">fetch(“http://localhost:500/api/v1/jokes”)</p>
+<p style="Normal" xid="149"><c></c><c></c></p>
+<p style="Normal" xid="150">axious.get(<c props="font-family:Times New Roman; text-decoration:none; color:000000; font-size:12pt; text-position:normal; font-weight:normal; font-style:normal; lang:en-US">“http://localhost:500/api/v1/jokes”</c><c props="font-family:Times New Roman; text-decoration:none; color:000000; font-size:12pt; text-position:normal; font-weight:normal; font-style:normal; lang:en-US"></c>)</p>
+<p style="Normal" xid="151"><c></c><c></c></p>
+<p style="Normal" xid="152"><c props="font-weight:bold">Standarlize URL as below</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="153"><c></c><c></c></p>
+<p style="Normal" xid="154">fetch(“/api/v1/jokes”)</p>
+<p style="Normal" xid="155">axious.get(“api/v1/jokes”)</p>
+<p style="Normal" xid="156"><c></c><c></c></p>
+<p style="Normal" xid="157">use the proxy and mention the server address in proxy. </p>
+<p style="Normal" xid="158"><c></c><c></c></p>
+<p style="Normal" xid="159"><c props="font-weight:bold">for vite:</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="160"><c></c><c></c></p>
+<p style="Normal" xid="161">- open vite.config.js</p>
+<p style="Normal" xid="162"><c></c><c></c></p>
+<p style="Normal" xid="163">export default defineConfig({</p>
+<p style="Normal" xid="164">sever:{</p>
+<p style="Normal" xid="165">  proxy:{</p>
+<p style="Normal" xid="167"> ‘/api’:'http://localhost:3000‘</p>
+<p style="Normal" xid="168"><c></c>},</p>
+<p style="Normal" xid="166"><c></c>}})</p>
+<p style="Normal" xid="169"><c></c><c></c></p>
+<p style="Normal" xid="170"><c props="font-weight:bold">for create react app:</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="172"><c props="font-weight:bold"></c><c></c></p>
+<p style="Normal" xid="173"><c props="font-weight:bold">- </c><c props="font-weight:bold"></c><c props="font-weight:normal">open package.json</c></p>
+<p style="Normal" xid="174"><c props="font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="175" props="text-align:left; dom-dir:ltr"><c props="font-weight:normal">add below <br/></c><c props="font-weight:normal"></c> "proxy": "http://localhost:4000",</p>
+<p style="Normal" xid="176" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="177" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="178" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="179" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="180" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="181" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="182" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="183" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="184" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="185" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="186" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Heading 1" xid="187" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold">Data Modelling</c><c props="font-weight:bold"></c></p>
+<p style="Heading 1" xid="189"><c props="font-weight:bold">mongoose</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="190"><c props="font-weight:bold"></c><c></c></p>
+<p style="Normal" xid="191"><c props="font-weight:normal">create folder structure  like </c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="192"><c props="font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="193"><c props="font-weight:normal">- backend</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="196"><c props="font-weight:normal">   - models</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="197"><c props="font-weight:normal">     - todos</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="198"><c props="font-weight:normal">          - sub_todo.models.js</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="199"><c props="font-weight:normal">          - todo.models.js</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="200"><c props="font-weight:normal">          - user.models.js</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="201"><c props="font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="204"><c props="font-weight:normal">What is Mongoose</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="205"><c props="font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="206"><c props="font-weight:normal">- mongoose is an Object Data Modeling (ODM) library for MongoDB and node.js.</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="207"><c props="font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="209"><c props="font-weight:normal">Its a bridge between your node.js application and the MongoDB database.</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="210"><c props="font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="211"><c props="font-weight:normal">Create a data model</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="213"><c props="font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="214"><c props="font-weight:bold; font-style:italic">user.model.js</c><c props="font-weight:bold; font-style:italic"></c></p>
+<p style="Normal" xid="215"><c props="font-style:italic; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="216"><c props="font-style:normal; font-weight:normal">import mongoose from ‘mongoose’</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="217"><c props="font-style:normal; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="218"><c props="font-style:normal; font-weight:normal">const </c><c props="font-style:normal; font-weight:normal"></c><c props="font-weight:bold; font-style:normal">userSchema</c><c props="font-style:normal; font-weight:normal"> = new mongoose.Schema(</c></p>
+<p style="Normal" xid="238"><c props="font-style:normal; font-weight:normal"></c><c props="font-style:normal; font-weight:normal">{userId:{</c></p>
+<p style="Normal" xid="221"><c props="font-style:normal; font-weight:normal">type: String,</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="223"><c props="font-style:normal; font-weight:normal">required:true,</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="224"><c props="font-style:normal; font-weight:normal">lowercase:true,</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="225"><c props="font-style:normal; font-weight:normal">unique:true,</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="222"><c props="font-style:normal; font-weight:normal"></c><c props="font-style:normal; font-weight:normal">},</c></p>
+<p style="Normal" xid="226"><c props="font-style:normal; font-weight:normal">password:{</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="227"><c props="font-style:normal; font-weight:normal">type:String,</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="229"><c props="font-style:normal; font-weight:normal">required: true</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="228"><c props="font-style:normal; font-weight:normal">},</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="232"><c props="font-style:normal; font-weight:normal">email:{</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="233"><c props="font-style:normal; font-weight:normal">type:String,</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="234"><c props="font-style:normal; font-weight:normal">required: true,</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="235"><c props="font-style:normal; font-weight:normal">lowercase:true,</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="236"><c props="font-style:normal; font-weight:normal">unique:true</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="237"><c props="font-style:normal; font-weight:normal"></c><c props="font-style:normal; font-weight:normal">}},{timestamps:true});</c></p>
+<p style="Normal" xid="239"><c props="font-style:normal; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="278"><c props="font-style:normal; font-weight:normal">export const User = mongoose.model(“User”,</c><c props="font-style:normal; font-weight:normal"></c><c props="font-family:Times New Roman; text-decoration:none; color:000000; font-size:12pt; text-position:normal; font-weight:bold; font-style:normal; lang:en-US">userSchema</c><c props="font-style:normal; font-weight:normal"> )</c></p>
+<p style="Normal" xid="240"><c props="font-weight:bold; font-style:normal">We can also pass the support messages with the fields. <br/><br/>Below mentioned fields supports the custome message. </c><c props="font-weight:bold; font-style:normal"></c></p>
+<p style="Normal" xid="241"><c props="font-weight:bold; font-style:normal"></c><c></c></p>
+<p style="Normal" xid="242"><c props="font-weight:bold; font-style:normal"></c><c></c></p>
+<p style="Normal" xid="243" props="text-align:left; dom-dir:ltr">| Option                  | Supports custom message?     |<c></c></p>
+<p style="Normal" xid="256" props="text-align:left; dom-dir:ltr">| ----------------------- | ---------------------------- |<c></c></p>
+<p style="Normal" xid="257" props="text-align:left; dom-dir:ltr">| `<c></c><c props="font-weight:bold">required</c>`              | ✅ Yes                        |</p>
+<p style="Normal" xid="258" props="text-align:left; dom-dir:ltr">| `<c></c><c props="font-weight:bold">unique</c>`                | ⚠️ Yes (but works via index) |</p>
+<p style="Normal" xid="259" props="text-align:left; dom-dir:ltr">| `<c></c><c props="font-weight:bold">minlength</c>`/`<c props="font-weight:bold">maxlength</c>` | ✅ Yes                        |</p>
+<p style="Normal" xid="260" props="text-align:left; dom-dir:ltr">| `<c></c><c props="font-weight:bold">min</c>`/`<c props="font-weight:bold">max</c>`             | ✅ Yes                        |</p>
+<p style="Normal" xid="261" props="text-align:left; dom-dir:ltr">| `<c></c><c props="font-weight:bold">match</c>` (regex)         | ✅ Yes                        |</p>
+<p style="Normal" xid="262" props="text-align:left; dom-dir:ltr">| `lowercase`/`uppercase` | ❌ No (just transforms)       |<c></c></p>
+<p style="Normal" xid="263" props="text-align:left; dom-dir:ltr">| `trim`                  | ❌ No                         |<c></c></p>
+<p style="Normal" xid="264" props="text-align:left; dom-dir:ltr">| `default`               | ❌ No                         |<c></c></p>
+<p style="Normal" xid="265" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="266" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="267" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="268" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold">timestamps</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="269" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold"></c><c></c></p>
+<p style="Normal" xid="270" props="text-align:left; dom-dir:ltr"><c props="font-weight:normal">while defining the schema mongoose accept the one more object for timestamps where we can pass the value as </c><c props="font-weight:normal"></c><c props="font-weight:bold">{timestamps:true}</c></p>
+<p style="Normal" xid="271" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold"></c><c></c></p>
+<p style="Normal" xid="272" props="text-align:left; dom-dir:ltr"><c props="font-weight:normal">Mongoose will add two properties of type date in the schema</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="273" props="text-align:left; dom-dir:ltr"><c props="font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="274" props="text-align:left; dom-dir:ltr"><c props="font-weight:normal">1. createdAt - date shows when the document created</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="275" props="text-align:left; dom-dir:ltr"><c props="font-weight:normal">2. updatedAt - date shows when the docuemnt last updated</c><c props="font-weight:normal"></c></p>
+<p style="Normal" xid="276" props="text-align:left; dom-dir:ltr"><c props="font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="279" props="text-align:left; dom-dir:ltr"><c props="font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="280" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:italic">subTodo.model.js</c><c props="font-weight:bold; font-style:italic"></c></p>
+<p style="Normal" xid="281" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:italic"></c><c></c></p>
+<p style="Normal" xid="282" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">import mongoose from “mongoose”</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="283" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="284" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">const subTodoSchema = new mongoose.Schema({},{timestamps:true});</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="285" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="286" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">export const SubTodo =  mongoose.model(“SubTodo”, subTodoSchema);</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="287" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="288" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="289" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:italic">one more model called todos.model.js will be on top of both of the model and this model will shows the relationship with both other models (sub_todo.model.js &amp; use.model.js)</c><c props="font-weight:bold; font-style:italic"></c></p>
+<p style="Normal" xid="290" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:normal"></c><c></c></p>
+<p style="Normal" xid="294" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:normal"></c><c></c></p>
+<p style="Normal" xid="295" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:normal"></c><c></c></p>
+<p style="Normal" xid="296" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:normal"></c><c></c></p>
+<p style="Normal" xid="297" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:normal"></c><c></c></p>
+<p style="Heading 2" xid="291" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold">Reference (population) in mongoose</c><c props="font-weight:bold"></c></p>
+<p style="Normal" xid="298" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="299" props="text-align:left; dom-dir:ltr">While creating the todo.model.js we will provide the reference of the other two models.<c></c></p>
+<p style="Normal" xid="300" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="301" props="text-align:left; dom-dir:ltr"><c></c><c></c></p>
+<p style="Normal" xid="302" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:italic">todo.model.js</c><c props="font-weight:bold; font-style:italic"></c></p>
+<p style="Normal" xid="303" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:italic"></c><c></c></p>
+<p style="Normal" xid="304" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">import mongoose from ‘mongoose’;</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="305" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="306" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">const todoSchema = new mongoose.Schema({</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="311" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">  content:{</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="315" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">type:String,</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="316" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">required:true</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="317" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c props="font-style:normal; font-weight:normal">},</c></p>
+<p style="Normal" xid="318" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">complete:{</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="319" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">type:Boolean,</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="321" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">default:false</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="320" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c props="font-style:normal; font-weight:normal">},</c></p>
+<p style="Normal" xid="322" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">createdBy:{</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="324" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:normal">type:mongoose.Schema.Types.ObjectId,</c><c props="font-weight:bold; font-style:normal"></c></p>
+<p style="Normal" xid="326" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:normal">ref: “User”</c><c props="font-weight:bold; font-style:normal"></c></p>
+<p style="Normal" xid="323" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c props="font-style:normal; font-weight:normal">},</c></p>
+<p style="Normal" xid="328" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">subTodos:[</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="329" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">{</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="332" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c props="font-weight:bold; font-style:normal">type:mongoose.Schema.Types.ObjectId,</c></p>
+<p style="Normal" xid="331" props="text-align:left; dom-dir:ltr"><c props="font-weight:bold; font-style:normal">ref: "</c><c props="font-weight:bold; font-style:normal"></c><c props="font-family:Times New Roman; font-size:12pt; color:000000; text-decoration:none; text-position:normal; font-weight:bold; font-style:normal; lang:en-US">SubTodo</c><c props="font-weight:bold; font-style:normal">”</c></p>
+<p style="Normal" xid="333" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c props="font-style:normal; font-weight:normal">}]</c></p>
+<p style="Normal" xid="314" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="312" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="313" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c props="font-style:normal; font-weight:normal">},{timestamps: true});</c></p>
+<p style="Normal" xid="307" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="308" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">export const Todo = mongoose.model(“Todo”, todoSchema);</c><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="309" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c><c></c></p>
+<p style="Normal" xid="310" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="334" props="text-align:left; dom-dir:ltr"><c props="bgcolor:ff00ff; font-weight:bold; font-style:normal">Important</c></p>
+<p style="Normal" xid="335" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal"></c></p>
+<p style="Normal" xid="336" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">Never save the images in database instead</c></p>
+<p style="Normal" xid="337" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">- Save in one folder on same server with source code</c></p>
+<p style="Normal" xid="338" props="text-align:left; dom-dir:ltr"><c props="font-style:normal; font-weight:normal">- cloudnarry or aws bucket also the third party service to store images and it will share the API to store in our databse to use those images. </c></p>
+</section>
+</abiword>

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE abiword PUBLIC "-//ABISOURCE//DTD AWML 1.0 Strict//EN" "http://www.abisource.com/awml.dtd">
+<abiword template="false" xmlns="http://www.abisource.com/awml">
+  <metadata/>
+  <styles/>
+  <body>
+    <section>
+      <p><c>AbiWord</c></p>
+      <p><c>PC</c></p>
+      <p><c>application/x-abiword</c></p>
+      <p><c>.gitkeep</c></p>
+      <p><c>- create folder as below</c></p>
+      <p><c>- public</c></p>
+      <p><c>- temp</c></p>
+      <p><c>- .gitkeep</c></p>
+      <p><c>.gitignore</c></p>
+      <p><c>https://mrkandreev.name/snippets/gitignore-generator/</c></p>
+      <p><c>.env</c></p>
+      <p><c>src folder</c></p>
+      <p><c>create the below mentioed files below src</c></p>
+      <p><c>- app.js</c></p>
+      <p><c>-constant.js</c></p>
+      <p><c>-index.js</c></p>
+      <p><c>Package.json. edit</c></p>
+      <p><c>type: module</c></p>
+      <p><c>install nodemon</c></p>
+      <p><c>---------------------</c></p>
+      <p><c>Create below mentioned folders under src</c></p>
+      <p><c>-controllers</c></p>
+      <p><c>-midlewares</c></p>
+      <p><c>-models</c></p>
+      <p><c>-routes</c></p>
+      <p><c>-utils</c></p>
+      <p><c>-db</c></p>
+      <p><c>---------------</c></p>
+      <p><c>install prettier</c></p>
+      <p><c>npm i prettier</c></p>
+      <p><c>and create a prettier config file in home directory</c></p>
+      <p><c>.prettierrc</c></p>
+      <p><c>mentioed below configuration in .prettierrc</c></p>
+      <p><c>{</c></p>
+      <p><c>"singleQuote": false,</c></p>
+      <p><c>"bracketSpacing": true,</c></p>
+      <p><c>"tabWidth": 2,</c></p>
+      <p><c>"semi": true,</c></p>
+      <p><c>"trailingComma": "es5"</c></p>
+      <p><c>}</c></p>
+      <p><c>----------------------------------------</c></p>
+      <p><c>Also create a .prettierignore file</c></p>
+      <p><c>mentioned below in same .</c></p>
+      <p><c>/.vscode</c></p>
+      <p><c>/node_modules</c></p>
+      <p><c>./dist</c></p>
+      <p><c>*.env</c></p>
+      <p><c>.env.*</c></p>
+      <p><c>-----------------------------------</c></p>
+      <p><c>Database connection</c></p>
+      <p><c>- goto mongoDb atlas</c></p>
+      <p><c>- create a project</c></p>
+      <p><c>cluster passowrd and user name</c></p>
+      <p><c>write2ravi14 - user</c></p>
+      <p><c>JPqn0F6hBJtLMUxT -pass</c></p>
+      <p><c>///Go to option security - quickstart</c></p>
+      <p><c>choose username and passowrd</c></p>
+      <p><c>- select local envoirnment</c></p>
+      <p><c>- IP adress - 0.0.0.0/0</c></p>
+      <p><c>- delete the existing ip\</c></p>
+      <p><c>click on save</c></p>
+      <p><c>important to check 2 things before starting</c></p>
+      <p><c>Security - left side panel</c></p>
+      <p><c>- Network access</c></p>
+      <p><c>- databse acces - here we should have user createdwith R/W access</c></p>
+      <p><c>-------------------------------------------</c></p>
+      <p><c>nex -</c></p>
+      <p><c>on left panel</c></p>
+      <p><c>deplayment database or databse cluster</c></p>
+      <p><c>pop up will open with Connect to cluster 0</c></p>
+      <p><c>-select compass</c></p>
+      <p><c>- 2. Copy the connection string, then open MongoDB Compass</c></p>
+      <p><c>mongodb+srv://write2ravi14:&amp;lt;db_password&amp;gt;@cluster0.nxego31.mongodb.net/</c></p>
+      <p><c>-----------------------------------------</c></p>
+      <p><c>ADD THE URL AND PASSWORD IN .env FILE</c></p>
+      <p><c>PORT=8000</c></p>
+      <p><c>MONGODB_URI=mongodb+srv://write2ravi14:JPqn0F6hBJtLMUxT@cluster0.nxego31.mongodb.net</c></p>
+      <p><c>---------------------------------</c></p>
+      <p><c>mention and create export the database in constants.js</c></p>
+      <p><c>export const DB_NAME = "videotube"</c></p>
+      <p><c>Need further more packages installation which are required as of now for the project</c></p>
+      <p><c>npm install mongoose express dotenv</c></p>
+      <p><c>--------------------------------------------</c></p>
+      <p><c>Points to take care while connecting DB</c></p>
+      <p><c>1.</c></p>
+      <p><c>Try catch</c></p>
+      <p><c>- Always wrap DB connection in the try catch so that if any error then easily it will be handled</c></p>
+      <p><c>2.</c></p>
+      <p><c>Async await</c></p>
+      <p><c>- Database would be in diff continental and your code base can be in diff, so when you try talking to the DB it takes time. Hence its better approach that use async await while speaking with DB</c></p>
+      <p><c>constants.js</c></p>
+      <p><c>export const DB_NAME=”videotube”</c></p>
+      <p><c>-db(folder)</c></p>
+      <p><c>- index.js</c></p>
+      <p><c>index.js (inside db folder) - create a database connection here</c></p>
+      <p><c>import {DB_NAME} from ‘../constants.js’;</c></p>
+      <p><c>import mongoose from ‘mongoose’;</c></p>
+      <p><c>import dotenv from ‘dotenv’</c></p>
+      <p><c>dotenv.config();</c></p>
+      <p><c>export const connectDB = async() =&amp;gt;{</c></p>
+      <p><c>try{</c></p>
+      <p><c>const connectionInstance = mongoose.connect(‘${process.env.MONGODB_URI}/${DB_NAME}’)</c></p>
+      <p><c>catch(e){</c></p>
+      <p><c>console.error(“Error in DB connection”, error);</c></p>
+      <p><c>process.exit(1);</c></p>
+      <p><c>------------------------------------------------------------------------</c></p>
+      <p><c>app.js - create express app and export it from here</c></p>
+      <p><c>import express from ‘express’</c></p>
+      <p><c>const app = express();</c></p>
+      <p><c>export default app;</c></p>
+      <p><c>------------------------------------------------</c></p>
+      <p><c>index.js</c></p>
+      <p><c>import {connectDB} from ‘./db/index.js’</c></p>
+      <p><c>import app from ‘./app.js’</c></p>
+      <p><c>ditenv.config();</c></p>
+      <p><c>const PORT = process.env.PORT || 5000;</c></p>
+      <p><c>connectDB()</c></p>
+      <p><c>.then(()=&amp;gt;{</c></p>
+      <p><c>app.listen(PORT,()=&amp;gt;{</c></p>
+      <p><c>console.log(“Server started on port =”, PORT);})</c></p>
+      <p><c>app.on(“error",(err)=&amp;gt;{</c></p>
+      <p><c>console.log(“Error while starting server: ”, err);</c></p>
+      <p><c>}) })</c></p>
+      <p><c>.catch((error)=&amp;gt;{console.log(“Issue with server starting:”, error); throws error;})</c></p>
+      <p><c>*************************************************</c></p>
+      <p><c>So far what we have done:</c></p>
+      <p><c>1. written DB connection in db&amp;gt;index.js</c></p>
+      <p><c>2. created express server in app.js</c></p>
+      <p><c>3. index.js - we have called DB connection function and initiated connection, then() - is connection succesfulll then() part of the function will excute where started the server.</c></p>
+      <p><c>Project moving forward.....</c></p>
+      <p><c>middlewares</c></p>
+      <p><c>what is a middleware?</c></p>
+      <p><c>-&amp;gt; middleware is the function which will exceute at server side on req and res.</c></p>
+      <p><c>middleware written as below:</c></p>
+      <p><c>function middleware(err, req, res, next)</c></p>
+      <p><c>The position of midleware in flow is as below:</c></p>
+      <p><c>req:</c></p>
+      <p><c>client sent data over stream</c></p>
+      <p><c>=&amp;gt; raw Stream</c></p>
+      <p><c>=&amp;gt; middleware parses</c></p>
+      <p><c>=&amp;gt; req.body created</c></p>
+      <p><c>=&amp;gt; route handler and server perform action on req.</c></p>
+      <p><c>res:</c></p>
+      <p><c>route handler calls res methods</c></p>
+      <p><c>=&amp;gt; res object created</c></p>
+      <p><c>=&amp;gt; middleware (transform or add token to response)</c></p>
+      <p><c>=&amp;gt; raw stream sent to client.</c></p>
+      <p><c>Working forward on express, main focus in express will be req and res.</c></p>
+      <p><c>working worward on request part of the express.</c></p>
+      <p><c>installed</c></p>
+      <p><c>cors</c></p>
+      <p><c>and</c></p>
+      <p><c>cookie-parser</c></p>
+      <p><c>app.use -</c></p>
+      <p><c>it will be used for the middleware</c></p>
+      <p><c>cors is a middleware and will be initited using app.</c></p>
+      <p><c>//its simple form to mention the cors</c></p>
+      <p><c>app.use(cors());</c></p>
+      <p><c>//advanced form to mention the cors, env need to set or use direct value here</c></p>
+      <p><c>app.use(cors({</c></p>
+      <p><c>origin:process.env.CORS_ORIGIN,</c></p>
+      <p><c>credentials:true</c></p>
+      <p><c>}))</c></p>
+      <p><c>**************************************</c></p>
+      <p><c>json file limit</c></p>
+      <p><c>express.json()</c></p>
+      <p><c>express.json() is a middleware that parses the incoming JSON payloads in the request body.</c></p>
+      <p><c>can customise the properties as below:</c></p>
+      <p><c>1)</c></p>
+      <p><c>limit</c></p>
+      <p><c>: ”16kb”</c></p>
+      <p><c>2)</c></p>
+      <p><c>strict</c></p>
+      <p><c>: true</c></p>
+      <p><c>If its true then accept only json objects and arrays</c></p>
+      <p><c>if its false then accept primitive JSON values like number and string.</c></p>
+      <p><c>3)</c></p>
+      <p><c>reviver</c></p>
+      <p><c>- its a function that can transform the parsed json values before putting them in req.body.</c></p>
+      <p><c>app.use(express.json({</c></p>
+      <p><c>reviver:(key, value)=&amp;gt;{</c></p>
+      <p><c>if( typeof value ==="String”) return value.toUpperCase();</c></p>
+      <p><c>return value;</c></p>
+      <p><c>}}))</c></p>
+      <p><c>4)</c></p>
+      <p><c>type</c></p>
+      <p><c>- determine which requests are parsed.</c></p>
+      <p><c>default ‘application/json’</c></p>
+      <p><c>If client sends data in form of req like text/html then have to add the middleware here in order to parse the in text/html format</c></p>
+      <p><c>5.</c></p>
+      <p><c>inflate</c></p>
+      <p><c>- it will automatically decompress gzipped or dflated request bodies.</c></p>
+      <p><c>default is true</c></p>
+      <p><c>limit: '1mb',</c></p>
+      <p><c>strict: true,</c></p>
+      <p><c>reviver: null,</c></p>
+      <p><c>type: 'application/json',</c></p>
+      <p><c>inflate: true</c></p>
+      <p><c>}));</c></p>
+      <p><c>*****************************************</c></p>
+      <p><c>app.use(express.urlencoded({extended:true, limit:”16kb”}))</c></p>
+      <p><c>This middleware used to parse application/x-www=urlencoded request.</c></p>
+      <p><c>example data which will come in url</c></p>
+      <p><c>username=ravi&amp;amp;age=28</c></p>
+      <p><c>after parsing, express puut it in req.body</c></p>
+      <p><c>req.body = {username:"ravi”, age:”28”}</c></p>
+      <p><c>**********************</c></p>
+      <p><c>app.use(express.static(“public”))</c></p>
+      <p><c>-----------------------------------------------------------------------</c></p>
+      <p><c>create below mentioned util functions in file</c></p>
+      <p><c>ApiError.js</c></p>
+      <p><c>ApiResponse.js</c></p>
+      <p><c>asyncHandler.js</c></p>
+      <p><c>***************************************************************************</c></p>
+      <p><c>Create a model in mongoose.</c></p>
+      <p><c>user.model.js</c></p>
+      <p><c>video.model.js</c></p>
+      <p><c>--------------------------------------------------------------------</c></p>
+      <p><c>mongoose-aggregate-paginate-v2</c></p>
+      <p><c>Need to install above package</c></p>
+      <p><c>.</c></p>
+      <p><c>Use Case</c></p>
+      <p><c>-</c></p>
+      <p><c>Suppose you have 1000 users in your MongoDB collection.</c></p>
+      <p><c>Without pagination:</c></p>
+      <p><c>GET /users</c></p>
+      <p><c>[</c></p>
+      <p><c>{ "id": 1, "name": "Ravi" },</c></p>
+      <p><c>{ "id": 2, "name": "John" },</c></p>
+      <p><c>...</c></p>
+      <p><c>{ "id": 1000, "name": "Alex" }</c></p>
+      <p><c>]</c></p>
+      <p><c>This would send all</c></p>
+      <p><c>1000</c></p>
+      <p><c>records at once (slow + heavy for client)</c></p>
+      <p><c>with pagination</c></p>
+      <p><c>limit =</c></p>
+      <p><c>10</c></p>
+      <p><c>per page</c></p>
+      <p><c>GET/users?page=1&amp;amp;limit=10</c></p>
+      <p><c>response from database would be as below</c></p>
+      <p><c>"docs": [</c></p>
+      <p><c>{ "id": 10, "name": "Alex" }</c></p>
+      <p><c>],</c></p>
+      <p><c>"page": 1,</c></p>
+      <p><c>"totalPages": 100</c></p>
+      <p><c>Client get 10 users at a time and if required client can request for more.</c></p>
+      <p><c>Perfomance</c></p>
+      <p><c>: Pagination improve prformance and dont overload server or client with huge data dump.</c></p>
+      <p><c>Faster Loading</c></p>
+      <p><c>: Only some part of data being fetched</c></p>
+      <p><c>Better UX</c></p>
+      <p><c>: User scrolls or click “ next page” instead of waiting for evrything.</c></p>
+      <p><c>Pagination = breaking result into pages, this package helps us to do that for mongoDB aggtregative queries.</c></p>
+      <p><c>How to use in model.</c></p>
+      <p><c>Suppose we have video model, where we will have multiple videos stored so we will use</c></p>
+      <p><c>mongoose-aggregate-paginate-v2 in this model.</c></p>
+      <p><c>//code as below</c></p>
+      <p><c>import mongoose, { Schema } from "mongoose";</c></p>
+      <p><c>import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";</c></p>
+      <p><c>const videoSchema = new Schema({},{});</c></p>
+      <p><c>videoSchema.plugin(mongooseAggregatePaginate);</c></p>
+      <p><c>export const Video = mongoose.model(“Video”, videoSchema)</c></p>
+      <p><c>***********************************************</c></p>
+      <p><c>Some more libraries:</c></p>
+      <p><c>node.bcrypt.js - This library help you hash the password.</c></p>
+      <p><c>jsonwebtoken - JWT,</c></p>
+      <p><c>In order to use above features into the code do below.</c></p>
+      <p><c>1. These feature / action will be run before sving data in database and after user perfoam save operation.</c></p>
+      <p><c>user clicked on save = &amp;gt; middleware =&amp;gt; database operation performaed and saved date.</c></p>
+      <p><c>2. use mongoose middleware.</c></p>
+      <p><c>use Pre hook of mongoosse middleware to perform actions, like encrypt password</c></p>
+      <p><c>https://mongoosejs.com/docs/middleware.html#pre</c></p>
+      <p><c>3.</c></p>
+      <p><c>bcrypt</c></p>
+      <p><c>userSchema.pre("save", async function (next) {</c></p>
+      <p><c>//</c></p>
+      <p><c>check if password field modified, return if not password modified</c></p>
+      <p><c>if (!this.isModified("password")) return next();</c></p>
+      <p><c>this.password = bcrypt.hash(this.password, 10);</c></p>
+      <p><c>});</c></p>
+      <p><c>create a custom method to check if password is correct</c></p>
+      <p><c>userSchema.methods.isPasswordCorrect = async function(password){</c></p>
+      <p><c>return await bcrypt.compare(password, this.password);</c></p>
+      <p><c>4. JWT - JWT is bearer token.</c></p>
+      <p><c>JWT (JSON Web Token) is a compact, URL-safe token format used for securely transmitting information between client and server.</c></p>
+      <p><c>A JWT has three parts, separated by dots (.)</c></p>
+      <p><c>Header.Payload.Signature</c></p>
+      <p><c>Create secret tokens in .env file</c></p>
+      <p><c>ACCESS_TOKEN_SECRET=4a20780449da3e09f0f0ffdae1dc909cc884d96c08553a14402a8c066441f0bb</c></p>
+      <p><c>ACCESS_TOKEN_EXPIRY=1d</c></p>
+      <p><c>REFRESH_TOKEN_SECRET=66b148fec838e56c717745baf0d0bde5c302c3d0836e6e7fcd9a5554cc62307e</c></p>
+      <p><c>REFRESH_TOKEN_EXPIRY=10d</c></p>
+      <p><c>create a refresh token and access token into User model:</c></p>
+      <p><c>userSchema.methods.generateAccessToken = function(){</c></p>
+      <p><c>return jwt.sign(</c></p>
+      <p><c>_id : this.id,</c></p>
+      <p><c>email : this.email,</c></p>
+      <p><c>username : this.username,</c></p>
+      <p><c>fullName : this.fullName,</c></p>
+      <p><c>},</c></p>
+      <p><c>process.env.ACCESS_TOKEN_SECRET,</c></p>
+      <p><c>expiresIn:process.env.ACCESS_TOKEN_EXPIRY</c></p>
+      <p><c>)</c></p>
+      <p><c>How to upload file in backend</c></p>
+      <p><c>In order to upload the file, we can use the backend tool</c></p>
+      <p><c>cloudnary</c></p>
+      <p><c>We need the below mentioned two packages</c></p>
+      <p><c>1. express fileuplaod</c></p>
+      <p><c>2. multer</c></p>
+      <p><c>Getting started with cloudinary</c></p>
+      <p><c>Step1:</c></p>
+      <p><c>Generate API Key:</c></p>
+      <p><c>Step 2:</c></p>
+      <p><c>Choose your SDk</c></p>
+      <p><c>Step 3:</c></p>
+      <p><c>install cloudinary</c></p>
+      <p><c>npm install cloudinary</c></p>
+      <p><c>Step 4:</c></p>
+      <p><c>create a folder and file as below</c></p>
+      <p><c>folder- util</c></p>
+      <p><c>file - cloudinary.js</c></p>
+      <p><c>Import cloudinary:</c></p>
+      <p><c>import { v2 as cloudinary } from 'cloudinary';</c></p>
+      <p><c>Step 5:</c></p>
+      <p><c>Create cloudinary configuration</c></p>
+      <p><c>cloudinary.config({</c></p>
+      <p><c>cloud_name: process,</c></p>
+      <p><c>api_key: process.env.CLOUD_API_KEY,</c></p>
+      <p><c>api_secret: process.env.CLOUD_API_SECRET</c></p>
+      <p><c>step 6:</c></p>
+      <p><c>Uses, upload the images</c></p>
+      <p><c>Uploading the images first on server and then from server to cloudinary</c></p>
+      <p><c>So, we will be sharing the server path to cloudinary</c></p>
+      <p><c>Try - Catch</c></p>
+      <p><c>try-catch will be used since file operation involved and it may create some issues</c></p>
+      <p><c>async - await</c></p>
+      <p><c>Since we will upload images on third party server, this operation</c></p>
+      <p><c>const ImageUpload = async(localFilePath) =&amp;gt;{</c></p>
+      <p><c>const response = await cloudinary.uploader.upload(localFilePath, {resource_type:"auto”});</c></p>
+      <p><c>console.log(“File upladed to the cloudnary succesfully”);</c></p>
+      <p><c>return response;</c></p>
+      <p><c>catch(e){}</c></p>
+      <p><c>//it will remove the locally saved temp files, if upload operation failed</c></p>
+      <p><c>fs.unlinkSync(localFilePath);</c></p>
+      <p><c>throw error;</c></p>
+      <p><c>export {</c></p>
+      <p><c>ImageUpload};</c></p>
+      <p><c>Step 7:</c></p>
+      <p><c>Create a multer middleware</c></p>
+      <p><c>link -</c></p>
+      <p><c>https://expressjs.com/en/resources/middleware/multer.html</c></p>
+      <p><c>Create a folder and file as below:</c></p>
+      <p><c>src - middlewares - multer.middleware.js</c></p>
+      <p><c>const storage = multer.diskStorage({</c></p>
+      <p><c>destination: function (req, file, cb) {</c></p>
+      <p><c>cb(null, '</c></p>
+      <p><c>/public/temp</c></p>
+      <p><c>')</c></p>
+      <p><c>filename: function (req, file, cb) {</c></p>
+      <p><c>cb(null,</c></p>
+      <p><c>file.originalname</c></p>
+      <p><c>})</c></p>
+      <p><c>export</c></p>
+      <p><c>const upload = multer({</c></p>
+      <p><c>storage</c></p>
+      <p><c>from above code the heighlighted data as below:</c></p>
+      <p><c>/public/emp -</c></p>
+      <p><c>is the path we have provided to store the file on server and from here we will send file to cloudinary.</c></p>
+      <p><c>file.originalname -</c></p>
+      <p><c>Here we can modify the name of the file before saving that on server. I have selected the originalname so it will save as it is. We have multiple other options to rename the file and store it will avoid the duplication of the file name.</c></p>
+      <p><c>export -</c></p>
+      <p><c>we have exported the multer by passing the</c></p>
+      <p><c>which we have created for the multer.</c></p>
+      <p><c>Controllers</c></p>
+      <p><c>Create a folder like this:</c></p>
+      <p><c>folder - Controller - user.controller.js</c></p>
+      <p><c>We write the controller like as below</c></p>
+      <p><c>const useController = (req, res) =&amp;gt;{</c></p>
+      <p><c>res.status(200).json({message:"OK”});</c></p>
+      <p><c>The most effective way fo wriiting this controller flow is as below:</c></p>
+      <p><c>Step 1: Create a syncHandler</c></p>
+      <p><c>Folder - util- asyncHandler.js</c></p>
+      <p><c>const asyncHandler= (handlerFunction) =&amp;gt;{</c></p>
+      <p><c>return (res, res, next) =&amp;gt;{Promise.resolve(handlerFunction(req, res)).catch((err)=&amp;gt; next(err))}</c></p>
+      <p><c>export {asyncHandler}</c></p>
+      <p><c>// from above asyncHandler if there is any error then it will be passed to the centralized error handler middleware</c></p>
+      <p><c>Step 2: Create centralized error hander midleware</c></p>
+      <p><c>Folder - middlewares - errohandler.middleware.js</c></p>
+      <p><c>const errorHandler = (err, req,res, next) =&amp;gt;{</c></p>
+      <p><c>const statusCode = err.status || 500;</c></p>
+      <p><c>res.status(statusCode).json({message: err.message || “Internal Error”, stack:err.stack})</c></p>
+      <p><c>export {errorHandler}</c></p>
+      <p><c>Step 3: Create controller by inserting</c></p>
+      <p><c>asynchHandler</c></p>
+      <p><c>Folder - controllers - user.controller.js</c></p>
+      <p><c>const userController = asyncHandler(req, res, next)=&amp;gt;{</c></p>
+      <p><c>export {userController}</c></p>
+      <p><c>--------------------------------------------------------------------------------------------------------</c></p>
+      <p><c>Logic Building</c></p>
+      <p><c>The steps in logic involed:</c></p>
+      <p><c>1. Get the user details from frontend</c></p>
+      <p><c>2. Validation - Check if not empty etc etc</c></p>
+      <p><c>3. Check if that room category already exist</c></p>
+      <p><c>4. check for images if uplaoded on server or not</c></p>
+      <p><c>5. upload images to cloudinary and check if uploaded succesfully on cloudinary or not</c></p>
+      <p><c>6. Create a room category object - create entry in db</c></p>
+      <p><c>7. Remove password and refresh token feild from response.</c></p>
+      <p><c>8. Check for room category creation</c></p>
+      <p><c>9. return res</c></p>
+      <p><c>Create a controller which will read the req.body and process thet information.</c></p>
+      <p><c>examples:</c></p>
+      <p><c>const addUser = asyncHandler((req,res, next)=&amp;gt;{</c></p>
+      <p><c>const {name. email, password } = req.body;</c></p>
+      <p><c>export default addUser;</c></p>
+      <p><c>In above example this controller will be passed to router , where router will invoke the</c></p>
+      <p><c>post</c></p>
+      <p><c>request.</c></p>
+      <p><c>Router logic:</c></p>
+      <p><c>import addUser from ‘../controllers/addUser.controller.js";</c></p>
+      <p><c>import express from “express”;</c></p>
+      <p><c>const router = express.Router();</c></p>
+      <p><c>router.post(“/user”, addUser)</c></p>
+      <p><c>export default router;</c></p>
+      <p><c>S</c></p>
+      <p><c>er</c></p>
+      <p><c>ve</c></p>
+      <p><c>r.js</c></p>
+      <p><c>import userRouter from “./Router/userRouter.js”;</c></p>
+      <p><c>//Need middleware to process the json data</c></p>
+      <p><c>app.use(express.json());</c></p>
+      <p><c>app.use(“/api”,</c></p>
+      <p><c>userRouter</c></p>
+      <p><c>);</c></p>
+      <p><c>Validation will be done in controller. Like as below</c></p>
+      <p><c>import {ApiError} from ‘./util/ApiError.js’;</c></p>
+      <p><c>const addUser = asyncHandler((req, res, next)=&amp;gt;{</c></p>
+      <p><c>const {name, email, password} = req.body;</c></p>
+      <p><c>if([name,email, password].some((field)=&amp;gt; field.trim()==="”))</c></p>
+      <p><c>throw new ApiError(400,"All fields are required”);</c></p>
+      <p><c>In this situiation we will be directly checking with database if any same room category already exit.</c></p>
+      <p><c>Here we will communicate with the db with the help of mongoose model.</c></p>
+      <p><c>So while admin add the new room category, I will check if that room name or room code already exist</c></p>
+      <p><c>I will do like this</c></p>
+      <p><c>We have a model created and exported</c></p>
+      <p><c>export const RoomCategory = mongoose.model("RoomCategory", roomCategorySchema);</c></p>
+      <p><c>We will consider only 4 input data as of now for sample</c></p>
+      <p><c>I can create a controller like</c></p>
+      <p><c>import { RoomCategory } from ‘../models/roomCategory.model.js”;</c></p>
+      <p><c>const roomController = ayncHandler((req, res, next)=&amp;gt;{</c></p>
+      <p><c>const {name, code, location, info} = req.body;</c></p>
+      <p><c>//validation done to check if its not empty</c></p>
+      <p><c>// check if duplicate name or code.</c></p>
+      <p><c>const existingCategory = RoomCategory.findOne({</c></p>
+      <p><c>$or: [{name}, {code}]</c></p>
+      <p><c>if(existingCategory){</c></p>
+      <p><c>throw new ApiError(409, “Category or category code already exist”)};</c></p>
+      <p><c>I</c></p>
+      <p><c>n</c></p>
+      <p><c>above example we have directly checked the existing data or duplication with database.</c></p>
+      <p><c>4. Use multer middleware to upload the images or files etc.</c></p>
+      <p><c>This operation wil be done in the router. Bcoz router has specified the route and the request time.</c></p>
+      <p><c>We need to import the mutler middleware where upload was exported.</c></p>
+      <p><c>import {upload} from “../middleWares/multerMiddleware.js”</c></p>
+      <p><c>router.post(“/user”,</c></p>
+      <p><c>upload.fields([{name:"bannerImg”, maxCount:1},{name:"roomImg”, maxCount:3}])</c></p>
+      <p><c>,addUser)</c></p>
+      <p><c>5. Upload the image to cloudinary</c></p>
+      <p><c>)}</c></p>
+      <p><c>//upload the images to cloudinary</c></p>
+      <p><c>//since we have already created a cloudinary in util -&amp;gt; cloudinary.js and exported {</c></p>
+      <p><c>uploadToCloudinary</c></p>
+      <p><c>//also we have used mutler middlerware, so it will give files in request. Lets catch it</c></p>
+      <p><c>const bannerImgPath = req.files?.bannerImg[0]?.path;</c></p>
+      <p><c>const roomImgPath = req,files?.roomImg[0]?.path;</c></p>
+      <p><c>const bannerImg = await</c></p>
+      <p><c>uploadToCloudinary(bannerImgPath);</c></p>
+      <p><c>const roomImg = await uploadToCloudinary(roomImgPath);</c></p>
+      <p><c>//validation, if image not provided</c></p>
+      <p><c>if(!bannerImg)</c></p>
+      <p><c>{thorw new ApiError(400,"banner Img required’)}</c></p>
+      <p><c>// Create a object to push all image data to database</c></p>
+      <p><c>//here again we will use our model schema</c></p>
+      <p><c>RoomCategory.create({</c></p>
+      <p><c>name,</c></p>
+      <p><c>email,</c></p>
+      <p><c>bannerImg:bannerImg.url, // cloudinary returned object which have url</c></p>
+      <p><c>roomImg:roomImg?.url || "”,</c></p>
+      <p><c>passoword,</c></p>
+    </section>
+  </body>
+</abiword>
