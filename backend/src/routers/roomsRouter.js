@@ -4,8 +4,6 @@ import { roomControllerPost } from "../controllers/roomPost.controller.js";
 import showUsers from "../controllers/showUsers.controller.js";
 import addUser from "../controllers/addUser.controller.js";
 import { upload } from "../midlewares/multer.middleware.js";
-import multer from "multer";
-import { add } from "date-fns";
 const router = express.Router();
 router.get("/rooms", roomController);
 router.post("/rooms", roomControllerPost);
