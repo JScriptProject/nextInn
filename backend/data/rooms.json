@@ -1,14 +1,13 @@
 [
   {
-    "id": "rm001",
     "name": "Metropolitan Suite",
     "categoryId": "cat001",
     "location": "Panjim, Goa",
     "price": 2755,
-    "room_capacity": {
+    "roomCapacity": {
       "adults": 2,
       "children": 1,
-      "available_rooms": 10,
+      "availableRooms": 10,
       "bed": 1,
       "maxExtraAdults": 1,
       "maxExtraChildren": 0,
@@ -23,17 +22,14 @@
       "laundry": 80
     },
     "bannerImg": "http://localhost:8000/media/rooms-images/Metropolitan Suite.jpg",
-    "images": [
+    "roomImages": [
       "http://localhost:8000/media/rooms-images/single-room-imgs/single-room1.jpg",
       "http://localhost:8000/media/rooms-images/single-room-imgs/single-room2.jpg",
       "http://localhost:8000/media/rooms-images/single-room-imgs/single-room3.jpg",
       "http://localhost:8000/media/rooms-images/single-room-imgs/single-room4.jpg"
     ],
     "info": "City View Suite",
-    "description": [
-      "Our Metropolitan Suite combines urban sophistication with coastal charm. Enjoy sweeping city views through large windows, unwind in spacious interiors, and experience true Goan hospitality.",
-      "Treat yourself to fine dining at our rooftop restaurant, where modern flavors meet traditional Goan recipes in a chic, elevated setting."
-    ],
+    "description": "Our Metropolitan Suite combines urban sophistication with coastal charm. Enjoy sweeping city views through large windows, unwind in spacious interiors, and experience true Goan hospitality. Treat yourself to fine dining at our rooftop restaurant, where modern flavors meet traditional Goan recipes in a chic, elevated setting.",
     "features": [
       {
         "icon": "users",
@@ -92,15 +88,14 @@
     ]
   },
   {
-    "id": "rm002",
     "name": "Premium Deluxe Room",
     "categoryId": "cat002",
     "location": "Mahim East, Mumbai 12",
     "price": 3400,
-    "room_capacity": {
+    "roomCapacity": {
       "adults": "3",
       "children": 1,
-      "available_rooms": 10,
+      "availableRooms": 10,
       "bed": 2,
       "maxExtraAdults": 1,
       "maxExtraChildren": 1,
@@ -115,7 +110,7 @@
       "laundry": "100"
     },
     "bannerImg": "http://localhost:8000/media/rooms-images/Premium Deluxe Room.jpg",
-    "images": [
+    "roomImages": [
       "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-1.jpg",
       "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-2.jpg",
       "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-3.jpg",
@@ -165,15 +160,14 @@
     ]
   },
   {
-    "id": "rm101",
     "name": "Twin Room Suite",
     "categoryId": "cat101",
     "location": "Tarkarli, Malvan",
     "price": 3900,
-    "room_capacity": {
+    "roomCapacity": {
       "adults": 2,
       "children": 2,
-      "available_rooms": 5,
+      "availableRooms": 5,
       "bed": 2,
       "maxExtraAdults": 1,
       "maxExtraChildren": 2,
@@ -188,7 +182,7 @@
       "laundry": 120
     },
     "bannerImg": "http://localhost:8000/media/rooms-images/Twin Room Suite.jpg",
-    "images": [
+    "roomImages": [
       "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-1.jpg",
       "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-2.jpg",
       "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-3.jpg",
@@ -254,15 +248,14 @@
     ]
   },
   {
-    "id": "rm202",
     "name": "Executive Suites",
     "categoryId": "cat202",
     "location": "Mumbai, India",
     "price": 6400,
-    "room_capacity": {
+    "roomCapacity": {
       "adults": 2,
       "children": 1,
-      "available_rooms": 5,
+      "availableRooms": 5,
       "bed": 2,
       "maxExtraAdults": 1,
       "maxExtraChildren": 1,
@@ -277,7 +270,7 @@
       "laundry": 145
     },
     "bannerImg": "http://localhost:8000/media/rooms-images/Executive Suites.jpg",
-    "images": [
+    "roomImages": [
       "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-1.jpg",
       "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-2.jpg",
       "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-3.jpg",

@@ -4,10 +4,11 @@ import { roomControllerPost } from "../controllers/roomPost.controller.js";
 import showUsers from "../controllers/showUsers.controller.js";
 import addUser from "../controllers/addUser.controller.js";
 import { upload } from "../midlewares/multer.middleware.js";
+import { testRooms } from "../controllers/testRooms.controller.js";
 const router = express.Router();
 router.get("/rooms", roomController);
 router.post("/rooms", roomControllerPost);
-router.get("/user", showUsers);
+router.get("/user", testRooms);
 router.post(
   "/user",
   upload.fields([

@@ -1,9 +1,9 @@
-import { max, min } from "date-fns";
+
 import mongoose from "mongoose";
 
 const roomCategorySchema = new mongoose.Schema(
   {
-    code: {
+    categoryId: {
       type: String,
       required: true,
       unique: true,
@@ -25,16 +25,16 @@ const roomCategorySchema = new mongoose.Schema(
     info: {
       type: String,
       required: true,
-      minlength: 20,
+      minlength: 10,
       maxlength: 500,
     },
     description: {
       type: String,
       required: true,
-      minlength: 100,
+      minlength: 50,
       maxlength: 1000,
     },
-    capacity: {
+    roomCapacity: {
       adults: {
         type: Number,
         required: true,
@@ -45,50 +45,50 @@ const roomCategorySchema = new mongoose.Schema(
         required: true,
         min: 1,
       },
-      available_rooms: {
+      availableRooms: {
         type: Number,
         required: true,
         min: 1,
       },
       bed: {
-        type: String,
+        type: Number,
         required: true,
         min: 1,
       },
-      max_extra_adults: {
+      maxExtraAdults: {
         type: Number,
         required: true,
         min: 0,
       },
-      max_extra_children: {
+      maxExtraChildren: {
         type: Number,
         required: true,
         min: 0,
       },
-      max_extra_bed: {
+      maxExtraBed: {
         type: Number,
         required: true,
         min: 0,
       },
-      max_extra_adults_price: {
+      extraAdultCharges: {
         type: Number,
         required: true,
       },
-      max_extra_children_price: {
+      extraChildCharges: {
         type: Number,
         required: true,
       },
-      max_extra_bed_price: {
+      extraBedCharge: {
         type: Number,
         required: true,
       },
     },
-    addon_services_charges: {
-      pet_friendly: {
+    addonServicesCharges: {
+      petFriendly: {
         type: Number,
         required: true,
       },
-      steam_room: {
+      steamRoom: {
         type: Number,
         required: true,
       },
@@ -97,11 +97,11 @@ const roomCategorySchema = new mongoose.Schema(
         required: true,
       },
     },
-    banner_img: {
+    bannerImg: {
       type: String,
       required: true,
     },
-    room_images: [
+    roomImages: [
       {
         type: String,
         required: true,

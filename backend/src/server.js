@@ -1,11 +1,10 @@
 import express from "express";
-import bodyparser from "body-parser";
 import app from "./app.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { connectDB } from "./db/index.js";
-import coresMiddleware from "./midlewares/cors.middleware.js";
-import loggerMiddleware from "./midlewares/logger.midleware.js";
+
+
 import { errorhandler } from "./midlewares/errorsHandler.middleware.js";
 import roomsRouter from "./routers/roomsRouter.js";
 import dotenv from "dotenv";
@@ -13,16 +12,7 @@ dotenv.config();
 
 const PORT = process.env.PORT || 8000;
 
-//parse JSON
-app.use(bodyparser.json({limit:"100mb"}));
 
-app.use(bodyparser.urlencoded({limit:"100mb", extended: true }));
-
-//handle cors
-app.use(coresMiddleware);
-
-//logger middleware
-app.use(loggerMiddleware);
 
 //routers
 app.use("/api", roomsRouter);
