@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from "react";
 import InfoContentBlock from "./InfoContentBlock.jsx";
-import { is } from "date-fns/locale";
+
 
 function CategoryInfoBlock({ setIsEditing, isEditing, roomsObj,setRooms  }) {
    const [updatedRooms, setUpdatedRooms] = useState({});

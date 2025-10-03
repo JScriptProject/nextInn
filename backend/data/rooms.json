@@ -1,99 +1,7 @@
 [
   {
-    "name": "Metropolitan Suite",
-    "categoryId": "cat001",
-    "location": "Panjim, Goa",
-    "price": 2755,
     "roomCapacity": {
-      "adults": 2,
-      "children": 1,
-      "availableRooms": 10,
-      "bed": 1,
-      "maxExtraAdults": 1,
-      "maxExtraChildren": 0,
-      "maxExtraBed": 1,
-      "extraAdultCharges": 1000,
-      "extraChildCharges": 500,
-      "extraBedCharge": 200
-    },
-    "addonServicesCharges": {
-      "petFriendly": 200,
-      "steamRoom": 400,
-      "laundry": 80
-    },
-    "bannerImg": "http://localhost:8000/media/rooms-images/Metropolitan Suite.jpg",
-    "roomImages": [
-      "http://localhost:8000/media/rooms-images/single-room-imgs/single-room1.jpg",
-      "http://localhost:8000/media/rooms-images/single-room-imgs/single-room2.jpg",
-      "http://localhost:8000/media/rooms-images/single-room-imgs/single-room3.jpg",
-      "http://localhost:8000/media/rooms-images/single-room-imgs/single-room4.jpg"
-    ],
-    "info": "City View Suite",
-    "description": "Our Metropolitan Suite combines urban sophistication with coastal charm. Enjoy sweeping city views through large windows, unwind in spacious interiors, and experience true Goan hospitality. Treat yourself to fine dining at our rooftop restaurant, where modern flavors meet traditional Goan recipes in a chic, elevated setting.",
-    "features": [
-      {
-        "icon": "users",
-        "text": "2 Guests"
-      },
-      {
-        "icon": "ruler",
-        "text": "35 Feet Size"
-      },
-      {
-        "icon": "link",
-        "text": "Connecting Rooms"
-      },
-      {
-        "icon": "bed-double",
-        "text": "1 King Bed"
-      }
-    ],
-    "amenities": [
-      {
-        "text": "Free Wifi",
-        "icon": "wifi"
-      },
-      {
-        "text": "Shower",
-        "icon": "shower-head"
-      },
-      {
-        "text": "Airport Transport",
-        "icon": "plane"
-      },
-      {
-        "text": "Balcony",
-        "icon": "panel-top-open"
-      },
-      {
-        "text": "Refrigerator",
-        "icon": "fridge"
-      },
-      {
-        "text": "24/7 Support",
-        "icon": "headphones"
-      },
-      {
-        "text": "Work Desk",
-        "icon": "laptop"
-      },
-      {
-        "text": "Fitness Center",
-        "icon": "dumbbell"
-      },
-      {
-        "text": "Swimming Pool",
-        "icon": "swimming"
-      }
-    ]
-  },
-  {
-    "name": "Premium Deluxe Room",
-    "categoryId": "cat002",
-    "location": "Mahim East, Mumbai 12",
-    "price": 3400,
-    "roomCapacity": {
-      "adults": "3",
+      "adults": 3,
       "children": 1,
       "availableRooms": 10,
       "bed": 2,
@@ -102,13 +10,18 @@
       "maxExtraBed": 1,
       "extraAdultCharges": 1200,
       "extraChildCharges": 600,
-      "extraBedCharge": "200"
+      "extraBedCharge": 200
     },
     "addonServicesCharges": {
       "petFriendly": 250,
-      "steamRoom": "400",
-      "laundry": "100"
+      "steamRoom": 400,
+      "laundry": 100
     },
+    "_id": "68dd3cc70db9182a1d798da6",
+    "name": "Premium Deluxe Room",
+    "categoryId": "cat002",
+    "location": "Mahim East, Mumbai 12",
+    "price": 3400,
     "bannerImg": "http://localhost:8000/media/rooms-images/Premium Deluxe Room.jpg",
     "roomImages": [
       "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-1.jpg",
@@ -120,218 +33,297 @@
     "description": "NEW Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.,Enjoy fresh seafood and sunset cocktails at our beachfront grill.",
     "features": [
       {
+        "_id": "68df83273f9d55981be77b78",
         "icon": "users",
         "text": "3 Guests"
       },
       {
+        "_id": "68df83273f9d55981be77b79",
         "icon": "ruler",
         "text": "40 Feet Size"
       },
       {
+        "_id": "68df83273f9d55981be77b7a",
         "icon": "link",
         "text": "Connecting Rooms"
       },
       {
+        "_id": "68df83273f9d55981be77b7b",
         "icon": "bed-double",
         "text": "2 Twin Beds"
       }
     ],
     "amenities": [
       {
+        "_id": "68df83273f9d55981be77b7c",
         "text": "Free Wifi",
         "icon": "wifi"
       },
       {
+        "_id": "68df83273f9d55981be77b7d",
         "text": "Refrigerator",
         "icon": "fridge"
       },
       {
+        "_id": "68df83273f9d55981be77b7e",
         "text": "Shower",
         "icon": "shower-head"
       },
       {
+        "_id": "68df83273f9d55981be77b7f",
         "text": "Parking",
         "icon": "parking"
       },
       {
+        "_id": "68df83273f9d55981be77b80",
         "text": "Child Friendly",
         "icon": "kids"
       }
     ]
   },
   {
-    "name": "Twin Room Suite",
-    "categoryId": "cat101",
-    "location": "Tarkarli, Malvan",
-    "price": 3900,
     "roomCapacity": {
-      "adults": 2,
-      "children": 2,
-      "availableRooms": 5,
+      "adults": 3,
+      "children": 1,
+      "availableRooms": 10,
       "bed": 2,
       "maxExtraAdults": 1,
-      "maxExtraChildren": 2,
-      "maxExtraBed": 2,
-      "extraAdultCharges": 1000,
-      "extraChildCharges": 500,
+      "maxExtraChildren": 1,
+      "maxExtraBed": 1,
+      "extraAdultCharges": 1200,
+      "extraChildCharges": 600,
       "extraBedCharge": 200
     },
     "addonServicesCharges": {
-      "petFriendly": 350,
-      "steamRoom": 350,
-      "laundry": 120
+      "petFriendly": 250,
+      "steamRoom": 400,
+      "laundry": 100
     },
-    "bannerImg": "http://localhost:8000/media/rooms-images/Twin Room Suite.jpg",
+    "_id": "68dd3cc70db9182a1d798da6",
+    "name": "Premium Deluxe Room",
+    "categoryId": "cat002",
+    "location": "Mahim East, Mumbai 12",
+    "price": 3400,
+    "bannerImg": "http://localhost:8000/media/rooms-images/Premium Deluxe Room.jpg",
     "roomImages": [
-      "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-1.jpg",
-      "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-2.jpg",
-      "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-3.jpg",
-      "http://localhost:8000/media/rooms-images/twin-room-imgs/twin-room-4.jpg"
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-1.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-2.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-3.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-4.jpg"
     ],
-    "info": "Mountain View Room",
-    "description": "Surround yourself with the peace of the mountains in our Twin Room Suite. Ideal for family or friends, this suite offers dual bedding, panoramic views of the Sahyadris, and a calm, airy design to match the serene outdoors. The perfect hideaway for nature lovers.",
+    "info": "Ocean View Room",
+    "description": "NEW Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.,Enjoy fresh seafood and sunset cocktails at our beachfront grill.",
     "features": [
       {
+        "_id": "68df83273f9d55981be77b78",
         "icon": "users",
-        "text": "2 Guests"
+        "text": "3 Guests"
       },
       {
+        "_id": "68df83273f9d55981be77b79",
         "icon": "ruler",
-        "text": "38 Feet Size"
+        "text": "40 Feet Size"
       },
       {
+        "_id": "68df83273f9d55981be77b7a",
         "icon": "link",
         "text": "Connecting Rooms"
       },
       {
+        "_id": "68df83273f9d55981be77b7b",
         "icon": "bed-double",
         "text": "2 Twin Beds"
       }
     ],
     "amenities": [
       {
+        "_id": "68df83273f9d55981be77b7c",
         "text": "Free Wifi",
         "icon": "wifi"
       },
       {
-        "text": "Balcony",
-        "icon": "panel-top-open"
-      },
-      {
-        "text": "24/7 Support",
-        "icon": "headphones"
-      },
-      {
-        "text": "Work Desk",
-        "icon": "laptop"
-      },
-      {
+        "_id": "68df83273f9d55981be77b7d",
         "text": "Refrigerator",
         "icon": "fridge"
       },
       {
+        "_id": "68df83273f9d55981be77b7e",
         "text": "Shower",
         "icon": "shower-head"
       },
       {
-        "text": "Fitness Center",
-        "icon": "dumbbell"
+        "_id": "68df83273f9d55981be77b7f",
+        "text": "Parking",
+        "icon": "parking"
       },
       {
-        "text": "Swimming Pool",
-        "icon": "swimming"
-      },
-      {
-        "text": "Airport Transport",
-        "icon": "plane"
+        "_id": "68df83273f9d55981be77b80",
+        "text": "Child Friendly",
+        "icon": "kids"
       }
     ]
   },
   {
-    "name": "Executive Suites",
-    "categoryId": "cat202",
-    "location": "Mumbai, India",
-    "price": 6400,
     "roomCapacity": {
-      "adults": 2,
+      "adults": 3,
       "children": 1,
-      "availableRooms": 5,
+      "availableRooms": 10,
       "bed": 2,
       "maxExtraAdults": 1,
       "maxExtraChildren": 1,
-      "maxExtraBed": 2,
-      "extraAdultCharges": 1500,
-      "extraChildCharges": 750,
-      "extraBedCharge": 300
+      "maxExtraBed": 1,
+      "extraAdultCharges": 1200,
+      "extraChildCharges": 600,
+      "extraBedCharge": 200
     },
     "addonServicesCharges": {
-      "petFriendly": 550,
-      "steamRoom": 450,
-      "laundry": 145
+      "petFriendly": 250,
+      "steamRoom": 400,
+      "laundry": 100
     },
-    "bannerImg": "http://localhost:8000/media/rooms-images/Executive Suites.jpg",
+    "_id": "68dd3cc70db9182a1d798da6",
+    "name": "Premium Deluxe Room",
+    "categoryId": "cat002",
+    "location": "Mahim East, Mumbai 12",
+    "price": 3400,
+    "bannerImg": "http://localhost:8000/media/rooms-images/Premium Deluxe Room.jpg",
     "roomImages": [
-      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-1.jpg",
-      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-2.jpg",
-      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-3.jpg",
-      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-4.jpg"
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-1.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-2.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-3.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-4.jpg"
     ],
-    "info": "Lake View Room",
-    "description": "Enjoy refined comfort in our Executive Suites overlooking tranquil lakescapes. With premium amenities, a private workspace, and elegant modern décor, this suite is perfect for both business and leisure travelers.Dining options include curated chef’s menus with lakeside seating.",
+    "info": "Ocean View Room",
+    "description": "NEW Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.,Enjoy fresh seafood and sunset cocktails at our beachfront grill.",
     "features": [
       {
+        "_id": "68df83273f9d55981be77b78",
         "icon": "users",
-        "text": "2 Guests"
+        "text": "3 Guests"
       },
       {
+        "_id": "68df83273f9d55981be77b79",
         "icon": "ruler",
-        "text": "42 Feet Size"
+        "text": "40 Feet Size"
       },
       {
+        "_id": "68df83273f9d55981be77b7a",
         "icon": "link",
         "text": "Connecting Rooms"
       },
       {
+        "_id": "68df83273f9d55981be77b7b",
         "icon": "bed-double",
-        "text": "1 King Bed"
+        "text": "2 Twin Beds"
       }
     ],
     "amenities": [
       {
+        "_id": "68df83273f9d55981be77b7c",
         "text": "Free Wifi",
         "icon": "wifi"
       },
       {
-        "text": "Work Desk",
-        "icon": "laptop"
-      },
-      {
-        "text": "Shower",
-        "icon": "shower-head"
-      },
-      {
-        "text": "Balcony",
-        "icon": "panel-top-open"
-      },
-      {
-        "text": "Fitness Center",
-        "icon": "dumbbell"
-      },
-      {
-        "text": "Swimming Pool",
-        "icon": "swimming"
-      },
-      {
-        "text": "24/7 Support",
-        "icon": "headphones"
-      },
-      {
+        "_id": "68df83273f9d55981be77b7d",
         "text": "Refrigerator",
         "icon": "fridge"
       },
       {
-        "text": "Airport Transport",
-        "icon": "plane"
+        "_id": "68df83273f9d55981be77b7e",
+        "text": "Shower",
+        "icon": "shower-head"
+      },
+      {
+        "_id": "68df83273f9d55981be77b7f",
+        "text": "Parking",
+        "icon": "parking"
+      },
+      {
+        "_id": "68df83273f9d55981be77b80",
+        "text": "Child Friendly",
+        "icon": "kids"
+      }
+    ]
+  },
+  {
+    "roomCapacity": {
+      "adults": 3,
+      "children": 1,
+      "availableRooms": 10,
+      "bed": 2,
+      "maxExtraAdults": 1,
+      "maxExtraChildren": 1,
+      "maxExtraBed": 1,
+      "extraAdultCharges": 1200,
+      "extraChildCharges": 600,
+      "extraBedCharge": 200
+    },
+    "addonServicesCharges": {
+      "petFriendly": 250,
+      "steamRoom": 400,
+      "laundry": 100
+    },
+    "_id": "68dd3cc70db9182a1d798da6",
+    "name": "Premium Deluxe Room",
+    "categoryId": "cat002",
+    "location": "Mahim East, Mumbai 12",
+    "price": 3400,
+    "bannerImg": "http://localhost:8000/media/rooms-images/Premium Deluxe Room.jpg",
+    "roomImages": [
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-1.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-2.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-3.jpg",
+      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-4.jpg"
+    ],
+    "info": "Ocean View Room",
+    "description": "NEW Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.,Enjoy fresh seafood and sunset cocktails at our beachfront grill.",
+    "features": [
+      {
+        "_id": "68df83273f9d55981be77b78",
+        "icon": "users",
+        "text": "3 Guests"
+      },
+      {
+        "_id": "68df83273f9d55981be77b79",
+        "icon": "ruler",
+        "text": "40 Feet Size"
+      },
+      {
+        "_id": "68df83273f9d55981be77b7a",
+        "icon": "link",
+        "text": "Connecting Rooms"
+      },
+      {
+        "_id": "68df83273f9d55981be77b7b",
+        "icon": "bed-double",
+        "text": "2 Twin Beds"
+      }
+    ],
+    "amenities": [
+      {
+        "_id": "68df83273f9d55981be77b7c",
+        "text": "Free Wifi",
+        "icon": "wifi"
+      },
+      {
+        "_id": "68df83273f9d55981be77b7d",
+        "text": "Refrigerator",
+        "icon": "fridge"
+      },
+      {
+        "_id": "68df83273f9d55981be77b7e",
+        "text": "Shower",
+        "icon": "shower-head"
+      },
+      {
+        "_id": "68df83273f9d55981be77b7f",
+        "text": "Parking",
+        "icon": "parking"
+      },
+      {
+        "_id": "68df83273f9d55981be77b80",
+        "text": "Child Friendly",
+        "icon": "kids"
       }
     ]
   }

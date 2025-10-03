@@ -24,8 +24,8 @@ function CategoryCapacityBlock({
     function onClickEdit(){
       setCapacityEditing(prev=> !prev);   
       if(isCapacityEditing){
-        const roomCapacityData = roomsObj.room_capacity
-         const newRoomsData = {...roomsObj, room_capacity:{...roomCapacityData,...updatedRooms}};
+        const roomCapacityData = roomsObj.roomCapacity
+         const newRoomsData = {...roomsObj, roomCapacity:{...roomCapacityData,...updatedRooms}};
         setRooms((prev)=> prev.map((room)=> room.id === roomsObj.id ? newRoomsData : room));
         setUpdatedRooms({});
       } 
@@ -49,14 +49,14 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Adults"
           valueLable = "adults"
-          value={roomsObj.room_capacity.adults}
+          value={roomsObj?.roomCapacity?.adults}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
         />
         <InfoContentBlock
           title="Children"
           valueLable = "children"
-          value={roomsObj.room_capacity.children}
+          value={roomsObj?.roomCapacity?.children}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
         />
@@ -65,7 +65,7 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Available Rooms"
           valueLable = "available_rooms"
-          value={roomsObj.room_capacity.available_rooms}
+          value={roomsObj?.roomCapacity?.available_rooms}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
@@ -73,7 +73,7 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Bed each Room"
           valueLable = "bed"
-          value={roomsObj.room_capacity.bed}
+          value={roomsObj?.roomCapacity?.bed}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
@@ -83,7 +83,7 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Max Extra Adults"
           valueLable = "maxExtraAdults"
-          value={roomsObj.room_capacity.maxExtraAdults}
+          value={roomsObj?.roomCapacity?.maxExtraAdults}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
@@ -91,7 +91,7 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Extra Adult Charge"
           valueLable = "extraAdultCharges"
-          value={roomsObj.room_capacity.extraAdultCharges}
+          value={roomsObj?.roomCapacity?.extraAdultCharges}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
@@ -101,7 +101,7 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Max Extra Children"
           valueLable = "maxExtraChildren"
-          value={roomsObj.room_capacity.maxExtraChildren}
+          value={roomsObj?.roomCapacity?.maxExtraChildren}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
@@ -109,7 +109,7 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Extra Children Charge"
           valueLable = "extraChildCharges"
-          value={roomsObj.room_capacity.extraChildCharges}
+          value={roomsObj?.roomCapacity?.extraChildCharges}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
@@ -119,7 +119,7 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Max Extra Bed"
           valueLable = "maxExtraBed"
-          value={roomsObj.room_capacity.maxExtraBed}
+          value={roomsObj?.roomCapacity?.maxExtraBed}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"
@@ -128,7 +128,7 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Extra Bed Charge"
           valueLable = "extraBedCharge"
-          value={roomsObj.room_capacity.extraBedCharge}
+          value={roomsObj?.roomCapacity?.extraBedCharge}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"

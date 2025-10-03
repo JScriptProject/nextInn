@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getRoomsData } from "../../api/roomsapi.js";
+import { getAllRoomsCategory } from "../../api/roomsCategoryApi.js";
 import RoomsCategoryTitle from "./RoomsCategoryTitle.jsx";
 import RoomsCategoryInfo from "./RoomsCategoryInfo.jsx";
 
@@ -13,7 +13,10 @@ function CategoryManagement({ setErrors, errors }) {
   useEffect(() => {
     (async () => {
       try {
-        const roomsData = await getRoomsData();
+        console.log("I am in useEffect");
+        const roomsData = await getAllRoomsCategory();
+        console.log("I am after useEffect");
+        console.log("Rooms data", roomsData);
         setRoomCopy(roomsData);
         setRooms(roomsData);
       } catch (error) {
