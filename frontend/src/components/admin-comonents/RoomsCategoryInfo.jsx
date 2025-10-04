@@ -10,9 +10,16 @@ import CategoryAmenitiesBlock from "./CategoryAmenitiesBlock.jsx";
 
 function RoomscategoryInfo({ roomsObj, setRooms, rooms, roomCopy }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [issaving, setIsSaving] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const saveTimer = useRef(null);
 
+  //all console
+  console.log("All console to check the data");
+  console.log("roomsObj =>", roomsObj);
+  console.log("rooms =>", rooms);
+  console.log("roomCOpy =>", roomCopy);
+
+  
   useEffect(() => {
     if (deepEqual(rooms, roomCopy)) return;
     const cancelledRef = {current: false};
@@ -23,7 +30,6 @@ function RoomscategoryInfo({ roomsObj, setRooms, rooms, roomCopy }) {
       const doSave = async()=>{
         try {
           setIsSaving(true);
-          console.log("Ready to save the data", rooms);
           const result =  await saveToRoom(rooms);
           if(!cancelledRef.current) console.log("saved", result);
         } catch (error) {
@@ -46,7 +52,7 @@ function RoomscategoryInfo({ roomsObj, setRooms, rooms, roomCopy }) {
     <div className="roomsCategoryInfo">
       <div className="info-block">
         <div className="info-content-row grid2-center">
-          <InfoContentBlock title="ID" value={roomsObj.id} />
+          {/* <InfoContentBlock title="ID" value={roomsObj.id} /> */}
           <InfoContentBlock title="Category ID" value={roomsObj.categoryId} />
         </div>
       </div>

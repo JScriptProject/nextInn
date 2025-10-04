@@ -13,10 +13,9 @@ function CategoryManagement({ setErrors, errors }) {
   useEffect(() => {
     (async () => {
       try {
-        console.log("I am in useEffect");
+        
         const roomsData = await getAllRoomsCategory();
-        console.log("I am after useEffect");
-        console.log("Rooms data", roomsData);
+       
         setRoomCopy(roomsData);
         setRooms(roomsData);
       } catch (error) {
@@ -27,7 +26,7 @@ function CategoryManagement({ setErrors, errors }) {
     })();
   }, []);
 
-  console.log(rooms);
+
   return (
     <div>
       <h3 className="page-internal-title">Rooms Category management</h3>

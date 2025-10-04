@@ -6,6 +6,17 @@ function CategoryInfoBlock({ setIsEditing, isEditing, roomsObj,setRooms  }) {
    const [updatedRooms, setUpdatedRooms] = useState({});
   const [isInfoEditing, setIsInfoEditing] = useState(false);
 
+  const roomsObjCategoryInfoData = {
+      name:roomsObj.name,
+      location:roomsObj.location,
+      price:roomsObj.price,
+      info:roomsObj.info,
+      description:roomsObj.description,
+  }
+
+  //What next to do is, I have to compare the above created object with the updatedRoooms object data. if inside data entry has been changed then only perform the DB operation
+
+
   useEffect(()=>{
     if(isInfoEditing){
     setIsEditing(true);
@@ -19,6 +30,9 @@ function CategoryInfoBlock({ setIsEditing, isEditing, roomsObj,setRooms  }) {
   function onClickEdit(){
     setIsInfoEditing(prev=> !prev);   
     if(isInfoEditing){
+      // lets perform the DB operation here 
+          
+
       console.log("Updated Rooms:", updatedRooms);
        const newRoomsData = {...roomsObj, ...updatedRooms};
        console.log(newRoomsData);

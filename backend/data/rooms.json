@@ -1,329 +1,409 @@
 [
   {
     "roomCapacity": {
-      "adults": 3,
+      "adults": 2,
       "children": 1,
-      "availableRooms": 10,
+      "availableRooms": 5,
       "bed": 2,
       "maxExtraAdults": 1,
       "maxExtraChildren": 1,
-      "maxExtraBed": 1,
-      "extraAdultCharges": 1200,
-      "extraChildCharges": 600,
-      "extraBedCharge": 200
+      "maxExtraBed": 2,
+      "extraAdultCharges": 1500,
+      "extraChildCharges": 750,
+      "extraBedCharge": 300
     },
     "addonServicesCharges": {
-      "petFriendly": 250,
-      "steamRoom": 400,
-      "laundry": 100
+      "petFriendly": 550,
+      "steamRoom": 450,
+      "laundry": 145
     },
-    "_id": "68dd3cc70db9182a1d798da6",
-    "name": "Premium Deluxe Room",
-    "categoryId": "cat002",
-    "location": "Mahim East, Mumbai 12",
-    "price": 3400,
-    "bannerImg": "http://localhost:8000/media/rooms-images/Premium Deluxe Room.jpg",
+    "_id": "68dd3cc70db9182a1d798da4",
+    "name": "Executive Suites",
+    "categoryId": "cat202",
+    "location": "Mumbai, India",
+    "price": 6400,
+    "bannerImg": "http://localhost:8000/media/rooms-images/Executive Suites.jpg",
     "roomImages": [
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-1.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-2.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-3.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-4.jpg"
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-1.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-2.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-3.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-4.jpg"
     ],
-    "info": "Ocean View Room",
-    "description": "NEW Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.,Enjoy fresh seafood and sunset cocktails at our beachfront grill.",
+    "info": "Lake View Room",
+    "description": "Enjoy refined comfort in our Executive Suites overlooking tranquil lakescapes. With premium amenities, a private workspace, and elegant modern décor, this suite is perfect for both business and leisure travelers.Dining options include curated chef’s menus with lakeside seating.",
     "features": [
       {
-        "_id": "68df83273f9d55981be77b78",
+        "_id": "68e13e623d7a7000cb5f534d",
         "icon": "users",
-        "text": "3 Guests"
+        "text": "2 Guests"
       },
       {
-        "_id": "68df83273f9d55981be77b79",
+        "_id": "68e13e623d7a7000cb5f534e",
         "icon": "ruler",
-        "text": "40 Feet Size"
+        "text": "42 Feet Size"
       },
       {
-        "_id": "68df83273f9d55981be77b7a",
+        "_id": "68e13e623d7a7000cb5f534f",
         "icon": "link",
         "text": "Connecting Rooms"
       },
       {
-        "_id": "68df83273f9d55981be77b7b",
+        "_id": "68e13e623d7a7000cb5f5350",
         "icon": "bed-double",
-        "text": "2 Twin Beds"
+        "text": "1 King Bed"
       }
     ],
     "amenities": [
       {
-        "_id": "68df83273f9d55981be77b7c",
+        "_id": "68e13e623d7a7000cb5f5351",
         "text": "Free Wifi",
         "icon": "wifi"
       },
       {
-        "_id": "68df83273f9d55981be77b7d",
-        "text": "Refrigerator",
-        "icon": "fridge"
+        "_id": "68e13e623d7a7000cb5f5352",
+        "text": "Work Desk",
+        "icon": "laptop"
       },
       {
-        "_id": "68df83273f9d55981be77b7e",
+        "_id": "68e13e623d7a7000cb5f5353",
         "text": "Shower",
         "icon": "shower-head"
       },
       {
-        "_id": "68df83273f9d55981be77b7f",
-        "text": "Parking",
-        "icon": "parking"
+        "_id": "68e13e623d7a7000cb5f5354",
+        "text": "Balcony",
+        "icon": "panel-top-open"
       },
       {
-        "_id": "68df83273f9d55981be77b80",
-        "text": "Child Friendly",
-        "icon": "kids"
+        "_id": "68e13e623d7a7000cb5f5355",
+        "text": "Fitness Center",
+        "icon": "dumbbell"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5356",
+        "text": "Swimming Pool",
+        "icon": "swimming"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5357",
+        "text": "24/7 Support",
+        "icon": "headphones"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5358",
+        "text": "Refrigerator",
+        "icon": "fridge"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5359",
+        "text": "Airport Transport",
+        "icon": "plane"
       }
     ]
   },
   {
     "roomCapacity": {
-      "adults": 3,
+      "adults": 2,
       "children": 1,
-      "availableRooms": 10,
+      "availableRooms": 5,
       "bed": 2,
       "maxExtraAdults": 1,
       "maxExtraChildren": 1,
-      "maxExtraBed": 1,
-      "extraAdultCharges": 1200,
-      "extraChildCharges": 600,
-      "extraBedCharge": 200
+      "maxExtraBed": 2,
+      "extraAdultCharges": 1500,
+      "extraChildCharges": 750,
+      "extraBedCharge": 300
     },
     "addonServicesCharges": {
-      "petFriendly": 250,
-      "steamRoom": 400,
-      "laundry": 100
+      "petFriendly": 550,
+      "steamRoom": 450,
+      "laundry": 145
     },
-    "_id": "68dd3cc70db9182a1d798da6",
-    "name": "Premium Deluxe Room",
-    "categoryId": "cat002",
-    "location": "Mahim East, Mumbai 12",
-    "price": 3400,
-    "bannerImg": "http://localhost:8000/media/rooms-images/Premium Deluxe Room.jpg",
+    "_id": "68dd3cc70db9182a1d798da4",
+    "name": "Executive Suites",
+    "categoryId": "cat202",
+    "location": "Mumbai, India",
+    "price": 6400,
+    "bannerImg": "http://localhost:8000/media/rooms-images/Executive Suites.jpg",
     "roomImages": [
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-1.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-2.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-3.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-4.jpg"
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-1.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-2.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-3.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-4.jpg"
     ],
-    "info": "Ocean View Room",
-    "description": "NEW Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.,Enjoy fresh seafood and sunset cocktails at our beachfront grill.",
+    "info": "Lake View Room",
+    "description": "Enjoy refined comfort in our Executive Suites overlooking tranquil lakescapes. With premium amenities, a private workspace, and elegant modern décor, this suite is perfect for both business and leisure travelers.Dining options include curated chef’s menus with lakeside seating.",
     "features": [
       {
-        "_id": "68df83273f9d55981be77b78",
+        "_id": "68e13e623d7a7000cb5f534d",
         "icon": "users",
-        "text": "3 Guests"
+        "text": "2 Guests"
       },
       {
-        "_id": "68df83273f9d55981be77b79",
+        "_id": "68e13e623d7a7000cb5f534e",
         "icon": "ruler",
-        "text": "40 Feet Size"
+        "text": "42 Feet Size"
       },
       {
-        "_id": "68df83273f9d55981be77b7a",
+        "_id": "68e13e623d7a7000cb5f534f",
         "icon": "link",
         "text": "Connecting Rooms"
       },
       {
-        "_id": "68df83273f9d55981be77b7b",
+        "_id": "68e13e623d7a7000cb5f5350",
         "icon": "bed-double",
-        "text": "2 Twin Beds"
+        "text": "1 King Bed"
       }
     ],
     "amenities": [
       {
-        "_id": "68df83273f9d55981be77b7c",
+        "_id": "68e13e623d7a7000cb5f5351",
         "text": "Free Wifi",
         "icon": "wifi"
       },
       {
-        "_id": "68df83273f9d55981be77b7d",
-        "text": "Refrigerator",
-        "icon": "fridge"
+        "_id": "68e13e623d7a7000cb5f5352",
+        "text": "Work Desk",
+        "icon": "laptop"
       },
       {
-        "_id": "68df83273f9d55981be77b7e",
+        "_id": "68e13e623d7a7000cb5f5353",
         "text": "Shower",
         "icon": "shower-head"
       },
       {
-        "_id": "68df83273f9d55981be77b7f",
-        "text": "Parking",
-        "icon": "parking"
+        "_id": "68e13e623d7a7000cb5f5354",
+        "text": "Balcony",
+        "icon": "panel-top-open"
       },
       {
-        "_id": "68df83273f9d55981be77b80",
-        "text": "Child Friendly",
-        "icon": "kids"
+        "_id": "68e13e623d7a7000cb5f5355",
+        "text": "Fitness Center",
+        "icon": "dumbbell"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5356",
+        "text": "Swimming Pool",
+        "icon": "swimming"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5357",
+        "text": "24/7 Support",
+        "icon": "headphones"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5358",
+        "text": "Refrigerator",
+        "icon": "fridge"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5359",
+        "text": "Airport Transport",
+        "icon": "plane"
       }
     ]
   },
   {
     "roomCapacity": {
-      "adults": 3,
+      "adults": 2,
       "children": 1,
-      "availableRooms": 10,
+      "availableRooms": 5,
       "bed": 2,
       "maxExtraAdults": 1,
       "maxExtraChildren": 1,
-      "maxExtraBed": 1,
-      "extraAdultCharges": 1200,
-      "extraChildCharges": 600,
-      "extraBedCharge": 200
+      "maxExtraBed": 2,
+      "extraAdultCharges": 1500,
+      "extraChildCharges": 750,
+      "extraBedCharge": 300
     },
     "addonServicesCharges": {
-      "petFriendly": 250,
-      "steamRoom": 400,
-      "laundry": 100
+      "petFriendly": 550,
+      "steamRoom": 450,
+      "laundry": 145
     },
-    "_id": "68dd3cc70db9182a1d798da6",
-    "name": "Premium Deluxe Room",
-    "categoryId": "cat002",
-    "location": "Mahim East, Mumbai 12",
-    "price": 3400,
-    "bannerImg": "http://localhost:8000/media/rooms-images/Premium Deluxe Room.jpg",
+    "_id": "68dd3cc70db9182a1d798da4",
+    "name": "Executive Suites",
+    "categoryId": "cat202",
+    "location": "Mumbai, India",
+    "price": 6400,
+    "bannerImg": "http://localhost:8000/media/rooms-images/Executive Suites.jpg",
     "roomImages": [
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-1.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-2.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-3.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-4.jpg"
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-1.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-2.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-3.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-4.jpg"
     ],
-    "info": "Ocean View Room",
-    "description": "NEW Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.,Enjoy fresh seafood and sunset cocktails at our beachfront grill.",
+    "info": "Lake View Room",
+    "description": "Enjoy refined comfort in our Executive Suites overlooking tranquil lakescapes. With premium amenities, a private workspace, and elegant modern décor, this suite is perfect for both business and leisure travelers.Dining options include curated chef’s menus with lakeside seating.",
     "features": [
       {
-        "_id": "68df83273f9d55981be77b78",
+        "_id": "68e13e623d7a7000cb5f534d",
         "icon": "users",
-        "text": "3 Guests"
+        "text": "2 Guests"
       },
       {
-        "_id": "68df83273f9d55981be77b79",
+        "_id": "68e13e623d7a7000cb5f534e",
         "icon": "ruler",
-        "text": "40 Feet Size"
+        "text": "42 Feet Size"
       },
       {
-        "_id": "68df83273f9d55981be77b7a",
+        "_id": "68e13e623d7a7000cb5f534f",
         "icon": "link",
         "text": "Connecting Rooms"
       },
       {
-        "_id": "68df83273f9d55981be77b7b",
+        "_id": "68e13e623d7a7000cb5f5350",
         "icon": "bed-double",
-        "text": "2 Twin Beds"
+        "text": "1 King Bed"
       }
     ],
     "amenities": [
       {
-        "_id": "68df83273f9d55981be77b7c",
+        "_id": "68e13e623d7a7000cb5f5351",
         "text": "Free Wifi",
         "icon": "wifi"
       },
       {
-        "_id": "68df83273f9d55981be77b7d",
-        "text": "Refrigerator",
-        "icon": "fridge"
+        "_id": "68e13e623d7a7000cb5f5352",
+        "text": "Work Desk",
+        "icon": "laptop"
       },
       {
-        "_id": "68df83273f9d55981be77b7e",
+        "_id": "68e13e623d7a7000cb5f5353",
         "text": "Shower",
         "icon": "shower-head"
       },
       {
-        "_id": "68df83273f9d55981be77b7f",
-        "text": "Parking",
-        "icon": "parking"
+        "_id": "68e13e623d7a7000cb5f5354",
+        "text": "Balcony",
+        "icon": "panel-top-open"
       },
       {
-        "_id": "68df83273f9d55981be77b80",
-        "text": "Child Friendly",
-        "icon": "kids"
+        "_id": "68e13e623d7a7000cb5f5355",
+        "text": "Fitness Center",
+        "icon": "dumbbell"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5356",
+        "text": "Swimming Pool",
+        "icon": "swimming"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5357",
+        "text": "24/7 Support",
+        "icon": "headphones"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5358",
+        "text": "Refrigerator",
+        "icon": "fridge"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5359",
+        "text": "Airport Transport",
+        "icon": "plane"
       }
     ]
   },
   {
     "roomCapacity": {
-      "adults": 3,
+      "adults": 2,
       "children": 1,
-      "availableRooms": 10,
+      "availableRooms": 5,
       "bed": 2,
       "maxExtraAdults": 1,
       "maxExtraChildren": 1,
-      "maxExtraBed": 1,
-      "extraAdultCharges": 1200,
-      "extraChildCharges": 600,
-      "extraBedCharge": 200
+      "maxExtraBed": 2,
+      "extraAdultCharges": 1500,
+      "extraChildCharges": 750,
+      "extraBedCharge": 300
     },
     "addonServicesCharges": {
-      "petFriendly": 250,
-      "steamRoom": 400,
-      "laundry": 100
+      "petFriendly": 550,
+      "steamRoom": 450,
+      "laundry": 145
     },
-    "_id": "68dd3cc70db9182a1d798da6",
-    "name": "Premium Deluxe Room",
-    "categoryId": "cat002",
-    "location": "Mahim East, Mumbai 12",
-    "price": 3400,
-    "bannerImg": "http://localhost:8000/media/rooms-images/Premium Deluxe Room.jpg",
+    "_id": "68dd3cc70db9182a1d798da4",
+    "name": "Executive Suites",
+    "categoryId": "cat202",
+    "location": "Mumbai, India",
+    "price": 6400,
+    "bannerImg": "http://localhost:8000/media/rooms-images/Executive Suites.jpg",
     "roomImages": [
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-1.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-2.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-3.jpg",
-      "http://localhost:8000/media/rooms-images/double-bed-imgs/double-bed-4.jpg"
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-1.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-2.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-3.jpg",
+      "http://localhost:8000/media/rooms-images/suites-imgs/suites-img-4.jpg"
     ],
-    "info": "Ocean View Room",
-    "description": "NEW Wake up to the sound of waves in our Premium Deluxe Room, perfectly positioned for stunning ocean views. With contemporary interiors and calming coastal tones, the room is designed for rest and relaxation.,Enjoy fresh seafood and sunset cocktails at our beachfront grill.",
+    "info": "Lake View Room",
+    "description": "Enjoy refined comfort in our Executive Suites overlooking tranquil lakescapes. With premium amenities, a private workspace, and elegant modern décor, this suite is perfect for both business and leisure travelers.Dining options include curated chef’s menus with lakeside seating.",
     "features": [
       {
-        "_id": "68df83273f9d55981be77b78",
+        "_id": "68e13e623d7a7000cb5f534d",
         "icon": "users",
-        "text": "3 Guests"
+        "text": "2 Guests"
       },
       {
-        "_id": "68df83273f9d55981be77b79",
+        "_id": "68e13e623d7a7000cb5f534e",
         "icon": "ruler",
-        "text": "40 Feet Size"
+        "text": "42 Feet Size"
       },
       {
-        "_id": "68df83273f9d55981be77b7a",
+        "_id": "68e13e623d7a7000cb5f534f",
         "icon": "link",
         "text": "Connecting Rooms"
       },
       {
-        "_id": "68df83273f9d55981be77b7b",
+        "_id": "68e13e623d7a7000cb5f5350",
         "icon": "bed-double",
-        "text": "2 Twin Beds"
+        "text": "1 King Bed"
       }
     ],
     "amenities": [
       {
-        "_id": "68df83273f9d55981be77b7c",
+        "_id": "68e13e623d7a7000cb5f5351",
         "text": "Free Wifi",
         "icon": "wifi"
       },
       {
-        "_id": "68df83273f9d55981be77b7d",
-        "text": "Refrigerator",
-        "icon": "fridge"
+        "_id": "68e13e623d7a7000cb5f5352",
+        "text": "Work Desk",
+        "icon": "laptop"
       },
       {
-        "_id": "68df83273f9d55981be77b7e",
+        "_id": "68e13e623d7a7000cb5f5353",
         "text": "Shower",
         "icon": "shower-head"
       },
       {
-        "_id": "68df83273f9d55981be77b7f",
-        "text": "Parking",
-        "icon": "parking"
+        "_id": "68e13e623d7a7000cb5f5354",
+        "text": "Balcony",
+        "icon": "panel-top-open"
       },
       {
-        "_id": "68df83273f9d55981be77b80",
-        "text": "Child Friendly",
-        "icon": "kids"
+        "_id": "68e13e623d7a7000cb5f5355",
+        "text": "Fitness Center",
+        "icon": "dumbbell"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5356",
+        "text": "Swimming Pool",
+        "icon": "swimming"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5357",
+        "text": "24/7 Support",
+        "icon": "headphones"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5358",
+        "text": "Refrigerator",
+        "icon": "fridge"
+      },
+      {
+        "_id": "68e13e623d7a7000cb5f5359",
+        "text": "Airport Transport",
+        "icon": "plane"
       }
     ]
   }
