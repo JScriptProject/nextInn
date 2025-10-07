@@ -5,7 +5,7 @@ import CounterInput from "./CounterInput";
 import { BookingContext } from "../../assets/context/BookingContext";
 import { rateCalculation } from "../../util/rateCalculation.js";
 import { createPortal } from "react-dom";
-import PreviewBooking from './PreviewBooking';
+import PreviewBooking from "./PreviewBooking";
 
 function BookingForm({
   hotelRate,
@@ -14,18 +14,26 @@ function BookingForm({
   roomId,
   addonServicesCharges,
 }) {
+  console.log("Starting in ");
+  console.log("roomCapacity=>>>>>", roomCapacity);
   // states
   const { bookingData, setBookingData } = useContext(BookingContext);
-  const [totalPrice, setTotalPrice] = useState(()=>{
-   const [totalCost] =  rateCalculation(bookingData, roomCapacity);
-   return totalCost;
-  } 
+  console.log("Line number 2");
+ console.log("Booking data =>", bookingData);
+  const [totalPrice, setTotalPrice] = useState(() => {
+    console.log("inside the block");
+    const [totalCost] = rateCalculation(bookingData, roomCapacity);
+    return totalCost;
+  });
+  console.log("After the block");
   
-  );
-  const [prizeBreakDown, setPrizBreakDown] = useState(()=>{
-    const [priceBreakDown] =  rateCalculation(bookingData, roomCapacity);
+  console.log("Booking data =>", bookingData);
+  console.log("Total Price =>", totalPrice);
+
+  const [prizeBreakDown, setPrizBreakDown] = useState(() => {
+    const [priceBreakDown] = rateCalculation(bookingData, roomCapacity);
     return priceBreakDown;
-  })
+  });
   const [formModal, setFormModal] = useState({
     isModalOpen: false,
     message: "",
@@ -54,12 +62,11 @@ function BookingForm({
 
   useEffect(() => {
     setBookingData((prevData) => ({ ...prevData, rate: hotelRate }));
-
   }, [hotelRate]);
 
   useEffect(() => {
     if (roomCapacity) {
-      const [totalCost,prizeBreakDown] = rateCalculation(
+      const [totalCost, prizeBreakDown] = rateCalculation(
         bookingData,
         roomCapacity,
         addonServicesCharges
@@ -131,7 +138,7 @@ function BookingForm({
     setIsBookingPreviewOpen(true);
   }
 
-  function onClosePreview(){
+  function onClosePreview() {
     setIsBookingPreviewOpen(false);
   }
 
@@ -150,7 +157,15 @@ function BookingForm({
           </p>,
           document.getElementById("portal")
         )}
-      {isBookingPreviewOpen && <PreviewBooking isBookingPreviewOpen={isBookingPreviewOpen} onClose = {onClosePreview} ref={bookingPreviewRef} prizeBreakDown ={prizeBreakDown} totalPrice ={totalPrice} />}
+      {isBookingPreviewOpen && (
+        <PreviewBooking
+          isBookingPreviewOpen={isBookingPreviewOpen}
+          onClose={onClosePreview}
+          ref={bookingPreviewRef}
+          prizeBreakDown={prizeBreakDown}
+          totalPrice={totalPrice}
+        />
+      )}
       <form className="booking-form" action={handleBookingFormSubmitPreview}>
         <div className="form-header">
           <h2>Reserve</h2>
@@ -181,7 +196,6 @@ function BookingForm({
             maxExtraCount={roomCapacity?.maxExtraAdults ?? 0}
             extraCharge={roomCapacity?.extraAdultCharges ?? 0}
             setFormModal={setFormModal}
-            
           />
 
           <CounterInput
@@ -245,12 +259,7 @@ function BookingForm({
           </h2>
         </div>
 
-        <button
-          className="booking-form-button"
-          
-        >
-          Book Your Stay
-        </button>
+        <button className="booking-form-button">Book Your Stay</button>
       </form>
     </div>
   );

@@ -73,7 +73,8 @@ const PreviewBooking = forwardRef(function PreviewBooking(
 
   const [formState, actionState] = useActionState(onConfirmSubmit, [])
 
-  console.log(formState)
+  console.log("FORM STATE =>",formState);
+  
   return (
     <>
      

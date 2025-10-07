@@ -80,7 +80,7 @@ function RoomDetails() {
             </div>
           </div>
 
-          {/* <BookingForm addonServicesCharges={room.addonServicesCharges} roomId= {room._id} hotelName ={room.name} hotelRate={room.price} roomCapacity={room.room_capacity} /> */}
+          <BookingForm addonServicesCharges={room.addonServicesCharges} roomId= {room._id} hotelName ={room.name} hotelRate={room.price} roomCapacity={room.roomCapacity} />
         </div>
       </div>
     </BookingProvider>

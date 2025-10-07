@@ -26,8 +26,6 @@ function RoomsHomePage() {
     })();
   }, []);
 
-  console.log("Rooms =>", rooms);
-
   const swiperBreaks = {
     640: {
       slidesPerView: 2,
@@ -70,7 +68,6 @@ function RoomsHomePage() {
         >
           {rooms.map((room) => 
           {
-            console.log("rooms banner img=>",room.bannerImg)
           return (
             <SwiperSlide
               key={room._id}
