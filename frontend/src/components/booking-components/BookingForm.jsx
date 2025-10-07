@@ -3,7 +3,7 @@ import CheckInOutInput from "./CheckInOutInput";
 import ReserveCheckBox from "./ReserveCheckBox";
 import CounterInput from "./CounterInput";
 import { BookingContext } from "../../assets/context/BookingContext";
-import { rateCalculation } from "../../data/rooms.js";
+import { rateCalculation } from "../../util/rateCalculation.js";
 import { createPortal } from "react-dom";
 import PreviewBooking from './PreviewBooking';
 
@@ -20,6 +20,7 @@ function BookingForm({
    const [totalCost] =  rateCalculation(bookingData, roomCapacity);
    return totalCost;
   } 
+  
   );
   const [prizeBreakDown, setPrizBreakDown] = useState(()=>{
     const [priceBreakDown] =  rateCalculation(bookingData, roomCapacity);

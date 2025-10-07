@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { saveToRoom } from "../../api/roomsapi.js";
-import { deepEqual } from "../../util/arrayOperations.js";
+import { createPortal } from 'react-dom';
 import InfoContentBlock from "./InfoContentBlock.jsx";
 import CategoryInfoBlock from "./CategoryInfoBlock.jsx";
 import CategoryCapacityBlock from "./CategoryCapacityBlock.jsx";
@@ -8,45 +7,9 @@ import CategoryAddonChargesBlock from "./CategoryAddonChargesBlock.jsx";
 import CategoryAmenitiesBlock from "./CategoryAmenitiesBlock.jsx";
 
 
-function RoomscategoryInfo({ roomsObj, setRooms, rooms, roomCopy }) {
+function RoomscategoryInfo({ roomsObj,setRooms  }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const saveTimer = useRef(null);
-
-  //all console
-  console.log("All console to check the data");
-  console.log("roomsObj =>", roomsObj);
-  console.log("rooms =>", rooms);
-  console.log("roomCOpy =>", roomCopy);
-
-  
-  useEffect(() => {
-    if (deepEqual(rooms, roomCopy)) return;
-    const cancelledRef = {current: false};
-
-    if(saveTimer.current) clearTimeout(saveTimer.current);
-    
-    saveTimer.current = setTimeout(() => {
-      const doSave = async()=>{
-        try {
-          setIsSaving(true);
-          const result =  await saveToRoom(rooms);
-          if(!cancelledRef.current) console.log("saved", result);
-        } catch (error) {
-          console.error("Error saving rooms data:", error);
-        } finally {
-          if(!cancelledRef.current) setIsSaving(false);
-        }
-      };
-      doSave();
-    },500)
-
-    return ()=>{
-      clearTimeout(saveTimer.current);
-      saveTimer.current = null;
-      cancelledRef.current = true;
-    }
-  }, [roomCopy,rooms]);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   return (
     <div className="roomsCategoryInfo">
@@ -60,26 +23,29 @@ function RoomscategoryInfo({ roomsObj, setRooms, rooms, roomCopy }) {
         setIsEditing={setIsEditing}
         isEditing={isEditing}
         roomsObj={roomsObj}
-        setRooms={setRooms}
+        setSuccessMessage={setSuccessMessage}
+        
       />
       <CategoryCapacityBlock
         setIsEditing={setIsEditing}
         isEditing={isEditing}
         roomsObj={roomsObj}
-        setRooms={setRooms}
+        setSuccessMessage={setSuccessMessage}
       />
       <CategoryAddonChargesBlock
         setIsEditing={setIsEditing}
         isEditing={isEditing}
         roomsObj={roomsObj}
-        setRooms={setRooms}
+        setSuccessMessage={setSuccessMessage}
       />
       <CategoryAmenitiesBlock
         setIsEditing={setIsEditing}
         isEditing={isEditing}
         roomsObj={roomsObj}
+        setSuccessMessage={setSuccessMessage}
         setRooms={setRooms}
       />
+      {successMessage !==null && createPortal(<p className="successModal">{successMessage}</p>, document.getElementById("portal"))}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { use, useEffect, useRef } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/Button.jsx";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -63,9 +63,9 @@ function HomePage() {
                   <h1>{bannerSlide.title}</h1>
                 </div>
                 <div className="banner-cta">
-                  <Link to="/book">
-                    <Button className="btn btn-lg   btn-fill">Book Now</Button>
-                  </Link>
+                  <a href="#our-rooms">
+                    <Button className="btn btn-lg btn-fill">Book Now</Button>
+                  </a>
                 </div>
               </div>
             </SwiperSlide>

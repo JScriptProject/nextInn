@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AddNewAmenitiesBtn from "./AddNewAmenitiesBtn.jsx";
 import InfoChecklistBlock from "./InfoChecklistBlock.jsx";
+import {getAllRoomsCategory} from '../../api/roomsCategoryApi.js';
 import {
   Wifi,
   ShowerHead,
@@ -24,12 +25,15 @@ import {
   CigaretteOff,
   Leaf,
 } from "lucide-react";
+import { getChangedFields } from "../../util/getChangedFields.js";
+import { updateRoomCategoryData } from "../../api/roomsCategoryApi.js";
 
 function CategoryAmenitiesBlock({
   setIsEditing,
   isEditing,
   roomsObj,
-  setRooms,
+  setSuccessMessage,
+  setRooms
 }) {
   const [addedItems, setAddedItems] = useState(
     roomsObj.amenities?.map((items) => items.text)
@@ -85,7 +89,6 @@ function CategoryAmenitiesBlock({
     { text: "Garden / Outdoor Area", icon: "garden" },
   ];
 
- 
   useEffect(() => {
     setAddedItems(roomsObj.amenities?.map((items) => items.text));
   }, [roomsObj]);
@@ -98,19 +101,43 @@ function CategoryAmenitiesBlock({
     }
   }, [isAmenitiesEditing]);
 
-  function onClickEdit() {
-    
+  //create a copy of all amenties object
+
+  const roomsObjCategoryAmenitiesData = structuredClone(roomsObj.amenities);
+
+  async function onClickEdit() {
     setIsAmenitiesEditing((prev) => !prev);
 
-    if (isAmenitiesEditing) {
+    if (isAmenitiesEditing === true) {
       const filteredAmenities = allAmenities.filter((amenty) =>
         addedItems.includes(amenty.text)
       );
 
-      const newRoomsData = { ...roomsObj, amenities: filteredAmenities };
-      setRooms((prev) =>
-        prev.map((room) => (room.id === roomsObj.id ? newRoomsData : room))
-      );
+      const changes = getChangedFields(roomsObjCategoryAmenitiesData, filteredAmenities);
+      const _id = roomsObj._id;
+
+      if (changes) {
+        try {
+          const result = await updateRoomCategoryData(_id, {
+            amenities: changes
+          });
+          console.log("DB operation result Amenities", result);
+          setSuccessMessage(result.message);
+          
+          const roomsData = await getAllRoomsCategory();
+          setRooms(roomsData);
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 2000);
+        } catch (error) {
+          console.error("An Error occured", error);
+        }
+      } else {
+        setSuccessMessage("No Changes made !! ");
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 2000);
+      }
     }
   }
   function onClickAddNewAmenities() {}
@@ -152,7 +179,6 @@ function CategoryAmenitiesBlock({
         <p>No Amenities Added, Please Add Amenities</p>
       )}
       <AddNewAmenitiesBtn
-      
         removedItems={removedItems}
         setRemovedItems={setRemovedItems}
         addedItems={addedItems}
@@ -162,8 +188,9 @@ function CategoryAmenitiesBlock({
         setIsEditing={setIsEditing}
         iconMap={iconMap}
         roomsObj={roomsObj}
-        setRooms={setRooms}
+        setSuccessMessage={setSuccessMessage}
         allAmenities={allAmenities}
+        setRooms ={setRooms}
       />
     </div>
   );

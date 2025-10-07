@@ -1,35 +1,59 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import InfoContentBlock from "./InfoContentBlock.jsx";
+import { getChangedFields } from "../../util/getChangedFields.js";
+import { updateRoomCategoryData } from "../../api/roomsCategoryApi.js";
 
 function CategoryCapacityBlock({
   isEditing,
   setIsEditing,
   roomsObj,
-  setRooms
+  setSuccessMessage,
 }) {
-
   const [updatedRooms, setUpdatedRooms] = useState({});
   const [isCapacityEditing, setCapacityEditing] = useState(false);
 
-    useEffect(()=>{
-      if(isCapacityEditing){
+  const roomsObjCategoryCapacityData = structuredClone(roomsObj.roomCapacity);
+  useEffect(() => {
+    if (isCapacityEditing) {
       setIsEditing(true);
+    } else {
+      setIsEditing(false);
+    }
+  }, [isCapacityEditing]);
+
+  async function onClickEdit() {
+    setCapacityEditing((prev) => !prev);
+    if (isCapacityEditing === true) {
+      const changes = getChangedFields(
+        roomsObjCategoryCapacityData,
+        updatedRooms
+      );
+      const _id = roomsObj._id;
+    
+      if(Object.keys(changes).length > 0)
+      {
+ try {
+        const result = await updateRoomCategoryData(_id, {
+          roomCapacity: { ...roomsObj.roomCapacity, ...changes },
+        });
+        console.log("DB operation result", result);
+        setSuccessMessage(result.message);
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 2000);
+      } catch (error) {
+        console.error("An error occured,", error);
+      }
       }
       else{
-        setIsEditing(false);
+        setSuccessMessage("No Changes made !! ");
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 2000);
       }
-    },[isCapacityEditing])
-    
-  
-    function onClickEdit(){
-      setCapacityEditing(prev=> !prev);   
-      if(isCapacityEditing){
-        const roomCapacityData = roomsObj.roomCapacity
-         const newRoomsData = {...roomsObj, roomCapacity:{...roomCapacityData,...updatedRooms}};
-        setRooms((prev)=> prev.map((room)=> room.id === roomsObj.id ? newRoomsData : room));
-        setUpdatedRooms({});
-      } 
+     
     }
+  }
 
   return (
     <div className="info-block">
@@ -37,7 +61,9 @@ function CategoryCapacityBlock({
         <h3 className="info-block-title">Room Capacity Info</h3>
         <button
           className={
-            isCapacityEditing ? "info-block-btn info-block-btn-edit" : "info-block-btn"
+            isCapacityEditing
+              ? "info-block-btn info-block-btn-edit"
+              : "info-block-btn"
           }
           onClick={onClickEdit}
           disabled={isEditing === true && isCapacityEditing === false}
@@ -48,14 +74,14 @@ function CategoryCapacityBlock({
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Adults"
-          valueLable = "adults"
+          valueLable="adults"
           value={roomsObj?.roomCapacity?.adults}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
         />
         <InfoContentBlock
           title="Children"
-          valueLable = "children"
+          valueLable="children"
           value={roomsObj?.roomCapacity?.children}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -64,7 +90,7 @@ function CategoryCapacityBlock({
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Available Rooms"
-          valueLable = "available_rooms"
+          valueLable="available_rooms"
           value={roomsObj?.roomCapacity?.available_rooms}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -72,7 +98,7 @@ function CategoryCapacityBlock({
         />
         <InfoContentBlock
           title="Bed each Room"
-          valueLable = "bed"
+          valueLable="bed"
           value={roomsObj?.roomCapacity?.bed}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -82,7 +108,7 @@ function CategoryCapacityBlock({
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Max Extra Adults"
-          valueLable = "maxExtraAdults"
+          valueLable="maxExtraAdults"
           value={roomsObj?.roomCapacity?.maxExtraAdults}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -90,7 +116,7 @@ function CategoryCapacityBlock({
         />
         <InfoContentBlock
           title="Extra Adult Charge"
-          valueLable = "extraAdultCharges"
+          valueLable="extraAdultCharges"
           value={roomsObj?.roomCapacity?.extraAdultCharges}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -100,7 +126,7 @@ function CategoryCapacityBlock({
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Max Extra Children"
-          valueLable = "maxExtraChildren"
+          valueLable="maxExtraChildren"
           value={roomsObj?.roomCapacity?.maxExtraChildren}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -108,7 +134,7 @@ function CategoryCapacityBlock({
         />
         <InfoContentBlock
           title="Extra Children Charge"
-          valueLable = "extraChildCharges"
+          valueLable="extraChildCharges"
           value={roomsObj?.roomCapacity?.extraChildCharges}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -118,7 +144,7 @@ function CategoryCapacityBlock({
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Max Extra Bed"
-          valueLable = "maxExtraBed"
+          valueLable="maxExtraBed"
           value={roomsObj?.roomCapacity?.maxExtraBed}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
@@ -127,7 +153,7 @@ function CategoryCapacityBlock({
 
         <InfoContentBlock
           title="Extra Bed Charge"
-          valueLable = "extraBedCharge"
+          valueLable="extraBedCharge"
           value={roomsObj?.roomCapacity?.extraBedCharge}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}

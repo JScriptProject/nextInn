@@ -3,19 +3,22 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { RoomCategory } from "../models/roomCategory.model.js";
 
-const updateRoomCategoryData = asyncHandler(async (req, res, next) => {
-  const body = req.body || {};
-  const { _id, changes } = body;
-  const result = await RoomCategory.findByIdAndUpdate(
-    { _id },
-    { $set:changes },
-    { new: true }
-  );
-  if(!result){
+const addAmenities = asyncHandler(async(req, res, next)=>{
+    
+    const body = req.body || {};
+    const {_id, amenities} = body;
+
+    const result = await RoomCategory.findByIdAndUpdate(
+     _id ,
+    { $set:{amenities} },
+    { new: true });
+    
+ if(!result){
     throw new ApiError(500, "Unable to perform the update operation on room category");
 
   }
   res.success(new ApiResponse(201, result, "Data updated Succesfully!"));
+ 
 });
 
-export {updateRoomCategoryData};
+export {addAmenities};

@@ -5,18 +5,17 @@ import RoomsCategoryInfo from "./RoomsCategoryInfo.jsx";
 
 function CategoryManagement({ setErrors, errors }) {
   const [rooms, setRooms] = useState([]);
-  const [roomCopy, setRoomCopy] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(
     "Premium Deluxe Room"
   );
   const [localErrors, setLocalErrors] = useState(null);
+
+  const roomsObj = rooms.find((room) => room.name === selectedCategory);
+
   useEffect(() => {
     (async () => {
       try {
-        
         const roomsData = await getAllRoomsCategory();
-       
-        setRoomCopy(roomsData);
         setRooms(roomsData);
       } catch (error) {
         console.error("failed to fetch rooms:", error);
@@ -25,7 +24,6 @@ function CategoryManagement({ setErrors, errors }) {
       }
     })();
   }, []);
-
 
   return (
     <div>
@@ -39,12 +37,7 @@ function CategoryManagement({ setErrors, errors }) {
             setSelectedCategory={setSelectedCategory}
             selectedCategory={selectedCategory}
           />
-          <RoomsCategoryInfo
-            roomsObj={rooms.find((room) => room.name === selectedCategory)}
-            setRooms={setRooms}
-            rooms={rooms}
-            roomCopy={roomCopy}
-          />
+          <RoomsCategoryInfo roomsObj={roomsObj} setRooms={setRooms} />
         </div>
       ) : localErrors === null ? (
         <p>Data is loading....</p>

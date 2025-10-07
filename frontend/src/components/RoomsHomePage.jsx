@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserRound, IndianRupee } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SectionTitle from "./SectionTitle.jsx";
-import { rooms } from "../data/rooms.js";
+import { getAllRoomsCategory } from "../api/roomsCategoryApi.js";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -11,6 +11,23 @@ import "swiper/css/scrollbar";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 
 function RoomsHomePage() {
+  const [rooms, setRooms] = useState([]);
+
+  //Api call in useEffect to load the roomCategory data as soon as page loads
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const roomsData = await getAllRoomsCategory();
+        setRooms(roomsData);
+      } catch (error) {
+        console.error("failed to fetch rooms:", error);
+      }
+    })();
+  }, []);
+
+  console.log("Rooms =>", rooms);
+
   const swiperBreaks = {
     640: {
       slidesPerView: 2,
@@ -23,7 +40,7 @@ function RoomsHomePage() {
     },
   };
   return (
-    <section>
+    <section id="our-rooms">
       <div className="rooms-header-wrapper">
         <div className="section-title-wrap">
           <SectionTitle>
@@ -51,9 +68,12 @@ function RoomsHomePage() {
           className="rooms-swiper-container"
           breakpoints={swiperBreaks}
         >
-          {rooms.map((room) => (
+          {rooms.map((room) => 
+          {
+            console.log("rooms banner img=>",room.bannerImg)
+          return (
             <SwiperSlide
-              key={room.id}
+              key={room._id}
               className="room-swiper-slide"
               style={{
                 backgroundImage: `url(${room.bannerImg})`,
@@ -74,11 +94,16 @@ function RoomsHomePage() {
                   <span>₹</span> {room.price}
                 </p>
                 <button className="room-swiper-book-btn">
-                  <Link to = {`/rooms/${room.id}`} state={room}>Book Now</Link>
+                  <Link to={`/rooms/${room._id}`} state={room}>
+                    Book Now
+                  </Link>
                 </button>
               </div>
             </SwiperSlide>
-          ))}
+          )
+        }
+          
+          )}
         </Swiper>
       </div>
     </section>

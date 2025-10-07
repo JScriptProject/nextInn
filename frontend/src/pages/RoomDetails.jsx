@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PageBanner from "../components/PageBanner";
 import { useLocation } from "react-router-dom";
 import RoomAmenities from "../components/booking-components/RoomAmenities";
@@ -7,27 +7,31 @@ import AvailabilityCalendar from "../components/booking-components/AvailabilityC
 import BookingForm from "../components/booking-components/BookingForm";
 import ParallaxImageBox from "../components/ParallaxImageBox";
 import { BookingProvider } from "../assets/context/BookingContext";
+
+
 function RoomDetails() {
   const location = useLocation();
-  const room = location.state;
+  const [room, setRoom] = useState(location.state || {})
+  console.log("Location=>", location);
+  console.log("Room=>", room);
   return (
     <BookingProvider>
       <div className="page-container">
-        <PageBanner img={room.images[0]} heading={room.name} />
+        <PageBanner img={room.roomImages[0]} heading={room.name} />
         <div className="page-container-wrapper">
           <div className="room-details-section">
             <div className="room-info">
               <h2 className="page-title">{room.info}</h2>
               <RoomFeaturesIcon features={room.features} />
               <div className="room-description-container">
-                {room.description.map((desc, index) => (
-                  <p key={index} className="room-desc">
-                    {desc}
+                
+                  <p className="room-desc">
+                    {room.description}
                   </p>
-                ))}
+                
               </div>
               <div className="room-details-images">
-                <ParallaxImageBox imgSrc={room.images[1]} />
+                <ParallaxImageBox imgSrc={room.roomImages[1]} />
 
                 <div className="fixed-image">
                   <img src={room.bannerImg} alt={room.name} />
@@ -36,7 +40,7 @@ function RoomDetails() {
               <h3 className="page-internal-title">Room Amenities</h3>
               <RoomAmenities amenities={room.amenities} />
               <div className="sliding-moving-image">
-                <ParallaxImageBox imgSrc={room.images[2]} />
+                <ParallaxImageBox imgSrc={room.roomImages[2]} />
               </div>
             </div>
             <div className="room-features">
@@ -76,7 +80,7 @@ function RoomDetails() {
             </div>
           </div>
 
-          <BookingForm addonServicesCharges={room.addonServicesCharges} roomId= {room.id} hotelName ={room.name} hotelRate={room.price} roomCapacity={room.room_capacity} />
+          {/* <BookingForm addonServicesCharges={room.addonServicesCharges} roomId= {room._id} hotelName ={room.name} hotelRate={room.price} roomCapacity={room.room_capacity} /> */}
         </div>
       </div>
     </BookingProvider>

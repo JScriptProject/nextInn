@@ -4,10 +4,10 @@ export const getAllRoomsCategory = async () => {
   return response.data.data;
 };
 
-export const updateRoomCategoryData = async (categoryId, updates) => {
+export const updateRoomCategoryData = async (_id, changes) => {
   const response = await axiosInstance.put("/api/category/update", {
-    categoryId,
-    updates,
+    _id,
+    changes,
   });
   return response.data;
 };
