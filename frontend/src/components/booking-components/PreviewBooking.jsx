@@ -21,8 +21,8 @@ const PreviewBooking = forwardRef(function PreviewBooking(
   const [bookingSeccess, setBookingSuccess] = useState(false);
 
   const previewRef = useRef();
-  console.log("Booking Data", bookingData);
-  console.log("PrizeBreakDown", prizeBreakDown);
+  console.log("Booking Data=>>", bookingData);
+  console.log("PrizeBreakDown =>>", prizeBreakDown);
 
   useImperativeHandle(
     ref,
