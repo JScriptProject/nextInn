@@ -91,7 +91,7 @@ function CategoryCapacityBlock({
         <InfoContentBlock
           title="Available Rooms"
           valueLable="available_rooms"
-          value={roomsObj?.roomCapacity?.available_rooms}
+          value={roomsObj?.roomCapacity?.availableRooms}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
           inputType="number"

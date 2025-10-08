@@ -14,6 +14,7 @@ function RoomDetails() {
   const [room, setRoom] = useState(location.state || {})
   console.log("Location=>", location);
   console.log("Room=>", room);
+  console.log("Room Capacity from room =>", room.roomCapacity);
   return (
     <BookingProvider>
       <div className="page-container">

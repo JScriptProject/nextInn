@@ -23,6 +23,7 @@ const PreviewBooking = forwardRef(function PreviewBooking(
   const previewRef = useRef();
   console.log("Booking Data=>>", bookingData);
   console.log("PrizeBreakDown =>>", prizeBreakDown);
+  console.log("Total");
 
   useImperativeHandle(
     ref,

@@ -212,7 +212,7 @@ function BookingForm({
             text="Rooms"
             name="rooms"
             availableRooms={
-              roomCapacity?.available_rooms ?? 0 - (bookingData.rooms ?? 0)
+              roomCapacity?.availableRooms ?? 0 - (bookingData.rooms ?? 0)
             }
             extraCharge={hotelRate}
             setFormModal={setFormModal}
