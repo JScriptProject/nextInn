@@ -7,6 +7,8 @@ import AdminConsole from "./pages/AdminConsole.jsx";
 import Layout from "./components/Layout.jsx";
 import About from "./pages/About.jsx";
 import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
+import ForgetPassword from "./pages/ForgetPassword.jsx";
 
 function App() {
   //create Route
@@ -20,6 +22,8 @@ function App() {
         
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forget" element={<ForgetPassword />} />
       </Route>
       <Route path="/admin/*" element={<AdminConsole />} />
     </Routes>

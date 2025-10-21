@@ -33,6 +33,7 @@ function CategoryCapacityBlock({
       if(Object.keys(changes).length > 0)
       {
  try {
+    console.log("Chnages ===", changes);
         const result = await updateRoomCategoryData(_id, {
           roomCapacity: { ...roomsObj.roomCapacity, ...changes },
         });
@@ -90,7 +91,7 @@ function CategoryCapacityBlock({
       <div className="info-content-row grid2-start">
         <InfoContentBlock
           title="Available Rooms"
-          valueLable="available_rooms"
+          valueLable="availableRooms"
           value={roomsObj?.roomCapacity?.availableRooms}
           isEditing={isCapacityEditing}
           setUpdatedRooms={setUpdatedRooms}
