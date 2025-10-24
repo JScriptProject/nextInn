@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import signup from '../api/athenticationApi.js';
 function Register() {
   const [form, setForm] = useState({
     firstname: "",
@@ -10,17 +11,13 @@ function Register() {
     password: "",
     confirm_password: "",
   });
+
+
   const [message, setMessage] = useState("");
+
   const [isPasswordEdited, setIsPasswordEdited] = useState(false);
-  const handleBlur = () => {
-    if (password === confirm_password) {
-      console.log("Password matched");
-      setMessage("");
-    } else {
-      console.log("Password not matched");
-      setMessage("Password not matched");
-    }
-  };
+  
+
   const {
     firstname,
     lastname,
@@ -31,34 +28,51 @@ function Register() {
     confirm_password,
   } = form;
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setTimeout(() => {
-          setForm((prev) => ({ ...prev, [name]: value }));
+    const handleBlur = () => {
 
-    },400);
-
-    if (name === "confirm_password") {
-      if (password === confirm_password) {
-        setTimeout(() => {
-          console.log(form);
-          setMessage("");
-        }, 200);
+      if(!password || !confirm_password)
+      {
+        setMessage("");
+        return;
       }
-    }
 
-    if (name === "confirm_password" && confirm_password.length === 2) {
-      setIsPasswordEdited(true);
+    if (password !== confirm_password) {
+      console.log("Password matched");
+      setMessage("Password not matched");
+    } else {
+      console.log("Password not matched");
+      setMessage("");
     }
   };
-  console.log("ISEDITING =>", isPasswordEdited);
-  console.log("Message=>", message);
-  const handleSubmit = (e) => {
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev)=>{
+      const updated = {...prev, [name]: value };
+      if(!updated.password && !updated.confirm_password)
+      {
+        setMessage("");
+      }
+      if(name==="confirm_password" && isPasswordEdited){
+        if(updated.password ===updated.confirm_password)
+        {
+          setMessage("")
+        }
+      }
+      return updated;
+    })
+      
+    if(name === "confirm_password" && !isPasswordEdited)
+    {
+      setIsPasswordEdited(true);
+    }
+    
+  };
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    // collected data object ready to send to API later
-    const signupData = { ...form };
-    console.log("Signup data:", signupData);
-    // TODO: call API with signupData when ready
+  
+    const result = await signup(form);
+    console.log("Signup Result",result);
   };
 
   return (
@@ -127,11 +141,12 @@ function Register() {
               onBlur={handleBlur}
               onChange={onChange}
               value={confirm_password}
+              className={message ? "red-border": ""}
               required
             />
           </div>
           {isPasswordEdited && message && <p className="message">{message}</p>}
-          <button type="submit" className="btn-signup btn-fill">
+          <button type="submit" className="btn-signup btn-fill" disabled={message}>
             Signup
           </button>
           <p className="redirection">
