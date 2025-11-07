@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import signup from '../api/athenticationApi.js';
+import {signup} from '../api/athenticationApi.js';
 function Register() {
   const [form, setForm] = useState({
     firstname: "",
