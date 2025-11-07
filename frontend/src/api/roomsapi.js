@@ -1,8 +1,10 @@
 import axios from "axios"
 
+const API = import.meta.env.VITE_API_URL
+
 export const getRoomsData = async()=>{
     try {
-        const res = await axios.get('http://localhost:8000/api/rooms');
+        const res = await axios.get(`${API}/api/rooms`);
         return res.data;
     } catch (error) {
         console.log("Error fetching rooms:", error);
