@@ -4,9 +4,7 @@ import axios from "axios"
 
 export const signup = async(signUpData) =>{
     try{
-        const res = await axios.post(`$API}/api/signup`,{
-            form:signUpData,
-        })
+        const res = await axios.post(`$API}/api/signup`,signUpData)
         return res.data;
     }
     catch(error)
