@@ -17,7 +17,7 @@ const addAmenities = asyncHandler(async(req, res, next)=>{
     throw new ApiError(500, "Unable to perform the update operation on room category");
 
   }
-  res.success(new ApiResponse(201, result, "Data updated Succesfully!"));
+  res.success(201, result, "Data updated Succesfully!");
  
 });
 

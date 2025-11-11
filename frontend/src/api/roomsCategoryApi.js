@@ -1,11 +1,13 @@
-import axiosInstance from "../util/axiosInstance";
+import api from "./axiosInstance.js";
+
 export const getAllRoomsCategory = async () => {
-  const response = await axiosInstance.get("/api/category/get-all");
+  const response = await api.get("/api/category/get-all");
+  console.log("Api response",response);
   return response.data.data;
 };
 
 export const updateRoomCategoryData = async (_id, changes) => {
-  const response = await axiosInstance.put("/api/category/update", {
+  const response = await api.put("/api/category/update", {
     _id,
     changes,
   });

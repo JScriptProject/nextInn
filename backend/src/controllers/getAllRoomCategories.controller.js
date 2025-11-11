@@ -11,7 +11,7 @@ const getAllRoomCategories = asyncHandler(async(req, res, next)=>{
         throw new ApiError(404, "Room category data empty");
     }
 
-    res.success(new ApiResponse(200, allCategoryData, "All category data fetched succesfully"));
+    res.success(200, allCategoryData, "All category data fetched succesfully");
 })
 
 export {getAllRoomCategories};

@@ -9,12 +9,18 @@ import About from "./pages/About.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import ForgetPassword from "./pages/ForgetPassword.jsx";
+import {NotificationContextProvider} from './context/notificationContext.jsx'
+import NotificationBar from "./components/NotificationBar.jsx";
+
 
 function App() {
   //create Route
 
+
   return (
-    <Routes>
+//  <NotificationContextProvider>
+//    <NotificationBar />
+     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="/rooms/:id" element={<RoomDetails />} />
@@ -26,6 +32,8 @@ function App() {
       </Route>
       <Route path="/admin/*" element={<AdminConsole />} />
     </Routes>
+    // </NotificationContextProvider>
+ 
   );
 }
 

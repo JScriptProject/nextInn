@@ -17,11 +17,11 @@ export const signup = async(signUpData) =>{
     catch(error)
     {
         console.error("Error in signup", error);
-        const errorMessage = error.response.data.error || "Something went wrong";
+        const errorMessage = error.response.data.message || "Something went wrong";
         return{
             success:false,
             message:errorMessage,
-            status:error.response?.status || 500
+            status:error.response?.status || 520
         }
     }
 };

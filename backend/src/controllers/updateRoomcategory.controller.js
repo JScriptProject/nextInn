@@ -1,5 +1,4 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { RoomCategory } from "../models/roomCategory.model.js";
 
@@ -16,7 +15,7 @@ const updateRoomCategoryData = asyncHandler(async (req, res, next) => {
     throw new ApiError(500, "Unable to perform the update operation on room category");
 
   }
-  res.success(new ApiResponse(201, result, "Data updated Succesfully!"));
+  res.success(201, result, "Data updated Succesfully!");
 });
 
 export {updateRoomCategoryData};
