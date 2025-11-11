@@ -1,8 +1,11 @@
 import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 //handle cors
 const  coresMiddleware = cors({
-    origin:'http://localhost:5173',
+    origin:`${process.env.ORIGIN_URL}`,
     methods:['GET'],
     credentials:true
 });

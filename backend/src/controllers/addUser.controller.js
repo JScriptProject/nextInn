@@ -1,7 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { uploadToCloudinary } from "../utils/cloudinary.js";
-import { User } from "../models/user.models.js";
+import { UserDemo } from "../models/userDemo.models.js";
 
 const addUser = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -46,7 +46,7 @@ const addUser = asyncHandler(async (req, res, next) => {
 
 
 
-  const user = await User.create({
+  const user = await UserDemo.create({
     name: name.toLowerCase(),
     email: email.toLowerCase(),
     password,

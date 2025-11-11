@@ -6,18 +6,12 @@ import { connectDB } from "./db/index.js";
 
 
 import { errorhandler } from "./midlewares/errorsHandler.middleware.js";
-import roomsRouter from "./routers/roomsRouter.js";
-import roomsCategoryRouter from './routers/roomsCategory.router.js';
+
 import dotenv from "dotenv";
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
 
-
-
-//routers
-app.use('/api/category',roomsCategoryRouter);
-app.use("/api", roomsRouter);
 
 // create static files for images
 

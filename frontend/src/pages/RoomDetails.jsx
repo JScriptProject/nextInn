@@ -6,7 +6,7 @@ import RoomFeaturesIcon from "../components/RoomFeaturesIcon";
 import AvailabilityCalendar from "../components/booking-components/AvailabilityCalendar";
 import BookingForm from "../components/booking-components/BookingForm";
 import ParallaxImageBox from "../components/ParallaxImageBox";
-import { BookingProvider } from "../assets/context/BookingContext";
+import { BookingProvider } from "../context/BookingContext";
 
 
 function RoomDetails() {

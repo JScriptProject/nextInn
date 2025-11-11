@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useContext } from "react";
 import CheckInOutInput from "./CheckInOutInput";
 import ReserveCheckBox from "./ReserveCheckBox";
 import CounterInput from "./CounterInput";
-import { BookingContext } from "../../assets/context/BookingContext";
+import { BookingContext } from "../../context/BookingContext";
 import { rateCalculation } from "../../util/rateCalculation.js";
 import { createPortal } from "react-dom";
 import PreviewBooking from "./PreviewBooking";

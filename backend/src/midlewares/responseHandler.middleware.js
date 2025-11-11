@@ -1,25 +1,10 @@
+import { ApiResponse } from "../utils/ApiResponse.js";
+
 const  responseHandler=(req, res, next)=> {
-  res.success = (apiResponse) => {
-    const statusCode = res.statusCode || 200;
-    return res.status(statusCode).json(apiResponse);
-  };
-  res.error = (
-    statusCode,
-    message = "Internal error Happend",
-    error = [],
-    success = false,
-    data = null,
-    stack = ""
-  ) => {
-    res.status(statusCode).json({
-      statusCode,
-      message,
-      error,
-      success,
-      data,
-      stack,
-    });
-  };
+  (res.success = (statusCode, data, message="Success") => {
+    const apiResponse = new ApiResponse(statusCode, data, message);
+    return res.status(apiResponse.statusCode).json(apiResponse);
+  });
   next();
 }
 

@@ -10,7 +10,7 @@ import React, {
 import { X } from "lucide-react";
 import SummaryData from "../SummaryData";
 import hotelLogo from "../../assets/media/logo.png";
-import { BookingContext } from "../../assets/context/BookingContext";
+import { BookingContext } from "../../context/BookingContext";
 import BookingSuccess from "./BookingSuccess";
 
 const PreviewBooking = forwardRef(function PreviewBooking(

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signup } from '../api/authenticationApi.js';
 function Register() {
+
+  //all state variables here
   const [form, setForm] = useState({
     firstname: "",
     lastname: "",
@@ -11,13 +13,10 @@ function Register() {
     password: "",
     confirm_password: "",
   });
-
-
   const [message, setMessage] = useState("");
-
   const [isPasswordEdited, setIsPasswordEdited] = useState(false);
-  
 
+  //destructured variables here
   const {
     firstname,
     lastname,
@@ -28,6 +27,7 @@ function Register() {
     confirm_password,
   } = form;
 
+  //blur event handler
     const handleBlur = () => {
 
       if(!password || !confirm_password)
@@ -37,13 +37,15 @@ function Register() {
       }
 
     if (password !== confirm_password) {
-      console.log("Password matched");
+      console.log("Password not matched");
       setMessage("Password not matched");
     } else {
-      console.log("Password not matched");
+      console.log("Password matched");
       setMessage("");
     }
   };
+
+  //onChange event handler
   const onChange = (e) => {
     const { name, value } = e.target;
     setForm((prev)=>{
@@ -68,13 +70,14 @@ function Register() {
     
   };
 
+  //submit event handler
   const handleSubmit = async(e) => {
     e.preventDefault();
-  
     const result = await signup(form);
     console.log("Signup Result",result);
   };
 
+  //jsx code here
   return (
     <div className="signup-container">
       <div className="signup-container-wrapper">
