@@ -1,5 +1,5 @@
 import api from "./axiosInstance.js";
- const API = import.meta.env.VITE_API_URL
+
 
 export const signup = async(signUpData) =>{
     console.log(signUpData);
@@ -25,3 +25,25 @@ export const signup = async(signUpData) =>{
         }
     }
 };
+
+
+export const login = async(loginData) =>{
+    console.log(loginData);
+    
+    try {``
+        const response = await api.post('/api/auth/login', loginData);
+        console.log("API Response: ", response);
+        console.log("API Data: ", response.data);
+        return{
+            success:true,
+            message:response.data.message,
+            status:response.status
+        }
+    } catch (error) {
+          console.error("Error in login", error);
+          return{
+            success:false,
+            message:error.response.data.message || "Something went wrong",
+          }
+    }
+}

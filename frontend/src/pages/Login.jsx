@@ -1,6 +1,10 @@
-import React,{useState} from "react";
+import React,{use, useState} from "react";
 import { Link } from "react-router-dom";
+import { login } from "../api/authenticationApi.js";
+import { useContext } from "react";
+import { NotificationContext } from "../context/notificationContext.jsx";
 
+// function Login() {
 function Login() {
     const [form, setForm] = useState({
       email:"",
@@ -9,19 +13,36 @@ function Login() {
     });
     const [message, setMessage] = useState("");
     const {email, password, remember} = form;
-
+    const {notification, setNotification} = useContext(NotificationContext);
   const onChange =(e)=>{
      setForm((prev)=> ({...prev, [e.target.name]: e.target.type === "checkbox" ? e.target.checked:e.target.value}));
   }
   console.log(form);
-  const onSubmit = (e) => {
+  const onSubmit = async(e) => {
     e.preventDefault();
     // passowrd validation  
-    if(password.length < 8 )
-    {
-      console.log("Password shoild be atleat 8 character ");
-    }
+    const result = await login(form);
     console.log("FORM",form);
+    if (result.success === true) {
+      setNotification({
+        visible: true,
+        success: true,
+        message: result.message,
+      });
+      setTimeout(() => {
+        setNotification({ visible: false, success: false, message: "" });
+      }, 3000);
+    }
+    if (result.success === false) {
+      setNotification({
+        visible: true,
+        success: false,
+        message: result.message,
+      });
+      setTimeout(() => {
+        setNotification({ visible: false, success: false, message: "" });
+      }, 3000);
+    }
   };
   return (
     <div className="login-container">
