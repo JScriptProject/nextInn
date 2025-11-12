@@ -27,12 +27,6 @@ const userSignUp = asyncHandler(async (req, res, next) => {
   throw new ApiError(400, "Invalid mobile number");
 }
 
- // hash the password
-
-// const salt = await bcrypt.genSalt(10);
-// const hashedPassowrd = await bcrypt.hash(password,salt);
-// body.password = hashedPassowrd;
-console.log("Hello I am here");
 const newUser = new User({
   firstname,
   lastname,
@@ -49,7 +43,7 @@ if(!createdUser)
 }
 
 console.log("Created User =>", createdUser);
-res.success(201, createdUser, "User created successfully123");
+res.success(201, createdUser, "User created successfully!");
 
 });
 

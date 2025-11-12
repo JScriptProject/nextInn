@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { signup } from '../api/authenticationApi.js';
+import { signup } from "../api/authenticationApi.js";
+import { useContext } from "react";
+import { NotificationContext } from "../context/notificationContext.jsx";
+
 function Register() {
+  const { notification, setNotification } = useContext(NotificationContext);
 
   //all state variables here
   const [form, setForm] = useState({
@@ -28,53 +32,84 @@ function Register() {
   } = form;
 
   //blur event handler
-    const handleBlur = () => {
+  const handleBlur = () => {
+    if (!password || !confirm_password) {
+      setMessage("");
+      return;
+    }
 
-      if(!password || !confirm_password)
-      {
-        setMessage("");
-        return;
-      }
+    if(password.length < 8)
+    {
+      setMessage("Password should be atleast 8 characters");
+      return;
+    }
 
     if (password !== confirm_password) {
       console.log("Password not matched");
       setMessage("Password not matched");
-    } else {
-      console.log("Password matched");
-      setMessage("");
-    }
+      return;
+    } 
+    
+    setMessage("");
   };
 
   //onChange event handler
   const onChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev)=>{
-      const updated = {...prev, [name]: value };
-      if(!updated.password && !updated.confirm_password)
-      {
+    setForm((prev) => {
+      const updated = { ...prev, [name]: value };
+      if (!updated.password && !updated.confirm_password) {
         setMessage("");
       }
-      if(name==="confirm_password" && isPasswordEdited){
-        if(updated.password ===updated.confirm_password)
-        {
-          setMessage("")
+      if (name === "confirm_password" && isPasswordEdited) {
+        if (updated.password === updated.confirm_password) {
+          setMessage("");
         }
       }
       return updated;
-    })
-      
-    if(name === "confirm_password" && !isPasswordEdited)
-    {
+    });
+
+    if (name === "confirm_password" && !isPasswordEdited) {
       setIsPasswordEdited(true);
     }
-    
   };
 
   //submit event handler
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await signup(form);
-    console.log("Signup Result",result);
+    console.log("Signup Result", result);
+    if (result.success === true) {
+      setNotification({
+        visible: true,
+        success: true,
+        message: result.message,
+      });
+
+      setForm({
+        firstname: "",
+        lastname: "",
+        email: "",
+        mobile: "",
+        city: "",
+        password: "",
+        confirm_password: "",
+      });
+
+      setTimeout(() => {
+        setNotification({ visible: false, success: false, message: "" });
+      }, 3000);
+    }
+    if (result.success === false) {
+      setNotification({
+        visible: true,
+        success: false,
+        message: result.message,
+      });
+      setTimeout(() => {
+        setNotification({ visible: false, success: false, message: "" });
+      }, 3000);
+    }
   };
 
   //jsx code here
@@ -144,12 +179,16 @@ function Register() {
               onBlur={handleBlur}
               onChange={onChange}
               value={confirm_password}
-              className={message ? "red-border": ""}
+              className={message ? "red-border" : ""}
               required
             />
           </div>
           {isPasswordEdited && message && <p className="message">{message}</p>}
-          <button type="submit" className="btn-signup btn-fill" disabled={message}>
+          <button
+            type="submit"
+            className="btn-signup btn-fill"
+            disabled={message}
+          >
             Signup
           </button>
           <p className="redirection">
