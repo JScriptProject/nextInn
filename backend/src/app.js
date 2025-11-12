@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from 'dotenv';
 import coresMiddleware from './midlewares/cors.middleware.js';
+import cookieParser from "cookie-parser";
 import loggerMiddleware from "./midlewares/logger.midleware.js";
 import {responseHandler} from './midlewares/responseHandler.middleware.js';
 import roomsRouter from "./routers/roomsRouter.js";
@@ -26,6 +27,7 @@ app.use(express.urlencoded({limit:"100mb", extended: true }));
 //logger middleware
 app.use(loggerMiddleware);
 
+app.use(cookieParser()); 
 //routers
 app.use('/api/category',roomsCategoryRouter);
 app.use("/api", roomsRouter);

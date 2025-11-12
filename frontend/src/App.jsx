@@ -11,6 +11,8 @@ import Register from "./pages/Register.jsx";
 import ForgetPassword from "./pages/ForgetPassword.jsx";
 import { NotificationContextProvider } from "./context/notificationContext.jsx";
 import NotificationBar from "./components/NotificationBar.jsx";
+import DashboardUser from "./pages/DashboardUser.jsx";
+import ProtectedRoute from "./components/userAuth-components/ProtectedRoute.jsx";
 
 function App() {
   //create Route
@@ -27,6 +29,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forget" element={<ForgetPassword />} />
+          <Route
+            path="/dashboard-user"
+            element={
+              <ProtectedRoute>
+                <DashboardUser />
+              </ProtectedRoute>
+            }
+          />
         </Route>
         <Route path="/admin/*" element={<AdminConsole />} />
       </Routes>
