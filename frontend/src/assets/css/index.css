@@ -306,6 +306,9 @@ section {
 .section-title-wrap {
   @apply relative;
 }
+.section-title-wrap-demo{
+  @apply relative;
+}
 .section-title-wrap h4 {
   @apply text-[var(--accent-cta-sunset-orange)] text-[0.9rem] md:text-[1.1rem] pb-[0.2rem];
 }
