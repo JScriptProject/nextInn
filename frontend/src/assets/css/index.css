@@ -303,10 +303,8 @@ section {
   @apply py-15 md:py-20 px-[2rem] md:px-[4rem];
 }
 
-.section-title-wrap {
-  @apply relative;
-}
-.section-title-wrap-demo{
+.section-title-wrap,
+.section-title-wrap-demo {
   @apply relative;
 }
 .section-title-wrap h4 {
