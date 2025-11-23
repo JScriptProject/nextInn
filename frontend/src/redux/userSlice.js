@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { id } from 'date-fns/locale';
 
 const initialState = {
+    id:"",
     firstname:"",
     lastname:"",
     email:"",
@@ -13,6 +15,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setUser:(state, action)=>{
+            state.id=action.payload.id,
             state.firstname = action.payload.firstname;
             state.lastname = action.payload.lastname;
             state.email = action.payload.email;
