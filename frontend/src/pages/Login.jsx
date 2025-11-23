@@ -1,6 +1,6 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../api/authenticationApi.js";
+import { login, verifySession } from "../api/authenticationApi.js";
 import { useContext } from "react";
 import { NotificationContext } from "../context/notificationContext.jsx";
 
@@ -12,7 +12,7 @@ function Login() {
     remember: false,
   });
   const [message, setMessage] = useState("");
-
+  const [checkingSession, setCheckingSession] = useState(true);
   //destructured variables
   const { email, password, remember } = form;
   const navigate = useNavigate();
@@ -36,6 +36,7 @@ function Login() {
     const result = await login(form);
     console.log("FORM", form);
     if (result.success === true) {
+      console.log("Result from backend", result);
       navigate("/dashboard-user");
       setNotification({
         visible: true,
@@ -57,6 +58,23 @@ function Login() {
       }, 3000);
     }
   };
+
+  //useEffect to verify if active session
+
+  useEffect(()=>{
+     (async()=>{
+      const response = await verifySession();
+      if(response.success)
+      {
+        navigate("/dashboard-user");
+      }
+      else{
+        setCheckingSession(false);
+      }
+     })();
+  },[navigate])
+
+  if(checkingSession) return(<p>Checking the session....</p>)
 
   return (
     <div className="login-container">
