@@ -13,12 +13,12 @@ api.interceptors.response.use(
     (response)=>response,
     async(error) =>{
         const originalRequest = error.config;
-        if(error.response?.status === 401 && isRefreshing && !originalRequest._retry)
+        if(error.response?.status === 401 && !originalRequest._retry)
         {
             originalRequest._retry = true;
             isRefreshing = true;
             try{
-                await api.post("/api/auth/refresh");
+                await api.post("/api/auth/refresh",{},{withCredentials:true});
                 isRefreshing = false;
                 return api(originalRequest);
             }
