@@ -6,8 +6,8 @@ export function NotificationContextProvider({children}) {
   
   const [notification, setNotification] = useState({visible:false, success:false, message:""})
     return (
-    <NotificationContext value={{notification, setNotification}}>
+    <NotificationContext.Provider value={{notification, setNotification}}>
       {children}
-    </NotificationContext>
+    </NotificationContext.Provider>
   )
 }
