@@ -8,6 +8,8 @@ import jwt from "jsonwebtoken";
 const refreshSession = asyncHandler(async (req, res, next) => {
   // check if refresh token there or not
   const refresh_token = req.cookies?.refresh_token;
+  const isProd = process.env.NODE_ENV === "production";
+
   if (!refresh_token) {
     next(new ApiError(401, "Unauthorized: No token provided"));
   }
@@ -31,7 +33,7 @@ const refreshSession = asyncHandler(async (req, res, next) => {
   res.cookie("access_token", newAcessToken, {
     httpOnly: true,
     sameSite: "none",
-    secure: true,
+    secure: isProd,
     maxAge: 1000 * 60 * 2,
   });
 

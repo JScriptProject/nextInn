@@ -2,7 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login, verifySession } from "../api/authenticationApi.js";
 import { useContext } from "react";
-import { NotificationContext } from "../context/notificationContext.jsx";
+import { NotificationContext } from "../context/NotificationContext.jsx";
 
 function Login() {
   //state variables
@@ -72,7 +72,7 @@ function Login() {
         setCheckingSession(false);
       }
      })();
-  },[navigate])
+  },[])
 
   if(checkingSession) return(<p>Checking the session....</p>)
 

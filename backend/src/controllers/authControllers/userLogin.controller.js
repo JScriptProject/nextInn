@@ -11,9 +11,11 @@ const userLogin = asyncHandler(async(req, res, next)=>{
     const body = req.body || {};
     const  {email, password} = body;
 
+    const isProd = process.env.NODE_ENV === "production";
+
     //check if any user available with same 
     const user = await User.findOne({email});
-
+  
     if(!user){
         throw new ApiError(404, "Unable to find account for this email");
     }
@@ -41,7 +43,7 @@ const userLogin = asyncHandler(async(req, res, next)=>{
     res.cookie("access_token", access_token, {
         httpOnly:true,
         sameSite:"none",
-        secure:true,
+        secure:isProd,
         maxAge:1000*60*2
     })
 
@@ -49,7 +51,7 @@ const userLogin = asyncHandler(async(req, res, next)=>{
     res.cookie("refresh_token", refresh_token, {
         httpOnly:true,
         sameSite:"none",
-        secure:true,
+        secure:isProd,
         maxAge:1000*60*60*24*10
     });
     res.success(200, user, "User logged in successfully!");
