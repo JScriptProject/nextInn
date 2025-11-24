@@ -1,7 +1,7 @@
 import React from 'react'
 import { createPortal } from 'react-dom'
 import { useContext } from 'react';
-import { NotificationContext } from '../context/NotificationContext.jsx';
+import { NotificationContext } from '../context/NotificationContext';
 
 function NotificationBar() {
   const { notification } = useContext(NotificationContext);
