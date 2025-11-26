@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
-import { verifySession } from '../../api/authenticationApi.js'
+import { verifySession } from '@api/authenticationApi.js'
 import { useDispatch } from 'react-redux';
-import { setUser, clearUser } from '../../redux/userSlice.js';
+import { setUser, clearUser } from '@redux/userSlice.js';
 
 function ProtectedRoute({children }) {
 

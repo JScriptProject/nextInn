@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserRound, IndianRupee } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SectionTitle from "./SectionTitle.jsx";
-import { getAllRoomsCategory } from "../api/roomsCategoryApi.js";
+import SectionTitle from "@user/components/SectionTitle";
+import { getAllRoomsCategory } from "@api/roomsCategoryApi.js";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -67,41 +67,38 @@ function RoomsHomePage() {
           className="rooms-swiper-container"
           breakpoints={swiperBreaks}
         >
-          {rooms.map((room) => 
-          {
-          return (
-            <SwiperSlide
-              key={room._id}
-              className="room-swiper-slide"
-              style={{
-                backgroundImage: `url(${room.bannerImg})`,
-              }}
-            >
-              <div className="room-slider-inside">
-                <h3>{room.name}</h3>
-                <h4>{room.location}</h4>
-                <div className="room-guest-info">
-                  <p>
-                    <span>35</span>Feets Size
+          {rooms.map((room) => {
+            return (
+              <SwiperSlide
+                key={room._id}
+                className="room-swiper-slide"
+                style={{
+                  backgroundImage: `url(${room.bannerImg})`,
+                }}
+              >
+                <div className="room-slider-inside">
+                  <h3>{room.name}</h3>
+                  <h4>{room.location}</h4>
+                  <div className="room-guest-info">
+                    <p>
+                      <span>35</span>Feets Size
+                    </p>
+                    <p>
+                      <UserRound /> 2 Guests
+                    </p>
+                  </div>
+                  <p className="room-price">
+                    <span>₹</span> {room.price}
                   </p>
-                  <p>
-                    <UserRound /> 2 Guests
-                  </p>
+                  <button className="room-swiper-book-btn">
+                    <Link to={`/rooms/${room._id}`} state={room}>
+                      Book Now
+                    </Link>
+                  </button>
                 </div>
-                <p className="room-price">
-                  <span>₹</span> {room.price}
-                </p>
-                <button className="room-swiper-book-btn">
-                  <Link to={`/rooms/${room._id}`} state={room}>
-                    Book Now
-                  </Link>
-                </button>
-              </div>
-            </SwiperSlide>
-          )
-        }
-          
-          )}
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </section>

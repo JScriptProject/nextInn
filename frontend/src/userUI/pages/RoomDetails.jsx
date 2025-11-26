@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import PageBanner from "../components/PageBanner";
 import { useLocation } from "react-router-dom";
-import RoomAmenities from "../components/booking-components/RoomAmenities";
-import RoomFeaturesIcon from "../components/RoomFeaturesIcon";
-import AvailabilityCalendar from "../components/booking-components/AvailabilityCalendar";
-import BookingForm from "../components/booking-components/BookingForm";
-import ParallaxImageBox from "../components/ParallaxImageBox";
-import { BookingProvider } from "../context/BookingContext";
 
+import PageBanner from "@user/components/PageBanner";
+import RoomFeaturesIcon from "@user/components/RoomFeaturesIcon";
+import ParallaxImageBox from "@user/components/ParallaxImageBox";
+
+import RoomAmenities from "@user/components/booking-components/RoomAmenities";
+import AvailabilityCalendar from "@user/components/booking-components/AvailabilityCalendar";
+import BookingForm from "@user/components/booking-components/BookingForm";
+
+import { BookingProvider } from "@user/context/BookingContext";
 
 function RoomDetails() {
   const location = useLocation();
-  const [room, setRoom] = useState(location.state || {})
+  const [room, setRoom] = useState(location.state || {});
   console.log("Location=>", location);
   console.log("Room=>", room);
   console.log("Room Capacity from room =>", room.roomCapacity);
@@ -25,11 +27,7 @@ function RoomDetails() {
               <h2 className="page-title">{room.info}</h2>
               <RoomFeaturesIcon features={room.features} />
               <div className="room-description-container">
-                
-                  <p className="room-desc">
-                    {room.description}
-                  </p>
-                
+                <p className="room-desc">{room.description}</p>
               </div>
               <div className="room-details-images">
                 <ParallaxImageBox imgSrc={room.roomImages[1]} />
@@ -81,7 +79,13 @@ function RoomDetails() {
             </div>
           </div>
 
-          <BookingForm addonServicesCharges={room.addonServicesCharges} roomId= {room._id} hotelName ={room.name} hotelRate={room.price} roomCapacity={room.roomCapacity} />
+          <BookingForm
+            addonServicesCharges={room.addonServicesCharges}
+            roomId={room._id}
+            hotelName={room.name}
+            hotelRate={room.price}
+            roomCapacity={room.roomCapacity}
+          />
         </div>
       </div>
     </BookingProvider>

@@ -1,4 +1,4 @@
-import api from "./axiosInstance.js";
+import api from "@api/axiosInstance.js";
 
 
 export const signup = async(signUpData) =>{

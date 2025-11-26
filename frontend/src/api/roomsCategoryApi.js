@@ -1,4 +1,4 @@
-import api from "./axiosInstance.js";
+import api from "@api/axiosInstance.js";
 
 export const getAllRoomsCategory = async () => {
   const response = await api.get("/api/category/get-all");

@@ -1,8 +1,8 @@
 import React, { use, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login, verifySession } from "../api/authenticationApi.js";
+import { login, verifySession } from "@api/authenticationApi.js";
 import { useContext } from "react";
-import { NotificationContext } from "../context/notificationContext";
+import { NotificationContext } from "@user/context/notificationContext.jsx";
 
 function Login() {
   //state variables
@@ -61,20 +61,18 @@ function Login() {
 
   //useEffect to verify if active session
 
-  useEffect(()=>{
-     (async()=>{
+  useEffect(() => {
+    (async () => {
       const response = await verifySession();
-      if(response.success)
-      {
+      if (response.success) {
         navigate("/dashboard-user");
-      }
-      else{
+      } else {
         setCheckingSession(false);
       }
-     })();
-  },[])
+    })();
+  }, []);
 
-  if(checkingSession) return(<p>Checking the session....</p>)
+  if (checkingSession) return <p>Checking the session....</p>;
 
   return (
     <div className="login-container">

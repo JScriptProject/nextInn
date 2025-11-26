@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "../components/Button.jsx";
+import Button from "@user/components/Button.jsx";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Pagination, EffectFade } from "swiper/modules";
-import { bannerSlides } from "../data/rooms.js";
-import { bannerTimeline } from "../animation.js";
-import RoomsHomePage from "../components/RoomsHomePage.jsx";
+import { bannerSlides } from "@data/rooms.js";
+import { bannerTimeline } from "@utils/animation.js";
+import RoomsHomePage from "@user/components/RoomsHomePage.jsx";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -19,7 +19,6 @@ function HomePage() {
     const title = activeSlide.querySelector("h1");
     const bannerBtn = activeSlide.querySelector(".banner-cta");
     bannerTimeline(subTitle, title, bannerBtn);
-   
   };
 
   return (

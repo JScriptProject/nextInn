@@ -1,11 +1,11 @@
 import React from "react";
-import '../assets/css/admin.css';
+import "../assets/css/admin.css";
 import { Routes, Route } from "react-router-dom";
-import LayoutAdmin from "../components/admin-comonents/LayoutAdmin.jsx";
+import LayoutAdmin from "../components/LayoutAdmin.jsx";
 import AdminDashboard from "./AdminDashboard";
 import ManageRooms from "./ManageRooms";
-import Reviews from "./Reviews";
-import GuestList from "./GuestList";
+import Reviews from "../../userUI/pages/Reviews";
+import GuestList from "../../userUI/pages/GuestList";
 
 function AdminConsole() {
   //create Route
@@ -14,7 +14,7 @@ function AdminConsole() {
       <Route path="/" element={<LayoutAdmin />}>
         <Route index element={<AdminDashboard />} />
         <Route path="rooms" element={<ManageRooms />} />
-        <Route path="reviews" element={<Reviews />} /> 
+        <Route path="reviews" element={<Reviews />} />
         <Route path="guest-list" element={<GuestList />} />
       </Route>
     </Routes>

@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../Header";
+import Header from "../../userUI/components/Header";
 
 function AdminHeader() {
   const websiteHeader = {
@@ -9,11 +9,13 @@ function AdminHeader() {
       { to: "/admin/rooms", label: "Rooms" },
       { to: "/admin/reviews", label: "Reviews" },
     ],
-    login:null,
+    login: null,
   };
-  return <>
-    <Header websiteHeader = {websiteHeader}  />
-  </>;
+  return (
+    <>
+      <Header websiteHeader={websiteHeader} />
+    </>
+  );
 }
 
 export default AdminHeader;

@@ -1,10 +1,10 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import adminImg from "../assets/media/admin-Dashboard.jpg";
-import AdminDashboardCards from '../components/admin-comonents/AdminDashboardCards';
-import CategoryManagement from "../components/admin-comonents/CategoryManagement";
+import AdminDashboardCards from "../components/AdminDashboardCards";
+import CategoryManagement from "../components/CategoryManagement";
 
 function AdminDashboard() {
-   const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState(null);
   return (
     <div className="admin-container">
       <div

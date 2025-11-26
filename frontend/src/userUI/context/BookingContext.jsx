@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { formatDateForInput } from "/src/data/rooms";
+import { formatDateForInput } from "@data/rooms.js";
 export const BookingContext = createContext();
 
 const todayDate = formatDateForInput(new Date());

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import logoImg from "../assets/media/logo.png";
-import UserLoggedInHeader from './UserLoggedInHeader.jsx'
+import logoImg from "@assets/media/logo.png";
+import UserLoggedInHeader from '@user/components/UserLoggedInHeader.jsx'
 import {
   AlignJustify,
   X,
@@ -15,9 +15,9 @@ import {
   Instagram,
 } from "lucide-react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { headerAnimation } from "../animation.js";
-import {stickyHeaderAnimation} from '../animation.js';
-import Button from "./Button.jsx";
+import { headerAnimation } from "@utils/animation.js";
+import {stickyHeaderAnimation} from '@utils/animation.js';
+import Button from "@user/components/Button.jsx";
 
 function Header({websiteHeader}) {
   const [isNavOpen, setIsNavOpen] = useState(false);

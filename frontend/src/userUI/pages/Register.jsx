@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { signup } from "../api/authenticationApi.js";
+import { signup } from "@api/authenticationApi.js";
 import { useContext } from "react";
-import { NotificationContext } from "../context/notificationContext.jsx";
+import { NotificationContext } from "@user/context/NotificationContext.jsx";
 
 function Register() {
   const { notification, setNotification } = useContext(NotificationContext);
@@ -38,8 +38,7 @@ function Register() {
       return;
     }
 
-    if(password.length < 8)
-    {
+    if (password.length < 8) {
       setMessage("Password should be atleast 8 characters");
       return;
     }
@@ -48,8 +47,8 @@ function Register() {
       console.log("Password not matched");
       setMessage("Password not matched");
       return;
-    } 
-    
+    }
+
     setMessage("");
   };
 

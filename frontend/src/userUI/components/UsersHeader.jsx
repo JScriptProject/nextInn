@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header";
+import Header from "@user/components/Header";
 import { useSelector } from "react-redux";
 
 function UsersHeader() {

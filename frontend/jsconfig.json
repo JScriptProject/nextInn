@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@user/*": ["userUI/*"],
+      "@user/components/*": ["userUI/components/*"],
+      "@user/pages/*": ["userUI/pages/*"],
+      "@user/context/*": ["userUI/context/*"],
+
+      "@admin/*": ["adminUI/*"],
+      "@admin/components/*": ["adminUI/components/*"],
+      "@admin/pages/*": ["adminUI/pages/*"],
+
+      "@redux/*": ["redux/*"],
+      "@api/*": ["api/*"],
+      "@assets/*": ["assets/*"],
+      "@data/*":["data/*"],
+      "@utils/*": ["util/*"]
+    }
+  },
+  "include": ["src"]
+}

@@ -8,10 +8,10 @@ import React, {
   useActionState,
 } from "react";
 import { X } from "lucide-react";
-import SummaryData from "../SummaryData";
-import hotelLogo from "../../assets/media/logo.png";
-import { BookingContext } from "../../context/BookingContext";
-import BookingSuccess from "./BookingSuccess";
+import SummaryData from "@userUI/components/booking-components/SummaryData";
+import hotelLogo from "@assets/media/logo.png";
+import { BookingContext } from "@context/BookingContext";
+import BookingSuccess from "@user/components/booking-components/BookingSuccess";
 
 const PreviewBooking = forwardRef(function PreviewBooking(
   { onClose, isBookingPreviewOpen, prizeBreakDown, totalPrice },
@@ -25,20 +25,16 @@ const PreviewBooking = forwardRef(function PreviewBooking(
   console.log("PrizeBreakDown =>>", prizeBreakDown);
   console.log("Total");
 
-  useImperativeHandle(
-    ref,
-    () => {
-      return {
-        open: () => {
-          previewRef.current.showModal();
-        },
-        close: () => {
-          previewRef.current.close();
-        },
-      };
-    },
-    []
-  );
+  useImperativeHandle(ref, () => {
+    return {
+      open: () => {
+        previewRef.current.showModal();
+      },
+      close: () => {
+        previewRef.current.close();
+      },
+    };
+  }, []);
 
   useEffect(() => {
     if (isBookingPreviewOpen) {
@@ -57,32 +53,29 @@ const PreviewBooking = forwardRef(function PreviewBooking(
     previewRef.current.close();
     onClose();
   }
-  const onConfirmSubmit = (prevState,formData) => {
-     const name = formData.get("name");
-     const email = formData.get("email");
-     const phone = formData.get("phone");
+  const onConfirmSubmit = (prevState, formData) => {
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const phone = formData.get("phone");
 
-     setBookingSuccess(true);
-     setTimeout(() => {
+    setBookingSuccess(true);
+    setTimeout(() => {
       onClosePopUp();
-     }, 3000);
-    return [
-        ...prevState,
-        {Name:name,Email:email,Phone:phone}
-      ];
+    }, 3000);
+    return [...prevState, { Name: name, Email: email, Phone: phone }];
   };
 
-  const [formState, actionState] = useActionState(onConfirmSubmit, [])
+  const [formState, actionState] = useActionState(onConfirmSubmit, []);
 
-  console.log("FORM STATE =>",formState);
-  
+  console.log("FORM STATE =>", formState);
+
   return (
     <>
-     
       <dialog ref={previewRef} onClose={onClose}>
-         
         <div className="dailog-wrapper">
-          {bookingSeccess && <BookingSuccess onClosePopUp={onClosePopUp} formState={formState} />}
+          {bookingSeccess && (
+            <BookingSuccess onClosePopUp={onClosePopUp} formState={formState} />
+          )}
           <div className="booking-preview-cta-block">
             <div className="hotel-logo">
               <img src={hotelLogo} alt="hotel Logo" />
@@ -91,16 +84,32 @@ const PreviewBooking = forwardRef(function PreviewBooking(
             <div className="booking-confirm-guest-info">
               <form action={actionState}>
                 <div className="preview-form-block">
-                  <input type="text" name="name" placeholder="Please Enter Name" required />
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Please Enter Name"
+                    required
+                  />
                 </div>
                 <div className="preview-form-block">
-                  <input type="number" name="phone" placeholder="Phone Number" maxLength={10} required />
+                  <input
+                    type="number"
+                    name="phone"
+                    placeholder="Phone Number"
+                    maxLength={10}
+                    required
+                  />
                 </div>
                 <div className="preview-form-block">
-                  <input type="email" name="email" placeholder="Email Id" required />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Id"
+                    required
+                  />
                 </div>
                 <div className="preview-form-buttons">
-                  <button className="confirm-submit-btn" >
+                  <button className="confirm-submit-btn">
                     Confirm Booking
                   </button>
                 </div>

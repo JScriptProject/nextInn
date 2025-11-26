@@ -1,17 +1,17 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage.jsx";
-import RoomDetails from "./pages/RoomDetails.jsx";
-import BookingPage from "./pages/BookingPage.jsx";
-import AdminConsole from "./pages/AdminConsole.jsx";
-import Layout from "./components/Layout.jsx";
-import About from "./pages/About.jsx";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import ForgetPassword from "./pages/ForgetPassword.jsx";
-import { NotificationContextProvider } from "./context/notificationContext.jsx";
-import NotificationBar from "./components/NotificationBar.jsx";
-import DashboardUser from "./pages/DashboardUser.jsx";
+import HomePage from "./userUI/pages/HomePage.jsx";
+import RoomDetails from "./userUI/pages/RoomDetails.jsx";
+import BookingPage from "./userUI/pages/BookingPage.jsx";
+import AdminConsole from "./adminUI/pages/AdminConsole.jsx";
+import Layout from "./userUI/components/Layout.jsx";
+import About from "./userUI/pages/About.jsx";
+import Login from "./userUI/pages/Login.jsx";
+import Register from "./userUI/pages/Register.jsx";
+import ForgetPassword from "./userUI/pages/ForgetPassword.jsx";
+import { NotificationContextProvider } from "./userUI/context/NotificationContext.jsx";
+import NotificationBar from "./userUI/components/NotificationBar.jsx";
+import DashboardUser from "./userUI/pages/DashboardUser.jsx";
 import ProtectedRoute from "./components/userAuth-components/ProtectedRoute.jsx";
 
 function App() {
