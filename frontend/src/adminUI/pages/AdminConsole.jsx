@@ -13,9 +13,9 @@ function AdminConsole() {
     <Routes>
       <Route path="/" element={<LayoutAdmin />}>
         <Route index element={<AdminDashboard />} />
-        <Route path="rooms" element={<ManageRooms />} />
-        <Route path="reviews" element={<Reviews />} />
-        <Route path="guest-list" element={<GuestList />} />
+        <Route path="/rooms" element={<ManageRooms />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/guest-list" element={<GuestList />} />
       </Route>
     </Routes>
   );

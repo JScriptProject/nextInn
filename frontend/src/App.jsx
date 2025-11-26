@@ -13,6 +13,7 @@ import { NotificationsContextProvider } from "@user/context/NotificationsContext
 import NotificationBar from "@user/components/NotificationBar.jsx";
 import DashboardUser from "@user/pages/DashboardUser.jsx";
 import ProtectedRoute from "@user/components/userAuth-components/ProtectedRoute.jsx";
+import AdminLogin from "@admin/pages/AdminLogin";
 
 function App() {
   //create Route
@@ -27,6 +28,7 @@ console.log("In the app");
           <Route path="/book" element={<BookingPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forget" element={<ForgetPassword />} />
           <Route

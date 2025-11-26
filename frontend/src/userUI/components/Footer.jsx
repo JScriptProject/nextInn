@@ -13,7 +13,6 @@ const Footer = () => {
       <div className="container mx-auto">
         {/* Part 1: Main footer content */}
         <div className="footer-part1">
-          
           {/* Column 1: Logo and Info */}
           <div className="footer-col flex flex-col items-center ">
             <Link to="/" className="mb-4 inline-block">
@@ -28,11 +27,31 @@ const Footer = () => {
           <div className="footer-col">
             <h3>Quick Links</h3>
             <ul>
-              <li><Link to="/booking" className="footer-link">Book Room</Link></li>
-              <li><Link to="/rooms/executive-suite" className="footer-link">Executive Suite</Link></li>
-              <li><Link to="/rooms/twin-room-suite" className="footer-link">Twin Room Suite</Link></li>
-              <li><Link to="/rooms/premium-deluxe-room" className="footer-link">Premium Deluxe Room</Link></li>
-              <li><Link to="/rooms/metropolitan-suite" className="footer-link">Metropolitan Suite</Link></li>
+              <li>
+                <Link to="/booking" className="footer-link">
+                  Book Room
+                </Link>
+              </li>
+              <li>
+                <Link to="/rooms/executive-suite" className="footer-link">
+                  Executive Suite
+                </Link>
+              </li>
+              <li>
+                <Link to="/rooms/twin-room-suite" className="footer-link">
+                  Twin Room Suite
+                </Link>
+              </li>
+              <li>
+                <Link to="/rooms/premium-deluxe-room" className="footer-link">
+                  Premium Deluxe Room
+                </Link>
+              </li>
+              <li>
+                <Link to="/rooms/metropolitan-suite" className="footer-link">
+                  Metropolitan Suite
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -40,10 +59,26 @@ const Footer = () => {
           <div className="footer-col">
             <h3>Company</h3>
             <ul>
-              <li><Link to="/contact" className="footer-link">Contact</Link></li>
-              <li><Link to="/about" className="footer-link">About</Link></li>
-              <li><Link to="/privacy-policy" className="footer-link">Privacy Policy</Link></li>
-              <li><Link to="/agreements" className="footer-link">Agreements</Link></li>
+              <li>
+                <Link to="/contact" className="footer-link">
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="footer-link">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/privacy-policy" className="footer-link">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/agreements" className="footer-link">
+                  Agreements
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -51,18 +86,30 @@ const Footer = () => {
           <div className="footer-col">
             <h3>Admin</h3>
             <ul>
-                <li><Link to="/admin" className="footer-link">Admin Login</Link></li>
+              <li>
+                <Link to="/admin-login" className="footer-link">
+                  Admin Login
+                </Link>
+              </li>
             </ul>
           </div>
-
         </div>
-        <hr className='footer-hr'/>
+        <hr className="footer-hr" />
         {/* Part 2: Copyright and Developer */}
         <div className="footer-part2">
           <p>&copy; {new Date().getFullYear()} NextInn. All Rights Reserved.</p>
-          <p>Developed by <a href="https://blogspage.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">BlogsPage Developer</a></p>
+          <p>
+            Developed by{" "}
+            <a
+              href="https://blogspage.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-white"
+            >
+              BlogsPage Developer
+            </a>
+          </p>
         </div>
-
       </div>
     </footer>
   );
