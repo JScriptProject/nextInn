@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from 'react-dom';
-import InfoContentBlock from "./InfoContentBlock.jsx";
-import CategoryInfoBlock from "./CategoryInfoBlock.jsx";
-import CategoryCapacityBlock from "./CategoryCapacityBlock.jsx";
-import CategoryAddonChargesBlock from "./CategoryAddonChargesBlock.jsx";
-import CategoryAmenitiesBlock from "./CategoryAmenitiesBlock.jsx";
+import InfoContentBlock from "@admin/components/InfoContentBlock.jsx";
+import CategoryInfoBlock from "@admin/components/CategoryInfoBlock.jsx";
+import CategoryCapacityBlock from "@admin/components/CategoryCapacityBlock.jsx";
+import CategoryAddonChargesBlock from "@admin/components/CategoryAddonChargesBlock.jsx";
+import CategoryAmenitiesBlock from "@admin/components/CategoryAmenitiesBlock.jsx";
 
 
 function RoomscategoryInfo({ roomsObj,setRooms  }) {

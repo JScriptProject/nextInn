@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import adminImg from "../assets/media/admin-Dashboard.jpg";
-import AdminDashboardCards from "../components/AdminDashboardCards";
-import CategoryManagement from "../components/CategoryManagement";
+import adminImg from "@assets/media/admin-Dashboard.jpg";
+import AdminDashboardCards from "@admin/components/AdminDashboardCards";
+import CategoryManagement from "@admin/components/CategoryManagement";
 
 function AdminDashboard() {
   const [errors, setErrors] = useState(null);

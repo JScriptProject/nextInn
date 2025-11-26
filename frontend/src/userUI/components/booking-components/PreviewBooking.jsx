@@ -8,9 +8,9 @@ import React, {
   useActionState,
 } from "react";
 import { X } from "lucide-react";
-import SummaryData from "@userUI/components/booking-components/SummaryData";
+import SummaryData from "@user/components/SummaryData";
 import hotelLogo from "@assets/media/logo.png";
-import { BookingContext } from "@context/BookingContext";
+import { BookingContext } from "@user/context/BookingContext";
 import BookingSuccess from "@user/components/booking-components/BookingSuccess";
 
 const PreviewBooking = forwardRef(function PreviewBooking(

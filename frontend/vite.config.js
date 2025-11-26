@@ -12,6 +12,7 @@ export default defineConfig({
       "@api": path.resolve(__dirname, "src/api"),
       "@redux": path.resolve(__dirname, "src/redux"),
       "@utils": path.resolve(__dirname, "src/util"),
+      "@data": path.resolve(__dirname, "src/data"),
       "@user": path.resolve(__dirname, "src/userUI"),
       "@admin": path.resolve(__dirname, "src/adminUI"),
     },

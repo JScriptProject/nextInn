@@ -1,11 +1,11 @@
 import React from "react";
-import "../assets/css/admin.css";
+import "@assets/css/admin.css";
 import { Routes, Route } from "react-router-dom";
-import LayoutAdmin from "../components/LayoutAdmin.jsx";
-import AdminDashboard from "./AdminDashboard";
-import ManageRooms from "./ManageRooms";
-import Reviews from "../../userUI/pages/Reviews";
-import GuestList from "../../userUI/pages/GuestList";
+import LayoutAdmin from "@admin/components/LayoutAdmin.jsx";
+import AdminDashboard from "@admin/pages/AdminDashboard.jsx";
+import ManageRooms from "@admin/pages/ManageRooms";
+import Reviews from "@admin/pages/Reviews";
+import GuestList from "@admin/pages/GuestList";
 
 function AdminConsole() {
   //create Route

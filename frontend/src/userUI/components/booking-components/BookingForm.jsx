@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import CheckInOutInput from "@user/components/booking-components/CheckInOutInput";
-import ReserveCheckBox from "@user/components/booking-components/RoomAmenitiesReserveCheckBox";
+import ReserveCheckBox from "@user/components/booking-components/ReserveCheckBox";
 import CounterInput from "@user/components/booking-components/CounterInput";
-import { BookingContext } from "@context/BookingContext";
-import { rateCalculation } from "@util/rateCalculation.js";
+import { BookingContext } from "@user/context/BookingContext";
+import { rateCalculation } from "@utils/rateCalculation.js";
 import { createPortal } from "react-dom";
 import PreviewBooking from "@user/components/booking-components/PreviewBooking";
 

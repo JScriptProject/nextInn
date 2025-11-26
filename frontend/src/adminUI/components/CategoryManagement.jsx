@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getAllRoomsCategory } from "../../api/roomsCategoryApi.js";
-import RoomsCategoryTitle from "./RoomsCategoryTitle.jsx";
-import RoomsCategoryInfo from "./RoomsCategoryInfo.jsx";
+import { getAllRoomsCategory } from "@api/roomsCategoryApi.js";
+import RoomsCategoryTitle from "@admin/components/RoomsCategoryTitle.jsx";
+import RoomsCategoryInfo from "@admin/components/RoomsCategoryInfo.jsx";
 
 function CategoryManagement({ setErrors, errors }) {
   const [rooms, setRooms] = useState([]);

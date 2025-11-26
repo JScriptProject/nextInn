@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import InfoContentBlock from "./InfoContentBlock.jsx";
-import { updateRoomCategoryData } from "../../api/roomsCategoryApi.js";
-import { getChangedFields } from "../../util/getChangedFields.js";
+import InfoContentBlock from "@admin/components/InfoContentBlock.jsx";
+import { updateRoomCategoryData } from "@api/roomsCategoryApi.js";
+import { getChangedFields } from "@utils/getChangedFields.js";
 
 function CategoryInfoBlock({
   setIsEditing,

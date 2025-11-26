@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import AddNewAmenitiesBtn from "./AddNewAmenitiesBtn.jsx";
-import InfoChecklistBlock from "./InfoChecklistBlock.jsx";
-import {getAllRoomsCategory} from '../../api/roomsCategoryApi.js';
+import AddNewAmenitiesBtn from "@admin/components/AddNewAmenitiesBtn.jsx";
+import InfoChecklistBlock from "@admin/components/InfoChecklistBlock.jsx";
+import {getAllRoomsCategory} from '@api/roomsCategoryApi.js';
 import {
   Wifi,
   ShowerHead,

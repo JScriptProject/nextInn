@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
-import { BookingContext } from "@context/BookingContext.jsx";
+import { BookingContext } from "@user/context/BookingContext.jsx";
 import { formatDateForInput } from "@data/rooms.js";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";

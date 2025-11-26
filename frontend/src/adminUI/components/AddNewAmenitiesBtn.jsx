@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from "react";
-import { getChangedFields } from "../../util/getChangedFields";
-import { updateRoomCategoryData } from "../../api/roomsCategoryApi.js";
-import {getAllRoomsCategory} from '../../api/roomsCategoryApi.js';
+import { getChangedFields } from "@utils/getChangedFields.js";
+import { updateRoomCategoryData } from "@api/roomsCategoryApi.js";
+import {getAllRoomsCategory} from '@api/roomsCategoryApi.js';
 
 
 function AddNewAmenitiesBtn({

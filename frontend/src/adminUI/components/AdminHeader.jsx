@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../userUI/components/Header";
+import Header from "@user/components/Header";
 
 function AdminHeader() {
   const websiteHeader = {

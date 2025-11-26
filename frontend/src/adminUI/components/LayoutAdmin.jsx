@@ -1,7 +1,7 @@
 import React from "react";
-import AdminHeader from "./AdminHeader";
+import AdminHeader from "@admin/components/AdminHeader";
 import { Outlet } from "react-router-dom";
-import Footer from "../../userUI/components/Footer";
+import Footer from "@user/components/Footer";
 function LayoutAdmin() {
   return (
     <>
