@@ -8,6 +8,7 @@
   --background-offWhite-linen: #faf9f6;
   --text-primary-dark-Charcoal: #1f2937;
   --text-secondary-gray: #6b7280;
+  --text-secondary-gray-light:#b9b9b9;
   --border-lightUI-softGray: #e5e7eb;
 }
 
@@ -1034,3 +1035,43 @@ background: linear-gradient(160deg, rgba(31, 41, 55, 1) 0%, rgba(107, 114, 128, 
   border: 1px solid rgba(255, 0, 0, 0.363);
 }
 
+/* Footer */
+
+footer {
+  background: #1f2937;
+  background: linear-gradient(
+    151deg,
+    rgba(31, 41, 55, 1) 1%,
+    rgba(45, 60, 84, 1) 100%
+  );
+  z-index: 99;
+  @apply flex flex-col relative  px-[2rem] py-[2rem] gap-[1.4rem] md:flex-row  md:px-[4rem] ;
+}
+
+.footer-part1{
+@apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 lg:mb-0;
+}
+
+.footer-col{
+  @apply relative mb-4 lg:mb-0 flex flex-col items-start justify-start;
+}
+
+.footer-col h3{
+  @apply font-bold text-lg mb-3 text-[var(--text-secondary-gray)] ;
+}
+
+.footer-col ul{
+  @apply flex flex-col items-start justify-start;
+}
+
+.footer-col ul li .footer-link{
+  @apply text-[var(--text-secondary-gray-light)] hover:text-gray-300 transition-colors text-sm;
+}
+
+.footer-hr{
+  @apply border-gray-600 ;
+}
+
+.footer-part2{
+  @apply flex items-center justify-center gap-10 text-sm py-8 text-[var(--border-lightUI-softGray)];
+}

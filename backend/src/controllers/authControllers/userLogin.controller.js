@@ -12,6 +12,7 @@ const userLogin = asyncHandler(async(req, res, next)=>{
     const  {email, password} = body;
 
     const isProd = process.env.NODE_ENV === "production";
+    console.log("isProd=>", isProd);
 
     //check if any user available with same 
     const user = await User.findOne({email});
@@ -42,7 +43,7 @@ const userLogin = asyncHandler(async(req, res, next)=>{
     const access_token  = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET,{expiresIn:process.env.ACCESS_TOKEN_EXPIRY});
     res.cookie("access_token", access_token, {
         httpOnly:true,
-        sameSite:"none",
+        sameSite:isProd?"none":"lax",
         secure:isProd,
         maxAge:1000*60*2
     })
@@ -50,7 +51,7 @@ const userLogin = asyncHandler(async(req, res, next)=>{
     const refresh_token = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET,{expiresIn:process.env.REFRESH_TOKEN_EXPIRY});
     res.cookie("refresh_token", refresh_token, {
         httpOnly:true,
-        sameSite:"none",
+        sameSite:isProd? "none":"lax",
         secure:isProd,
         maxAge:1000*60*60*24*10
     });
