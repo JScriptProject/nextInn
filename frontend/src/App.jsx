@@ -16,7 +16,7 @@ import ProtectedRoute from "@user/components/userAuth-components/ProtectedRoute.
 
 function App() {
   //create Route
-
+console.log("In the app");
   return (
     <NotificationsContextProvider>
       <NotificationBar />
