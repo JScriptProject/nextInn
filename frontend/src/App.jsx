@@ -9,7 +9,7 @@ import About from "@user/pages/About.jsx";
 import Login from "@user/pages/Login.jsx";
 import Register from "@user/pages/Register.jsx";
 import ForgetPassword from "@user/pages/ForgetPassword.jsx";
-import { NotificationContextProvider } from "@user/context/NotificationContext.jsx";
+import { NotificationsContextProvider } from "@user/context/NotificationsContext.jsx";
 import NotificationBar from "@user/components/NotificationBar.jsx";
 import DashboardUser from "@user/pages/DashboardUser.jsx";
 import ProtectedRoute from "@user/components/userAuth-components/ProtectedRoute.jsx";
@@ -18,7 +18,7 @@ function App() {
   //create Route
 
   return (
-    <NotificationContextProvider>
+    <NotificationsContextProvider>
       <NotificationBar />
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -40,7 +40,7 @@ function App() {
         </Route>
         <Route path="/admin/*" element={<AdminConsole />} />
       </Routes>
-    </NotificationContextProvider>
+    </NotificationsContextProvider>
   );
 }
 

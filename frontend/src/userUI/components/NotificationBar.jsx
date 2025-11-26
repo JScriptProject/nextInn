@@ -1,10 +1,10 @@
 import React from "react";
 import { createPortal } from "react-dom";
 import { useContext } from "react";
-import { NotificationContext } from "@user/context/NotificationContext";
+import { NotificationsContext } from "@user/context/NotificationsContext";
 
 function NotificationBar() {
-  const { notification } = useContext(NotificationContext);
+  const { notification } = useContext(NotificationsContext);
   return (
     notification.visible &&
     createPortal(

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signup } from "@api/authenticationApi.js";
 import { useContext } from "react";
-import { NotificationContext } from "@user/context/NotificationContext.jsx";
+import { NotificationsContext } from "@user/context/NotificationsContext.jsx";
 
 function Register() {
-  const { notification, setNotification } = useContext(NotificationContext);
+  const { notification, setNotification } = useContext(NotificationsContext);
 
   //all state variables here
   const [form, setForm] = useState({

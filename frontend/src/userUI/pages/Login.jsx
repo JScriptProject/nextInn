@@ -2,7 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login, verifySession } from "@api/authenticationApi.js";
 import { useContext } from "react";
-import { NotificationContext } from "@user/context/notificationContext.jsx";
+import { NotificationsContext } from "@user/context/NotificationsContext";
 
 function Login() {
   //state variables
@@ -18,7 +18,7 @@ function Login() {
   const navigate = useNavigate();
 
   //context variables
-  const { notification, setNotification } = useContext(NotificationContext);
+  const { notification, setNotification } = useContext(NotificationsContext);
 
   //onChange event handler
   const onChange = (e) => {

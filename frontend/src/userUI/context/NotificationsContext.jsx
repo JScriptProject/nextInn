@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react'
 
 export const NotificationsContext = createContext();
 
-export function NotificationContextProvider({children}) {
+export function NotificationsContextProvider({children}) {
   
   const [notification, setNotification] = useState({visible:false, success:false, message:""})
     return (
