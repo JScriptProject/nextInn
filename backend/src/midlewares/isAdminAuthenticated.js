@@ -6,7 +6,7 @@ import { ApiError } from "../utils/ApiError.js";
 
 
 const isAdminAuthenticated = asyncHandler(async(req, res, next)=>{
-    
+    console.log("Request cookies", req.cookies);
     try {
          const token = req.cookies?.access_token_admin;
          if (!token) {

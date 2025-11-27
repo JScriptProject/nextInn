@@ -32,7 +32,7 @@ const userLogin = asyncHandler(async(req, res, next)=>{
     //create a payload
 
     const payload = {
-        _id:user._id,
+        id:user._id,
         firstname:user.firstname,
         lastname:user.lastname,
         email:user.email,

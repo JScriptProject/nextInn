@@ -11,21 +11,35 @@ const refreshSession = asyncHandler(async (req, res, next) => {
   const isProd = process.env.NODE_ENV === "production";
 
   if (!refresh_token) {
-    next(new ApiError(401, "Unauthorized: No token provided"));
+    return next(new ApiError(401, "Unauthorized: No refresh token provided"));
   }
 
   //decode the payload info from refresh token
-  const decoded = jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET);
+  let decoded;
 
+  try {
+    decoded = jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET);
+  } catch (error) {
+    return next(new ApiError(401, "Unauthorized: Invalid or expired refresh token"));
+  }
+  
   //get the user details from the database
-  const user = await User.findById(decoded._id).select("-password");
+  const user = await User.findById(decoded.id || decoded._id).select("-password");
 
   if (!user) {
     return next(new ApiError(404, "User not found"));
   }
   // generate the access token and attach that to cookies
+  const payload = {
+    id: user._id,
+    firstname: user.firstname,
+    lastname: user.lastname,
+    email: user.email,
+    mobile: user.mobile,
+    city: user.city,
+  };
   const newAcessToken = jwt.sign(
-    { id: user._id, email: user.email },
+    payload,
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
   );
