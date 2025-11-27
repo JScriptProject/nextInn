@@ -6,8 +6,9 @@ dotenv.config();
 //handle cors
 const  coresMiddleware = cors({
     origin: process.env.ORIGIN,
-    methods:['GET'],
-    credentials:true
+    credentials:true,
+    methods:['GET', 'POST', 'PUT', 'PATCH','DELETE'],
+    allowedHeaders: ["Content-Type","Authorization"]
 });
 
 export default coresMiddleware;

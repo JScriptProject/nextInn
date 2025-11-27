@@ -11,27 +11,45 @@ import authRouter from './routers/auth.router.js';
 dotenv.config();
 const app = express();
 
-//cors middleware
+//
+// 1️⃣ CORS MUST BE FIRST
+//
 app.use(coresMiddleware);
 
-//responseHandler Middleware
+//
+// 2️⃣ THIS HEADER IS MANDATORY FOR COOKIES
+//
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
-app.use(responseHandler);
+//
+// 3️⃣ cookieParser MUST run BEFORE responseHandler
+//
+app.use(cookieParser());
 
-//parse the body of incoming request so that can access as req.body
-//parse JSON
+//
+// 4️⃣ Body parsers
+//
 app.use(express.json({limit:"100mb"}));
 app.use(express.urlencoded({limit:"100mb", extended: true }));
 
+//
+// 5️⃣ responseHandler after parsing cookie
+//
+app.use(responseHandler);
 
-//logger middleware
+//
+// 6️⃣ logger
+//
 app.use(loggerMiddleware);
 
-app.use(cookieParser()); 
-//routers
-app.use('/api/category',roomsCategoryRouter);
+//
+// 7️⃣ Routes
+//
+app.use('/api/category', roomsCategoryRouter);
 app.use("/api", roomsRouter);
-app.use('/api/auth',authRouter);
-
+app.use('/api/auth', authRouter);
 
 export default app;

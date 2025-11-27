@@ -9,7 +9,7 @@ const refreshSession = asyncHandler(async (req, res, next) => {
   // check if refresh token there or not
   const refresh_token = req.cookies?.refresh_token;
   const isProd = process.env.NODE_ENV === "production";
-
+  console.log("Refresh Token", refresh_token);
   if (!refresh_token) {
     return next(new ApiError(401, "Unauthorized: No refresh token provided"));
   }
