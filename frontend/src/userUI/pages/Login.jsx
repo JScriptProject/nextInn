@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login, verifySession } from "@api/authenticationApi.js";
 import { useContext } from "react";
 import { NotificationsContext } from "@user/context/NotificationsContext";
+import api from "../../api/axiosInstance.js";
 
 function Login() {
   //state variables
@@ -59,15 +60,27 @@ function Login() {
     }
   };
 
-  //useEffect to verify if active session
+  // useEffect to verify if active session
 
   useEffect(() => {
     (async () => {
-      const response = await verifySession();
+      const response = await verifySession({ skipAutoRefresh: true });
+      console.log("Inside timeout", response);
+
       if (response.success) {
+        console.log("I am in if true");
         navigate("/dashboard-user");
       } else {
-        setCheckingSession(false);
+        try {
+          await api.post("/api/auth/refresh");
+          console.log("refresh called ");
+          const refreshedresponse = await verifySession();
+          if (refreshedresponse.success) {
+            navigate("/dashboard-user");
+          } else {
+            setCheckingSession(false);
+          }
+        } catch (error) {}
       }
     })();
   }, []);

@@ -23,6 +23,12 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    //check if we have the flag to skip the auto refresh
+const skipAutoRefresh =
+  originalRequest?.headers?.["x-skip-auto-refresh"] ||
+  originalRequest?.headers?.["X-Skip-Auto-Refresh"];
+    
+    
     // if refresh endpoint fails or request is refresh endpoint -> logout immediately
     if (originalRequest?.url?.includes("/api/auth/refresh")) {
       window.location.href = "/login";
@@ -30,6 +36,11 @@ api.interceptors.response.use(
     }
 
     if (error.response?.status === 401 && !originalRequest._retry) {
+
+       if (skipAutoRefresh) {
+         return Promise.reject(error);
+       }
+
       originalRequest._retry = true;
 
       if (isRefreshing) {

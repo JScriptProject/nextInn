@@ -49,10 +49,10 @@ export const login = async(loginData) =>{
 }
 
 
-export const verifySession = async()=>{
+export const verifySession = async({skipAutoRefresh=false}={})=>{
 
     try {
-        const response = await api.post("/api/auth/me");
+        const response = await api.post("/api/auth/me",{},{headers:{"X-Skip-Auto-Refresh":skipAutoRefresh}});
 
         console.log("Verify Session: ", response);
         return{
