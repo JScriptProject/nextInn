@@ -10,17 +10,29 @@ import { refreshAdminSession } from "../controllers/authControllers/refreshAdmin
 import { isAdminAuthenticated } from "../midlewares/isAdminAuthenticated.js";
 
 import express from "express";
+import cors from "cors";
 
 const router = express.Router();
 
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "x-skip-auto-refresh", "X-Skip-Auto-Refresh"],
+};
+
 router.post("/signup", userSignUp);
 router.post("/login", userLogin);
-router.post("/me", isAuthenticated, verifySession);
+
+router.options("/me", cors(corsOptions));
+router.post("/me", cors(corsOptions), isAuthenticated, verifySession);
 router.post("/refresh", refreshSession);
 
 router.post("/signup-admin", adminSignUp);
 router.post("/admin-login", adminLogin);
-router.post("/admin-me", isAdminAuthenticated, verifyAdminSession);
+
+router.options("/admin-me", cors(corsOptions));
+router.post("/admin-me", cors(corsOptions), isAdminAuthenticated, verifyAdminSession);
 router.post("/admin-refresh", refreshAdminSession);
 
 export default router;

@@ -37,7 +37,8 @@ export const login = async(loginData) =>{
         return{
             success:true,
             message:response.data.message,
-            status:response.status
+            status:response.status,
+            user:response.data.data
         }
     } catch (error) {
           console.error("Error in login", error);
@@ -52,7 +53,9 @@ export const login = async(loginData) =>{
 export const verifySession = async({skipAutoRefresh=false}={})=>{
 
     try {
-        const response = await api.post("/api/auth/me",{},{headers:{"X-Skip-Auto-Refresh":skipAutoRefresh}});
+        const response = await api.post("/api/auth/me", {}, {
+            headers: { "X-Skip-Auto-Refresh": String(skipAutoRefresh) }
+        });
 
         console.log("Verify Session: ", response);
         return{

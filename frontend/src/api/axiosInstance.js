@@ -1,45 +1,50 @@
-
 import axios from "axios";
-const SERVER_URI = import.meta.env.VITE_API_URL
+const SERVER_URI = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
-    baseURL: SERVER_URI,
-    withCredentials: true,
+  baseURL: SERVER_URI,
+  withCredentials: true,
 });
 
 let isRefreshing = false;
 let failedQueue = [];
 
 const processQueue = (error, token = null) => {
-  failedQueue.forEach(prom=>{
-    if(error) prom.reject(error);
+  failedQueue.forEach((prom) => {
+    if (error) prom.reject(error);
     else prom.resolve();
   });
-  failedQueue =[];
-}
+  failedQueue = [];
+};
 
 api.interceptors.response.use(
-  response => response,
+  (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const statusCode = error.response?.status;
+    const errorMessage = error.response?.data?.message;
 
     //check if we have the flag to skip the auto refresh
-const skipAutoRefresh =
-  originalRequest?.headers?.["x-skip-auto-refresh"] ||
-  originalRequest?.headers?.["X-Skip-Auto-Refresh"];
-    
-    
-    // if refresh endpoint fails or request is refresh endpoint -> logout immediately
+    const skipAutoRefresh =
+      originalRequest?.headers?.["x-skip-auto-refresh"] ||
+      originalRequest?.headers?.["X-Skip-Auto-Refresh"];
+
+    // if already hit the refresh endpoint then immidaitly send to login page
     if (originalRequest?.url?.includes("/api/auth/refresh")) {
       window.location.href = "/login";
       return Promise.reject(error);
     }
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (statusCode === 401 && !originalRequest._retry) {
+      //if its the login credentails issues then dont initiate refresh
+      if (errorMessage === "Invalid password") {
+        return Promise.reject(error);
+      }
 
-       if (skipAutoRefresh) {
-         return Promise.reject(error);
-       }
+      //if custome header added to skip the auto refresh
+      if (skipAutoRefresh) {
+        return Promise.reject(error);
+      }
 
       originalRequest._retry = true;
 

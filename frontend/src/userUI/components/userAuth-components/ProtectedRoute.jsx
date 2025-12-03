@@ -1,65 +1,50 @@
-import React, { useState, useEffect } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import { verifySession } from "@api/authenticationApi.js";
-import { useDispatch } from "react-redux";
-import { setUser, clearUser } from "@redux/userSlice.js";
-import api from "@api/axiosInstance";
-function ProtectedRoute({ children }) {
-  const [authChecked, setAuthChecked] = useState(false);
-  const [authorized, setAuthorized] = useState(false);
-  const location = useLocation();
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, clearUser, setLoading } from "@redux/userSlice.js";
+import FullScreenLoader from "@user/pages/FullScreenLoader.jsx";
+import DashboardUser from "@user/pages/DashboardUser.jsx";
+
+function ProtectedRoute() {
   const dispatch = useDispatch();
+  const { isAuthenticated, isLoading, user } = useSelector(
+    (state) => state.user
+  );
 
   useEffect(() => {
-    const onSessionVerification = async () => {
-      const response = await verifySession();
-      if (response.success) {
-        console.log("user information=>", response.user);
-        const user = response.user;
-        setAuthorized(true);
-        dispatch(
-          setUser({
-            id: user._id,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            email: user.email,
-            mobile: user.mobile,
-            city: user.city,
-          })
-        );
-      } else {
-        await api.post("/api/auth/refresh");
-        const refreshedresponse = await verifySession();
-        if (refreshedresponse.success) {
-          console.log("user information=>", refreshedresponse.user);
-          const user = refreshedresponse.user;
-          setAuthorized(true);
-          dispatch(
-            setUser({
-              id: user._id,
-              firstname: user.firstname,
-              lastname: user.lastname,
-              email: user.email,
-              mobile: user.mobile,
-              city: user.city,
-            })
-          );
-        }
-        else{
-          setAuthorized(false);
+    const checkSession = async () => {
+      try {
+        const response = await verifySession();
+
+        if (response.success && response.user) {
+          dispatch(setUser(response.user));
+        } else {
           dispatch(clearUser());
         }
+      } catch (error) {
+        dispatch(clearUser());
+      } finally {
+        dispatch(setLoading(false));
       }
-      setAuthChecked(true);
     };
-    onSessionVerification();
-  }, []);
-  if (!authChecked) return <p>Checking session......</p>;
+    // Only check session if user is not authenticated and not loading
+    // This prevents re-checking when we already have the user info.
+    if (!isAuthenticated && user === null) {
+      checkSession();
+    } else {
+      dispatch(setLoading(false));
+    }
+  }, [dispatch, isAuthenticated, user]);
 
-  return authorized ? (
-    children
+  if (isLoading) {
+    return <FullScreenLoader />;
+  }
+
+  return isAuthenticated ? (
+    <DashboardUser />
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <Navigate to="/login" replace={true} />
   );
 }
 

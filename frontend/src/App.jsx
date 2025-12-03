@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "@user/pages/HomePage.jsx";
 import RoomDetails from "@user/pages/RoomDetails.jsx";
 import BookingPage from "@user/pages/BookingPage.jsx";
@@ -14,10 +14,38 @@ import NotificationBar from "@user/components/NotificationBar.jsx";
 import DashboardUser from "@user/pages/DashboardUser.jsx";
 import ProtectedRoute from "@user/components/userAuth-components/ProtectedRoute.jsx";
 import AdminLogin from "@admin/pages/AdminLogin";
+import { verifySession } from "@api/authenticationApi.js";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, clearUser, setLoading } from "@redux/userSlice.js";
+import { useNavigate } from "react-router-dom";
+import { is } from "date-fns/locale";
 
 function App() {
   //create Route
-console.log("In the app");
+const {user, isAuthenticated, isLoading} = useSelector((state)=> state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+ 
+  useEffect(()=>{
+   const initiateSession = async()=>{
+      try {
+        const response = await verifySession();
+        if(response.success && response.user){
+          dispatch(setUser(response.user));
+        }
+        else{
+          dispatch(clearUser());
+        }
+      } catch (error) {
+        dispatch(clearUser());
+      }
+
+   }
+   if(!isAuthenticated && user === null)
+   {
+    initiateSession();
+   }
+  },[isAuthenticated, user, navigate, dispatch])
   return (
     <NotificationsContextProvider>
       <NotificationBar />
@@ -32,7 +60,7 @@ console.log("In the app");
           <Route path="/register" element={<Register />} />
           <Route path="/forget" element={<ForgetPassword />} />
           <Route
-            path="/dashboard-user"
+            path="/user-dashboard"
             element={
               <ProtectedRoute>
                 <DashboardUser />

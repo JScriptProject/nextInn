@@ -1,91 +1,90 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login, verifySession } from "@api/authenticationApi.js";
-import { useContext } from "react";
+import { login } from "@api/authenticationApi.js";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, setLoading, clearUser } from "@redux/userSlice";
+import FullScreenLoader from "./FullScreenLoader";
 import { NotificationsContext } from "@user/context/NotificationsContext";
-import api from "../../api/axiosInstance.js";
+import { useContext } from "react";
+import { set } from "date-fns";
+import { tr } from "date-fns/locale";
 
 function Login() {
   //state variables
   const [form, setForm] = useState({
     email: "",
     password: "",
-    remember: false,
   });
-  const [message, setMessage] = useState("");
-  const [checkingSession, setCheckingSession] = useState(true);
+  //const [error, setError] = useState(""); **** dont want
+
   //destructured variables
-  const { email, password, remember } = form;
-  const navigate = useNavigate();
+  const { email, password } = form;
 
   //context variables
   const { notification, setNotification } = useContext(NotificationsContext);
+
+  //redux store communication
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isLoading, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
 
   //onChange event handler
   const onChange = (e) => {
     setForm((prev) => ({
       ...prev,
-      [e.target.name]:
-        e.target.type === "checkbox" ? e.target.checked : e.target.value,
+      [e.target.name]: e.target.value,
     }));
   };
-  console.log(form);
 
+  function showNotification(visibleValue, successValue, messageValue) {
+    setNotification({
+      visible: visibleValue,
+      success: successValue,
+      message: messageValue,
+    });
+    setTimeout(() => {
+      setNotification({ visible: false, success: false, message: "" });
+    }, 3000);
+  }
   //submit event handler
   const onSubmit = async (e) => {
     e.preventDefault();
-    const result = await login(form);
-    console.log("FORM", form);
-    if (result.success === true) {
-      console.log("Result from backend", result);
-      navigate("/dashboard-user");
-      setNotification({
-        visible: true,
-        success: true,
-        message: result.message,
-      });
-      setTimeout(() => {
-        setNotification({ visible: false, success: false, message: "" });
-      }, 3000);
-    }
-    if (result.success === false) {
-      setNotification({
-        visible: true,
-        success: false,
-        message: result.message,
-      });
-      setTimeout(() => {
-        setNotification({ visible: false, success: false, message: "" });
-      }, 3000);
+    dispatch(setLoading(true));
+    try {
+      const response = await login(form);
+
+      // Access the actual API response data nested within the axios response
+      if (response.success) {
+        const user = response.user;
+
+        dispatch(setUser(user)); // by default isAthenticated is true now
+        navigate("/user-dashboard"); // Corrected path
+        showNotification(true, true, response.message);
+      } else {
+        dispatch(clearUser());
+        // The error message is also in the nested data object
+        showNotification(true, false, response.message);
+      }
+    } catch (err) {
+      dispatch(clearUser());
+      showNotification(true, false, err.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
-  // useEffect to verify if active session
-
+  // Redirect if already authenticated
   useEffect(() => {
-    (async () => {
-      const response = await verifySession({ skipAutoRefresh: true });
-      console.log("Inside timeout", response);
+    if (isAuthenticated) {
+      navigate("/user-dashboard", { replace: true }); // Corrected path
+    }
+  }, [isAuthenticated, navigate]);
 
-      if (response.success) {
-        console.log("I am in if true");
-        navigate("/dashboard-user");
-      } else {
-        try {
-          await api.post("/api/auth/refresh");
-          console.log("refresh called ");
-          const refreshedresponse = await verifySession();
-          if (refreshedresponse.success) {
-            navigate("/dashboard-user");
-          } else {
-            setCheckingSession(false);
-          }
-        } catch (error) {}
-      }
-    })();
-  }, []);
-
-  if (checkingSession) return <p>Checking the session....</p>;
+  if (isLoading || isAuthenticated) {
+    return <FullScreenLoader />;
+  }
 
   return (
     <div className="login-container">
@@ -98,6 +97,7 @@ function Login() {
             name="email"
             required
             onChange={onChange}
+            value={email}
           />
           <input
             type="password"
@@ -105,23 +105,18 @@ function Login() {
             name="password"
             required
             onChange={onChange}
+            value={password}
           />
-          {message && <p className="message">{message}</p>}
           <div className="login-addon">
-            <div className="remember-addon">
-              <input
-                type="checkbox"
-                name="remember"
-                checked={remember}
-                onChange={onChange}
-              />
-              <label>Remember me</label>
-            </div>
             <div className="forget-password">
               <Link to="/forget">Forget password?</Link>
             </div>
           </div>
-          <button type="submit" className="btn-login btn-fill">
+          <button
+            type="submit"
+            className="btn-login btn-fill"
+            disabled={isLoading}
+          >
             Login
           </button>
           <p className="redirection">

@@ -45,9 +45,9 @@ const userLogin = asyncHandler(async (req, res, next) => {
   });
   res.cookie("access_token", access_token, {
     httpOnly: true,
-    sameSite: isProd ? "none" : "lax",
+    sameSite: "lax",
     secure: isProd,
-    path:"/",
+    path: "/",
     maxAge: 1000 * 60 * 2,
   });
 
@@ -56,9 +56,9 @@ const userLogin = asyncHandler(async (req, res, next) => {
   });
   res.cookie("refresh_token", refresh_token, {
     httpOnly: true,
-    sameSite: isProd ? "none" : "lax",
+    sameSite: "lax",
     secure: isProd,
-    path:"/",
+    path: "/",
     maxAge: 1000 * 60 * 3,
   });
 

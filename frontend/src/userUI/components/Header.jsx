@@ -54,10 +54,10 @@ function Header({websiteHeader}) {
         
          <div className="cta-section">
           {websiteHeader.login === null && <p className="text-[#fff]">Admin</p>}
-          {(websiteHeader.login && websiteHeader.user.id==="") && websiteHeader?.login?.map((navLoginItem, index) =>(<Link to={navLoginItem.to} key={index}>
+          {(websiteHeader.login && websiteHeader.user===null) && websiteHeader?.login?.map((navLoginItem, index) =>(<Link to={navLoginItem.to} key={index}>
             <Button className={websiteHeader.login[index].btnClass}>{navLoginItem.label}</Button>
           </Link>))}
-          {(websiteHeader.login && websiteHeader.user.id !=="") && <UserLoggedInHeader user ={websiteHeader.user} /> }
+          {(websiteHeader.login && websiteHeader.user!==null) && <UserLoggedInHeader user ={websiteHeader.user} /> }
         </div>
         <hr className="nav-hr" />
         <ul className="nav-links">

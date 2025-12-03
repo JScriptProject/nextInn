@@ -22,7 +22,7 @@ const refreshSession = asyncHandler(async (req, res, next) => {
   try {
     decoded = jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET);
 
-    const refreshTokenDB = await RefreshToken.findByOne({userId:decoded.id || decoded._id});
+    const refreshTokenDB = await RefreshToken.findOne({userId:decoded.id || decoded._id});
     if (!refreshTokenDB) {
       return next(new ApiError(401, "Unauthorized: Invalid refresh token"));
     }
@@ -58,7 +58,7 @@ const refreshSession = asyncHandler(async (req, res, next) => {
 
   res.cookie("access_token", newAcessToken, {
     httpOnly: true,
-    sameSite: isProd ? "none" : "lax",
+    sameSite: "lax",
     secure: isProd,
     path:"/",
     maxAge: 1000 * 60 * 2,

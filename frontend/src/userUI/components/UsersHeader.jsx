@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 function UsersHeader() {
 
-  const user = useSelector((state)=> state.user);
+  const { user } = useSelector((state)=> state.user);
   const websiteHeader = {
     webNav: [
       { to: "/", label: "Home" },
