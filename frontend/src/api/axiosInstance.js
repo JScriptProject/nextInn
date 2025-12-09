@@ -24,10 +24,6 @@ api.interceptors.response.use(
     const statusCode = error.response?.status;
     const errorMessage = error.response?.data?.message;
 
-    //check if we have the flag to skip the auto refresh
-    const skipAutoRefresh =
-      originalRequest?.headers?.["x-skip-auto-refresh"] ||
-      originalRequest?.headers?.["X-Skip-Auto-Refresh"];
 
     // if already hit the refresh endpoint then immidaitly send to login page
     if (originalRequest?.url?.includes("/api/auth/refresh")) {

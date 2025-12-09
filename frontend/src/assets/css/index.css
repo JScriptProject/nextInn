@@ -1075,3 +1075,20 @@ footer {
 .footer-part2{
   @apply flex items-center justify-center gap-10 text-sm py-8 text-[var(--border-lightUI-softGray)];
 }
+
+
+/* User logged in avatar */
+
+.user-avatar-hover{
+  left:50%;
+  transform:translateX(-50%);
+  @apply absolute flex items-center flex-col gap-[0.2rem] text-[0.8rem] bg-amber-50 text-gray-700 w-[75px] p-2 rounded-md z-500;
+}
+
+.user-avatar-hover .user-avatar-hover-dashboard{
+  @apply hover:font-bold;
+}
+
+.logout-btn{
+ @apply hover:font-bold cursor-pointer; 
+}

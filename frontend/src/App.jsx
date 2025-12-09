@@ -18,7 +18,7 @@ import { verifySession } from "@api/authenticationApi.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser, setLoading } from "@redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
-import { is } from "date-fns/locale";
+
 
 function App() {
   //create Route
@@ -26,26 +26,56 @@ const {user, isAuthenticated, isLoading} = useSelector((state)=> state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
  
-  useEffect(()=>{
-   const initiateSession = async()=>{
-      try {
-        const response = await verifySession();
-        if(response.success && response.user){
-          dispatch(setUser(response.user));
-        }
-        else{
-          dispatch(clearUser());
-        }
-      } catch (error) {
-        dispatch(clearUser());
-      }
+  // useEffect(()=>{ 
+  //  const initiateSession = async()=>{
+  //     try {
+  //       const response = await verifySession();
+  //       if(response.success && response.user){
+  //         dispatch(setUser(response.user));
+  //       }
+  //       else{
+  //         dispatch(clearUser());
+  //       }
+  //     } catch (error) {
+  //       dispatch(clearUser());
+  //     }
 
-   }
-   if(!isAuthenticated && user === null)
-   {
-    initiateSession();
-   }
-  },[isAuthenticated, user, navigate, dispatch])
+  //  }
+  //  if(!isAuthenticated && user === null)
+  //  {
+  //   initiateSession();
+  //  }
+  // },[isAuthenticated, user, navigate, dispatch])
+
+
+  useEffect(()=>{
+    const initiateSession = async()=>{
+       try {
+         dispatch(setLoading(true));
+         const response = await verifySession();
+         console.log("Response of verifySession", response);
+         if(response.success && response.user){
+           dispatch(setUser(response.user));
+         }
+         else{
+           dispatch(clearUser());
+         }
+       } catch (error) {
+         dispatch(clearUser());
+       }
+       finally{
+         dispatch(setLoading(false));
+       }
+ 
+    }
+    
+     initiateSession();
+    
+   },[ dispatch])
+
+   console.log("App IsLoading", isLoading);
+   console.log("App Is Athenticated", isAuthenticated);
+   console.log("App user", user);
   return (
     <NotificationsContextProvider>
       <NotificationBar />

@@ -8,7 +8,7 @@ import { adminLogin } from "../controllers/authControllers/adminLogin.controller
 import { verifyAdminSession } from "../controllers/authControllers/verifyAdminSession.controller.js";
 import { refreshAdminSession } from "../controllers/authControllers/refreshAdminSession.controller.js";
 import { isAdminAuthenticated } from "../midlewares/isAdminAuthenticated.js";
-
+import { userLogout } from "../controllers/authControllers/userLogout.controller.js";
 import express from "express";
 import cors from "cors";
 
@@ -23,6 +23,7 @@ const corsOptions = {
 
 router.post("/signup", userSignUp);
 router.post("/login", userLogin);
+router.post("/logout",isAuthenticated, userLogout);
 
 router.options("/me", cors(corsOptions));
 router.post("/me", cors(corsOptions), isAuthenticated, verifySession);

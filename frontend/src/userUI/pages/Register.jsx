@@ -5,7 +5,8 @@ import { useContext } from "react";
 import { NotificationsContext } from "@user/context/NotificationsContext.jsx";
 
 function Register() {
-  const { notification, setNotification } = useContext(NotificationsContext);
+  const { showNotification } =
+    useContext(NotificationsContext);
 
   //all state variables here
   const [form, setForm] = useState({
@@ -79,11 +80,11 @@ function Register() {
     const result = await signup(form);
     console.log("Signup Result", result);
     if (result.success === true) {
-      setNotification({
-        visible: true,
-        success: true,
-        message: result.message,
-      });
+      showNotification(
+        true,
+        true,
+        result.message,
+      );
 
       setForm({
         firstname: "",
@@ -95,19 +96,15 @@ function Register() {
         confirm_password: "",
       });
 
-      setTimeout(() => {
-        setNotification({ visible: false, success: false, message: "" });
-      }, 3000);
+     
     }
     if (result.success === false) {
-      setNotification({
-        visible: true,
-        success: false,
-        message: result.message,
-      });
-      setTimeout(() => {
-        setNotification({ visible: false, success: false, message: "" });
-      }, 3000);
+      showNotification(
+         true,
+         false,
+         result.message,
+      );
+     
     }
   };
 

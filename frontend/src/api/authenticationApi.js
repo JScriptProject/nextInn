@@ -50,12 +50,10 @@ export const login = async(loginData) =>{
 }
 
 
-export const verifySession = async({skipAutoRefresh=false}={})=>{
+export const verifySession = async()=>{
 
     try {
-        const response = await api.post("/api/auth/me", {}, {
-            headers: { "X-Skip-Auto-Refresh": String(skipAutoRefresh) }
-        });
+        const response = await api.post("/api/auth/me");
 
         console.log("Verify Session: ", response);
         return{
@@ -73,5 +71,25 @@ export const verifySession = async({skipAutoRefresh=false}={})=>{
             status:error.response?.status || 520
         
         }
+    }
+}
+
+export const logout = async ()=>{
+    try {
+        const response = await api.post("/api/auth/logout");
+        return{
+            success:true,
+            message:response.data.message,
+            status:response.status
+        }
+    } catch (error) {
+        console.error("Error in logout", error);
+        const errorMessage =  error.response.data.message || "Something went wrong";
+        return{
+           success:false,
+           message: errorMessage,
+           status:error.response?.status || 520 
+        }
+        
     }
 }

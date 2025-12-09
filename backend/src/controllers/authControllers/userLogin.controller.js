@@ -32,7 +32,7 @@ const userLogin = asyncHandler(async (req, res, next) => {
   //create a payload
 
   const payload = {
-    id: user._id,
+    userId: user._id,
     firstname: user.firstname,
     lastname: user.lastname,
     email: user.email,
@@ -48,7 +48,7 @@ const userLogin = asyncHandler(async (req, res, next) => {
     sameSite: "lax",
     secure: isProd,
     path: "/",
-    maxAge: 1000 * 60 * 2,
+    maxAge: 1000 * 60 * 60 * 24,
   });
 
   const refresh_token = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
@@ -59,7 +59,7 @@ const userLogin = asyncHandler(async (req, res, next) => {
     sameSite: "lax",
     secure: isProd,
     path: "/",
-    maxAge: 1000 * 60 * 3,
+    maxAge: 1000 * 60 * 60 * 24 * 10,
   });
 
   //Save the refresh token into the database

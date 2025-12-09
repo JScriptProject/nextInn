@@ -11,18 +11,28 @@ function DashboardUser() {
   }
 
   return (
-    <div className="bg-green-400 p-8">
-      <h1 className="text-2xl font-bold">
-        Hello, you are on the User Dashboard
-      </h1>
-      <p>ID: {user.id}</p>
-      <p>
-        Name: {user.firstname} {user.lastname}
-      </p>
-      <p>Mobile: {user.mobile}</p>
-      <p>Email: {user.email}</p>
-      <p>City: {user.city}</p>
-    </div>
+    <>
+      <section className="user-dashboard-banner">
+        <div className="banner-img">
+          <img
+            src="../../assets/media/nextIn-userDashboard.png"
+            alt="User Dashboard"
+          />
+        </div>
+      </section>
+      <div className="bg-green-400 p-8">
+        <h1 className="text-2xl font-bold">
+          Hello, you are on the User Dashboard
+        </h1>
+        <p>ID: {user.id}</p>
+        <p>
+          Name: {user.firstname} {user.lastname}
+        </p>
+        <p>Mobile: {user.mobile}</p>
+        <p>Email: {user.email}</p>
+        <p>City: {user.city}</p>
+      </div>
+    </>
   );
 }
 

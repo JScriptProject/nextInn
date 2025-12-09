@@ -13,7 +13,7 @@
 }
 
 .admin-container {
-  @apply w-full h-[200rem] relative bg-[var(--background-offWhite-linen)];
+  @apply w-full h-[full] mb-10 relative bg-[var(--background-offWhite-linen)];
 }
 
 .admin-header {

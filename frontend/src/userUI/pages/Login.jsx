@@ -6,8 +6,6 @@ import { setUser, setLoading, clearUser } from "@redux/userSlice";
 import FullScreenLoader from "./FullScreenLoader";
 import { NotificationsContext } from "@user/context/NotificationsContext";
 import { useContext } from "react";
-import { set } from "date-fns";
-import { tr } from "date-fns/locale";
 
 function Login() {
   //state variables
@@ -21,7 +19,8 @@ function Login() {
   const { email, password } = form;
 
   //context variables
-  const { notification, setNotification } = useContext(NotificationsContext);
+  const { showNotification } =
+    useContext(NotificationsContext);
 
   //redux store communication
   const navigate = useNavigate();
@@ -38,16 +37,7 @@ function Login() {
     }));
   };
 
-  function showNotification(visibleValue, successValue, messageValue) {
-    setNotification({
-      visible: visibleValue,
-      success: successValue,
-      message: messageValue,
-    });
-    setTimeout(() => {
-      setNotification({ visible: false, success: false, message: "" });
-    }, 3000);
-  }
+
   //submit event handler
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -74,6 +64,7 @@ function Login() {
       dispatch(setLoading(false));
     }
   };
+  
 
   // Redirect if already authenticated
   useEffect(() => {
