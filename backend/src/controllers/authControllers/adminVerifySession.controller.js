@@ -1,7 +1,7 @@
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { Admin } from "../../models/admin.model.js";
 
-const verifyAdminSession = asyncHandler(async (req, res, next) => {
+const adminVerifySession = asyncHandler(async (req, res, next) => {
   console.log("I have executed from here!!! VERIFY ADMIN CONTROLLER !!");
   const admin = await Admin.findById(req.admin._id).select("-password");
   if (!admin) {
@@ -11,4 +11,4 @@ const verifyAdminSession = asyncHandler(async (req, res, next) => {
   }
 });
 
-export { verifyAdminSession };
+export { adminVerifySession };

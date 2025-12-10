@@ -5,7 +5,7 @@ import { ApiError } from "../../utils/ApiError.js";
 import jwt from "jsonwebtoken";
 import { Admin } from "../../models/admin.model.js";
 
-const refreshAdminSession = asyncHandler(async (req, res, next) => {
+const adminRefreshSession = asyncHandler(async (req, res, next) => {
   const refresh_token_admin = req.cookies?.refresh_token_admin;
   const isProd = process.env.NODE_ENV === "production";
   if (!refresh_token_admin) {
@@ -41,4 +41,4 @@ const refreshAdminSession = asyncHandler(async (req, res, next) => {
   return res.success(200, admin, "Session refreshed successfully!");
 });
 
-export { refreshAdminSession };
+export { adminRefreshSession };

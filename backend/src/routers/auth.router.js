@@ -5,8 +5,8 @@ import { verifySession } from "../controllers/authControllers/verifySession.cont
 import { refreshSession } from "../controllers/authControllers/refreshSession.controller.js";
 import { adminSignUp } from "../controllers/authControllers/adminSignUp.controller.js";
 import { adminLogin } from "../controllers/authControllers/adminLogin.controller.js";
-import { verifyAdminSession } from "../controllers/authControllers/verifyAdminSession.controller.js";
-import { refreshAdminSession } from "../controllers/authControllers/refreshAdminSession.controller.js";
+import { verifyAdminSession } from "../controllers/authControllers/adminVerifySession.controller.js";
+import { refreshAdminSession } from "../controllers/authControllers/adminRefreshSession.controller.js";
 import { isAdminAuthenticated } from "../midlewares/isAdminAuthenticated.js";
 import { userLogout } from "../controllers/authControllers/userLogout.controller.js";
 import express from "express";
@@ -21,6 +21,7 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization", "x-skip-auto-refresh", "X-Skip-Auto-Refresh"],
 };
 
+// user
 router.post("/signup", userSignUp);
 router.post("/login", userLogin);
 router.post("/logout",isAuthenticated, userLogout);
@@ -29,8 +30,11 @@ router.options("/me", cors(corsOptions));
 router.post("/me", cors(corsOptions), isAuthenticated, verifySession);
 router.post("/refresh", refreshSession);
 
+// admin
+
 router.post("/signup-admin", adminSignUp);
 router.post("/admin-login", adminLogin);
+router.post("/admin-logout", adminLogout)
 
 router.options("/admin-me", cors(corsOptions));
 router.post("/admin-me", cors(corsOptions), isAdminAuthenticated, verifyAdminSession);
