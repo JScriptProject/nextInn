@@ -72,7 +72,7 @@ const userLogin = asyncHandler(async (req, res, next) => {
     {
       userId: user._id,
       refreshToken: refresh_token,
-      expiresAt: new Date(Date.now() + 3 * 60 * 1000),
+      expiresAt: new Date(Date.now() + 24*60 * 60 * 1000),
     },
     {new: true, upsert: true}
   );

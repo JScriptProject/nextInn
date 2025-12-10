@@ -16,10 +16,8 @@ const userLogout = asyncHandler(async (req, res, next) => {
     // delete the refresh token from db
     const currentToken = cookiesData?.refresh_token;
     const deleteResponse = await RefreshToken.findOneAndDelete({ refreshToken: currentToken });
-     if(!deleteResponse)
-     {
-      throw new ApiError(500, "Error while deleting refresh token from db");
-     }
+    console.log("Logout controller: deleteRespononse=>". deleteResponse);
+    
     const cookieOptions = {
       httpOnly: true,
       sameSite: "lax",

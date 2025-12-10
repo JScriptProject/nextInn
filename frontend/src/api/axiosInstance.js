@@ -23,29 +23,46 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     const statusCode = error.response?.status;
     const errorMessage = error.response?.data?.message;
-
+    console.log("We are in the anxiosInstance: status code =>", statusCode);
+    console.log("We are in the anxiosInstance: Error Object =>", error);
 
     // if already hit the refresh endpoint then immidaitly send to login page
-    if (originalRequest?.url?.includes("/api/auth/refresh")) {
-      window.location.href = "/login";
+    if (
+      originalRequest?.url?.includes("/api/auth/refresh") &&
+      statusCode === 401
+    ) {
+      console.log("Looking to redirect to /login");
+      const currentPath = window.location.pathname;
+      console.log("Current Path=>", currentPath);
+      if (currentPath === "/user-dashboard") {
+        console.log("here in the if statement as currentPath === /user-dashboard");
+        window.location.href = "/login";
+      }
+
       return Promise.reject(error);
     }
 
-    if (statusCode === 401 && !originalRequest._retry) {
+    if (
+      statusCode === 401 &&
+      !originalRequest._retry &&
+      !originalRequest?.url?.includes("/api/auth/refresh")
+    ) {
+      console.log(
+        "inside if checking original request=>",
+        originalRequest.url.includes("/api/auth/refresh"));
+      
       //if its the login credentails issues then dont initiate refresh
       if (errorMessage === "Invalid password") {
         return Promise.reject(error);
       }
 
       //if custome header added to skip the auto refresh
-      if (skipAutoRefresh) {
-        return Promise.reject(error);
-      }
 
       originalRequest._retry = true;
 
       if (isRefreshing) {
         // queue this request until refresh completes
+        console.log("inside is refreshing");
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         }).then(() => api(originalRequest));
@@ -54,14 +71,23 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
+        console.log("again refresh call inside try")
         await api.post("/api/auth/refresh"); // api has withCredentials true
         isRefreshing = false;
         processQueue(null);
         return api(originalRequest);
       } catch (err) {
+        console.log("catch of the try refresh");
         isRefreshing = false;
         processQueue(err);
-        window.location.href = "/login";
+        const currentPath = window.location.pathname;
+        console.log("Current Path=>", currentPath);
+        if (currentPath === "/user-dashboard") {
+          console.log(
+            "here in the if statement as currentPath === /user-dashboard"
+          );
+          window.location.href = "/login";
+        }
         return Promise.reject(err);
       }
     }

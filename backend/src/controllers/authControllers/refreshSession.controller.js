@@ -22,7 +22,9 @@ const refreshSession = asyncHandler(async (req, res, next) => {
   try {
     decoded = jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET);
 
-    const refreshTokenDB = await RefreshToken.findOne({userId:decoded.userId});
+    const refreshTokenDB = await RefreshToken.findOne({
+      userId: decoded.userId,
+    });
     if (!refreshTokenDB) {
       return next(new ApiError(401, "Unauthorized: Invalid refresh token"));
     }
@@ -36,9 +38,7 @@ const refreshSession = asyncHandler(async (req, res, next) => {
   }
 
   //get the user details from the database
-  const user = await User.findById(decoded.userId).select(
-    "-password"
-  );
+  const user = await User.findById(decoded.userId).select("-password");
 
   if (!user) {
     return next(new ApiError(404, "User not found"));
@@ -60,8 +60,8 @@ const refreshSession = asyncHandler(async (req, res, next) => {
     httpOnly: true,
     sameSite: "lax",
     secure: isProd,
-    path:"/",
-    maxAge: 1000 * 60 * 60 *24,
+    path: "/",
+    maxAge: 1000 * 60 * 60 * 24,
   });
 
   return res.success(200, user, "Session refreshed successfully!");

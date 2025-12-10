@@ -19,8 +19,7 @@ function Login() {
   const { email, password } = form;
 
   //context variables
-  const { showNotification } =
-    useContext(NotificationsContext);
+  const { showNotification } = useContext(NotificationsContext);
 
   //redux store communication
   const navigate = useNavigate();
@@ -36,7 +35,6 @@ function Login() {
       [e.target.name]: e.target.value,
     }));
   };
-
 
   //submit event handler
   const onSubmit = async (e) => {
@@ -64,19 +62,21 @@ function Login() {
       dispatch(setLoading(false));
     }
   };
-  
 
   // Redirect if already authenticated
   useEffect(() => {
+    console.log("Inside useEffect");
+    console.log("isAthenticated =>", isAuthenticated);
     if (isAuthenticated) {
+      console.log("Traing to navigate user-dashboard");
       navigate("/user-dashboard", { replace: true }); // Corrected path
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated]);
 
   if (isLoading || isAuthenticated) {
     return <FullScreenLoader />;
   }
-
+  console.log("I am in login component");
   return (
     <div className="login-container">
       <div className="login-container-wrapper">
