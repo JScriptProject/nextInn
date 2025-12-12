@@ -15,6 +15,7 @@ export default defineConfig({
       "@data": path.resolve(__dirname, "src/data"),
       "@user": path.resolve(__dirname, "src/userUI"),
       "@admin": path.resolve(__dirname, "src/adminUI"),
+      "@component-support":path.resolve(__dirname,"src/components-support"),
     },
   },
 });

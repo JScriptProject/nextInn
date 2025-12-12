@@ -1,12 +1,15 @@
-import { set } from 'date-fns';
-import React,{useState, useEffect} from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { set } from "date-fns";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { clearAdmin, setAdmin, setAdminLoading } from "@redux/adminSlice";
 import { loginAdmin, verifyAdminSession } from "@api/adminAthenticationApi";
-import { useContext } from 'react';
-import { NotificationsContext } from '@user/context/NotificationsContext';
+import { useContext } from "react";
+import { NotificationsContext } from "@user/context/NotificationsContext";
+import { setLoading, setUser } from "@redux/userSlice";
+import FullScreenLoader from "@component-support/FullScreenLoader";
 
 function AdminLogin() {
-
   //state decalre
 
   const [form, setForm] = useState({
@@ -15,71 +18,83 @@ function AdminLogin() {
     remember: false,
   });
 
-  const [message, setMessage] = useState("");
-  const [checkingSession, setCheckingSession] = useState(true);
   //destructured variables
   const { email, password, remember } = form;
+
+  //redux store communication
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { admin, isAdminLoading, isAdminAthenticated } = useSelector(
+    (state) => state.admin
+  );
 
   //context variables
-  const { notification, setNotification } = useContext(NotificationsContext);
+  const { showNotification } = useContext(NotificationsContext);
 
   //onchange
   const onChange = (e) => {
-    setForm((prev)=>({
-      ...prev,[e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
-    }))
-  }
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]:
+        e.target.type === "checkbox" ? e.target.checked : e.target.value,
+    }));
+  };
   //onsubmit
-   const onSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const result = await loginAdmin(form);
 
-    if(result.success === true)
-    {
-      console.log("Result from backend", result);
-      navigate("/dashboard-admin");
-      
-      setNotification({
-        visible: true,
-        success: true,
-        message: result.message,
-      });
-      setTimeout(() => {
-        setNotification({ visible: false, success: false, message: "" });
-      }, 3000);
-    }
-    if(result.success === false)
-    {
-         setNotification({
-        visible: true,
-        success: false,
-        message: result.message,
-      });
-   setTimeout(()=>{
-     setNotification({visible:false, success:false, message:""})
-   })
-    }
-  }
-  //useEffect
+    dispatch(setAdminLoading(true));
 
-  useEffect(()=>{
-    (async()=>{
-      const response = await verifyAdminSession();
-      if(response.success)
-      {
-        navigate("/dashboard-admin");
+    try {
+      const response = await loginAdmin(form);
+      if (response.success) {
+        const admin = response.admin;
+        useDispatch(setAdmin(admin));
+        navigate("/admin", { replace: true });
+        showNotification(true, true, response.message);
+      } else {
+        dispatch(clearAdmin());
+        showNotification(true, false, response.message);
       }
-      else
-      {
-        console.log("Setting the status session checking to false");
-        setCheckingSession(false);
-      } 
-    })();
-  },[])
+    } catch (error) {
+      console.error("Error while login into the admin panel", error);
+      showNotification(true, false, error.message);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
 
-  console.log("Checking Session=>", checkingSession);
-   if(checkingSession) return (<p>Checking the admin session....</p> ) 
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        if (!isAdminAthenticated) {
+          const response = await verifyAdminSession();
+          if (response.success) {
+            navigate("/admin", { replace: true });
+            showNotification(true, true, response.message);
+          } else {
+            navigate("/admin-login", { replace: true });
+          }
+        }
+
+        if (isAdminAthenticated) {
+          navigate("/admin", { replace: true });
+          showNotification(true, true, response.message);
+        }
+      } catch (error) {
+        console.error("Error in session validation");
+        showNotification(true, false, error.message);
+      } finally {
+        console.log("inside admin finally");
+        dispatch(setAdminLoading(false));
+      }
+    };
+    checkSession();
+  }, []);
+
+  if (isAdminLoading) {
+    return <FullScreenLoader />;
+  }
 
   return (
     <div className="login-container">
@@ -100,7 +115,6 @@ function AdminLogin() {
             required
             onChange={onChange}
           />
-          {message && <p className="message">{message}</p>}
           <div className="login-addon">
             <div className="remember-addon">
               <input
@@ -118,10 +132,16 @@ function AdminLogin() {
           <button type="submit" className="btn-login btn-fill">
             Admin Login
           </button>
+          <p className="redirection">
+            Onboarding new admin?{" "}
+            <Link to="/register" className="highlight">
+              Create Admin
+            </Link>
+          </p>
         </form>
       </div>
     </div>
   );
 }
 
-export default AdminLogin
+export default AdminLogin;

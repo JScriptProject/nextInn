@@ -15,7 +15,8 @@
       "@api/*": ["api/*"],
       "@assets/*": ["assets/*"],
       "@data/*":["data/*"],
-      "@utils/*": ["util/*"]
+      "@utils/*": ["util/*"],
+      "@component-support/*":["components-support/*"],
     }
   },
   "include": ["src"]

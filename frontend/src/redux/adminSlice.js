@@ -7,14 +7,14 @@ const initialState = {
 };
 
 const adminSlice = createSlice(
-    {admin:null,
+    {name:"admin",
      initialState,
      reducers:{
         setAdmin:(state, action)=>{
             state.admin=action.payload;
             state.isAdminAthenticated=true;
         },
-        setLoading:(state, action)=>{
+        setAdminLoading:(state, action)=>{
             state.isAdminLoading=action.payload;
         },
         clearAdmin:(state, action)=>{
@@ -25,5 +25,5 @@ const adminSlice = createSlice(
     }
 );
 
-export const {setAdmin, clearAdmin, setLoading} = adminSlice.actions;
+export const { setAdmin, clearAdmin, setAdminLoading } = adminSlice.actions;
 export default adminSlice.reducer;

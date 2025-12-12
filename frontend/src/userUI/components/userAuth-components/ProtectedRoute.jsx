@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { verifySession } from "@api/authenticationApi.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser, setLoading } from "@redux/userSlice.js";
-import FullScreenLoader from "@user/pages/FullScreenLoader.jsx";
+import FullScreenLoader from "@component-support/FullScreenLoader.jsx";
 import DashboardUser from "@user/pages/DashboardUser.jsx";
 
 // function ProtectedRoute() {

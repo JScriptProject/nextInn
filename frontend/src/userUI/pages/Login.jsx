@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "@api/authenticationApi.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, setLoading, clearUser } from "@redux/userSlice";
-import FullScreenLoader from "./FullScreenLoader";
+import FullScreenLoader from "@component-support/FullScreenLoader";
 import { NotificationsContext } from "@user/context/NotificationsContext";
 import { useContext } from "react";
 

@@ -18,6 +18,8 @@ import { verifySession } from "@api/authenticationApi.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser, setLoading } from "@redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
+import ProtectedCreateAdmin from "@admin/components/admin-auth/ProtectedCreateAdmin";
+import AdminSignup from "@admin/pages/AdminSignup";
 
 
 function App() {
@@ -87,6 +89,10 @@ const {user, isAuthenticated, isLoading} = useSelector((state)=> state.user);
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-create" element={<ProtectedCreateAdmin>
+            <AdminSignup />
+          </ProtectedCreateAdmin>} />
+         
           <Route path="/register" element={<Register />} />
           <Route path="/forget" element={<ForgetPassword />} />
           <Route
