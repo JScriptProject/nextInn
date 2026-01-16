@@ -5,7 +5,7 @@ import { UserDemo } from "../models/userDemo.models.js";
 
 const addUser = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
-
+  
   if (!name || !email || !password) {
     return next(new ApiError(400, "All fields are required"));
   }
