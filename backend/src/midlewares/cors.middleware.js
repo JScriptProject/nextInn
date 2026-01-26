@@ -5,11 +5,15 @@ dotenv.config();
 
 //handle cors
 const corsOptions = {
-  origin: 'http://localhost:5173',
+  origin: process.env.ORIGIN,
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "x-skip-auto-refresh", "X-Skip-Auto-Refresh"],
- 
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "x-skip-auto-refresh",
+    "X-Skip-Auto-Refresh",
+  ],
 };
 
 export default cors(corsOptions);
