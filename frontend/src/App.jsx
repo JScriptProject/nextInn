@@ -20,6 +20,7 @@ import { setUser, clearUser, setLoading } from "@redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
 import ProtectedCreateAdmin from "@admin/components/admin-auth/ProtectedCreateAdmin";
 import AdminSignup from "@admin/pages/AdminSignup";
+import AdminVerify from "@admin/pages/AdminVerify"
 
 
 function App() {
@@ -89,6 +90,7 @@ const {user, isAuthenticated, isLoading} = useSelector((state)=> state.user);
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-verify" element={<AdminVerify />} />
           <Route path="/admin-create" element={<ProtectedCreateAdmin>
             <AdminSignup />
           </ProtectedCreateAdmin>} />

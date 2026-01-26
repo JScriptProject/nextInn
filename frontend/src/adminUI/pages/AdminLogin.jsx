@@ -134,7 +134,7 @@ function AdminLogin() {
           </button>
           <p className="redirection">
             Onboarding new admin?{" "}
-            <Link to="/register" className="highlight">
+            <Link to="/admin-verify" className="highlight">
               Create Admin
             </Link>
           </p>

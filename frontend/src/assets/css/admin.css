@@ -295,3 +295,49 @@ input[type="checkbox"]:disabled {
 .new-amenities-list .all-amenities-text{
   @apply text-[var(--text-primary-dark-Charcoal)] ;
 }
+
+/* admin Verify section */
+
+.otp-input-wrapper{
+  display: flex;
+  gap:12px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.otp-input-wrapper input{
+  width:40px;
+  height:50px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  outline:none;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Req #1: Remove Up/Down Arrows (Spinners) */
+/* Chrome, Safari, Edge, Opera */
+.otp-input-wrapper input::-webkit-outer-spin-button,
+.otp-input-wrapper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.otp-input-wrapper input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.otp-input-wrapper input:focus {
+  border-color: #ff7e00; /* Your brand orange */
+  box-shadow: 0 0 0 2px rgba(255, 126, 0, 0.2);
+  background-color: #fff;
+}
+
+.otp-input-wrapper input.filled{
+  border-color: #333;
+  background-color: #fff;
+}

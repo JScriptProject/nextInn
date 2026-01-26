@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 function AdminSignup() {
   return (
-    <div>AdminSignup</div>
-  )
+    <div>
+      <h1>You are on admin signup page</h1>
+    </div>
+  );
 }
 
-export default AdminSignup
+export default AdminSignup;

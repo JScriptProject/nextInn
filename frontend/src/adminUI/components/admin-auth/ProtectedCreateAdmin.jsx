@@ -2,7 +2,7 @@ import React from 'react'
 
 function ProtectedCreateAdmin() {
   return (
-    <div>ProtectedCreateAdmin</div>
+    <div></div>
   )
 }
 

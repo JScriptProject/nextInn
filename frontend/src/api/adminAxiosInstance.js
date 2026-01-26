@@ -23,8 +23,8 @@ const adminApi = axios.create({
 
 //create a variables
 
-const isRefreshing = false;
-const failedQueue = [];
+let isRefreshing = false;
+let failedQueue = [];
 
 //create a processQueu
 
