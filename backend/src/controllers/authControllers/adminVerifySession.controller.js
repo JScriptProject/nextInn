@@ -3,7 +3,7 @@ import { Admin } from "../../models/admin.model.js";
 
 const adminVerifySession = asyncHandler(async (req, res, next) => {
   console.log("I have executed from here!!! VERIFY ADMIN CONTROLLER !!");
-  const admin = await Admin.findById(req.admin._id).select("-password");
+  const admin = await Admin.findById(req.admin.userId).select("-password");
   if (!admin) {
     throw new ApiError(404, "Admin not found");
   } else {

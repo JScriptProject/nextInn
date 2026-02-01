@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     admin:null,
     isAdminLoading:true,
-    isAdminAthenticated:false
+    isAdminAthenticated:false,
+    isOtpVerified:false,
 };
 
 const adminSlice = createSlice(
@@ -20,10 +21,15 @@ const adminSlice = createSlice(
         clearAdmin:(state, action)=>{
             state.admin=null;
             state.isAdminAthenticated=false;
+        },
+        setOtpVerified:(state, action)=>{
+            state.isOtpVerified = true;
         }
+        
      }
     }
 );
 
-export const { setAdmin, clearAdmin, setAdminLoading } = adminSlice.actions;
+export const { setAdmin, clearAdmin, setAdminLoading, setOtpVerified } =
+  adminSlice.actions;
 export default adminSlice.reducer;

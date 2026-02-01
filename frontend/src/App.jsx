@@ -18,9 +18,9 @@ import { verifySession } from "@api/authenticationApi.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, clearUser, setLoading } from "@redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
-import ProtectedCreateAdmin from "@admin/components/admin-auth/ProtectedCreateAdmin";
-import AdminSignup from "@admin/pages/AdminSignup";
 import AdminVerify from "@admin/pages/AdminVerify"
+import RequireAdminOtp from "@admin/components/admin-auth/RequireAdminOtp";
+import SuperAdminLogin from "@admin/components/SuperAdminLogin";
 
 
 function App() {
@@ -29,27 +29,6 @@ const {user, isAuthenticated, isLoading} = useSelector((state)=> state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
  
-  // useEffect(()=>{ 
-  //  const initiateSession = async()=>{
-  //     try {
-  //       const response = await verifySession();
-  //       if(response.success && response.user){
-  //         dispatch(setUser(response.user));
-  //       }
-  //       else{
-  //         dispatch(clearUser());
-  //       }
-  //     } catch (error) {
-  //       dispatch(clearUser());
-  //     }
-
-  //  }
-  //  if(!isAuthenticated && user === null)
-  //  {
-  //   initiateSession();
-  //  }
-  // },[isAuthenticated, user, navigate, dispatch])
-
 
   useEffect(()=>{
     const initiateSession = async()=>{
@@ -90,11 +69,22 @@ const {user, isAuthenticated, isLoading} = useSelector((state)=> state.user);
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/admin-verify" element={<AdminVerify />} />
-          <Route path="/admin-create" element={<ProtectedCreateAdmin>
-            <AdminSignup />
-          </ProtectedCreateAdmin>} />
-         
+        
+            <Route path="/admin-verify" element={<AdminVerify />} />
+            <Route element={<RequireAdminOtp />}>
+                <Route path="/verify-admin/login" element={<SuperAdminLogin />} />
+            </Route>
+          
+
+          {/* <Route
+            path="/admin-create"
+            element={
+              <ProtectedCreateAdmin>
+                <AdminSignup />
+              </ProtectedCreateAdmin>
+            }
+          /> */}
+
           <Route path="/register" element={<Register />} />
           <Route path="/forget" element={<ForgetPassword />} />
           <Route

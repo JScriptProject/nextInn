@@ -13,7 +13,6 @@ const userLogin = asyncHandler(async (req, res, next) => {
   const { email, password } = body;
 
   const isProd = process.env.NODE_ENV === "production";
-  console.log("isProd=>", isProd);
 
   //check if any user available with same
   const user = await User.findOne({ email });
@@ -64,9 +63,6 @@ const userLogin = asyncHandler(async (req, res, next) => {
 
   //Save the refresh token into the database
 
-  const refreshTokenObj = {
-    
-  };
   let updateRefreshToken = await RefreshToken.findOneAndUpdate(
     { userId: user._id },
     {

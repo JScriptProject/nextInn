@@ -6,7 +6,7 @@ import { ApiError } from "../../utils/ApiError.js";
 const adminSignUp = asyncHandler(async(req, res, next)=>{
      const body = req.body || {};
      const {name, email, password, role} = body;
-     
+     console.log("req.body =>", req.body);
      if(!name || !email || !password || !role)
      {
         throw new ApiError(500, "All fields are required");
@@ -37,3 +37,10 @@ const adminSignUp = asyncHandler(async(req, res, next)=>{
 })
 
 export {adminSignUp};
+
+// {
+//     "name":"Ravindra",
+//     "email":"ravi@blogspage.com",
+//     "password":"Welcome@2026",
+//     "role":"admin"
+// }

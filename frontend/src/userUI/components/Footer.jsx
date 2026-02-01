@@ -101,7 +101,7 @@ const Footer = () => {
           <p>
             Developed by{" "}
             <a
-              href="https://blogspage.com"
+              href="https://me.blogspage.com"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-white"

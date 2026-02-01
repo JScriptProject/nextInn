@@ -6,7 +6,6 @@ import { clearAdmin, setAdmin, setAdminLoading } from "@redux/adminSlice";
 import { loginAdmin, verifyAdminSession } from "@api/adminAthenticationApi";
 import { useContext } from "react";
 import { NotificationsContext } from "@user/context/NotificationsContext";
-import { setLoading, setUser } from "@redux/userSlice";
 import FullScreenLoader from "@component-support/FullScreenLoader";
 
 function AdminLogin() {
@@ -42,14 +41,14 @@ function AdminLogin() {
   //onsubmit
   const onSubmit = async (e) => {
     e.preventDefault();
-
     dispatch(setAdminLoading(true));
 
     try {
       const response = await loginAdmin(form);
+      
       if (response.success) {
         const admin = response.admin;
-        useDispatch(setAdmin(admin));
+        dispatch(setAdmin(admin));
         navigate("/admin", { replace: true });
         showNotification(true, true, response.message);
       } else {
@@ -60,7 +59,7 @@ function AdminLogin() {
       console.error("Error while login into the admin panel", error);
       showNotification(true, false, error.message);
     } finally {
-      dispatch(setLoading(false));
+      dispatch(setAdminLoading(false));
     }
   };
 
@@ -69,11 +68,15 @@ function AdminLogin() {
       try {
         if (!isAdminAthenticated) {
           const response = await verifyAdminSession();
+          console.log("response back to component =>", response);
           if (response.success) {
             navigate("/admin", { replace: true });
             showNotification(true, true, response.message);
           } else {
             navigate("/admin-login", { replace: true });
+            if(response.status === 520){
+              showNotification(true, false, response.message);
+            }
           }
         }
 

@@ -13,6 +13,7 @@ const refreshSession = asyncHandler(async (req, res, next) => {
   console.log("Refresh Token", refresh_token);
   console.log("cookies =>", req.cookies);
   console.log("Headers =>", req.headers);
+
   if (!refresh_token) {
     return next(new ApiError(401, "Unauthorized: No refresh token provided"));
   }
@@ -21,7 +22,12 @@ const refreshSession = asyncHandler(async (req, res, next) => {
   let decoded;
   try {
     decoded = jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET);
-
+  }
+  catch (error) {
+    return next(
+      new ApiError(401, "Unauthorized: Invalid or expired refresh token")
+    );
+  }
     const refreshTokenDB = await RefreshToken.findOne({
       userId: decoded.userId,
     });
@@ -31,11 +37,7 @@ const refreshSession = asyncHandler(async (req, res, next) => {
     if (refreshTokenDB.refreshToken !== refresh_token) {
       return next(new ApiError(401, "Unauthorized: Invalid refresh token"));
     }
-  } catch (error) {
-    return next(
-      new ApiError(401, "Unauthorized: Invalid or expired refresh token")
-    );
-  }
+  
 
   //get the user details from the database
   const user = await User.findById(decoded.userId).select("-password");

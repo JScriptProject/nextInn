@@ -6,10 +6,12 @@ import { refreshSession } from "../controllers/authControllers/refreshSession.co
 import { userLogout } from "../controllers/authControllers/userLogout.controller.js";
 import { adminSignUp } from "../controllers/authControllers/adminSignUp.controller.js";
 import { adminLogin } from "../controllers/authControllers/adminLogin.controller.js";
-import {adminLogout} from "../controllers/authControllers/adminLogout.controller.js";
+import { adminLogout } from "../controllers/authControllers/adminLogout.controller.js";
 import { adminVerifySession } from "../controllers/authControllers/adminVerifySession.controller.js";
 import { adminRefreshSession } from "../controllers/authControllers/adminRefreshSession.controller.js";
 import { isAdminAuthenticated } from "../midlewares/isAdminAuthenticated.js";
+import { sendEmail } from "../controllers/authControllers/sendEmail.controller.js";
+import { verifyOTP } from "../controllers/authControllers/verifyOTP.controller.js";
 import express from "express";
 import cors from "cors";
 
@@ -30,7 +32,7 @@ const corsOptions = {
 // user
 router.post("/signup", userSignUp);
 router.post("/login", userLogin);
-router.post("/logout",isAuthenticated, userLogout);
+router.post("/logout", isAuthenticated, userLogout);
 
 router.options("/me", cors(corsOptions));
 router.post("/me", cors(corsOptions), isAuthenticated, verifySession);
@@ -46,8 +48,9 @@ router.post(
   "/admin-me",
   cors(corsOptions),
   isAdminAuthenticated,
-  adminVerifySession
+  adminVerifySession,
 );
 router.post("/admin-refresh", adminRefreshSession);
-
+router.post("/admin-verify", sendEmail);
+router.post("/admin-verify-otp", verifyOTP);
 export default router;

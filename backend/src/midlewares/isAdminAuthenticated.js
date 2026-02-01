@@ -12,7 +12,10 @@ const isAdminAuthenticated = asyncHandler(async(req, res, next)=>{
          if (!token) {
            return next(new ApiError(401, "Unauthorized: No token provided"));
          }
-         const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+         const decoded = jwt.verify(
+           token,
+           process.env.ADMIN_ACCESS_TOKEN_SECRET,
+         );
          req.admin = decoded;
          next();
     } catch (error) {

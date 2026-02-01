@@ -42,11 +42,17 @@ adminApi.interceptors.response.use(
   //if response without error then send it back as it is
   (response) => response,
   async (error) => {
+    console.log("Admin AxiosINstance =>", error)
     const originalRequest = error.config;
     const statusCode = error.response?.status;
     const errorMessage = error.response?.data?.message;
     const currentPath = window.location.pathname;
     //check if original request was refresh, if true then send to login
+
+    if(error.code === "ERR_NETWORK")
+    {
+      return Promise.reject(error);
+    }
 
     if (originalRequest?.url?.includes("/api/auth/admin-refresh")) {
       console.log("Return back to login");
