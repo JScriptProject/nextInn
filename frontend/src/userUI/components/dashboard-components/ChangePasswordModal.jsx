@@ -22,7 +22,7 @@ function ChangePasswordModal({ onClose }) {
             <label>Confirm New Password</label>
             <input type="password" placeholder="Repeat new password" />
           </div>
-          <button type="submit" className="btn btn-fill w-full mt-4">
+          <button type="submit" className="btn btn-fill w-full mt-4 !py-2.5">
             Update Password
           </button>
         </form>

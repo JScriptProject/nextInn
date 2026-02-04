@@ -47,7 +47,7 @@ function UserProfile({ user }) {
             className="btn btn-sm btn-outline"
             onClick={() => setIsModalOpen(true)}
           >
-            <Lock size={16} style={{ marginRight: "8px" }} /> Change Password
+            <Lock size={20} style={{ marginRight: "8px" }} className="inline" /> Change Password
           </button>
         </div>
       </div>

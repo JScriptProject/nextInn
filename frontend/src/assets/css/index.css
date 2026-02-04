@@ -1287,6 +1287,11 @@ footer {
   border: 1px solid var(--border-lightUI-softGray);
 }
 
+.security-card .btn-outline{
+  color: black !important;
+  white-space: nowrap;
+}
+
 .security-card h3 { margin-bottom: 1rem; font-size: 1.2rem; }
 .security-card p { font-size: 0.9rem; color: var(--text-secondary-gray); margin-bottom: 1.5rem; }
 
