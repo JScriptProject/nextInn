@@ -6,9 +6,8 @@ const todayDate = formatDateForInput(new Date());
 
 export function BookingProvider({ children }) {
   const [bookingData, setBookingData] = useState({
-    roomId: "",
-    hotelName: "",
-    rate: "",
+    totalAmount:null,
+    rate: null,
     checkIn: todayDate,
     checkOut: todayDate,
     days: 1,

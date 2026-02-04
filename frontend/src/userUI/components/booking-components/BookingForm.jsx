@@ -7,28 +7,14 @@ import { rateCalculation } from "@utils/rateCalculation.js";
 import { createPortal } from "react-dom";
 import PreviewBooking from "@user/components/booking-components/PreviewBooking";
 
-function BookingForm({
-  hotelRate,
-  roomCapacity,
-  hotelName,
-  roomId,
-  addonServicesCharges,
-}) {
-  console.log("Starting in ");
-  console.log("roomCapacity=>>>>>", roomCapacity);
+function BookingForm({ categoryId, hotelRate, roomCapacity, addonServicesCharges }) {
   // states
   const { bookingData, setBookingData } = useContext(BookingContext);
-  console.log("Line number 2");
- console.log("Booking data =>", bookingData);
+
   const [totalPrice, setTotalPrice] = useState(() => {
-    console.log("inside the block");
     const [totalCost] = rateCalculation(bookingData, roomCapacity);
     return totalCost;
   });
-  console.log("After the block");
-  
-  console.log("Booking data =>", bookingData);
-  console.log("Total Price =>", totalPrice);
 
   const [prizeBreakDown, setPrizBreakDown] = useState(() => {
     const [priceBreakDown] = rateCalculation(bookingData, roomCapacity);
@@ -41,12 +27,12 @@ function BookingForm({
   });
 
   const [stickyForm, setStickyForm] = useState("up");
-
   const [isBookingPreviewOpen, setIsBookingPreviewOpen] = useState(false);
+  const [payload, setPayload] = useState(null);
   const bookingPreviewRef = useRef();
 
   let lastScrollRef = useRef(window.scrollY);
-  console.log(prizeBreakDown);
+  console.log("prizeBreakDown=>", prizeBreakDown);
   useEffect(() => {
     function handleScroll() {
       let currentScroll = window.scrollY;
@@ -108,7 +94,7 @@ function BookingForm({
       }));
     }
   }, [bookingData]);
-
+  console.log("Booking form=>", bookingData);
   function handleCheckBoxInput(name, checkStatus) {
     if (checkStatus) {
       setBookingData((prevData) => ({
@@ -135,6 +121,38 @@ function BookingForm({
 
   //Handle the booking preview Dailog
   function handleBookingFormSubmitPreview() {
+    const breakdownMap = prizeBreakDown.reduce((acc, item) => {
+      acc[item.label] = item.amount;
+      return acc;
+    }, {});
+    setPayload({
+      category: categoryId,
+      checkIn: bookingData.checkIn,
+      checkOut: bookingData.checkOut,
+      totalAmount: totalPrice,
+      guestDetails: {
+        adults: bookingData.adults,
+        children: bookingData.children,
+        roomsCount: bookingData.rooms,
+        extraBed: bookingData.bed,
+      },
+      priceBreakdown: {
+        baseRoomCharge: bookingData.rate, // Matches 'days' label
+        extraGuestCharges: {
+          onlyRoom: breakdownMap.days || bookingData.rate,
+          adults: breakdownMap.adults || 0, // Matches 'adults' label
+          children: breakdownMap.children || 0, // Matches 'children' label
+          extraBed: breakdownMap.extraBed || 0, // Matches 'extraBed' label
+
+          addonRooms: breakdownMap.rooms || 0,
+        },
+        addonServicesCharges: {
+          petFriendly: breakdownMap.petFriendly || 0,
+          steamRoom: breakdownMap.steamRoom || 0,
+          laundry: breakdownMap.laundry || 0,
+        },
+      },
+    });
     setIsBookingPreviewOpen(true);
   }
 
@@ -164,6 +182,7 @@ function BookingForm({
           ref={bookingPreviewRef}
           prizeBreakDown={prizeBreakDown}
           totalPrice={totalPrice}
+          payload = {payload}
         />
       )}
       <form className="booking-form" action={handleBookingFormSubmitPreview}>

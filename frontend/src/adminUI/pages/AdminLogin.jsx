@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearAdmin, setAdmin, setAdminLoading } from "@redux/adminSlice";
-import { loginAdmin, verifyAdminSession } from "@api/adminAthenticationApi";
+import { loginAdmin, verifyAdminSession } from "@api/adminAthenticationApi.js";
 import { useContext } from "react";
 import { NotificationsContext } from "@user/context/NotificationsContext";
 import FullScreenLoader from "@component-support/FullScreenLoader";
@@ -47,7 +47,9 @@ function AdminLogin() {
       const response = await loginAdmin(form);
       
       if (response.success) {
-        const admin = response.admin;
+        const admin = response.data;
+        console.log("RESPONSE =>", response);
+        console.log("SET ADMIN HERE=>", admin);
         dispatch(setAdmin(admin));
         navigate("/admin", { replace: true });
         showNotification(true, true, response.message);

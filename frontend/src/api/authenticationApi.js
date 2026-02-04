@@ -56,12 +56,12 @@ export const verifySession = async()=>{
         const response = await api.post("/api/auth/me");
 
         console.log("Verify Session: ", response);
-        return{
-            success:true,
-            message:response.data.message,
-            user:response.data.data,
-            status:response.status
-        }
+            return{
+                success:true,
+                message:response.data.message,
+                user:response.data.data,
+                status:response.status
+            }
     } catch (error) {
         console.error("Error in verifySession", error);
         const errorMessage =  error.response.data.message || "Something went wrong";

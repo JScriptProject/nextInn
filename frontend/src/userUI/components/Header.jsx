@@ -42,7 +42,7 @@ function Header({websiteHeader}) {
   },[])
   return (
     <header ref={headerRef} className="nav-header">
-      <nav ref={navRef} className={`nav-container ${isNavOpen ? "open" : ""}`}> 
+      <nav ref={navRef} className={`nav-container ${isNavOpen ? "open" : ""}`}>
         <div className={`nav-toggle ${isNavOpen ? "nav-toggle-open" : ""}`}>
           <button onClick={handleNavToggle}>
             {isNavOpen ? <X /> : <AlignJustify />}
@@ -51,21 +51,34 @@ function Header({websiteHeader}) {
         <div ref={logoRef} className="logo-section">
           <img src={logoImg} alt="NextInn" />
         </div>
-        
-         <div className="cta-section">
-          {websiteHeader.login === null && <p className="text-[#fff]">Admin</p>}
-          {(websiteHeader.login && websiteHeader.user===null) && websiteHeader?.login?.map((navLoginItem, index) =>(<Link to={navLoginItem.to} key={index}>
-            <Button className={websiteHeader.login[index].btnClass}>{navLoginItem.label}</Button>
-          </Link>))}
-          {(websiteHeader.login && websiteHeader.user!==null) && <UserLoggedInHeader user ={websiteHeader.user} /> }
+
+        <div className="cta-section">
+          {/* {websiteHeader.login === null && <p className="text-[#fff]">Admin</p>} */}
+          {websiteHeader.login &&
+            websiteHeader.user === null &&
+            websiteHeader?.login?.map((navLoginItem, index) => (
+              <Link to={navLoginItem.to} key={index}>
+                <Button className={websiteHeader.login[index].btnClass}>
+                  {navLoginItem.label}
+                </Button>
+              </Link>
+            ))}
+          {websiteHeader.login && websiteHeader.user !== null && (
+            <UserLoggedInHeader user={websiteHeader.user} />
+          )}
+          {websiteHeader.login === null && websiteHeader.user !== null && (
+            <UserLoggedInHeader user={websiteHeader.user} />
+          )}
         </div>
         <hr className="nav-hr" />
         <ul className="nav-links">
-          {websiteHeader?.webNav?.map((navItem, index) =>(<li key={index}>
-            <Link to={navItem.to} className="nav-link">
-              <House className="nav-icon" /> {navItem.label}
-            </Link>
-          </li>))}  
+          {websiteHeader?.webNav?.map((navItem, index) => (
+            <li key={index}>
+              <Link to={navItem.to} className="nav-link">
+                <House className="nav-icon" /> {navItem.label}
+              </Link>
+            </li>
+          ))}
         </ul>
         <hr className="nav-hr" />
         <h3 className="block md:hidden text-[var(--text-secondary-gray)] text-[0.8rem] font-normal">

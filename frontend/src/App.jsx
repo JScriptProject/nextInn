@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "@user/pages/HomePage.jsx";
 import RoomDetails from "@user/pages/RoomDetails.jsx";
 import BookingPage from "@user/pages/BookingPage.jsx";
@@ -23,19 +23,19 @@ import RequireAdminOtp from "@admin/components/admin-auth/RequireAdminOtp";
 import SuperAdminLogin from "@admin/components/SuperAdminLogin";
 
 
+
 function App() {
   //create Route
 const {user, isAuthenticated, isLoading} = useSelector((state)=> state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
- 
+  const location = useLocation();
 
   useEffect(()=>{
     const initiateSession = async()=>{
        try {
          dispatch(setLoading(true));
          const response = await verifySession();
-         console.log("Response of verifySession", response);
          if(response.success && response.user){
            dispatch(setUser(response.user));
          }
@@ -51,13 +51,12 @@ const {user, isAuthenticated, isLoading} = useSelector((state)=> state.user);
  
     }
     
-     initiateSession();
+    if (location.pathname !== "/admin" && location.pathname !=="/verify-admin"){
+      initiateSession();
+    }
     
    },[ dispatch])
 
-   console.log("App IsLoading", isLoading);
-   console.log("App Is Athenticated", isAuthenticated);
-   console.log("App user", user);
   return (
     <NotificationsContextProvider>
       <NotificationBar />
@@ -74,17 +73,6 @@ const {user, isAuthenticated, isLoading} = useSelector((state)=> state.user);
             <Route element={<RequireAdminOtp />}>
                 <Route path="/verify-admin/login" element={<SuperAdminLogin />} />
             </Route>
-          
-
-          {/* <Route
-            path="/admin-create"
-            element={
-              <ProtectedCreateAdmin>
-                <AdminSignup />
-              </ProtectedCreateAdmin>
-            }
-          /> */}
-
           <Route path="/register" element={<Register />} />
           <Route path="/forget" element={<ForgetPassword />} />
           <Route

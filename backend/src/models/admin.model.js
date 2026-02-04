@@ -22,6 +22,7 @@ const adminSchema = new mongoose.Schema({
   }},{timestamps:true}
 )
 
+
 adminSchema.pre("save", async function(next){
   try {
     if(!this.isModified("password")) return next();
@@ -30,6 +31,14 @@ adminSchema.pre("save", async function(next){
   } catch (error) {
     return next(error);
   }
+});
+
+adminSchema.set("toJSON", {
+  transform: (doc, ret) => {
+    delete ret.password;
+    delete ret.__v;
+    return ret;
+  },
 });
 
 export const Admin = mongoose.model("Admin", adminSchema);                                                                     

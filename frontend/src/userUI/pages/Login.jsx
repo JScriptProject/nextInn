@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { login } from "@api/authenticationApi.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, setLoading, clearUser } from "@redux/userSlice";
@@ -13,21 +13,24 @@ function Login() {
     email: "",
     password: "",
   });
-  //const [error, setError] = useState(""); **** dont want
+  
 
   //destructured variables
   const { email, password } = form;
-
+  
   //context variables
   const { showNotification } = useContext(NotificationsContext);
 
   //redux store communication
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log("LOCATION IN LOGIN=>>>", location);
   const dispatch = useDispatch();
   const { user, isLoading, isAuthenticated } = useSelector(
     (state) => state.user
   );
-
+const fromPath = location.state?.from?.pathname || "/user-dashboard";
+const fromState = location.state?.from?.state;
   //onChange event handler
   const onChange = (e) => {
     setForm((prev) => ({
@@ -48,7 +51,7 @@ function Login() {
         const user = response.user;
 
         dispatch(setUser(user)); // by default isAthenticated is true now
-        navigate("/user-dashboard"); // Corrected path
+        navigate(fromPath, {replace:true, state:fromState}); // Corrected path
         showNotification(true, true, response.message);
       } else {
         dispatch(clearUser());
@@ -69,9 +72,9 @@ function Login() {
     console.log("isAthenticated =>", isAuthenticated);
     if (isAuthenticated) {
       console.log("Traing to navigate user-dashboard");
-      navigate("/user-dashboard", { replace: true }); // Corrected path
+      navigate(fromPath, { replace: true, state:fromState }); // Corrected path
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate, fromPath, fromState]);
 
   if (isLoading || isAuthenticated) {
     return <FullScreenLoader />;

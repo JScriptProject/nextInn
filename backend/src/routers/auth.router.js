@@ -14,6 +14,7 @@ import { sendEmail } from "../controllers/authControllers/sendEmail.controller.j
 import { verifyOTP } from "../controllers/authControllers/verifyOTP.controller.js";
 import express from "express";
 import cors from "cors";
+import { superAdminLogin } from "../controllers/authControllers/superAdminLogin.controller.js";
 
 const router = express.Router();
 
@@ -53,4 +54,5 @@ router.post(
 router.post("/admin-refresh", adminRefreshSession);
 router.post("/admin-verify", sendEmail);
 router.post("/admin-verify-otp", verifyOTP);
+router.post("/super-admin-login", superAdminLogin);
 export default router;

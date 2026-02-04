@@ -23,6 +23,10 @@ const adminLogin = asyncHandler(async (req, res, next) => {
   if (!admin) {
     throw new ApiError(404, "Unable to find account for this email");
   }
+  if(admin.role ==="superadmin")
+  {
+    throw new ApiError(500, "Can't login superAdmin here!!!")
+  }
   const isPasswordCorrect = await bcrypt.compare(password, admin.password);
   if (!isPasswordCorrect) {
     throw new ApiError(401, "Invalid password");

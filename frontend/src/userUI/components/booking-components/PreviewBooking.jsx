@@ -5,25 +5,29 @@ import React, {
   useEffect,
   useContext,
   useState,
-  useActionState,
+  
 } from "react";
-import { X } from "lucide-react";
+import { X, LogIn } from "lucide-react";
 import SummaryData from "@user/components/SummaryData";
 import hotelLogo from "@assets/media/logo.png";
 import { BookingContext } from "@user/context/BookingContext";
 import BookingSuccess from "@user/components/booking-components/BookingSuccess";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router";
+import { confirmBooking } from "@api/bookingApi";
+
 
 const PreviewBooking = forwardRef(function PreviewBooking(
-  { onClose, isBookingPreviewOpen, prizeBreakDown, totalPrice },
+  { onClose, isBookingPreviewOpen, prizeBreakDown, totalPrice, payload },
   ref
 ) {
   const { bookingData } = useContext(BookingContext);
-  const [bookingSeccess, setBookingSuccess] = useState(false);
-
+  const [bookingSuccess, setBookingSuccess] = useState({status:false, data:null});
   const previewRef = useRef();
-  console.log("Booking Data=>>", bookingData);
-  console.log("PrizeBreakDown =>>", prizeBreakDown);
-  console.log("Total");
+  const location = useLocation();
+  const { user } = useSelector((state)=> state.user);
+  const navigate = useNavigate();
 
   useImperativeHandle(ref, () => {
     return {
@@ -43,6 +47,7 @@ const PreviewBooking = forwardRef(function PreviewBooking(
       previewRef.current.close();
     }
   }, [isBookingPreviewOpen]);
+
   const addonServiceData = bookingData.addonServices;
   const addonServicesList = Object.keys(addonServiceData).filter(
     (key) => addonServiceData[key] === true
@@ -52,74 +57,104 @@ const PreviewBooking = forwardRef(function PreviewBooking(
     setBookingSuccess(false);
     previewRef.current.close();
     onClose();
+    navigate("/user-dashboard");
   }
-  const onConfirmSubmit = (prevState, formData) => {
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const phone = formData.get("phone");
-
-    setBookingSuccess(true);
+  const onConfirmSubmit = async(e) => {
+    e.preventDefault();
+    console.log("clickeddd")
+    const response = await confirmBooking(payload);
+    console.log("Confirm Submit Response => ", response);
+    setBookingSuccess({status:true,data:response.data});
     setTimeout(() => {
       onClosePopUp();
     }, 3000);
-    return [...prevState, { Name: name, Email: email, Phone: phone }];
   };
 
-  const [formState, actionState] = useActionState(onConfirmSubmit, []);
-
-  console.log("FORM STATE =>", formState);
 
   return (
     <>
       <dialog ref={previewRef} onClose={onClose}>
         <div className="dailog-wrapper">
-          {bookingSeccess && (
-            <BookingSuccess onClosePopUp={onClosePopUp} formState={formState} />
+          {bookingSuccess.status && (
+            <BookingSuccess
+              onClosePopUp={onClosePopUp}
+              formState={bookingSuccess.data}
+            />
           )}
           <div className="booking-preview-cta-block">
             <div className="hotel-logo">
               <img src={hotelLogo} alt="hotel Logo" />
             </div>
             <h4>Confirm Your Booking</h4>
-            <div className="booking-confirm-guest-info">
-              <form action={actionState}>
-                <div className="preview-form-block">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Please Enter Name"
-                    required
-                  />
+            {user ? (
+              <div className="guest-details-container">
+                {/* Row 1: Name */}
+                <div className="guest-detail-row">
+                  <span className="guest-label">Name</span>
+                  <span className="guest-value">
+                    {user.firstname} {user.lastname}
+                  </span>
                 </div>
-                <div className="preview-form-block">
-                  <input
-                    type="number"
-                    name="phone"
-                    placeholder="Phone Number"
-                    maxLength={10}
-                    required
-                  />
+
+                {/* Row 2: Email */}
+                <div className="guest-detail-row">
+                  <span className="guest-label">Email</span>
+                  <span className="guest-value">{user.email}</span>
                 </div>
-                <div className="preview-form-block">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email Id"
-                    required
-                  />
+
+                {/* Row 3: Mobile */}
+                <div className="guest-detail-row">
+                  <span className="guest-label">Mobile</span>
+                  <span className="guest-value">{user.mobile}</span>
+                </div>
+
+                {/* Row 4: City */}
+                <div className="guest-detail-row">
+                  <span className="guest-label">City</span>
+                  <span className="guest-value">
+                    {user.city || "Not Provided"}
+                  </span>
                 </div>
                 <div className="preview-form-buttons">
-                  <button className="confirm-submit-btn">
-                    Confirm Booking
-                  </button>
+                  <form onSubmit={onConfirmSubmit}>
+                    <button type="submit" className="confirm-submit-btn">
+                      Confirm Booking
+                    </button>
+                  </form>
                 </div>
                 <p className="confirm-disclaimer">
                   {" "}
                   <span>📩</span> A booking confirmation will be sent to the
                   email address you provided.
                 </p>
-              </form>
-            </div>
+              </div>
+            ) : (
+              /* --- STATE B: USER NOT LOGGED IN --- */
+              <div className="login-required-box">
+                <div className="login-icon-circle">
+                  <LogIn size={24} color="#ea580c" />
+                </div>
+                <h5>Login Required</h5>
+                <p>
+                  Please log in to your account to secure your reservation and
+                  view booking details.
+                </p>
+
+                {/* 2. Link passes 'state' with current location */}
+                <Link
+                  to="/login"
+                  state={{ from: location }}
+                  className="confirm-submit-btn login-btn-link"
+                >
+                  Log In to Continue
+                </Link>
+
+                <p className="register-hint">
+                  Don't have an account?{" "}
+                  <Link to="/register">Register here</Link>
+                </p>
+              </div>
+            )}
           </div>
           <div className="booking-preview">
             <div className="booking-preview-wrapper">

@@ -5,8 +5,9 @@ import Logout from "@user/components/Logout";
 
 function UserLoggedInHeader({ user }) {
   const [isHovered, setIsHovered] = useState(false);
-  const { firstname } = user;
-
+  const { firstname } = user || {};
+  const { name } = user || {}
+  console.log("USERRRRRR =>", user);
   return (
     <div className="relative">
       <div
@@ -21,7 +22,12 @@ function UserLoggedInHeader({ user }) {
             className="rounded-full"
           />
         </div>
-        <h4 className="text-amber-50 text-sm">{firstname}</h4>
+        {firstname ? (
+          <h4 className="text-amber-50 text-sm">{firstname}</h4>
+        ) : (
+          <h4 className="text-amber-50 text-sm">{name}</h4>
+        )}
+
         <div className="icon-right"></div>
       </div>
       {isHovered && (

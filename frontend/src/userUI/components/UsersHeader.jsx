@@ -8,7 +8,7 @@ function UsersHeader() {
   const websiteHeader = {
     webNav: [
       { to: "/", label: "Home" },
-      { to: "/admin", label: "Admin - Console" },
+      // { to: "/admin", label: "Admin - Console" },
       { to: "/about", label: "About" },
       { to: "/contact", label: "Contact" },
     ],

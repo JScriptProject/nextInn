@@ -14,7 +14,7 @@ export const getRoomsData = async()=>{
 
 export const saveToRoom = async(newData)=>{
     try {
-          const res = await axios.post('http://localhost:8000/api/rooms',{
+          const res = await axios.post(`${API}/api/rooms`,{
             rooms:newData,
           });
         return res.data;

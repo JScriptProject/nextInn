@@ -7,6 +7,8 @@ import { responseHandler } from "./midlewares/responseHandler.middleware.js";
 import roomsRouter from "./routers/roomsRouter.js";
 import roomsCategoryRouter from "./routers/roomsCategory.router.js";
 import authRouter from "./routers/auth.router.js";
+import bookingRouter from "./routers/bookingRouter.js"
+import roomsManagementRouter from "./routers/roomsManagement.router.js"
 
 dotenv.config();
 const app = express();
@@ -27,5 +29,7 @@ app.use(loggerMiddleware);
 app.use("/api/category", roomsCategoryRouter);
 app.use("/api", roomsRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/booking", bookingRouter)
+app.use("/api/rooms", roomsManagementRouter);
 
 export default app;

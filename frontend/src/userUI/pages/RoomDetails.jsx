@@ -81,8 +81,7 @@ function RoomDetails() {
 
           <BookingForm
             addonServicesCharges={room.addonServicesCharges}
-            roomId={room._id}
-            hotelName={room.name}
+            categoryId={room._id}
             hotelRate={room.price}
             roomCapacity={room.roomCapacity}
           />

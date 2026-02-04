@@ -14,7 +14,10 @@ export const verifyAdminSession = async () => {
     };
   } catch (error) {
     console.error("Error in the Verification", error);
-    const errorMessageVrify = (error.code === "ERR_NETWORK") ? "Opps backend Server is down": (error.response?.data?.message || "Something went wrong");
+    const errorMessageVrify =
+      error.code === "ERR_NETWORK"
+        ? "Opps backend Server is down"
+        : error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessageVrify,
@@ -30,6 +33,7 @@ export const loginAdmin = async (loginData) => {
     return {
       success: true,
       message: response.data.message,
+      data:response.data.data,
       status: response.status,
     };
   } catch (error) {
@@ -42,7 +46,6 @@ export const loginAdmin = async (loginData) => {
     };
   }
 };
-
 
 export const adminVerifySendEmail = async () => {
   console.log("Calling API for to generate OTP");
@@ -95,6 +98,32 @@ export const adminVerifyOTP = async (otp) => {
       success: false,
       message: errorMessage,
       status: error.response.data.statusCode || 520,
+    };
+  }
+};
+
+export const superAdminLogin = async(loginData) => {
+  const SERVER_URL = import.meta.env.VITE_API_URL;
+    try {
+    const response = await axios.post(
+      `${SERVER_URL}/api/auth/super-admin-login`,
+      loginData,
+      { withCredentials: true }
+    );
+    console.log("API Response: ", response);
+    return {
+      success: true,
+      message: response.data.message,
+      data: response.data.data,
+      status: response.status,
+    };
+  } catch (error) {
+    console.error("Error in login", error);
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      status: error.response?.status || 520,
     };
   }
 };

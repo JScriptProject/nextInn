@@ -38,9 +38,3 @@ const adminSignUp = asyncHandler(async(req, res, next)=>{
 
 export {adminSignUp};
 
-// {
-//     "name":"Ravindra",
-//     "email":"ravi@blogspage.com",
-//     "password":"Welcome@2026",
-//     "role":"admin"
-// }
