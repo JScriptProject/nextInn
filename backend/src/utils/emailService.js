@@ -137,5 +137,7 @@ export const sendBookingConfirmation = async (user, booking) => {
     console.log(`Booking confirmation email sent to user`);
   } catch (error) {
     console.error("Error while sending booking confirmation email");
+    console.error("❌ EMAIL FAILED:", error.message); 
+    console.error("Full Error Stack:", error);
   }
 };
