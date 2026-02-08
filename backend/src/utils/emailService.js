@@ -5,16 +5,16 @@ dotenv.config();
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 587,              // THIS to 587
-  secure: false,          // THIS to false (Required for 587)
+  port: 587,              // 👈 MUST BE 587 (Not 465)
+  secure: false,          // 👈 MUST BE false for 587
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_APP_PASS,
   },
-  tls: {
-    rejectUnauthorized: true,
-    minVersion: "TLSv1.2" //ensure a secure connection on modern servers
-  }
+  // 👇 CRITICAL FIX FOR RENDER:
+  family: 4,              // Force IPv4 (Fixes 'ETIMEDOUT' on cloud servers)
+  logger: true,           // Log the handshake details
+  debug: true,            // Show debug info in logs
 });
 
 export const sendOTPEmail = async (email, otp) => {
