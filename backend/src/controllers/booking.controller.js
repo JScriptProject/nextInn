@@ -120,6 +120,7 @@ export const createBooking = asyncHandler(async (req, res) => {
       throw new ApiError(500, "Failed to generate booking");
     }
 
+    console.log("Booking confirmed now will execute send email!");
     // Send email AFTER successful commit
     sendBookingConfirmation(req.user, confirmedBooking);
 

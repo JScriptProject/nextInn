@@ -39,6 +39,8 @@ export const sendOTPEmail = async (email, otp) => {
 };
 
 export const sendBookingConfirmation = async (user, booking) => {
+
+  console.log("Performing the email sent!!!");
   // basic validation on place
   if (!user || !booking) {
     console.error("Missing user or booking data for email confirmation.");

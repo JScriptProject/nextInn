@@ -206,7 +206,7 @@ function BookingForm({
        {/* Display a small availability status message */}
        <div className="!mb-4 block">
          {availabilityLoading ? (
-           <p className="text-xs text-orange-500 mt-[-10px] mb-4">
+           <p className="text-xs text-center text-orange-500 mt-[-10px] mb-4">
              Checking availability...
            </p>
          ) : (
