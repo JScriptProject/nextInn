@@ -71,10 +71,10 @@ function RoomDetails() {
                 </p>
               </div>
             </div>
-            <div className="availability-calendar-container">
+            {/* <div className="availability-calendar-container">
               <h3 className="page-internal-title">Availability Calendar</h3>
               <AvailabilityCalendar />
-            </div>
+            </div> */}
           </div>
 
           <BookingForm

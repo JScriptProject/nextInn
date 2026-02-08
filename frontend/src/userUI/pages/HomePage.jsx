@@ -1,11 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Button from "@user/components/Button.jsx";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Pagination, EffectFade } from "swiper/modules";
 import { bannerSlides } from "@data/rooms.js";
 import { bannerTimeline } from "@utils/animation.js";
 import RoomsHomePage from "@user/components/RoomsHomePage.jsx";
+import HomeAvailability from "@user/components/HomeAvailability.jsx"; // Import new component
+import { getAllRoomsCategory } from "@api/roomsCategoryApi.js"; // Import API here
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -13,6 +14,21 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
 function HomePage() {
+  // 1. State for Rooms Data
+  const [rooms, setRooms] = useState([]);
+
+  // 2. Fetch Data Once Here
+  useEffect(() => {
+    (async () => {
+      try {
+        const roomsData = await getAllRoomsCategory();
+        setRooms(roomsData);
+      } catch (error) {
+        console.error("failed to fetch rooms:", error);
+      }
+    })();
+  }, []);
+
   const handleSlideChange = (swiper) => {
     const activeSlide = swiper.slides[swiper.activeIndex];
     const subTitle = activeSlide.querySelector("h3");
@@ -34,7 +50,6 @@ function HomePage() {
         className="w-screen h-[800px]"
         onSlideChangeTransitionStart={handleSlideChange}
         onSwiper={(swiper) => {
-          // Trigger animation on initial render
           setTimeout(() => {
             if (
               swiper &&
@@ -71,7 +86,12 @@ function HomePage() {
           );
         })}
       </Swiper>
-      <RoomsHomePage />
+
+      {/* 3. Pass rooms data down to children */}
+      <RoomsHomePage rooms={rooms} />
+
+      {/* 4. Add the new Availability Section */}
+      <HomeAvailability rooms={rooms} />
     </div>
   );
 }

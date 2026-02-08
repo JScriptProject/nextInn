@@ -1427,3 +1427,181 @@ footer {
   gap: 0.5rem;
   font-size: 0.85rem;
 }
+
+
+/* --- AVAILABILITY SECTION OVERRIDES --- */
+
+.rooms-availability-section {
+  @apply bg-[var(--background-offWhite-linen)] py-20 px-4 md:px-8;
+}
+
+.availability-container {
+  @apply relative max-w-[1200px] mx-auto;
+}
+
+.availability-header {
+  @apply text-center !mb-16;
+}
+
+.availability-subheading {
+  @apply text-[var(--accent-cta-sunset-orange)] font-bold uppercase tracking-[0.2em] mb-4 text-sm;
+}
+
+.availability-heading {
+  @apply text-4xl md:text-5xl font-[Playfair-Display] text-[var(--text-primary-dark-Charcoal)];
+}
+
+.availability-card {
+  @apply bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 p-8 md:p-12;
+}
+
+/* Category Tabs */
+.category-selection-wrapper {
+  @apply block !mb-12;
+}
+
+.category-selection-title {
+  @apply text-center text-[var(--text-secondary-gray)] text-sm font-bold uppercase tracking-widest mb-6;
+}
+
+.category-buttons-group {
+  @apply flex flex-wrap justify-center gap-4;
+}
+
+/* FIXED: Integrated styles directly to avoid @apply error */
+.category-selection-btn {
+  @apply px-6 py-3 rounded-full text-sm font-medium;
+  
+  /* Custom Styles */
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-lightUI-softGray);
+  background: white;
+  color: var(--text-secondary-gray);
+}
+
+.category-selection-btn:hover {
+  border-color: var(--accent-cta-sunset-orange);
+  color: var(--accent-cta-sunset-orange);
+}
+
+.category-selection-btn.active {
+  background-color: var(--accent-cta-sunset-orange);
+  border-color: var(--accent-cta-sunset-orange);
+  color: white;
+  box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+}
+
+/* Grid Layout */
+.availability-layout-grid {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-12 items-start;
+}
+
+/* Left Column (Calendar) */
+.calendar-section-wrapper {
+  @apply w-full;
+}
+
+.section-column-title {
+  @apply text-[var(--text-primary-dark-Charcoal)] text-xl font-[Playfair-Display] mb-6 border-b pb-2 border-gray-100;
+}
+
+.calendar-ui-box {
+  @apply border border-gray-100 rounded-xl overflow-hidden p-2 shadow-sm bg-white;
+}
+
+/* Right Column (Status) */
+.status-section-wrapper {
+  @apply flex flex-col h-full justify-between gap-8 mt-4 lg:mt-0;
+}
+
+.status-display-card {
+  @apply bg-[var(--primary-deep-teal)] text-white p-10 rounded-xl text-center relative overflow-hidden;
+}
+
+/* Loading State */
+.loading-state-container {
+  @apply flex flex-col items-center;
+}
+
+.loading-spinner {
+  @apply w-8 h-8 border-4 border-[var(--accent-cta-sunset-orange)] border-t-transparent rounded-full animate-spin mb-3;
+}
+
+.loading-text {
+  @apply opacity-80 font-light tracking-wide;
+}
+
+/* Status Data */
+.status-label-text {
+  @apply text-white/60 text-xs uppercase tracking-widest mb-2;
+}
+
+.status-number-container {
+  @apply flex items-baseline justify-center gap-3;
+}
+
+.status-number-text {
+  @apply text-7xl font-[Playfair-Display];
+}
+
+.status-text-available {
+  @apply text-[var(--accent-cta-sunset-orange)];
+}
+
+.status-text-unavailable {
+  @apply text-red-400;
+}
+
+.status-total-text {
+  @apply text-2xl font-light opacity-80;
+}
+
+.sold-out-badge {
+  @apply mt-4 bg-red-500/20 py-1 px-4 rounded-full inline-block text-sm text-red-100;
+}
+
+/* Proceed Button */
+/* FIXED: Integrated styles directly to avoid @apply error */
+.proceed-booking-btn {
+  @apply w-full py-4 text-lg font-bold rounded-lg uppercase tracking-wide;
+
+  /* Custom Styles */
+  transition: all 0.3s ease-in-out;
+  border: 1px solid var(--accent-cta-sunset-orange);
+  background-color: var(--accent-cta-sunset-orange);
+  color: var(--background-offWhite-linen);
+}
+
+.proceed-booking-btn:hover {
+  background-color: var(--background-offWhite-linen);
+  border: 1px solid var(--background-offWhite-linen);
+  color: var(--text-primary-dark-Charcoal);
+}
+
+.btn-state-disabled {
+  @apply opacity-50 cursor-not-allowed hover:bg-[var(--accent-cta-sunset-orange)] hover:text-[var(--background-offWhite-linen)];
+}
+
+.btn-state-active {
+  @apply cursor-pointer;
+}
+
+/* Calendar Overrides (Standard CSS) */
+.rdrCalendarWrapper, .rdrDateDisplayWrapper {
+  width: 100% !important;
+  font-family: 'Lato', sans-serif;
+}
+
+.rdrMonth {
+  width: 100% !important; 
+  padding: 0 0.5rem !important; 
+}
+
+.rdrMonthAndYearWrapper {
+  height: 50px !important;
+  padding-top: 10px !important;
+}
+
+.rdrDays {
+  justify-content: space-between;
+}
