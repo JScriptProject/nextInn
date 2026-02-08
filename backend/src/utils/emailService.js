@@ -59,7 +59,8 @@ export const sendBookingConfirmation = async (user, booking) => {
 
   const checkInDate = formatDate(booking.checkIn);
   const checkOutDate = formatDate(booking.checkOut);
-
+  console.log("EMail to",user.email);
+  console.log("From Email:", process.env.EMAIL_USER);
   const mailOptions = {
     from: `"NextInn Luxury Hotel" <${process.env.EMAIL_USER}>`,
     to: user.email,
@@ -116,7 +117,7 @@ export const sendBookingConfirmation = async (user, booking) => {
           </div>
 
           <p style="text-align: center;">
-            <a href="${process.env.FRONTEND_URL || "http://localhost:5173"}/user-dashboard" style="background-color: #ea580c; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">View Booking</a>
+            <a href="${process.env.ORIGIN || "http://localhost:5173"}/user-dashboard" style="background-color: #ea580c; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">View Booking</a>
           </p>
         </div>
 
@@ -128,6 +129,7 @@ export const sendBookingConfirmation = async (user, booking) => {
     `,
   };
   try {
+    console.log("Mail Options",mailOptions);
     await transporter.sendMail(mailOptions);
     console.log(`Booking confirmation email sent to user`);
   } catch (error) {
