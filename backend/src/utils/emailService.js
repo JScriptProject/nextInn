@@ -4,7 +4,9 @@ dotenv.config();
 //create a transport
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com", // Explicitly set the host
+  port: 465,              // Use Secure SSL port (works best on Render)
+  secure: true,           // Must be true for port 465
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_APP_PASS,
@@ -61,6 +63,7 @@ export const sendBookingConfirmation = async (user, booking) => {
   const checkOutDate = formatDate(booking.checkOut);
   console.log("EMail to",user.email);
   console.log("From Email:", process.env.EMAIL_USER);
+  console.log("EMail App PAss:", process.env.EMAIL_APP_PASS);
   const mailOptions = {
     from: `"NextInn Luxury Hotel" <${process.env.EMAIL_USER}>`,
     to: user.email,
