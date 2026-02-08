@@ -1,33 +1,22 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import dotenv from "dotenv";
 dotenv.config();
-
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,              // 👈 MUST use 587 for cloud servers
-  secure: false,          // 👈 MUST be false for port 587 (it upgrades to SSL automatically)
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_APP_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false, // Helps with cloud SSL handshake issues
-    ciphers: "SSLv3"
-  },
-  family: 4 // 👈 Forces IPv4 (Fixes Google hanging on IPv6)
-});
-
-// ... rest of your sendOTPEmail and sendBookingConfirmation functions
+//create a transport
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendOTPEmail = async (email, otp) => {
   if (!otp || !email) {
     throw new Error("Opps OTP Backend having issue. ");
   }
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: email,
-    subject: "NextInn Admin Verification Code",
-    html: `
+
+
+  try {
+   
+      const { data, error } = await resend.emails.send({
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: "NextInn Admin Verification Code",
+        html: `
       <div style="font-family: Arial, sans-serif; padding: 20px;">
         <h2>Admin Verification</h2>
         <p>Your verification code for Super Admin access is:</p>
@@ -35,11 +24,14 @@ export const sendOTPEmail = async (email, otp) => {
         <p>This code expires in 5 minutes.</p>
       </div>
     `,
-  };
-
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log("OTP email sent succesfully!");
+      });
+    
+      if(error)
+      {
+        console.error("Resend error", error);
+        return;
+      }
+    console.log("OTP email sent succesfully!", data);
   } catch (err) {
     console.error("Error in sending email:", err);
     throw new Error("Email sending failed!!");
@@ -50,6 +42,7 @@ export const sendBookingConfirmation = async (user, booking) => {
 
   console.log("Performing the email sent!!!");
   // basic validation on place
+  
   if (!user || !booking) {
     console.error("Missing user or booking data for email confirmation.");
     return;
@@ -67,14 +60,13 @@ export const sendBookingConfirmation = async (user, booking) => {
 
   const checkInDate = formatDate(booking.checkIn);
   const checkOutDate = formatDate(booking.checkOut);
-  console.log("EMail to",user.email);
-  console.log("From Email:", process.env.EMAIL_USER);
-  console.log("EMail App PAss:", process.env.EMAIL_APP_PASS);
-  const mailOptions = {
-    from: `"NextInn Luxury Hotel" <${process.env.EMAIL_USER}>`,
-    to: user.email,
-    subject: `Booking Confirmed! Reference #${booking._id.toString().slice(-6).toUpperCase()}`,
-    html: `
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: `"NextInn Luxury Hotel" <${process.env.EMAIL_USER}>`,
+      to: user.email,
+      subject: `Booking Confirmed! Reference #${booking._id.toString().slice(-6).toUpperCase()}`,
+      html: `
       <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6; background-color: #f9fafb;">
         
         <div style="background-color: #1f2937; padding: 20px; text-align: center;">
@@ -136,14 +128,16 @@ export const sendBookingConfirmation = async (user, booking) => {
         </div>
       </div>
     `,
-  };
-  try {
-    console.log("Mail Options",mailOptions);
-    await transporter.sendMail(mailOptions);
-    console.log(`Booking confirmation email sent to user`);
+    });
+
+    if(error)
+    {
+      console.error("Error while sending email", error);
+      return;
+    }
+
+    console.log("Booking confirmation email sent to user", data);
   } catch (error) {
-    console.error("Error while sending booking confirmation email");
-    console.error("❌ EMAIL FAILED:", error.message); 
-    console.error("Full Error Stack:", error);
+    console.error("Error while sending booking confirmation email", error);
   }
 };
