@@ -2,7 +2,7 @@ import api from "@api/axiosInstance.js";
 
 export const getAllRoomsCategory = async () => {
   const response = await api.get("/api/category/get-all");
-  console.log("Api response",response);
+  
   return response.data.data;
 };
 

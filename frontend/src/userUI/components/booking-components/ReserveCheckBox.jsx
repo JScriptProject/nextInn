@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 function ReserveCheckBox({ title, price, qItem, name, handleCheckBoxInput }) {
   function handleChangeCheckBox(e) {
     const checkStatus = e.target.checked;
-    console.log(name);
+    
     handleCheckBoxInput(name, checkStatus);
   }
 

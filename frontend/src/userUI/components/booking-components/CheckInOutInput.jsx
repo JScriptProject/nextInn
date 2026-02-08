@@ -64,6 +64,7 @@ function CheckInOutInput({ text, name, setFormModal }) {
     };
   }, [openCalendar]);
 
+
   return (
     <div className="input-subgroup" ref={calenderRef}>
       <label htmlFor={text}>{text}</label>

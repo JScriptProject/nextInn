@@ -657,7 +657,7 @@ section {
 }
 
 .booking-form .form-header {
-  @apply flex flex-row items-center justify-between pb-[3rem];
+  @apply flex flex-row items-center justify-between pb-[2rem];
 }
 
 .booking-form .form-header h2 {

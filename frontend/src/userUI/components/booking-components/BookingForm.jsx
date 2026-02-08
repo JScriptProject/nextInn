@@ -6,20 +6,20 @@ import { BookingContext } from "@user/context/BookingContext";
 import { rateCalculation } from "@utils/rateCalculation.js";
 import { createPortal } from "react-dom";
 import PreviewBooking from "@user/components/booking-components/PreviewBooking";
+// Ensure this path is correct relative to your file structure
+import { useAvailability } from "../../../hooks/useAvailability";
 
-function BookingForm({ categoryId, hotelRate, roomCapacity, addonServicesCharges }) {
+function BookingForm({
+  categoryId,
+  hotelRate,
+  roomCapacity,
+  addonServicesCharges,
+}) {
   // states
   const { bookingData, setBookingData } = useContext(BookingContext);
+  const [totalPrice, setTotalPrice] = useState(0); // Init with 0 to prevent NaN
+  const [prizeBreakDown, setPrizBreakDown] = useState([]);
 
-  const [totalPrice, setTotalPrice] = useState(() => {
-    const [totalCost] = rateCalculation(bookingData, roomCapacity);
-    return totalCost;
-  });
-
-  const [prizeBreakDown, setPrizBreakDown] = useState(() => {
-    const [priceBreakDown] = rateCalculation(bookingData, roomCapacity);
-    return priceBreakDown;
-  });
   const [formModal, setFormModal] = useState({
     isModalOpen: false,
     message: "",
@@ -31,8 +31,16 @@ function BookingForm({ categoryId, hotelRate, roomCapacity, addonServicesCharges
   const [payload, setPayload] = useState(null);
   const bookingPreviewRef = useRef();
 
+  // --- HOOK INTEGRATION ---
+  const { availability, loading: availabilityLoading } = useAvailability(
+    categoryId,
+    bookingData.checkIn,
+    bookingData.checkOut
+  );
+
   let lastScrollRef = useRef(window.scrollY);
-  console.log("prizeBreakDown=>", prizeBreakDown);
+
+  // Scroll effect
   useEffect(() => {
     function handleScroll() {
       let currentScroll = window.scrollY;
@@ -44,12 +52,14 @@ function BookingForm({ categoryId, hotelRate, roomCapacity, addonServicesCharges
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollRef.current]);
+  }, []);
 
+  // Update context when rate changes
   useEffect(() => {
     setBookingData((prevData) => ({ ...prevData, rate: hotelRate }));
   }, [hotelRate]);
 
+  // Price Calculation
   useEffect(() => {
     if (roomCapacity) {
       const [totalCost, prizeBreakDown] = rateCalculation(
@@ -60,47 +70,43 @@ function BookingForm({ categoryId, hotelRate, roomCapacity, addonServicesCharges
       setTotalPrice(totalCost);
       setPrizBreakDown(prizeBreakDown);
     }
-  }, [bookingData, roomCapacity]);
+  }, [bookingData, roomCapacity, addonServicesCharges]);
 
+  // Capacity Guard (Auto-correct selected rooms)
+  useEffect(() => {
+    // FIX: Use Strict Equality and Logical AND (&&)
+    if (availability !== null && bookingData.rooms > availability) {
+      setBookingData((prev) => ({
+        ...prev,
+        rooms: Math.max(1, availability),
+      }));
+      setFormModal({
+        isModalOpen: true,
+        message: `Only ${availability} rooms available for these dates.`,
+        isError: true,
+      });
+      setTimeout(() => {
+        setFormModal({ isModalOpen: false, message: "", isError: false });
+      }, 4000);
+    }
+  }, [availability, bookingData.rooms]);
+
+  // If room details aren't loaded yet, show skeleton
   if (!roomCapacity) {
     return <h3>Form Data loading...</h3>;
   }
 
-  // when visitor decreaase the room count then adjust the other values
-  useEffect(() => {
-    if (
-      bookingData.adults >
-      (roomCapacity.adults + roomCapacity.maxExtraAdults) * bookingData.rooms
-    ) {
-      setBookingData((prevData) => ({
-        ...prevData,
-        adults: roomCapacity.adults * bookingData.rooms,
-      }));
-    }
-    if (
-      bookingData.children >
-      (roomCapacity.children + roomCapacity.maxExtraChildren) *
-        bookingData.rooms
-    ) {
-      setBookingData((prevData) => ({
-        ...prevData,
-        children: roomCapacity.children * bookingData.rooms,
-      }));
-    }
-    if (bookingData.bed > roomCapacity.maxExtraBed * bookingData.rooms) {
-      setBookingData((prevData) => ({
-        ...prevData,
-        bed: roomCapacity.maxExtraBed,
-      }));
-    }
-  }, [bookingData]);
-  console.log("Booking form=>", bookingData);
+  // --- Handlers ---
   function handleCheckBoxInput(name, checkStatus) {
+    setBookingData((prevData) => ({
+      ...prevData,
+      addonServices: {
+        ...prevData.addonServices,
+        [name]: checkStatus,
+      },
+    }));
+
     if (checkStatus) {
-      setBookingData((prevData) => ({
-        ...prevData,
-        addonServices: { ...prevData.addonServices, [name]: true },
-      }));
       setFormModal({
         isModalOpen: true,
         message: `${name} added to your booking`,
@@ -109,22 +115,15 @@ function BookingForm({ categoryId, hotelRate, roomCapacity, addonServicesCharges
       setTimeout(() => {
         setFormModal({ isModalOpen: false, message: "", isError: false });
       }, 2000);
-      return;
-    }
-    if (!checkStatus) {
-      setBookingData((prevData) => ({
-        ...prevData,
-        addonServices: { ...prevData.addonServices, [name]: false },
-      }));
     }
   }
 
-  //Handle the booking preview Dailog
   function handleBookingFormSubmitPreview() {
     const breakdownMap = prizeBreakDown.reduce((acc, item) => {
       acc[item.label] = item.amount;
       return acc;
     }, {});
+
     setPayload({
       category: categoryId,
       checkIn: bookingData.checkIn,
@@ -137,13 +136,12 @@ function BookingForm({ categoryId, hotelRate, roomCapacity, addonServicesCharges
         extraBed: bookingData.bed,
       },
       priceBreakdown: {
-        baseRoomCharge: bookingData.rate, // Matches 'days' label
+        baseRoomCharge: bookingData.rate,
         extraGuestCharges: {
           onlyRoom: breakdownMap.days || bookingData.rate,
-          adults: breakdownMap.adults || 0, // Matches 'adults' label
-          children: breakdownMap.children || 0, // Matches 'children' label
-          extraBed: breakdownMap.extraBed || 0, // Matches 'extraBed' label
-
+          adults: breakdownMap.adults || 0,
+          children: breakdownMap.children || 0,
+          extraBed: breakdownMap.extraBed || 0,
           addonRooms: breakdownMap.rooms || 0,
         },
         addonServicesCharges: {
@@ -160,128 +158,171 @@ function BookingForm({ categoryId, hotelRate, roomCapacity, addonServicesCharges
     setIsBookingPreviewOpen(false);
   }
 
-  return (
-    <div
-      className={
-        stickyForm === "down"
-          ? "booking-form-container stickyDown"
-          : "booking-form-container stickyUp"
-      }
-    >
-      {formModal.isModalOpen &&
-        createPortal(
-          <p className={formModal.isError ? "errorModal" : "warningModal"}>
-            {formModal.message}
-          </p>,
-          document.getElementById("portal")
-        )}
-      {isBookingPreviewOpen && (
-        <PreviewBooking
-          isBookingPreviewOpen={isBookingPreviewOpen}
-          onClose={onClosePreview}
-          ref={bookingPreviewRef}
-          prizeBreakDown={prizeBreakDown}
-          totalPrice={totalPrice}
-          payload = {payload}
-        />
-      )}
-      <form className="booking-form" action={handleBookingFormSubmitPreview}>
-        <div className="form-header">
-          <h2>Reserve</h2>
-          <h3
-            style={{ fontFamily: "Roboto" }}
-            className="flex flex-row items-center gap-[5px]"
-          >
-            from <span>₹{hotelRate}</span> night
-          </h3>
-        </div>
-        <div className="input-group">
-          <CheckInOutInput
-            text="Check In"
-            name="checkIn"
-            setFormModal={setFormModal}
-          />
-          <CheckInOutInput
-            text="Check Out"
-            name="checkOut"
-            setFormModal={setFormModal}
-          />
-        </div>
-        <div className="input-group">
-          <CounterInput
-            text="Adults"
-            name="adults"
-            maxCount={roomCapacity?.adults ?? 0}
-            maxExtraCount={roomCapacity?.maxExtraAdults ?? 0}
-            extraCharge={roomCapacity?.extraAdultCharges ?? 0}
-            setFormModal={setFormModal}
-          />
+  // Determine Real-Time Limit
+  const realTimeAvailableRooms =
+    availability !== null ? availability : roomCapacity?.availableRooms || 0;
+  const isInvalidDateRange = bookingData.checkIn === bookingData.checkOut;
+ 
+ return (
+   <div
+     className={
+       stickyForm === "down"
+         ? "booking-form-container stickyDown"
+         : "booking-form-container stickyUp"
+     }
+   >
+     {/* Modal Portal */}
+     {formModal.isModalOpen &&
+       createPortal(
+         <p className={formModal.isError ? "errorModal" : "warningModal"}>
+           {formModal.message}
+         </p>,
+         document.getElementById("portal")
+       )}
 
-          <CounterInput
-            text="Children"
-            name="children"
-            maxCount={roomCapacity?.children ?? 0}
-            maxExtraCount={roomCapacity?.maxExtraChildren ?? 0}
-            extraCharge={roomCapacity?.extraChildCharges ?? 0}
-            setFormModal={setFormModal}
-          />
-        </div>
-        <div className="input-group ">
-          <CounterInput
-            text="Rooms"
-            name="rooms"
-            availableRooms={
-              roomCapacity?.availableRooms ?? 0 - (bookingData.rooms ?? 0)
-            }
-            extraCharge={hotelRate}
-            setFormModal={setFormModal}
-          />
+     {/* Preview Modal */}
+     {isBookingPreviewOpen && (
+       <PreviewBooking
+         isBookingPreviewOpen={isBookingPreviewOpen}
+         onClose={onClosePreview}
+         ref={bookingPreviewRef}
+         prizeBreakDown={prizeBreakDown}
+         totalPrice={totalPrice}
+         payload={payload}
+       />
+     )}
 
-          <CounterInput
-            text="Extra Bed"
-            name="bed"
-            maxExtraCount={roomCapacity?.maxExtraBed ?? 0}
-            extraCharge={roomCapacity?.extraBedCharge ?? 0}
-            maxCount={0}
-            setFormModal={setFormModal}
-          />
-        </div>
-        <h2>Extra Services</h2>
-        <div className="input-group input-group-checkbox ">
-          <ReserveCheckBox
-            title="Pet-Friendly Amenities"
-            price={addonServicesCharges?.petFriendly}
-            qItem="Room"
-            name="petFriendly"
-            handleCheckBoxInput={handleCheckBoxInput}
-          />
-          <ReserveCheckBox
-            title="Sauna/Steam Room"
-            price={addonServicesCharges?.steamRoom}
-            qItem="Room"
-            name="steamRoom"
-            handleCheckBoxInput={handleCheckBoxInput}
-          />
-          <ReserveCheckBox
-            title="Laundry and Cleaning"
-            price={addonServicesCharges?.laundry}
-            qItem="Guest"
-            name="laundry"
-            handleCheckBoxInput={handleCheckBoxInput}
-          />
-        </div>
-        <div className="input-group input-group-totalCost">
-          <h2>Total Cost</h2>
-          <h2 style={{ fontFamily: "Roboto" }}>
-            <span>₹</span>
-            {totalPrice}
-          </h2>
-        </div>
+     {/* Form Content */}
+     <form className="booking-form" action={handleBookingFormSubmitPreview}>
+       <div className="form-header">
+         <h2>Reserve</h2>
+         <h3
+           style={{ fontFamily: "Roboto" }}
+           className="flex flex-row items-center gap-[5px]"
+         >
+           from <span>₹{hotelRate}</span> night
+         </h3>
+       </div>
+       {/* Display a small availability status message */}
+       <div className="!mb-4 block">
+         {availabilityLoading ? (
+           <p className="text-xs text-orange-500 mt-[-10px] mb-4">
+             Checking availability...
+           </p>
+         ) : (
+           availability !== null && (
+             <p
+               className={`text-md text-center mb-14 ${
+                 availability > 0 ? "text-green-600" : "text-red-400"
+               }`}
+             >
+               {availability > 0
+                 ? `Hurry! Only ${availability} rooms left.`
+                 : "Sold Out for these dates"}
+             </p>
+           )
+         )}
+       </div>
+       <div className="input-group">
+         <CheckInOutInput
+           text="Check In"
+           name="checkIn"
+           setFormModal={setFormModal}
+         />
+         <CheckInOutInput
+           text="Check Out"
+           name="checkOut"
+           setFormModal={setFormModal}
+         />
+       </div>
 
-        <button className="booking-form-button">Book Your Stay</button>
-      </form>
-    </div>
-  );
+       <div className="input-group">
+         <CounterInput
+           text="Adults"
+           name="adults"
+           maxCount={roomCapacity?.adults ?? 0}
+           maxExtraCount={roomCapacity?.maxExtraAdults ?? 0}
+           extraCharge={roomCapacity?.extraAdultCharges ?? 0}
+           setFormModal={setFormModal}
+         />
+         <CounterInput
+           text="Children"
+           name="children"
+           maxCount={roomCapacity?.children ?? 0}
+           maxExtraCount={roomCapacity?.maxExtraChildren ?? 0}
+           extraCharge={roomCapacity?.extraChildCharges ?? 0}
+           setFormModal={setFormModal}
+         />
+       </div>
+
+       <div className="input-group ">
+         <CounterInput
+           text="Rooms"
+           name="rooms"
+           // Use real-time availability here
+           availableRooms={realTimeAvailableRooms}
+           extraCharge={hotelRate}
+           setFormModal={setFormModal}
+         />
+         <CounterInput
+           text="Extra Bed"
+           name="bed"
+           maxExtraCount={roomCapacity?.maxExtraBed ?? 0}
+           extraCharge={roomCapacity?.extraBedCharge ?? 0}
+           maxCount={0}
+           setFormModal={setFormModal}
+         />
+       </div>
+
+       <h2>Extra Services</h2>
+       <div className="input-group input-group-checkbox ">
+         <ReserveCheckBox
+           title="Pet-Friendly Amenities"
+           price={addonServicesCharges?.petFriendly}
+           qItem="Room"
+           name="petFriendly"
+           handleCheckBoxInput={handleCheckBoxInput}
+         />
+         <ReserveCheckBox
+           title="Sauna/Steam Room"
+           price={addonServicesCharges?.steamRoom}
+           qItem="Room"
+           name="steamRoom"
+           handleCheckBoxInput={handleCheckBoxInput}
+         />
+         <ReserveCheckBox
+           title="Laundry and Cleaning"
+           price={addonServicesCharges?.laundry}
+           qItem="Guest"
+           name="laundry"
+           handleCheckBoxInput={handleCheckBoxInput}
+         />
+       </div>
+
+       <div className="input-group input-group-totalCost">
+         <h2>Total Cost</h2>
+         <h2 style={{ fontFamily: "Roboto" }}>
+           <span>₹</span>
+           {totalPrice}
+         </h2>
+       </div>
+
+       <button
+         className="booking-form-button disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
+         // Disable button if loading OR availability is explicitly 0
+         disabled={
+           availabilityLoading ||
+           (availability !== null && availability === 0) ||
+           isInvalidDateRange
+         }
+       >
+         {availability !== null && availability === 0
+           ? "Sold Out"
+           : "Book Your Stay"}
+       </button>
+     </form>
+   </div>
+ );
 }
 
 export default BookingForm;

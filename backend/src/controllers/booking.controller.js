@@ -1,101 +1,136 @@
+import mongoose from "mongoose";
 import { Booking } from "../models/booking.model.js";
 import { Room } from "../models/room.models.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
+import { sendBookingConfirmation } from "../utils/emailService.js";
 
 // API: POST /api/bookings/create
 export const createBooking = asyncHandler(async (req, res) => {
-  const {
-    category,
-    checkIn,
-    checkOut,
-    guestDetails,
-    priceBreakdown,
-    totalAmount,
-  } = req.body || {};
+  // 1. Start a MongoDB Session for Atomicity
+  const session = await mongoose.startSession();
+  session.startTransaction();
 
-  // 1. Basic Validation
-  if (!category || !checkIn || !checkOut || !guestDetails || !totalAmount || !priceBreakdown) {
-    throw new ApiError(400, "All booking details are required");
-  }
+  try {
+    const {
+      category,
+      checkIn,
+      checkOut,
+      guestDetails,
+      priceBreakdown,
+      totalAmount,
+    } = req.body || {};
 
-  const startDate = new Date(checkIn);
-  const endDate = new Date(checkOut);
-  const requestedRoomCount = Number(guestDetails.roomsCount);
+    // 2. Basic Validation (Happens before we touch the DB)
+    if (
+      !category ||
+      !checkIn ||
+      !checkOut ||
+      !guestDetails ||
+      !totalAmount ||
+      !priceBreakdown
+    ) {
+      throw new ApiError(400, "All booking details are required");
+    }
 
-  // 2. AVAILABILITY CHECK (The Core Logic)
-  // We must ensure rooms are still available at the exact moment of booking
+    const startDate = new Date(checkIn);
+    const endDate = new Date(checkOut);
+    const requestedRoomCount = Number(guestDetails.roomsCount);
 
-  // A. Get ALL active rooms for this category
-  const allRoomsInCategory = await Room.find({
-    category: category,
-    status: { $ne: "maintenance" }, // Don't book rooms under repair
-  });
+    // --- CRITICAL SECTION START (Transaction Active) ---
 
-  if (allRoomsInCategory.length === 0) {
-    throw new ApiError(404, "No rooms found in this category");
-  }
+    // 3. Find "Conflicting" Bookings within the Transaction
+    // We pass .session(session) to ensure we see the most up-to-date state
+    const conflictingBookings = await Booking.find({
+      category: category,
+      bookingStatus: { $ne: "cancelled" },
+      $or: [
+        {
+          checkIn: { $lt: endDate },
+          checkOut: { $gt: startDate },
+        },
+      ],
+    })
+      .select("assignedRooms")
+      .session(session);
 
-  // B. Find "Conflicting" Bookings
-  // Any booking that overlaps with our requested dates
-  const conflictingBookings = await Booking.find({
-    category: category,
-    bookingStatus: { $ne: "cancelled" }, // Ignore cancelled bookings
-    $or: [
-      {
-        checkIn: { $lt: endDate },
-        checkOut: { $gt: startDate },
-      },
-    ],
-  }).select("assignedRooms");
-
-  // C. Flatten the array of occupied room IDs
-  // Example: conflictingBookings might look like [{assignedRooms: [id1]}, {assignedRooms: [id2, id3]}]
-  // We turn that into [id1, id2, id3]
-  const occupiedRoomIds = conflictingBookings.flatMap((b) =>
-    b.assignedRooms.map((id) => id.toString()),
-  );
-
-  // D. Filter out the occupied rooms
-  const availableRooms = allRoomsInCategory.filter(
-    (room) => !occupiedRoomIds.includes(room._id.toString()),
-  );
-
-  // 3. Final Validation
-  if (availableRooms.length < requestedRoomCount) {
-    throw new ApiError(
-      400,
-      `Sorry, only ${availableRooms.length} rooms are available for these dates.`,
+    // 4. Flatten occupied IDs
+    const occupiedRoomIds = conflictingBookings.flatMap((b) =>
+      b.assignedRooms.map((id) => id.toString()),
     );
+
+    // 5. Find strictly available rooms using DB Query
+    // Instead of fetching ALL and filtering in JS, we ask DB for rooms NOT IN occupied list
+    // This effectively "locks" these rooms for this transaction
+    const availableRoomsToAssign = await Room.find({
+      category: category,
+      status: { $ne: "maintenance" },
+      _id: { $nin: occupiedRoomIds }, // Exclude occupied IDs
+    })
+      .limit(requestedRoomCount)
+      .session(session);
+
+    // 6. Final Availability Check
+    if (availableRoomsToAssign.length < requestedRoomCount) {
+      // If we don't have enough rooms, ABORT immediately.
+      // This prevents the "Double Booking" race condition.
+      throw new ApiError(
+        409, // 409 Conflict
+        `Sorry! Someone just booked the last room. Only ${availableRoomsToAssign.length} left.`,
+      );
+    }
+
+    console.log("user=>", req.user);
+
+    // 7. Create the Booking
+    // Note: When providing a session, 'create' expects an ARRAY of documents.
+    const newBooking = await Booking.create(
+      [
+        {
+          user: req.user.userId,
+          category,
+          assignedRooms: availableRoomsToAssign.map((r) => r._id),
+          checkIn: startDate,
+          checkOut: endDate,
+          guestDetails,
+          priceBreakdown: {
+            baseRoomCharge: priceBreakdown.baseRoomCharge || 0,
+            extraGuestCharges: priceBreakdown.extraGuestCharges || {},
+            addonServicesCharges: priceBreakdown.addonServicesCharges || {},
+          },
+          totalAmount,
+          paymentStatus: "pending",
+          bookingStatus: "confirmed",
+        },
+      ],
+      { session },
+    );
+
+    // --- CRITICAL SECTION END ---
+
+    // 8. Commit the Transaction
+    // If we reach here, no conflicts occurred. Save everything.
+    await session.commitTransaction();
+
+    // 9. Post-Transaction Actions
+    // newBooking is an array (because of the create syntax), so take the first item
+    const confirmedBooking = newBooking[0];
+
+    if (!confirmedBooking) {
+      throw new ApiError(500, "Failed to generate booking");
+    }
+
+    // Send email AFTER successful commit
+    sendBookingConfirmation(req.user, confirmedBooking);
+
+    res.success(201, confirmedBooking, "Booking confirmed successfully!");
+  } catch (error) {
+    // 10. Rollback on Failure
+    // If any error occurred (validation, availability, DB error), undo everything.
+    await session.abortTransaction();
+    throw error;
+  } finally {
+    // 11. Always end the session
+    session.endSession();
   }
-
-  // 4. AUTO-ASSIGNMENT
-  // Take the first 'N' rooms from the available list
-  const roomsToAssign = availableRooms
-    .slice(0, Number(guestDetails.roomsCount))
-    .map((r) => r._id);
-console.log("user=>", req.user);
-  // 5. Create the Booking
-  const newBooking = await Booking.create({
-    user: req.user.userId, // Assumes user is logged in via 'verifySession'
-    category,
-    assignedRooms: roomsToAssign,
-    checkIn: new Date(startDate),
-    checkOut: new Date(endDate),
-    guestDetails,
-    priceBreakdown: {
-      baseRoomCharge: priceBreakdown.baseRoomCharge || 0,
-      extraGuestCharges: priceBreakdown.extraGuestCharges || {},
-      addonServicesCharges: priceBreakdown.addonServicesCharges || {},
-    },
-    totalAmount,
-    paymentStatus: "pending", // Or "paid" if you integrate Stripe/Razorpay later
-    bookingStatus: "confirmed",
-  });
-
-  if (!newBooking) {
-    throw new ApiError(500, "Failed to generate booking");
-  }
-
-  res.success(201, newBooking, "Booking confirmed successfully!");
 });

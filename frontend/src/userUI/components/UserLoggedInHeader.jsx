@@ -7,7 +7,7 @@ function UserLoggedInHeader({ user }) {
   const [isHovered, setIsHovered] = useState(false);
   const { firstname } = user || {};
   const { name } = user || {}
-  console.log("USERRRRRR =>", user);
+
   return (
     <div className="relative">
       <div

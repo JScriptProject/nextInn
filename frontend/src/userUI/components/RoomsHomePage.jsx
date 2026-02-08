@@ -19,7 +19,7 @@ function RoomsHomePage() {
     (async () => {
       try {
         const roomsData = await getAllRoomsCategory();
-        console.log("All rooms data =", roomsData);
+       
         setRooms(roomsData);
       } catch (error) {
         console.error("failed to fetch rooms:", error);

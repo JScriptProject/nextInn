@@ -146,11 +146,6 @@ function CounterInput({
         />
         <button onClick={handleDecreament}>-</button>
       </div>
-      {text === "Rooms" && (
-        <span className="available-rooms-span">
-          Available Rooms : {availableRooms}
-        </span>
-      )}
     </div>
   );
 }

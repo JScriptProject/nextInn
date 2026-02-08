@@ -24,7 +24,6 @@ function Login() {
   //redux store communication
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("LOCATION IN LOGIN=>>>", location);
   const dispatch = useDispatch();
   const { user, isLoading, isAuthenticated } = useSelector(
     (state) => state.user
@@ -68,10 +67,9 @@ const fromState = location.state?.from?.state;
 
   // Redirect if already authenticated
   useEffect(() => {
-    console.log("Inside useEffect");
-    console.log("isAthenticated =>", isAuthenticated);
+   
     if (isAuthenticated) {
-      console.log("Traing to navigate user-dashboard");
+     
       navigate(fromPath, { replace: true, state:fromState }); // Corrected path
     }
   }, [isAuthenticated, navigate, fromPath, fromState]);
@@ -79,7 +77,7 @@ const fromState = location.state?.from?.state;
   if (isLoading || isAuthenticated) {
     return <FullScreenLoader />;
   }
-  console.log("I am in login component");
+
   return (
     <div className="login-container">
       <div className="login-container-wrapper">

@@ -13,19 +13,17 @@ export const confirmBooking = async (payload) => {
     };
   } catch (error) {
     console.error("An error occurred while booking", error);
-     const errorMessage = error.response.data.message || "Something went wrong";
-     return {
-       success: false,
-       message: errorMessage,
-       data:null,
-       status: error.response?.status || 400,
-     };
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      data: null,
+      status: error.response?.status || 400,
+    };
   }
 };
 
-
-export const getBookingByUser = async()=>{
-
+export const getBookingByUser = async () => {
   try {
     const response = await api.get("/api/booking/get-by-user");
     console.log("RESPONSE ===>", response);
@@ -36,13 +34,37 @@ export const getBookingByUser = async()=>{
       status: response.status,
     };
   } catch (error) {
-     console.error("An error occurred while booking", error);
-     const errorMessage = error.response.data.message || "Something went wrong";
-     return {
-       success: false,
-       message: errorMessage,
-       data: null,
-       status: error.response?.status || 404,
-     };
+    console.error("An error occurred while booking", error);
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      data: null,
+      status: error.response?.status || 404,
+    };
   }
-}
+};
+
+export const getRoomsAvailability = async (categoryId, checkIn, checkOut) => {
+  try {
+    const response = await api.get("/api/booking/check-availability", {
+      params: { categoryId, checkIn, checkOut },
+    });
+    console.log("AVailable RESPONS=> ", response);
+    return {
+      success: true,
+      data: response.data.data,
+      message: response.data.message,
+      status: response.status,
+    };
+  } catch (error) {
+    console.error("An error occurred while booking", error);
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      data: null,
+      status: error.response?.status || 404,
+    };
+  }
+};
