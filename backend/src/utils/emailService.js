@@ -1,20 +1,23 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 dotenv.config();
-//create a transport
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail', 
+  host: "smtp.gmail.com",
+  port: 587,              // 👈 MUST use 587 for cloud servers
+  secure: false,          // 👈 MUST be false for port 587 (it upgrades to SSL automatically)
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_APP_PASS,
   },
-
   tls: {
-    rejectUnauthorized: false,
+    rejectUnauthorized: false, // Helps with cloud SSL handshake issues
     ciphers: "SSLv3"
-  }
+  },
+  family: 4 // 👈 Forces IPv4 (Fixes Google hanging on IPv6)
 });
+
+// ... rest of your sendOTPEmail and sendBookingConfirmation functions
 
 export const sendOTPEmail = async (email, otp) => {
   if (!otp || !email) {
