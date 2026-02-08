@@ -55,8 +55,8 @@ const userLogin = asyncHandler(async (req, res, next) => {
   });
   res.cookie("refresh_token", refresh_token, {
     httpOnly: true,
-    sameSite: "lax",
-    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
+    secure: isProd ? true : false,
     path: "/",
     maxAge: 1000 * 60 * 60 * 24 * 10,
   });
