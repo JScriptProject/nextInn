@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-
+import { useParams } from "react-router-dom";
 import PageBanner from "@user/components/PageBanner";
 import RoomFeaturesIcon from "@user/components/RoomFeaturesIcon";
 import ParallaxImageBox from "@user/components/ParallaxImageBox";
 
 import RoomAmenities from "@user/components/booking-components/RoomAmenities";
-import AvailabilityCalendar from "@user/components/booking-components/AvailabilityCalendar";
 import BookingForm from "@user/components/booking-components/BookingForm";
 
 import { BookingProvider } from "@user/context/BookingContext";
@@ -14,7 +13,15 @@ import { BookingProvider } from "@user/context/BookingContext";
 function RoomDetails() {
   const location = useLocation();
   const [room, setRoom] = useState(location.state || {});
- 
+  const { id } = useParams();
+  useEffect(() => {
+    if (!room && id) {
+      // If state is missing (refresh), fetch from API
+      const result = fetchRoomById(id);
+      setRoom(result.data);
+    }
+  }, [id, room]);
+  
   return (
     <BookingProvider>
       <div className="page-container">
