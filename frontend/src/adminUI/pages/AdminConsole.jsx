@@ -6,6 +6,8 @@ import AdminDashboard from "@admin/pages/AdminDashboard.jsx";
 import ManageRooms from "@admin/pages/ManageRooms";
 import Reviews from "@admin/pages/Reviews";
 import GuestList from "@admin/pages/GuestList";
+import ManageBooking from "@admin/pages/ManageBooking";
+import ManageBookings from "@admin/pages/ManageBookings";
 
 function AdminConsole() {
   //create Route
@@ -16,6 +18,8 @@ function AdminConsole() {
         <Route path="/rooms" element={<ManageRooms />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/guest-list" element={<GuestList />} />
+        <Route path="/booking" element={<ManageBooking />} />
+        <Route path="/bookings" element={<ManageBookings />} />
       </Route>
     </Routes>
   );

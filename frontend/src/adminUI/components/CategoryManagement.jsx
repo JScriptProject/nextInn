@@ -1,29 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { getAllRoomsCategory } from "@api/roomsCategoryApi.js";
 import RoomsCategoryTitle from "@admin/components/RoomsCategoryTitle.jsx";
 import RoomsCategoryInfo from "@admin/components/RoomsCategoryInfo.jsx";
 
-function CategoryManagement({ setErrors, errors }) {
-  const [rooms, setRooms] = useState([]);
+function CategoryManagement({ setErrors, errors, rooms, setRooms }) {
+ 
   const [selectedCategory, setSelectedCategory] = useState(
     "Premium Deluxe Room"
   );
   const [localErrors, setLocalErrors] = useState(null);
-
+  console.log("Roomsssss=>", rooms);
   const roomsObj = rooms.find((room) => room.name === selectedCategory);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const roomsData = await getAllRoomsCategory();
-        setRooms(roomsData);
-      } catch (error) {
-        console.error("failed to fetch rooms:", error);
-        setErrors(error.message);
-        setLocalErrors(error.message);
-      }
-    })();
-  }, []);
+  
+ 
 
   return (
     <div>

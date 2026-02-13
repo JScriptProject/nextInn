@@ -3,6 +3,15 @@
   "version": "1.0.0",
   "main": "server.js",
   "type": "module",
+  "imports": {
+    "#utils/*": "./src/utils/*",
+    "#assets/*": "./src/assets/*",
+    "#controllers/*": "./src/controllers/*",
+    "#routers/*": "./src/routers/*",
+    "#db/*": "./src/db/*",
+    "#middlewares/*": "./src/middlewares/*",
+    "#models/*": "./src/models/*"
+  },
   "scripts": {
     "test": "Testing of my application",
     "dev": "node --watch src/server.js",

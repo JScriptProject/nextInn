@@ -22,7 +22,11 @@ function HomePage() {
     (async () => {
       try {
         const roomsData = await getAllRoomsCategory();
-        setRooms(roomsData);
+        if(!roomsData.success)
+        {
+          throw new Error("Unable to fetch the data!");
+        }
+        setRooms(roomsData.data);
       } catch (error) {
         console.error("failed to fetch rooms:", error);
       }

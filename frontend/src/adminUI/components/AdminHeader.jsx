@@ -3,17 +3,18 @@ import Header from "@user/components/Header";
 import { useSelector } from "react-redux";
 
 function AdminHeader() {
-  const {admin} = useSelector((state)=>state.admin);
-  console.log("ADMIN FROM STORE =>", admin);
+  const { admin } = useSelector((state) => state.admin);
   const websiteHeader = {
     webNav: [
       { to: "/admin", label: "Dasboard" },
       { to: "/admin/guest-list", label: "Guest" },
       { to: "/admin/rooms", label: "Rooms" },
       { to: "/admin/reviews", label: "Reviews" },
+      { to: "/admin/booking", label: "Manage Bookings" },
+      { to: "/admin/bookings", label: "Bookings"}
     ],
     login: null,
-    user:admin
+    user: admin,
   };
   return (
     <>

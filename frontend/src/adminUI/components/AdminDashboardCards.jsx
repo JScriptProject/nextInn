@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { BedDouble, DoorOpen, Users, Star } from "lucide-react";
-function AdminDashboardCards() {
 
- 
+
+
+function AdminDashboardCards() {
 
     const adminCardData = [
     { icon: BedDouble, label: "Booked Rooms", label_count: 12 },

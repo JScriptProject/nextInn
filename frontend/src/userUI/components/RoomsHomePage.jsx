@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { UserRound } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SectionTitle from "@user/components/SectionTitle";
-// import { getAllRoomsCategory } // REMOVE THIS IMPORT
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";

@@ -4,47 +4,51 @@ import { useParams } from "react-router-dom";
 import PageBanner from "@user/components/PageBanner";
 import RoomFeaturesIcon from "@user/components/RoomFeaturesIcon";
 import ParallaxImageBox from "@user/components/ParallaxImageBox";
-
 import RoomAmenities from "@user/components/booking-components/RoomAmenities";
 import BookingForm from "@user/components/booking-components/BookingForm";
-
 import { BookingProvider } from "@user/context/BookingContext";
+import { fetchRoomById } from "@api/roomsCategoryApi.js";
 
 function RoomDetails() {
   const location = useLocation();
-  const [room, setRoom] = useState(location.state || {});
+  const [room, setRoom] = useState(null);
   const { id } = useParams();
+  console.log("ROOM =>", room);
+  console.log("id", id);
   useEffect(() => {
     if (!room && id) {
-      // If state is missing (refresh), fetch from API
-      const result = fetchRoomById(id);
-      setRoom(result.data);
+      console.log("condition");
+      (async () => {
+        const result = await fetchRoomById(id);
+        console.log("result", result);
+        setRoom(result.data);
+      })();
     }
   }, [id, room]);
-  
+
   return (
     <BookingProvider>
       <div className="page-container">
-        <PageBanner img={room.roomImages[0]} heading={room.name} />
+        <PageBanner img={room?.roomImages[0]} heading={room?.name} />
         <div className="page-container-wrapper">
           <div className="room-details-section">
             <div className="room-info">
-              <h2 className="page-title">{room.info}</h2>
-              <RoomFeaturesIcon features={room.features} />
+              <h2 className="page-title">{room?.info}</h2>
+              <RoomFeaturesIcon features={room?.features || []} />
               <div className="room-description-container">
-                <p className="room-desc">{room.description}</p>
+                <p className="room-desc">{room?.description}</p>
               </div>
               <div className="room-details-images">
-                <ParallaxImageBox imgSrc={room.roomImages[1]} />
+                <ParallaxImageBox imgSrc={room?.roomImages[1]} />
 
                 <div className="fixed-image">
-                  <img src={room.bannerImg} alt={room.name} />
+                  <img src={room?.bannerImg} alt={room?.name} />
                 </div>
               </div>
               <h3 className="page-internal-title">Room Amenities</h3>
-              <RoomAmenities amenities={room.amenities} />
+              <RoomAmenities amenities={room?.amenities || []} />
               <div className="sliding-moving-image">
-                <ParallaxImageBox imgSrc={room.roomImages[2]} />
+                <ParallaxImageBox imgSrc={room?.roomImages[2]} />
               </div>
             </div>
             <div className="room-features">
@@ -85,10 +89,10 @@ function RoomDetails() {
           </div>
 
           <BookingForm
-            addonServicesCharges={room.addonServicesCharges}
-            categoryId={room._id}
-            hotelRate={room.price}
-            roomCapacity={room.roomCapacity}
+            addonServicesCharges={room?.addonServicesCharges}
+            categoryId={room?._id}
+            hotelRate={room?.price}
+            roomCapacity={room?.roomCapacity}
           />
         </div>
       </div>

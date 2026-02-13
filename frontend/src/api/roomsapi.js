@@ -25,25 +25,3 @@ export const saveToRoom = async(newData)=>{
 }
 
 
-export const fetchRoomById = async(roomId) =>{
-   try {
-      const response = await axios.post(`${API}/api/rooms/get-room`, {
-        roomId: roomId,
-      });
-      return {
-        success: true,
-        data: response.data.data,
-        message: response.data.message,
-        status: response.status,
-      };
-   } catch (error) {
-    console.error("An error occurred while booking", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
-    return {
-      success: false,
-      message: errorMessage,
-      data: null,
-      status: error.response?.status || 404,
-    };
-   }
-}

@@ -43,7 +43,7 @@ const adminRefreshSession = asyncHandler(async (req, res, next) => {
   res.cookies("access_token_admin", access_token_admin, {
     httpOnly: true,
     sameSite: isProd ? "none" : "lax",
-    secure: isProd,
+    secure: isProd ? true : false,
     maxAge: 1000 * 60 * 2,
   });
   return res.success(200, admin, "Session refreshed successfully!");

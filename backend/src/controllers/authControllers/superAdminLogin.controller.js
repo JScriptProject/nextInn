@@ -50,7 +50,7 @@ export const superAdminLogin = asyncHandler(async(req, res, next)=>{
       res.cookie("refresh_token_admin", refresh_token_admin, {
         httpOnly: true,
         sameSite: isProd ? "none" : "lax",
-        secure: isProd,
+        secure: isProd ? true : false,
         maxAge: 1000 * 60 * 4,
       });
 
