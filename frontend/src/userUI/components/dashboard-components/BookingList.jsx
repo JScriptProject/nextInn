@@ -10,6 +10,8 @@ import {
   Home,
   Tag,
   Download,
+  ChevronUp,
+  ChevronDown,
 } from "lucide-react";
 import React from "react";
 
@@ -337,6 +339,16 @@ function BookingList({ currentList, activeTab, toggleExpand, expandId }) {
                   </div>
                 </div>
               )}
+              <div
+                className="bg-gray-50 p-1 flex justify-center cursor-pointer hover:bg-gray-100 transition-colors"
+                onClick={() => toggleExpand(booking._id)}
+              >
+                {expandId === booking._id ? (
+                  <ChevronUp size={16} className="text-gray-400" />
+                ) : (
+                  <ChevronDown size={16} className="text-gray-400" />
+                )}
+              </div>
             </div>
           ))}
         </div>
