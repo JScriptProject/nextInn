@@ -5,17 +5,11 @@ import { format } from "date-fns";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
-function BookingControls({ filterStaus, setFilterStatus }) {
-  const [searchTerm, setSearchTerm] = useState("");
+function BookingControls({ filterStaus, setFilterStatus, searchTerm, setSearchTerm, dateRange, setDateRange }) {
+ 
 
   const [openDate, setOpenDate] = useState(false);
-  const [dateRange, setDateRange] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(new Date().setDate(new Date().getDate() + 30)),
-      key: "selection",
-    },
-  ]);
+  
   const handleFetchBookings = () => {
     setOpenDate(false);
     console.log("date range =>>>", dateRange);

@@ -23,7 +23,7 @@ export const confirmBooking = async (payload) => {
   }
 };
 
-export const getBookingByUser = async () => {
+export const getBookingsByUser = async () => {
   try {
     const response = await api.get("/api/booking/get-by-user");
     console.log("RESPONSE ===>", response);
@@ -55,6 +55,30 @@ export const getRoomsAvailability = async (categoryId, checkIn, checkOut) => {
       success: true,
       data: response.data.data,
       message: response.data.message,
+      status: response.status,
+    };
+  } catch (error) {
+    console.error("An error occurred while booking", error);
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      data: null,
+      status: error.response?.status || 404,
+    };
+  }
+};
+
+export const getAllBookingsByDate = async (startDate, endDate) => {
+  try {
+    const response = await api.get("/api/booking/all-booking", {
+      params: { startDate: startDate, endDate: endDate },
+    });
+    console.log("response");
+    return {
+      success: true,
+      message: response.data.message,
+      data: response.data.data,
       status: response.status,
     };
   } catch (error) {

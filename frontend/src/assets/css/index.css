@@ -1422,12 +1422,15 @@ footer {
 .booking-card-footer {
   padding: 1rem 1.5rem;
   border-top: 1px dashed var(--border-lightUI-softGray);
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  @apply flex flex-col items-start md:flex-row justify-between;
+}
+.booking-card-footer-wrapper{
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.85rem;
 }
-
 
 /* --- AVAILABILITY SECTION OVERRIDES --- */
 
@@ -1604,4 +1607,123 @@ footer {
 
 .rdrDays {
   justify-content: space-between;
+}
+
+/* user dashboard bookings */
+
+.bookings-container-button{
+  @apply flex items-center gap-6 mb-8 border-b border-[var(--border-lightUI-softGray)];
+}
+
+.bookings-container-button-btn{
+  @apply pb-3 text-sm font-bold uppercase tracking-wide transition-all;
+}
+
+.bookings-container-button-btn-active{
+  @apply text-[var(--accent-cta-sunset-orange)] border-b-2 border-[var(--accent-cta-sunset-orange)];
+}
+.bookings-container-button-btn-no_active{
+  @apply text-gray-400;
+}
+
+.bookings-container-button-btn-arch{
+  @apply pb-3 text-sm font-bold uppercase tracking-wide transition-all;
+}
+.bookings-conthainer-button-btn-arc-active{
+  @apply text-[var(--accent-cta-sunset-orange)] border-b-2 border-[var(--accent-cta-sunset-orange)];
+}
+
+.current-list-no_booking{
+  @apply  flex flex-col items-center justify-center py-10 text-gray-400;
+}
+
+.current-list-bookings{
+@apply flex flex-col gap-6;  
+}
+.current-list-booking{
+  @apply bg-white border border-[var(--border-lightUI-softGray)] rounded-xl overflow-hidden transition-all duration-300;
+}
+.current-list-booking-expand{
+  @apply shadow-lg ring-1 ring-[var(--accent-cta-sunset-orange)];
+}
+
+.current-list-booking-hover{
+  @apply hover:shadow-md;
+}
+.current-list-booking-header{
+  @apply p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 cursor-pointer;
+}
+
+.current-list-left{
+  @apply flex flex-row items-start gap-4;
+}
+
+.current-list-left-title{
+  @apply font-[Playfair-Display] text-lg font-bold text-[var(--text-primary-dark-Charcoal)];
+}
+.current-list-left-info
+{
+  @apply flex items-center gap-2 text-sm text-[var(--text-secondary-gray)] mt-1;
+}
+
+.current-list-right-text{
+  @apply text-xl font-bold text-[var(--text-primary-dark-Charcoal)];
+}
+
+.current-list-right-text-inactive{
+@apply text-gray-400;
+}
+.current-list-right-payment{
+  @apply text-xs font-bold uppercase tracking-wider mt-1;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+.booking-expand{
+  animation: fadeIn 0.3s ease-out forwards;
+  @apply bg-[var(--background-offWhite-linen)] border-t border-[var(--border-lightUI-softGray)] p-6 ; 
+}
+
+.booking-expand-grid{
+  @apply grid grid-cols-1 md:grid-cols-2 gap-8;
+}
+
+.booking-expand-stay-details{
+  @apply text-xs font-bold text-gray-400 uppercase tracking-widest mb-4;
+}
+
+.booking-expand-stay-lists{
+  @apply space-y-3 text-sm text-[var(--text-primary-dark-Charcoal)];
+}
+
+.booking-expand-stay-list{
+  @apply flex justify-between border-b border-gray-100 pb-2;
+}
+
+.booking-expand-finance-title{
+  @apply text-xs font-bold text-gray-400 uppercase tracking-widest mb-4;
+}
+
+.booking-expand-finance{
+  @apply bg-white p-4 rounded-lg border border-gray-100 space-y-2 text-sm;
+}
+
+.booking-expand-finance-charge-title{
+  @apply flex justify-between text-gray-500;
+}
+
+.booking-expand-finance-charge-total-title{
+  @apply flex justify-between font-bold text-[var(--primary-deep-teal)] pt-3 border-t border-gray-100 mt-2 ; 
+}
+
+.booking-expand-download{
+  @apply mt-6 flex justify-end gap-4 pt-4 border-t border-gray-200;
+}
+.booking-expand-download-btn{
+  @apply flex items-center gap-2 px-4 py-2 bg-white border border-[var(--text-secondary-gray)] text-[var(--text-primary-dark-Charcoal)] rounded-md hover:bg-gray-50 text-sm font-medium transition-colors;
 }

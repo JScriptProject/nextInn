@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ChangePasswordModal from "./ChangePasswordModal";
 import { Mail, Phone, MapPin, Lock } from "lucide-react";
 
-function UserProfile({ user }) {
+function UserProfile({ user={} }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (

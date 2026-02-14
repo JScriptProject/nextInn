@@ -8,6 +8,10 @@ const bookingSchema = new mongoose.Schema(
         ref: "Room",
       },
     ],
+    bookingId:{
+      type:String,
+      required:true,
+    },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "RoomCategory",
@@ -81,4 +85,63 @@ bookingSchema.pre("save", function (next) {
   next();
 });
 
+bookingSchema.pre("validate", function (next) {
+  const alpha = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+  ];
+  const rn = (len) =>
+    Array.from({ length: len })
+      .map((item) => alpha[Math.floor(Math.random() * 26)])
+      .join("");
+
+  if (!this.bookingId) {
+    console.log("INSIDE+>");
+    const randomBookingId = `${rn(4)}${Math.floor(Math.random() * 100)
+      .toString()
+      .padStart(2, "0")}${rn(3)}`;
+    console.log("Booking Id =>", randomBookingId);
+    this.bookingId = randomBookingId;
+  }
+  next();
+});
+
+bookingSchema.pre(/^find/, function(next){
+  this.populate([{
+    path:'user',
+    select:'firstname lastname email mobile city'
+  },{
+    path:'category',
+    select:'name location'
+  },
+{
+  path:'assignedRooms',
+  select:'',
+}])
+  next();
+});
 export const Booking = mongoose.model("Booking", bookingSchema);
