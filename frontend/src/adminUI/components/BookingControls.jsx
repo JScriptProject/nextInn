@@ -80,7 +80,8 @@ function BookingControls({ filterStaus, setFilterStatus, searchTerm, setSearchTe
           >
             <option value="all">All</option>
             <option value="confirmed">Confirmed</option>
-            <option value="pending">Pending</option>
+            <option value="checked-in">Checked-In</option>
+            <option value="checked-out">Checked-Out</option>
             <option value="cancelled">Cancelled</option>
           </select>
         </div>

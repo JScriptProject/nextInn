@@ -1,68 +1,52 @@
-import { Check, Clock, XCircle } from "lucide-react";
-import React,{useEffect, useState} from "react";
+import {
+  Calendar,
+  Check,
+  Clock,
+  CreditCard,
+  Trash2,
+  User,
+  X,
+  XCircle,
+} from "lucide-react";
+import React, { useEffect, useState } from "react";
 import Hero from "@admin/components/Hero";
 import BookingControls from "@admin/components/BookingControls";
 import heroBookingImg from "@assets/media/heroBookings.jpg";
-import { getAllBookingsByDate } from "@api/bookingApi.js"
+import {
+  getAllBookingsByDate,
+  updateBookingStatus,
+  cancelBooking,
+} from "@api/bookingApi.js";
+import BookingTable from "@admin/components/BookingTable";
+import FullScreenLoader from "../../components-support/FullScreenLoader";
+import { setLoading } from "@redux/userSlice";
+import { format } from "date-fns";
 
-// Dummy data based on your provided screenshot
-const initialBookings = [
-  {
-    _id: "69820b5967181dd3a26f0b20",
-    assignedRooms: [
-      { category: "68dd3cc70db9182a1d798da4" }, // Assuming this structure based on image
-    ],
-    user: "69806ad3260b7680ba4d5bf2", // ID reference
-    bookingId: "GHGF45JK",
-    userName: "Sanket Kale", // Added for display purposes
-    userEmail: "sanket@example.com",
-    userPhone: "+91 9876543210",
-    checkIn: "2026-02-03T00:00:00.000+00:00",
-    checkOut: "2026-02-12T00:00:00.000+00:00",
-    bookingStatus: "confirmed",
-    paymentStatus: "pending",
-    totalAmount: 119200,
-    guestDetails: { adults: 4, children: 2, roomsCount: 2, extraBed: 0 },
-    priceBreakdown: {
-      baseRoomCharge: 6400,
-      extraGuestCharges: {
-        onlyRoom: 57600,
-        adults: 3000,
-        children: 0,
-        extraBed: 0,
-        addonRooms: 57600,
-      },
-      addonServicesCharges: { petFriendly: 550, steamRoom: 450, laundry: 0 },
-    },
-    createdAt: "2026-02-03T14:51:05.141+00:00",
-  },
-  {
-    _id: "69820b5967181dd3a26f0b21",
-    bookingId: "OKRT69SK",
-    checkIn: "2026-02-15T00:00:00.000+00:00",
-    checkOut: "2026-02-18T00:00:00.000+00:00",
-    userName: "Rahul Sharma",
-    bookingStatus: "pending",
-    paymentStatus: "pending",
-    totalAmount: 25000,
-    guestDetails: { adults: 2, children: 0, roomsCount: 1, extraBed: 0 },
-    createdAt: "2026-02-05T10:30:00.000+00:00",
-  },
-  {
-    _id: "69820b5967181dd3a26f0b22",
-    bookingId: "DSHJ66KS",
-    checkIn: "2026-02-10T00:00:00.000+00:00",
-    checkOut: "2026-02-12T00:00:00.000+00:00",
-    userName: "Anita Desai",
-    bookingStatus: "cancelled",
-    paymentStatus: "refunded",
-    totalAmount: 12000,
-    guestDetails: { adults: 1, children: 0, roomsCount: 1, extraBed: 0 },
-    createdAt: "2026-02-01T09:15:00.000+00:00",
-  },
-];
+// ==========================================
+// 1. DEFINE STATE MACHINE RULES (CONSTANTS)
+// ==========================================
+const BOOKING_TRANSITIONS = {
+  confirmed: ["cancelled", "checked-in"],
+  "checked-in": ["checked-out"],
+  "checked-out": [], // Terminal state
+  cancelled: [], // Terminal state
+};
 
-//convert the date to Local
+const PAYMENT_TRANSITIONS = {
+  pending: ["paid", "failed"],
+  paid: ["refunded"],
+  failed: [], // Terminal state
+  refunded: [], // Terminal state
+};
+
+// Helper for formatting labels (e.g., "checked-in" -> "Checked In")
+const formatStatusLabel = (status) => {
+  return status
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString("en-US", {
     year: "numeric",
@@ -71,36 +55,38 @@ const formatDate = (dateString) => {
   });
 };
 
+const getStatusBadge = (status, type = "booking") => {
+  const statusClass =
+    type === "booking" ? `badge-booking-${status}` : `badge-payment-${status}`;
 
-const getStatusBadge = (status, type="booking")=>{
-  const statusClass = type==="booking" ? `badge-booking-${status}` : `badge-payment-${status}`;
-
-  let icon=null;
-  if(status === "confirmed" || status === "paid" || status === "refunded")
-  {
-    icon = <Check size={12} />
+  let icon = null;
+  if (status === "confirmed" || status === "paid" || status === "refunded") {
+    icon = <Check size={12} />;
   }
 
-  if(status === "pending")
-  {
-    icon= <Clock size={12} />
+  if (status === "pending") {
+    icon = <Clock size={12} />;
   }
-  if(status ==="failed" || status === "cancelled")
-  {
-    icon = <XCircle size={12} />
+  if (status === "failed" || status === "cancelled") {
+    icon = <XCircle size={12} />;
   }
-  return(<span className={`admin-status-badge ${statusClass}`}>
-    {icon}{status}
-    </span>)
-}
-
+  return (
+    <span className={`admin-status-badge ${statusClass}`}>
+      {icon}
+      {status}
+    </span>
+  );
+};
 
 function ManageBookings() {
-  
   const [bookings, setBookings] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStaus, setFilterStatus] = useState("all");
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
+  const [selectedBooking, setSelectedBooking] = useState(null);
+
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -113,25 +99,125 @@ function ManageBookings() {
     websiteTitle: "Manage Bookings",
     websiteSubtitle: "NextInn admin's control over the bookings..",
   };
-  console.log("Bookings =>", bookings);
 
-  //filtering logic 
+  //filtering logic
+  const filteredBookings = bookings?.filter((booking) => {
+    const matchesSearch =
+      booking.bookingId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (booking.user.firstname &&
+        booking.user.firstname
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())) ||
+      (booking.user.lastname &&
+        booking.user.lastname.toLowerCase().includes(searchTerm.toLowerCase()));
 
-  const filteredBookings = bookings?.filter((booking) =>{
-    const filteredWithIdName = booking.bookingId === searchTerm;
-  })
-  console.log("Date Range=>", dateRange);
-  useEffect(()=>{
-   async function getBookingData(){
-    setIsLoading(true);
-      const result = await getAllBookingsByDate(dateRange[0].startDate, dateRange[0].endDate);
-      console.log("Result", result);
+    const matchesStatus =
+      filterStaus === "all" || booking.bookingStatus === filterStaus;
+
+    return matchesSearch && matchesStatus;
+  });
+
+  useEffect(() => {
+    async function getBookingData() {
+      setIsLoading(true);
+      const result = await getAllBookingsByDate(
+        dateRange[0].startDate,
+        dateRange[0].endDate
+      );
       setBookings(result.data);
       setIsLoading(false);
     }
     getBookingData();
-  },[])
-  
+  }, []);
+
+  const openModal = (booking, type) => {
+    setSelectedBooking({ ...booking });
+    setIsModalOpen(true);
+    setModalType(type);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedBooking(null);
+  };
+
+  const handleUpdates = async (e, id) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+      const updatedData = { ...data, idx: id };
+
+      setIsLoading(true);
+      const response = await updateBookingStatus(updatedData);
+
+      // Ideally, update the local state optimistically or re-fetch
+      // Here we assume response.data returns the full list or we update manualy
+      // For now, let's just update the specific item in the list if backend returns single item
+      // But based on your previous code, it returned the full list? Let's assume it returns updated list
+      if (Array.isArray(response.data)) {
+        setBookings(response.data);
+      } else {
+        // If it returns single object, update list manually (Better UX)
+        setBookings((prev) =>
+          prev.map((b) => (b._id === id ? response.data : b))
+        );
+      }
+    } catch (error) {
+      console.error("Error=>", error);
+    } finally {
+      setIsModalOpen(false);
+      setIsLoading(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      setLoading(true);
+      const response = await cancelBooking({ idx: id });
+      if (Array.isArray(response.data)) {
+        setBookings(response.data);
+      }
+    } catch (error) {
+      console.log("error=>", error);
+    } finally {
+      setIsModalOpen(false);
+      setIsLoading(false);
+    }
+  };
+
+  // ==========================================
+  // 2. HELPER TO GET OPTIONS (The "Bouncer")
+  // ==========================================
+  const getOptions = (type) => {
+    if (!selectedBooking) return [];
+
+    // Find the ORIGINAL status from the main list (Source of Truth)
+    // We use the main 'bookings' array because 'selectedBooking' changes as user selects dropdowns
+    const originalItem = bookings.find((b) => b._id === selectedBooking._id);
+    if (!originalItem) return [];
+
+    const currentStatus =
+      type === "booking"
+        ? originalItem.bookingStatus
+        : originalItem.paymentStatus;
+    const rules =
+      type === "booking" ? BOOKING_TRANSITIONS : PAYMENT_TRANSITIONS;
+
+    // Allowed next steps
+    const allowedNextSteps = rules[currentStatus] || [];
+
+    // The dropdown should show: Current Status + Allowed Next Steps
+    const optionsToShow = [currentStatus, ...allowedNextSteps];
+
+    // Remove duplicates just in case
+    return [...new Set(optionsToShow)];
+  };
+
+  if (isLoading) {
+    return <FullScreenLoader />;
+  }
+
   return (
     <div className="admin-container">
       <Hero
@@ -139,7 +225,7 @@ function ManageBookings() {
         subtitle={heroContent.websiteSubtitle}
         image={heroBookingImg}
       />
-      <div className="admin-body-container !mt-10">
+      <div className="admin-body-container">
         <BookingControls
           filterStaus={filterStaus}
           setFilterStatus={setFilterStatus}
@@ -148,7 +234,201 @@ function ManageBookings() {
           dateRange={dateRange}
           setDateRange={setDateRange}
         />
+        <BookingTable
+          filteredBookings={filteredBookings}
+          openModal={openModal}
+          formatDate={formatDate}
+          getStatusBadge={getStatusBadge}
+        />
       </div>
+
+      {/* MODALS */}
+      {isModalOpen && selectedBooking && (
+        <div className="admin-modal-overlay">
+          <div
+            className={`admin-modal-content ${modalType === "view" ? "modal-lg" : "modal-md"}`}
+          >
+            {/* ... Header (Same as before) ... */}
+            <div className="admin-modal-header">
+              <h2>
+                {modalType === "view" &&
+                  `Booking Details: #${selectedBooking.bookingId.toUpperCase()}`}
+                {modalType === "edit" &&
+                  `Update Status: #${selectedBooking.bookingId.toUpperCase()}`}
+                {modalType === "delete" && `Cancel Booking`}
+              </h2>
+              <button className="modal-close-btn" onClick={closeModal}>
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* ... View Modal Body (Same as before) ... */}
+            {modalType === "view" && (
+              <div className="admin-modal-body">
+                {/* ... (Keep your existing View code here) ... */}
+                <div className="booking-details-grid">
+                  <div className="details-card">
+                    <h3>
+                      <User size={18} className="inline mr-2" /> Guest
+                      Information
+                    </h3>
+                    <p>
+                      <strong>Name:</strong> {selectedBooking.user.firstname}{" "}
+                      {selectedBooking.user.lastname}
+                    </p>
+                    <p>
+                      <strong>Email:</strong> {selectedBooking.user.email}
+                    </p>
+                    <p>
+                      <strong>Phone:</strong> {selectedBooking.user.mobile}
+                    </p>
+                  </div>
+                  <div className="details-card">
+                    <h3>
+                      <Calendar size={18} className="inline mr-2" /> Stay
+                      Details
+                    </h3>
+                    <p>
+                      <strong>Check In:</strong>{" "}
+                      {formatDate(selectedBooking.checkIn)}
+                    </p>
+                    <p>
+                      <strong>Check Out:</strong>{" "}
+                      {formatDate(selectedBooking.checkOut)}
+                    </p>
+                    <p>
+                      <strong>Guests:</strong>{" "}
+                      {selectedBooking.guestDetails?.adults} Adults,{" "}
+                      {selectedBooking.guestDetails?.children} Kids
+                    </p>
+                  </div>
+                  {selectedBooking.priceBreakdown && (
+                    <div className="details-card full-width">
+                      <h3>
+                        <CreditCard size={18} className="inline mr-2" /> Payment
+                      </h3>
+                      <div className="breakdown-list">
+                        <div className="breakdown-item total">
+                          <span>Total Amount:</span>
+                          <span>₹{selectedBooking.totalAmount}</span>
+                        </div>
+                      </div>
+                      <div className="mt-4 flex gap-4">
+                        <p>
+                          <strong>Booking:</strong>{" "}
+                          {getStatusBadge(
+                            selectedBooking.bookingStatus,
+                            "booking"
+                          )}
+                        </p>
+                        <p>
+                          <strong>Payment:</strong>{" "}
+                          {getStatusBadge(
+                            selectedBooking.paymentStatus,
+                            "payment"
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* --- UPDATED EDIT MODAL --- */}
+            {modalType === "edit" && (
+              <div className="admin-modal-body">
+                <form
+                  onSubmit={(e) => handleUpdates(e, selectedBooking._id)}
+                  className="admin-form"
+                >
+                  {/* BOOKING STATUS SELECT */}
+                  <div className="form-group">
+                    <label>Booking Status</label>
+                    <select
+                      name="bookingStatus"
+                      value={selectedBooking.bookingStatus}
+                      onChange={(e) =>
+                        setSelectedBooking({
+                          ...selectedBooking,
+                          bookingStatus: e.target.value,
+                        })
+                      }
+                      className="admin-form-input"
+                    >
+                      {getOptions("booking").map((status) => (
+                        <option key={status} value={status}>
+                          {formatStatusLabel(status)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* PAYMENT STATUS SELECT */}
+                  <div className="form-group">
+                    <label>Payment Status</label>
+                    <select
+                      name="paymentStatus"
+                      value={selectedBooking.paymentStatus}
+                      onChange={(e) =>
+                        setSelectedBooking({
+                          ...selectedBooking,
+                          paymentStatus: e.target.value,
+                        })
+                      }
+                      className="admin-form-input"
+                    >
+                      {getOptions("payment").map((status) => (
+                        <option key={status} value={status}>
+                          {formatStatusLabel(status)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="admin-modal-footer">
+                    <button
+                      type="button"
+                      onClick={closeModal}
+                      className="btn-modal-cancel"
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn-model-save">
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+
+            {/* ... Delete Modal (Same as before) ... */}
+            {modalType === "delete" && (
+              // ... Keep your existing delete modal code ...
+              <div className="admin-modal-body text-center py-6">
+                <div className="delete-warning-icon">
+                  <Trash2 size={48} />
+                </div>
+                <h3 className="text-xl font-bold mb-2">
+                  Are you absolutely sure?
+                </h3>
+                <p className="mb-6">This action cannot be undone.</p>
+                <div className="admin-modal-footer justify-center">
+                  <button onClick={closeModal} className="btn-modal-cancel">
+                    Keep Booking
+                  </button>
+                  <button
+                    className="btn-modal-danger"
+                    onClick={() => handleDelete(selectedBooking._id)}
+                  >
+                    Yes, Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

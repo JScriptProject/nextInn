@@ -85,6 +85,60 @@ bookingSchema.pre("save", function (next) {
   next();
 });
 
+
+//================================
+// Define the state machine rules
+//================================
+
+const BOOKING_TRANSITIONS ={
+  "confirmed" :["cancelled", "checked-in"],
+  "checked-in" : ["checked-out"],
+  "checked-out" :[],
+  "cancelled" : []
+}
+
+const PAYMENT_TRANSACTONS ={
+  "pending" :["paid","failed"],
+  "paid" :["refunded"],
+  "failed" : [],
+  "refunded" : []
+};
+
+//=========================================
+//  Add custom methods to enforce rules
+//=========================================
+
+// upadte the booking status
+bookingSchema.methods.updateBookingStatus = function (newStatus){
+  const currentStatus = this.bookingStatus;
+  if(currentStatus===newStatus) return;
+
+  const availableStatus = BOOKING_TRANSITIONS[currentStatus] || [];
+
+  if(!availableStatus.includes(newStatus)){
+    throw new Error(`Cant update the Status from ${currentStatus} to ${newStatus}`);
+  }
+  this.bookingStatus = newStatus
+}
+
+bookingSchema.methods.updatePaymentStatus = function (newStatus)
+{
+  const currentStatus = this.paymentStatus;
+
+  if(currentStatus === newStatus) return;
+
+  const availableStatus = PAYMENT_TRANSACTONS[currentStatus] || [];
+
+  if(!availableStatus.includes(newStatus))
+  {
+    throw new Error(`Cant update the status from ${currentStatus} to ${newStatus}`);
+  }
+  this.paymentStatus= newStatus;
+}
+
+//====================
+// My custome middlewares
+//====================
 bookingSchema.pre("validate", function (next) {
   const alpha = [
     "A",

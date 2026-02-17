@@ -44,7 +44,7 @@
 }
 
 .admin-body-container {
-  @apply px-[2rem] md:px-[4rem] relative;
+  @apply px-[2rem] md:px-[4rem] relative !mt-10;
 }
 
 .dashbord-cards {

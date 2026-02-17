@@ -74,7 +74,7 @@ export const getAllBookingsByDate = async (startDate, endDate) => {
     const response = await api.get("/api/booking/all-booking", {
       params: { startDate: startDate, endDate: endDate },
     });
-    console.log("response");
+    
     return {
       success: true,
       message: response.data.message,
@@ -92,3 +92,53 @@ export const getAllBookingsByDate = async (startDate, endDate) => {
     };
   }
 };
+
+
+// update status of booking 
+
+export const updateBookingStatus = async (data)=>{
+  try {
+    const response = await api.post("/api/booking/update-status",data);
+    console.log("Upadate booking status response =>", response);
+    return {
+      success: true,
+      message: response.data.message,
+      data: response.data.data,
+      status: response.status,
+    };
+  } catch (error) {
+    console.error("An error occurred while booking", error);
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      data: null,
+      status: error.response?.status || 404,
+    };
+  }
+}
+
+//update cancel
+export const cancelBooking=async(idx)=>{
+  console.log("IDDDDD=>", idx);
+  try {
+     const response = await api.post("/api/booking/update-cancel",idx);
+     console.log("cancel booking  response =>", response);
+     return {
+       success: true,
+       message: response.data.message,
+       data: response.data.data,
+       status: response.status,
+     };
+  } catch (error) {
+    console.error("An error occurred while booking", error);
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      data: null,
+      status: error.response?.status || 404,
+    };
+  }
+
+}
