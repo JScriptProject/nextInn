@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Logout from "@user/components/Logout";
 
 function UserLoggedInHeader({ user }) {
+
   const [isHovered, setIsHovered] = useState(false);
   const { firstname } = user || {};
   const { name } = user || {}
-
+  const location = useLocation();
+  console.log("LOCATION =>>>>", location.pathname);
+  const isAdminPath = location.pathname.startsWith("/admin");
+  
+  
   return (
     <div className="relative">
       <div
@@ -36,7 +42,7 @@ function UserLoggedInHeader({ user }) {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <Link to="/user-dashboard" className="user-avatar-hover-dashboard">
+          <Link to={isAdminPath ? "/admin":"/user-dashboard"} className="user-avatar-hover-dashboard">
             Dashboard
           </Link>
           <Logout />

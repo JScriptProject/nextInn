@@ -1,5 +1,7 @@
 import api from "@api/axiosInstance.js"; // Use your custom instance instead of raw axios
+import adminApi from "@api/adminAxiosInstance.js"
 
+//user side api
 export const confirmBooking = async (payload) => {
   try {
     // Use 'api' instead of 'axios'
@@ -23,6 +25,7 @@ export const confirmBooking = async (payload) => {
   }
 };
 
+//user side api
 export const getBookingsByUser = async () => {
   try {
     const response = await api.get("/api/booking/get-by-user");
@@ -45,6 +48,7 @@ export const getBookingsByUser = async () => {
   }
 };
 
+//user side api
 export const getRoomsAvailability = async (categoryId, checkIn, checkOut) => {
   try {
     const response = await api.get("/api/booking/check-availability", {
@@ -69,9 +73,10 @@ export const getRoomsAvailability = async (categoryId, checkIn, checkOut) => {
   }
 };
 
+//admin side api
 export const getAllBookingsByDate = async (startDate, endDate) => {
   try {
-    const response = await api.get("/api/booking/all-booking", {
+    const response = await adminApi.get("/api/booking/all-booking", {
       params: { startDate: startDate, endDate: endDate },
     });
     
@@ -94,11 +99,11 @@ export const getAllBookingsByDate = async (startDate, endDate) => {
 };
 
 
-// update status of booking 
+// admin side api
 
 export const updateBookingStatus = async (data)=>{
   try {
-    const response = await api.post("/api/booking/update-status",data);
+    const response = await adminApi.post("/api/booking/update-status",data);
     console.log("Upadate booking status response =>", response);
     return {
       success: true,
@@ -118,11 +123,11 @@ export const updateBookingStatus = async (data)=>{
   }
 }
 
-//update cancel
+//admin side api
 export const cancelBooking=async(idx)=>{
   console.log("IDDDDD=>", idx);
   try {
-     const response = await api.post("/api/booking/update-cancel",idx);
+     const response = await adminApi.post("/api/booking/update-cancel",idx);
      console.log("cancel booking  response =>", response);
      return {
        success: true,

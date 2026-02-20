@@ -97,7 +97,7 @@ function AdminVerify() {
       <div className="login-container-wrapper">
         <h2>Verify Admin</h2>
         <form onSubmit={verifyAdminOTP}>
-          <p>We have code on admin email please enter below. </p>
+          <p>We have sent code on admin email please enter below. </p>
           <div className="otp-input-wrapper">
             {otp.map((digit, index) => (
               <input

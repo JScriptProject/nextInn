@@ -9,7 +9,7 @@ export const verifyAdminSession = async () => {
     return {
       success: true,
       message: response.data.message,
-      user: response.data.data,
+      data: response.data.data,
       status: response.status,
     };
   } catch (error) {

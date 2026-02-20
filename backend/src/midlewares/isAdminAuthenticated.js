@@ -9,6 +9,10 @@ const isAdminAuthenticated = asyncHandler(async(req, res, next)=>{
     console.log("Request cookies", req.cookies);
     try {
          const token = req.cookies?.access_token_admin;
+         console.log("Access Token  from middleware =>>>>", token);
+         console.log(
+           "REFRESH TOKEN  in middleware ==>",
+           req.cookies?.refresh_token_admin);
          if (!token) {
            return next(new ApiError(401, "Unauthorized: No token provided"));
          }
@@ -19,7 +23,7 @@ const isAdminAuthenticated = asyncHandler(async(req, res, next)=>{
          req.admin = decoded;
          next();
     } catch (error) {
-        console.error("Error in isAuthenticated", error);
+        console.error("Error in isAuthenticated =>>", error);
         return next(new ApiError(401, "Unauthorized: Invalid token"));
     }
 })

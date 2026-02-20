@@ -1,15 +1,3 @@
-/*
-Supportive variables 
-isRefreshing
-failedQueue
-originalRequest
-originalRequest._retry
-
-processQueue()
-*/
-
-// 1. import the axios
-
 import axios from "axios";
 
 // 2. Create axios object
@@ -86,6 +74,7 @@ adminApi.interceptors.response.use(
       //refresh the session
 
       try {
+        console.log("REFEEEEEEEEEEEEEEEE");
         await adminApi.post("/api/auth/admin-refresh");
         isRefreshing = false;
         processQueue(null);

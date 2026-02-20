@@ -1,4 +1,3 @@
-import { set } from "date-fns";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,6 +10,7 @@ import FullScreenLoader from "@component-support/FullScreenLoader";
 function AdminLogin() {
   //state decalre
 
+  const [isLoading, setIsLoading] = useState(true);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -23,7 +23,7 @@ function AdminLogin() {
   //redux store communication
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { admin, isAdminLoading, isAdminAthenticated } = useSelector(
+  const { isAdminAthenticated } = useSelector(
     (state) => state.admin
   );
 
@@ -41,9 +41,10 @@ function AdminLogin() {
   //onsubmit
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setAdminLoading(true));
+   
 
     try {
+       setIsLoading(true);
       const response = await loginAdmin(form);
       
       if (response.success) {
@@ -61,13 +62,15 @@ function AdminLogin() {
       console.error("Error while login into the admin panel", error);
       showNotification(true, false, error.message);
     } finally {
-      dispatch(setAdminLoading(false));
+       setIsLoading(false);
     }
   };
 
   useEffect(() => {
+    console.log("Here is the loading login useEffect");
     const checkSession = async () => {
       try {
+         setIsLoading(true);
         if (!isAdminAthenticated) {
           const response = await verifyAdminSession();
           console.log("response back to component =>", response);
@@ -83,6 +86,7 @@ function AdminLogin() {
         }
 
         if (isAdminAthenticated) {
+          console.log("ADMIN AUTHENTICATED ---");
           navigate("/admin", { replace: true });
           showNotification(true, true, response.message);
         }
@@ -91,13 +95,13 @@ function AdminLogin() {
         showNotification(true, false, error.message);
       } finally {
         console.log("inside admin finally");
-        dispatch(setAdminLoading(false));
+         setIsLoading(false);
       }
     };
     checkSession();
   }, []);
 
-  if (isAdminLoading) {
+  if (isLoading) {
     return <FullScreenLoader />;
   }
 

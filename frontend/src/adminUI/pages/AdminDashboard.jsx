@@ -4,12 +4,14 @@ import AdminDashboardCards from "@admin/components/AdminDashboardCards";
 import CategoryManagement from "@admin/components/CategoryManagement";
 import FullScreenLoader from "@component-support/FullScreenLoader";
 import { getAllRoomsCategory } from "@api/roomsCategoryApi.js";
-
+import { useLocation } from "react-router-dom";
 function AdminDashboard() {
   const [errors, setErrors] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-   const [rooms, setRooms] = useState([]);
-
+  const [rooms, setRooms] = useState([]);
+  const location = useLocation();
+  console.log("Admin Data =>", location.state?.admin);
+  console.log("Admin state =>", location.state);
  useEffect(() => {
    (async () => {
      try {
