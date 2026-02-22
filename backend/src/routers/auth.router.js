@@ -1,3 +1,5 @@
+import express from "express";
+import cors from "cors";
 import { userSignUp } from "../controllers/authControllers/userSignUp.controller.js";
 import { userLogin } from "../controllers/authControllers/userLogin.controller.js";
 import { isAuthenticated } from "../midlewares/isAuthenticated.js";
@@ -12,8 +14,7 @@ import { adminRefreshSession } from "../controllers/authControllers/adminRefresh
 import { isAdminAuthenticated } from "../midlewares/isAdminAuthenticated.js";
 import { sendEmail } from "../controllers/authControllers/sendEmail.controller.js";
 import { verifyOTP } from "../controllers/authControllers/verifyOTP.controller.js";
-import express from "express";
-import cors from "cors";
+import { userUpdatePassword } from "../controllers/authControllers/userUpdatePassword.controller.js";
 import { superAdminLogin } from "../controllers/authControllers/superAdminLogin.controller.js";
 
 const router = express.Router();
@@ -34,6 +35,7 @@ const corsOptions = {
 router.post("/signup", userSignUp);
 router.post("/login", userLogin);
 router.post("/logout", isAuthenticated, userLogout);
+router.post("/update-pass",isAuthenticated, userUpdatePassword);
 
 router.options("/me", cors(corsOptions));
 router.post("/me", cors(corsOptions), isAuthenticated, verifySession);

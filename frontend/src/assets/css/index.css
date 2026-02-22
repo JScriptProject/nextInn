@@ -170,23 +170,30 @@ nav .nav-toggle button {
   border: 1px solid var(--accent-cta-sunset-orange);
   background-color: var(--accent-cta-sunset-orange) !important;
   color: var(--border-lightUI-softGray) !important;
+  transition: all 0.3s linear;
+  cursor: pointer;
 }
 
 .btn-fill:hover {
-  background-color: var(--background-offWhite-linen) !important;
-  border: 1px solid var(--background-offWhite-linen);
-  color: var(--text-primary-dark-Charcoal) !important;
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.301);
+}
+button.btn-fill:disabled{
+  background-color:gray !important;
+  color:#fff !important;
+  border:1px solid gray;
+  cursor:no-drop;
 }
 
 .btn-outline {
   background-color: transparent !important;
-  border: 1px solid var(--border-lightUI-softGray) !important;
-  color: var(--background-offWhite-linen) !important;
+  border: 1px solid var(--accent-cta-sunset-orange) !important;
+  color: var(--accent-cta-sunset-orange) !important;
+  transition: all 0.3s linear;
+  cursor: pointer;
 }
 
 .btn-outline:hover {
-  border: 1px solid var(--accent-cta-sunset-orange) !important;
-  color: var(--accent-cta-sunset-orange) !important;
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.301);
 }
 
 nav .nav-links {
@@ -1287,10 +1294,7 @@ footer {
   border: 1px solid var(--border-lightUI-softGray);
 }
 
-.security-card .btn-outline{
-  color: black !important;
-  white-space: nowrap;
-}
+
 
 .security-card h3 { margin-bottom: 1rem; font-size: 1.2rem; }
 .security-card p { font-size: 0.9rem; color: var(--text-secondary-gray); margin-bottom: 1.5rem; }
@@ -1304,6 +1308,27 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* redirect to login */
+
+.redirect-container{
+  @apply flex flex-col items-center justify-center h-screen ;
+}
+.redirect-wrapper{
+  @apply bg-white p-8 rounded-lg shadow-md text-center ;
+}
+
+.redirect-wrapper-title{
+  @apply text-2xl font-bold mb-4;
+}
+
+.redirect-wrapper-description{
+  @apply text-gray-600 !mb-6;
+}
+
+.redirect-wrapper-btn {
+  @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
 }
 
 .modal-content {
@@ -1431,6 +1456,7 @@ footer {
   align-items: center;
   gap: 0.5rem;
 }
+
 
 /* --- AVAILABILITY SECTION OVERRIDES --- */
 
@@ -1726,4 +1752,10 @@ footer {
 }
 .booking-expand-download-btn{
   @apply flex items-center gap-2 px-4 py-2 bg-white border border-[var(--text-secondary-gray)] text-[var(--text-primary-dark-Charcoal)] rounded-md hover:bg-gray-50 text-sm font-medium transition-colors;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
 }

@@ -21,9 +21,6 @@ export const signup = async (signUpData) => {
 };
 
 export const login = async (loginData) => {
-
-    
-
   try {
     const response = await api.post("/api/auth/login", loginData);
 
@@ -81,3 +78,28 @@ export const logout = async () => {
     };
   }
 };
+
+//create a api for change password
+
+
+export const updatePassoword = async(passObj)=>{
+
+  try {
+    console.log("Password Obj=>", passObj);
+     const response =  await api.post("/api/auth/update-pass", passObj);
+     console.log("Update Password Response =>", response);
+     return {
+       success: true,
+       message: response.data.message,
+       status: response.status,
+     };
+  } catch (error) {
+    onsole.error("Issue while updating password", error);
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      status: error.response?.status || 520,
+    };
+  }
+}
