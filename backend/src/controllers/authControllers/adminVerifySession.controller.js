@@ -1,5 +1,5 @@
-import { asyncHandler } from "../../utils/asyncHandler.js";
-import { Admin } from "../../models/admin.model.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
+import { Admin } from "#models/admin.model.js";
 
 const adminVerifySession = asyncHandler(async (req, res, next) => {
   console.log("I have executed from here!!! VERIFY ADMIN CONTROLLER !!");

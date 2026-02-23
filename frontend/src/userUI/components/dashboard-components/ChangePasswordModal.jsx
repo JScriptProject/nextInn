@@ -2,21 +2,31 @@ import React, { useState } from "react";
 import { X } from "lucide-react";
 import { updatePassoword } from "@api/authenticationApi.js";
 import RedirectToLogin from "./RedirectToLogin";
-
+import { useContext } from "react";
+import { NotificationsContext } from "@user/context/NotificationsContext";
+import FullScreenLoader from "@component-support/FullScreenLoader";
 function ChangePasswordModal({ onClose }) {
-  const [isPasswordUpdated, setIsPasswordUpdated]= useState(false);
-  const [errorMessage, setErrorMessage] = useState({visible:false, message:null})
-  const [inputValue, setInputValue]= useState({curr_pass:"",new_pass:"", new_pass_conf:""});
-  
-  const onHandlePasswordUpdate = (e) =>{
-     const name = e.target.name;
-     const value = e.target.value;
-     setInputValue({...inputValue, [name]:value});
+  const [isPasswordUpdated, setIsPasswordUpdated] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({
+    visible: false,
+    message: null,
+  });
+  const [inputValue, setInputValue] = useState({
+    curr_pass: "",
+    new_pass: "",
+    new_pass_conf: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const { showNotification } = useContext(NotificationsContext);
 
-  }
+  const onHandlePasswordUpdate = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInputValue({ ...inputValue, [name]: value });
+  };
   const onHandleBlur = (e) => {
-     console.log("Blur on the", e.target.name)
-     if (e.target.name === "new_pass") {
+    console.log("Blur on the", e.target.name);
+    if (e.target.name === "new_pass") {
       const password = e.target.value;
       const passwordRegex =
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -42,20 +52,35 @@ function ChangePasswordModal({ onClose }) {
     }
   };
 
-  const onSubmit =async(e)=>{
-    e.preventDefault();
-    const result = await updatePassoword(inputValue);
-    console.log("result of password update =>", result);
-    if(result.success)
-    {
-      setIsPasswordUpdated(true);
+  const onSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      setIsLoading(true);
+      const result = await updatePassoword(inputValue);
+      console.log("result of password update =>", result);
+      if (result.success) {
+        setIsPasswordUpdated(true);
+      } else {
+        showNotification(true, false, result.message);
+      }
+    } catch (error) {
+      console.error("There is error while processing", error);
+      showNotification(true,false,error.message)
     }
-  }
+    finally{
+      setIsLoading(false);
+    }
+  };
   console.log("The Input VALUE =>", inputValue);
-  if(isPasswordUpdated){
-    return(<>
-    <RedirectToLogin />
-    </>)
+  if (isPasswordUpdated) {
+    return (
+      <>
+        <RedirectToLogin />
+      </>
+    );
+  }
+  if (isLoading) {
+    return <FullScreenLoader />;
   }
   return (
     <div className="modal-overlay">

@@ -11,40 +11,39 @@ const addUser = asyncHandler(async (req, res, next) => {
   }
   const filesData = req.files || {};
   console.log("FILES DATA === ", filesData);
-  
+
   //in case if i dont get the banner Image then return from here itself
   if (!filesData.bannerImg || filesData.bannerImg.length === 0) {
     return next(
-      new ApiError(400, "Banner Image not uploaded to server, it's required")
+      new ApiError(400, "Banner Image not uploaded to server, it's required"),
     );
   }
 
   const cloudinaryBannerUpload = await uploadToCloudinary(
-    filesData?.bannerImg?.[0]?.path
+    filesData?.bannerImg?.[0]?.path,
   );
 
-  console.log("CLOUDINARY BANNER UPLOAD =  ", cloudinaryBannerUpload.secure_url);
+  console.log(
+    "CLOUDINARY BANNER UPLOAD =  ",
+    cloudinaryBannerUpload.secure_url,
+  );
 
   if (!cloudinaryBannerUpload?.secure_url) {
     return next(
-      new ApiError(500, "Error while uplaoding banner image to cloudinary")
+      new ApiError(500, "Error while uplaoding banner image to cloudinary"),
     );
   }
 
   //upload room images to cloudinary
   const roomImgs = filesData?.roomImgs || [];
-  console.log("ROOM IMAGES= ",roomImgs);
-  
+  console.log("ROOM IMAGES= ", roomImgs);
 
-  const roomsUpload = roomImgs.map((file)=> uploadToCloudinary(file.path));
+  const roomsUpload = roomImgs.map((file) => uploadToCloudinary(file.path));
   const cloudinaryUplaod = await Promise.all(roomsUpload);
-  
+
   console.log("CLOUDINARY UPLOADS ", cloudinaryUplaod);
-  const roomImgsUrls = cloudinaryUplaod.map((room)=> room?.secure_url);
+  const roomImgsUrls = cloudinaryUplaod.map((room) => room?.secure_url);
   console.log("ROOM IMAGES URLS ", roomImgsUrls);
-
-
-
 
   const user = await UserDemo.create({
     name: name.toLowerCase(),
@@ -55,8 +54,7 @@ const addUser = asyncHandler(async (req, res, next) => {
   });
 
   // await user.save();
-  res.status(201).json({message:"User addded Succesfully", user });
-
+  res.status(201).json({ message: "User addded Succesfully", user });
 });
 
 export default addUser;

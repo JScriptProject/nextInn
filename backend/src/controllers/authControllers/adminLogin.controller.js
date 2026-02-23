@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { asyncHandler } from "../../utils/asyncHandler.js";
-import { Admin } from "../../models/admin.model.js";
-import { ApiError } from "../../utils/ApiError.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
+import { Admin } from "#models/admin.model.js";
+import { ApiError } from "#utils/ApiError.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { RefreshToken } from "../../models/refreshToken.model.js";
+import { RefreshToken } from "#models/refreshToken.model.js";
 
 const adminLogin = asyncHandler(async (req, res, next) => {
   const body = req.body || {};

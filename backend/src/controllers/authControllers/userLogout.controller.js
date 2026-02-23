@@ -24,6 +24,7 @@ const userLogout = asyncHandler(async (req, res, next) => {
       secure: isProd,
       path: "/",
     };
+    
     res.clearCookie("access_token", cookieOptions);
     res.clearCookie("refresh_token", cookieOptions);
     console.log("User Logged out");

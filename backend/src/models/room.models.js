@@ -17,7 +17,7 @@ const roomSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:["available","maintenance",],
+        enum:["available","maintenance","checked-in"],
         default:"available"
     },
     cleaning_status:{
@@ -26,9 +26,28 @@ const roomSchema = new mongoose.Schema({
         default:"clean" 
     },
     current_guest:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        default:null
+    },
+    current_booking:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Booking",
         default:null
     }
 },{timestamps:true});
 
+roomSchema.pre("validate",function(next){
+    if(this.status === "checked-in")
+    {
+        if(!this.current_booking || !this.current_guest){
+            this.invalidate("status","A Checked-In room must have current_guest and current_booking")
+        }
+        else{
+            this.current_booking = null;
+            this.current_guest = null;
+        }
+    }
+    next();
+})
 export const Room = mongoose.model("Room", roomSchema);

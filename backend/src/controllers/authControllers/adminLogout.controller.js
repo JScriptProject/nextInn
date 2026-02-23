@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../utils/asyncHandler.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
 
 const adminLogout = asyncHandler(async (req, res, next) => {
     const body = req.body || {};

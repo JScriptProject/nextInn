@@ -1,6 +1,6 @@
-import { asyncHandler } from "../../utils/asyncHandler.js";
-import { Admin } from "../../models/admin.model.js";
-import { ApiError } from "../../utils/ApiError.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
+import { Admin } from "#models/admin.model.js";
+import { ApiError } from "#utils/ApiError.js";
 
 
 const adminSignUp = asyncHandler(async(req, res, next)=>{

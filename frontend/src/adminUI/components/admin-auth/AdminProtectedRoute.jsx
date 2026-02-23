@@ -12,21 +12,21 @@ function AdminProtectedRoute({ children }) {
   const { isAdminAthenticated } = useSelector((state) => state.admin);
 
   useEffect(() => {
-    console.log("inside the useeffect****");
     if (!isAdminAthenticated) {
       setIsLoading(true);
       refreshAdmin();
     }
     async function refreshAdmin() {
-      console.log("Inside the refreshAdmin ***");
       try {
         const result = await verifyAdminSession();
-        console.log("RESULT USEEFFECT =>", result);
+        
         if (result.success) {
           dispatch(setAdmin(result.data));
         }
         if (!result.success) {
+          
           dispatch(clearAdmin());
+          
         }
       } catch (error) {
         console.error(error);
@@ -36,14 +36,13 @@ function AdminProtectedRoute({ children }) {
       }
     }
   }, [isAdminAthenticated, dispatch]);
-
   if (isLoading) {
     return <FullScreenLoader />;
   }
   if (isAdminAthenticated) {
     return children ? children : <Outlet />;
   } else {
-    <Navigate to="/admin-login" state={{ from: location }} replace />;
+    return <Navigate to="/admin-login" state={{ from: location }} replace />;
   }
 }
 

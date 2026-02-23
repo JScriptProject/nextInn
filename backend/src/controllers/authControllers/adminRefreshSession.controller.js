@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { asyncHandler } from "../../utils/asyncHandler.js";
-import { ApiError } from "../../utils/ApiError.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
+import { ApiError } from "#utils/ApiError.js";
 import jwt from "jsonwebtoken";
-import { Admin } from "../../models/admin.model.js";
+import { Admin } from "#models/admin.model.js";
 
 const adminRefreshSession = asyncHandler(async (req, res, next) => {
   const refresh_token_admin = req.cookies?.refresh_token_admin;

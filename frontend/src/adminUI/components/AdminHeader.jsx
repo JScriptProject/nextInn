@@ -10,7 +10,6 @@ function AdminHeader() {
       { to: "/admin/guest-list", label: "Guest" },
       { to: "/admin/rooms", label: "Rooms" },
       { to: "/admin/reviews", label: "Reviews" },
-      { to: "/admin/booking", label: "Manage Bookings" },
       { to: "/admin/bookings", label: "Bookings"}
     ],
     login: null,

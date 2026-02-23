@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { asyncHandler } from "../utils/asyncHandler.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
 import jwt from "jsonwebtoken";
-import { ApiError } from "../utils/ApiError.js";
+import { ApiError } from "#utils/ApiError.js";
 
 
 const isAdminAuthenticated = asyncHandler(async(req, res, next)=>{

@@ -94,7 +94,7 @@ export const updatePassoword = async(passObj)=>{
        status: response.status,
      };
   } catch (error) {
-    onsole.error("Issue while updating password", error);
+    console.error("Issue while updating password", error);
     const errorMessage = error.response.data.message || "Something went wrong";
     return {
       success: false,

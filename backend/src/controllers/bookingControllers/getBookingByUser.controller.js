@@ -1,6 +1,6 @@
-import { ApiError } from "../utils/ApiError.js";
-import { asyncHandler } from "../utils/asyncHandler.js";
-import { Booking } from "../models/booking.model.js";
+import { ApiError } from "../../utils/ApiError.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { Booking } from "../../models/booking.model.js";
 
 export const getBookingByUser = asyncHandler(async (req, res, next) => {
   const user = req.user;

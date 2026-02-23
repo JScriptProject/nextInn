@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { Booking } from "../models/booking.model.js";
-import { Room } from "../models/room.models.js";
-import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../utils/ApiError.js";
-import { sendBookingConfirmation } from "../utils/emailService.js";
+import { Booking } from "../../models/booking.model.js";
+import { Room } from "../../models/room.models.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { ApiError } from "../../utils/ApiError.js";
+import { sendBookingConfirmation } from "../../utils/emailService.js";
 
 // API: POST /api/bookings/create
 export const createBooking = asyncHandler(async (req, res) => {

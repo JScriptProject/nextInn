@@ -1,18 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
-import coresMiddleware from "./midlewares/cors.middleware.js";
+import coresMiddleware from "#middlewares/cors.middleware.js";
 import cookieParser from "cookie-parser";
-import loggerMiddleware from "./midlewares/logger.midleware.js";
-import { responseHandler } from "./midlewares/responseHandler.middleware.js";
-import roomsRouter from "./routers/roomsRouter.js";
+import loggerMiddleware from "#middlewares/logger.midleware.js";
+import { responseHandler } from "#middlewares/responseHandler.middleware.js";
 import roomsCategoryRouter from "./routers/roomsCategory.router.js";
 import authRouter from "./routers/auth.router.js";
-import bookingRouter from "./routers/bookingRouter.js"
-import roomsManagementRouter from "./routers/roomsManagement.router.js"
-
+import bookingRouter from "./routers/booking.router.js";
+import roomsManagementRouter from "./routers/roomsManagement.router.js";
 dotenv.config();
 const app = express();
-
 
 // 1️⃣ CORS MUST BE FIRST
 app.use(coresMiddleware);
@@ -27,9 +24,8 @@ app.use(responseHandler);
 app.use(loggerMiddleware);
 
 app.use("/api/category", roomsCategoryRouter);
-app.use("/api", roomsRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/booking", bookingRouter)
+app.use("/api/booking", bookingRouter);
 app.use("/api/rooms", roomsManagementRouter);
 
 export default app;
