@@ -1,7 +1,7 @@
-import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../utils/ApiError.js";
-import { uploadToCloudinary } from "../utils/cloudinary.js";
-import { UserDemo } from "../models/userDemo.models.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
+import { ApiError } from "#utils/ApiError.js";
+import { uploadToCloudinary } from "#utils/cloudinary.js";
+import { UserDemo } from "#models/userDemo.models.js";
 
 const addUser = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;

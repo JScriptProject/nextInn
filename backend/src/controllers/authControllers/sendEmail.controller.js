@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { asyncHandler } from "../../utils/asyncHandler.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
 import crypto from "crypto";
-import { OTP } from "../../models/otp.model.js";
-import { sendOTPEmail } from "../../utils/emailService.js";
-import { ApiError } from "../../utils/ApiError.js";
+import { OTP } from "#models/otp.model.js";
+import { sendOTPEmail } from "#utils/emailService.js";
+import { ApiError } from "#utils/ApiError.js";
 
 export const sendEmail = asyncHandler(async (req, res, next) => {
   try {

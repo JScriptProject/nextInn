@@ -1,21 +1,24 @@
 import express from "express";
 import cors from "cors";
-import { userSignUp } from "../controllers/authControllers/userSignUp.controller.js";
-import { userLogin } from "../controllers/authControllers/userLogin.controller.js";
+import {
+  userSignUp,
+  userLogin,
+  refreshSession,
+  verifySession,
+  userLogout,
+  adminSignUp,
+  adminLogin,
+  adminLogout,
+  adminVerifySession,
+  adminRefreshSession,
+  verifyOTP,
+  userUpdatePassword,
+  superAdminLogin,
+  sendEmail,
+} from "#controllers/authControllers/index.js";
 import { isAuthenticated } from "#middlewares/isAuthenticated.js";
-import { verifySession } from "../controllers/authControllers/verifySession.controller.js";
-import { refreshSession } from "../controllers/authControllers/refreshSession.controller.js";
-import { userLogout } from "../controllers/authControllers/userLogout.controller.js";
-import { adminSignUp } from "../controllers/authControllers/adminSignUp.controller.js";
-import { adminLogin } from "../controllers/authControllers/adminLogin.controller.js";
-import { adminLogout } from "../controllers/authControllers/adminLogout.controller.js";
-import { adminVerifySession } from "../controllers/authControllers/adminVerifySession.controller.js";
-import { adminRefreshSession } from "../controllers/authControllers/adminRefreshSession.controller.js";
 import { isAdminAuthenticated } from "#middlewares/isAdminAuthenticated.js";
-import { sendEmail } from "../controllers/authControllers/sendEmail.controller.js";
-import { verifyOTP } from "../controllers/authControllers/verifyOTP.controller.js";
-import { userUpdatePassword } from "../controllers/authControllers/userUpdatePassword.controller.js";
-import { superAdminLogin } from "../controllers/authControllers/superAdminLogin.controller.js";
+
 
 const router = express.Router();
 

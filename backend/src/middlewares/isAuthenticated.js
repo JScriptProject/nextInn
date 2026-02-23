@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { ApiError } from "../utils/ApiError.js";
+import { ApiError } from "#utils/ApiError.js";
 import jwt from "jsonwebtoken";
 
 const isAuthenticated = async (req, res, next) => {

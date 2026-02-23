@@ -25,7 +25,9 @@ const ForgetPassword = lazy(() => import("@user/pages/ForgetPassword.jsx"));
 const DashboardUser = lazy(() => import("@user/pages/DashboardUser.jsx"));
 
 // Admin Pages (Optimized)
-const AdminProtectedRoute = lazy(()=>import("@admin/components/admin-auth/AdminProtectedRoute"));
+const AdminProtectedRoute = lazy(
+  () => import("@admin/components/admin-auth/AdminProtectedRoute")
+);
 const AdminConsole = lazy(() => import("@admin/pages/AdminConsole.jsx"));
 const AdminLogin = lazy(() => import("@admin/pages/AdminLogin"));
 const AdminVerify = lazy(() => import("@admin/pages/AdminVerify"));
@@ -119,3 +121,6 @@ function App() {
 }
 
 export default App;
+
+// improvement
+// use the redux store to hold the data which we get from api call getAllCategory as its deep prop drilling

@@ -4,14 +4,12 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { connectDB } from "./db/index.js";
 
-
 import { errorhandler } from "#middlewares/errorsHandler.middleware.js";
 
 import dotenv from "dotenv";
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
-
 
 // create static files for images
 
@@ -30,4 +28,3 @@ connectDB().then(() => {
 });
 
 app.use(errorhandler);
-

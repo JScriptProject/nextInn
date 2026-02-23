@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { ApiError } from "../../utils/ApiError.js";
-import { asyncHandler } from "../../utils/asyncHandler.js";
-import { RefreshToken } from "../../models/refreshToken.model.js";
+import { ApiError } from "#utils/ApiError.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
+import { RefreshToken } from "#models/refreshToken.model.js";
 
 const userLogout = asyncHandler(async (req, res, next) => {
 

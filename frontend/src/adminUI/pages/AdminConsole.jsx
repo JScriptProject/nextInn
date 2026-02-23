@@ -1,16 +1,22 @@
-import React from "react";
+import React,{lazy, Suspense} from "react";
 import "@assets/css/admin.css";
 import { Routes, Route } from "react-router-dom";
 import LayoutAdmin from "@admin/components/LayoutAdmin.jsx";
 import AdminDashboard from "@admin/pages/AdminDashboard.jsx";
-import ManageRooms from "@admin/pages/ManageRooms";
-import Reviews from "@admin/pages/Reviews";
-import GuestList from "@admin/pages/GuestList";
-import ManageBookings from "@admin/pages/ManageBookings";
+import FullScreenLoader from "@component-support/FullScreenLoader";
+const ManageRooms = lazy(() => import("@admin/pages/ManageRooms"));
+const Reviews = lazy(() => import("@admin/pages/Reviews"));
+const GuestList = lazy(() => import("@admin/pages/GuestList"));
+const ManageBookings = lazy(()=> import("@admin/pages/ManageBookings"));
 
 function AdminConsole() {
+//initiate a API call to get all room category
+
+
+
   //create Route
   return (
+    <Suspense fallback={<FullScreenLoader />}>
     <Routes>
       <Route path="/" element={<LayoutAdmin />}>
         <Route index element={<AdminDashboard />} />
@@ -20,6 +26,7 @@ function AdminConsole() {
         <Route path="/bookings" element={<ManageBookings />} />
       </Route>
     </Routes>
+    </Suspense>
   );
 }
 

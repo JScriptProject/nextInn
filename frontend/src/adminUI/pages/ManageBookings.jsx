@@ -9,6 +9,7 @@ import {
   XCircle,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Hero from "@admin/components/Hero";
 import BookingControls from "@admin/components/BookingControls";
 import heroBookingImg from "@assets/media/heroBookings.jpg";
@@ -18,9 +19,9 @@ import {
   cancelBooking,
 } from "@api/bookingApi.js";
 import BookingTable from "@admin/components/BookingTable";
-import FullScreenLoader from "../../components-support/FullScreenLoader";
+import FullScreenLoader from "@component-support/FullScreenLoader";
 import { setLoading } from "@redux/userSlice";
-import { format } from "date-fns";
+
 
 // ==========================================
 // 1. DEFINE STATE MACHINE RULES (CONSTANTS)
@@ -80,13 +81,13 @@ const getStatusBadge = (status, type = "booking") => {
 
 function ManageBookings() {
   const [bookings, setBookings] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
   const [filterStaus, setFilterStatus] = useState("all");
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
   const [selectedBooking, setSelectedBooking] = useState(null);
-
+  
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -94,6 +95,10 @@ function ManageBookings() {
       key: "selection",
     },
   ]);
+
+  const location = useLocation();
+  const incomingBookingId = location.state?.searchBookingId || "";
+    const [searchTerm, setSearchTerm] = useState(incomingBookingId);
 
   const heroContent = {
     websiteTitle: "Manage Bookings",
@@ -120,16 +125,18 @@ function ManageBookings() {
   useEffect(() => {
     async function getBookingData() {
       setIsLoading(true);
+      console.log("Lets load");
       const result = await getAllBookingsByDate(
         dateRange[0].startDate,
         dateRange[0].endDate
       );
+      console.log("RESULLLL",result);
       setBookings(result.data);
       setIsLoading(false);
     }
     getBookingData();
   }, []);
-
+ console.log("Booking");
   const openModal = (booking, type) => {
     setSelectedBooking({ ...booking });
     setIsModalOpen(true);

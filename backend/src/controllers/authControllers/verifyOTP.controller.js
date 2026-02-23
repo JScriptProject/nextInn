@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { asyncHandler } from "../../utils/asyncHandler.js";
-import { OTP } from "../../models/otp.model.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
+import { OTP } from "#models/otp.model.js";
 
 export const verifyOTP = asyncHandler(async (req, res, next) => {
   const { otp } = req.body || {};

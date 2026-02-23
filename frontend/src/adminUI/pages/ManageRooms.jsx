@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import {
   Check,
   Clock,
@@ -9,9 +10,11 @@ import {
   X,
   Search,
   Plus,
+  User,
+  FileText,
 } from "lucide-react";
 // Add this import to the top of ManageRooms.jsx
-import { getAllRoomsCategory } from "@api/roomsCategoryApi.js"; 
+import { getAllRoomsCategory } from "@api/roomsCategoryApi.js";
 import Hero from "@admin/components/Hero";
 // You can use a different image, reusing heroBookings for now
 import heroBookingImg from "@assets/media/heroBookings.jpg";
@@ -22,12 +25,11 @@ import { getAllRooms, addRoom, updateRoom, deleteRoom } from "@api/roomApi.js"; 
 // ==========================================
 // CONSTANTS FOR DROPDOWNS
 // ==========================================
-const ROOM_STATUSES = ["Available", "Occupied", "Maintenance"];
+const ROOM_STATUSES = ["Available", "Checked-In", "Maintenance"];
 const CLEANING_STATUSES = ["Clean", "Dirty", "In Progress"];
 
 function ManageRooms() {
   const [rooms, setRooms] = useState([]);
-  const [categories, setCategories] = useState([]); // To populate the Category dropdown
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +39,8 @@ function ManageRooms() {
   const [modalType, setModalType] = useState(""); // 'add', 'view', 'edit', 'delete'
   const [selectedRoom, setSelectedRoom] = useState(null);
 
+  const { categories } = useOutletContext();
+  const navigate = useNavigate();
   const heroContent = {
     websiteTitle: "Manage Rooms",
     websiteSubtitle: "Add, update, and monitor hotel rooms.",
@@ -51,21 +55,14 @@ function ManageRooms() {
     setIsLoading(true);
     try {
       // Mocking fetch - Replace with your actual API calls
-      
+
       // if (roomsRes.success) setRooms(roomsRes.data);
       // if (catRes.success) setCategories(catRes.data);
-    
+
       const roomsRes = await getAllRooms();
       console.log("All rooms data=>", roomsRes);
       if (roomsRes.success) {
         setRooms(roomsRes.data);
-      }
-
-      // 2. Fetch the real categories for the dropdown
-      const catRes = await getAllRoomsCategory();
-      if (catRes.success) {
-        // This populates the categories array with your 4 real categories
-        setCategories(catRes.data);
       }
     } catch (error) {
       console.error("Failed to fetch data", error);
@@ -74,6 +71,7 @@ function ManageRooms() {
     }
   };
 
+  console.log("SELECTED ROOMS =>", selectedRoom);
   // 2. Filtering Logic
   const filteredRooms = rooms?.filter((room) => {
     const matchesSearch = room.roomNumber
@@ -93,21 +91,21 @@ function ManageRooms() {
         roomNumber: "",
         floor: "",
         category: "",
-        status: "Available",
-        cleaning_status: "Clean",
+        status: "available",
+        cleaning_status: "clean",
       });
     } else {
       // Clone existing room for edit/view/delete
       // We extract category._id if it's populated so the <select> default value works
       setSelectedRoom({
         ...room,
-        category: room.category?._id || room.category,
+        category: room.category,
       });
     }
     setModalType(type);
     setIsModalOpen(true);
   };
-
+  console.log("Selected Room=>", selectedRoom);
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedRoom(null);
@@ -154,6 +152,11 @@ function ManageRooms() {
     }
   };
 
+  const handleViewBooking = (bookingId) => {
+    navigate("/admin/bookings", {
+      state: { searchBookingId: bookingId },
+    });
+  };
   // 5. UI Helpers
   const getStatusBadge = (status) => {
     if (status === "Available" || status === "Clean")
@@ -162,7 +165,7 @@ function ManageRooms() {
           <Check size={12} /> {status}
         </span>
       );
-    if (status === "Occupied" || status === "Dirty")
+    if (status === "Checked-In" || status === "Dirty")
       return (
         <span className="admin-status-badge badge-booking-cancelled">
           <XCircle size={12} /> {status}
@@ -242,6 +245,7 @@ function ManageRooms() {
                 <th>Floor</th>
                 <th>Room Status</th>
                 <th>Cleaning Status</th>
+                <th>Current Stay</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -256,6 +260,30 @@ function ManageRooms() {
                     <td>{room.floor}</td>
                     <td>{getStatusBadge(room.status)}</td>
                     <td>{getStatusBadge(room.cleaning_status)}</td>
+                    <td>
+                      {room.status === "checked-in" ? (
+                        <div className="flex flex-col items-start gap-2">
+                          <button
+                            onClick={() => openModal(room, "view-guest")}
+                            className="text-xs font-bold text-[var(--primary-deep-teal)] flex items-center gap-1 hover:underline"
+                          >
+                            <User size={14} /> Guest Details
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleViewBooking(room.current_booking?.bookingId)
+                            }
+                            className="text-xs font-bold text-[var(--accent-cta-sunset-orange)] flex items-center gap-1 hover:underline"
+                          >
+                            <FileText size={14} /> Booking Info
+                          </button>
+                        </div>
+                      ) : (
+                        <span className="text-[var(--text-secondary-gray)] text-xs font-medium">
+                          Not Checked-In
+                        </span>
+                      )}
+                    </td>
                     <td>
                       <div className="admin-action-buttons">
                         <button
@@ -335,11 +363,11 @@ function ManageRooms() {
                   <div className="details-card">
                     <h3>Current Status</h3>
                     <div className="flex flex-col gap-3 mt-2">
-                      <div className="flex justify-between items-center border-b pb-2">
+                      <div className="flex justify-between items-center pb-2">
                         <span>Room Status:</span>{" "}
                         {getStatusBadge(selectedRoom.status)}
                       </div>
-                      <div className="flex justify-between items-center border-b pb-2">
+                      <div className="flex justify-between items-center pb-2">
                         <span>Cleaning Status:</span>{" "}
                         {getStatusBadge(selectedRoom.cleaning_status)}
                       </div>
@@ -402,19 +430,35 @@ function ManageRooms() {
 
                     <div className="form-group">
                       <label>Room Status *</label>
-                      <select
-                        name="status"
-                        required
-                        value={selectedRoom.status}
-                        onChange={handleInputChange}
-                        className="admin-form-input"
-                      >
-                        {ROOM_STATUSES.map((s) => (
-                          <option key={s} value={s}>
-                            {s}
-                          </option>
-                        ))}
-                      </select>
+                      {selectedRoom.status === "checked-in" &&
+                      modalType === "edit" ? (
+                        <div className="flex flex-col">
+                          <select
+                            className="admin-form-input bg-gray-100 text-gray-500 cursor-not-allowed"
+                            disabled
+                          >
+                            <option>Checked-In</option>
+                          </select>
+                          <span className="text-xs text-[var(--accent-cta-sunset-orange)] mt-1 font-medium">
+                            * Wait till checkout to update status.
+                          </span>
+                        </div>
+                      ) : (
+                        <select
+                          name="status"
+                          value={selectedRoom.status}
+                          onChange={handleInputChange}
+                          className="admin-form-input"
+                        >
+                          {ROOM_STATUSES.filter((s) => s !== "Checked-In").map(
+                            (s) => (
+                              <option key={s} value={s.toLowerCase()}>
+                                {s}
+                              </option>
+                            )
+                          )}
+                        </select>
+                      )}
                     </div>
 
                     <div className="form-group">
@@ -427,7 +471,7 @@ function ManageRooms() {
                         className="admin-form-input"
                       >
                         {CLEANING_STATUSES.map((s) => (
-                          <option key={s} value={s}>
+                          <option key={s} value={s.toLowerCase()}>
                             {s}
                           </option>
                         ))}
@@ -472,6 +516,62 @@ function ManageRooms() {
                     className="btn-modal-danger"
                   >
                     Yes, Delete
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* GUEST DETAILS MODAL */}
+            {modalType === "view-guest" && (
+              <div className="admin-modal-body">
+                <div className="details-card">
+                  <h3>
+                    <User size={18} className="inline mr-2" />
+                    Guest Information (Room {selectedRoom.roomNumber})
+                  </h3>
+                  {selectedRoom.current_guest ? (
+                    <div className="flex flex-col gap-3 mt-4">
+                      <p>
+                        <strong>Name:</strong>{" "}
+                        {selectedRoom.current_guest.firstname}{" "}
+                        {selectedRoom.current_guest.lastname}
+                      </p>
+                      <p>
+                        <strong>Email:</strong>{" "}
+                        {selectedRoom.current_guest.email}
+                      </p>
+                      <p>
+                        <strong>Phone:</strong>{" "}
+                        {selectedRoom.current_guest.mobile}
+                      </p>
+                      <p>
+                        <strong>City:</strong> {selectedRoom.current_guest.city}
+                      </p>
+
+                      <div className="mt-4 pt-4 border-t border-[var(--border-lightUI-softGray)]">
+                        <p>
+                          <strong>Associated Booking ID:</strong>{" "}
+                          {selectedRoom.current_booking?.bookingId}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-red-500 mt-4">
+                      Error: Guest details missing.
+                    </p>
+                  )}
+                </div>
+                <div className="admin-modal-footer">
+                  <button onClick={closeModal} className="btn-modal-cancel">
+                    Close
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleViewBooking(selectedRoom.current_booking?.bookingId)
+                    }
+                    className="btn-modal-save"
+                  >
+                    Go to Booking
                   </button>
                 </div>
               </div>

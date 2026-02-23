@@ -8,9 +8,9 @@ const bookingSchema = new mongoose.Schema(
         ref: "Room",
       },
     ],
-    bookingId:{
-      type:String,
-      required:true,
+    bookingId: {
+      type: String,
+      required: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
@@ -57,7 +57,7 @@ const bookingSchema = new mongoose.Schema(
     priceBreakdown: {
       baseRoomCharge: { type: Number, required: true }, // Rate * Nights * Rooms
       extraGuestCharges: {
-        onlyRoom: { type: Number},
+        onlyRoom: { type: Number },
         adults: { type: Number, default: 0 }, // e.g., ₹1000
         children: { type: Number, default: 0 }, // e.g., ₹500
         extraBed: { type: Number, default: 0 }, // e.g., ₹0
@@ -79,29 +79,29 @@ bookingSchema.pre("save", function (next) {
   if (this.priceBreakdown && this.priceBreakdown.baseRoomCharge) {
     // Only set it if it hasn't been manually provided already
     if (!this.priceBreakdown.extraGuestCharges.onlyRoom) {
-      this.priceBreakdown.extraGuestCharges.onlyRoom = this.priceBreakdown.baseRoomCharge;
+      this.priceBreakdown.extraGuestCharges.onlyRoom =
+        this.priceBreakdown.baseRoomCharge;
     }
   }
   next();
 });
 
-
 //================================
 // Define the state machine rules
 //================================
 
-const BOOKING_TRANSITIONS ={
-  "confirmed" :["cancelled", "checked-in"],
-  "checked-in" : ["checked-out"],
-  "checked-out" :[],
-  "cancelled" : []
-}
+const BOOKING_TRANSITIONS = {
+  confirmed: ["cancelled", "checked-in"],
+  "checked-in": ["checked-out"],
+  "checked-out": [],
+  cancelled: [],
+};
 
-const PAYMENT_TRANSACTONS ={
-  "pending" :["paid","failed"],
-  "paid" :["refunded"],
-  "failed" : [],
-  "refunded" : []
+const PAYMENT_TRANSACTONS = {
+  pending: ["paid", "failed"],
+  paid: ["refunded"],
+  failed: [],
+  refunded: [],
 };
 
 //=========================================
@@ -109,32 +109,34 @@ const PAYMENT_TRANSACTONS ={
 //=========================================
 
 // upadte the booking status
-bookingSchema.methods.updateBookingStatus = function (newStatus){
+bookingSchema.methods.updateBookingStatus = function (newStatus) {
   const currentStatus = this.bookingStatus;
-  if(currentStatus===newStatus) return;
+  if (currentStatus === newStatus) return;
 
   const availableStatus = BOOKING_TRANSITIONS[currentStatus] || [];
 
-  if(!availableStatus.includes(newStatus)){
-    throw new Error(`Cant update the Status from ${currentStatus} to ${newStatus}`);
+  if (!availableStatus.includes(newStatus)) {
+    throw new Error(
+      `Cant update the Status from ${currentStatus} to ${newStatus}`,
+    );
   }
-  this.bookingStatus = newStatus
-}
+  this.bookingStatus = newStatus;
+};
 
-bookingSchema.methods.updatePaymentStatus = function (newStatus)
-{
+bookingSchema.methods.updatePaymentStatus = function (newStatus) {
   const currentStatus = this.paymentStatus;
 
-  if(currentStatus === newStatus) return;
+  if (currentStatus === newStatus) return;
 
   const availableStatus = PAYMENT_TRANSACTONS[currentStatus] || [];
 
-  if(!availableStatus.includes(newStatus))
-  {
-    throw new Error(`Cant update the status from ${currentStatus} to ${newStatus}`);
+  if (!availableStatus.includes(newStatus)) {
+    throw new Error(
+      `Cant update the status from ${currentStatus} to ${newStatus}`,
+    );
   }
-  this.paymentStatus= newStatus;
-}
+  this.paymentStatus = newStatus;
+};
 
 //====================
 // My custome middlewares
@@ -184,18 +186,21 @@ bookingSchema.pre("validate", function (next) {
   next();
 });
 
-bookingSchema.pre(/^find/, function(next){
-  this.populate([{
-    path:'user',
-    select:'firstname lastname email mobile city'
-  },{
-    path:'category',
-    select:'name location'
-  },
-{
-  path:'assignedRooms',
-  select:'',
-}])
+bookingSchema.pre(/^find/, function (next) {
+  this.populate([
+    {
+      path: "user",
+      select: "firstname lastname email mobile city",
+    },
+    {
+      path: "category",
+      select: "name location",
+    },
+    {
+      path: "assignedRooms",
+      select: "",
+    },
+  ]);
   next();
 });
 export const Booking = mongoose.model("Booking", bookingSchema);

@@ -2,9 +2,9 @@ import dotenv from "dotenv";
 dotenv.config();
 import { ApiError } from "#utils/ApiError.js";
 import { asyncHandler } from "#utils/asyncHandler.js";
-import { User } from "..models/user.model.js";
+import { User } from "#models/user.model.js";
 import jwt from "jsonwebtoken";
-import { RefreshToken } from "../../models/refreshToken.model.js";
+import { RefreshToken } from "#models/refreshToken.model.js";
 
 const refreshSession = asyncHandler(async (req, res, next) => {
   // check if refresh token there or not

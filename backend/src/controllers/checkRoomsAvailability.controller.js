@@ -1,7 +1,7 @@
-import { Room } from "../models/room.models.js";
-import { Booking } from "../models/booking.model.js";
-import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../utils/ApiError.js";
+import { Room } from "#models/room.models.js";
+import { Booking } from "#models/booking.model.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
+import { ApiError } from "#utils/ApiError.js";
 
 export const checkRoomsAvailability = asyncHandler(async (req, res) => {
   const { categoryId, checkIn, checkOut } = req.query;

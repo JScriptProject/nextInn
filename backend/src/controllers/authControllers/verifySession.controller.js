@@ -1,6 +1,6 @@
-import { asyncHandler } from "../../utils/asyncHandler.js";
-import { ApiError } from "../../utils/ApiError.js";
-import { User } from "../../models/user.model.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
+import { ApiError } from "#utils/ApiError.js";
+import { User } from "#models/user.model.js";
 const verifySession = asyncHandler(async (req, res, next) => {
   //pull the user info from DB and check if the same user logged in
   console.log("VerifySession: Request object", req.user);

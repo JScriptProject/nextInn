@@ -14,6 +14,7 @@ export const getAllRooms = async () => {
 export const addRoom = async (roomData) => {
   try {
     const response = await adminApi.post("/api/rooms/add-room", roomData);
+    console.log("Add Room API RESPOSNE =>", response);
     return {
       success: true,
       data: response.data.data,

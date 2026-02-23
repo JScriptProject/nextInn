@@ -5,8 +5,8 @@ import { deleteRoom } from "#controllers/rooms/deleteRoom.controller.js";
 import { isAdminAuthenticated } from "#middlewares/isAdminAuthenticated.js";
 
 const router = express.Router();
-router.post("/add-room", addRoom);
+router.post("/add-room",isAdminAuthenticated, addRoom);
 router.get("/all", isAdminAuthenticated, getAllRooms);
-router.delete("/delete", deleteRoom);
+router.delete("/delete",isAdminAuthenticated, deleteRoom);
 
 export default router;

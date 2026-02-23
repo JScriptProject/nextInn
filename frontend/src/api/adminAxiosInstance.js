@@ -65,7 +65,7 @@ adminApi.interceptors.response.use(
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
-        }).then(() => api(originalRequest));
+        }).then(() => adminApi(originalRequest));
       }
 
       originalRequest._retry = true;

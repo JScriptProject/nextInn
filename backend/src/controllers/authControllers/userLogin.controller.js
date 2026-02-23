@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { asyncHandler } from "../../utils/asyncHandler.js";
-import { User } from "../../models/user.model.js";
-import { ApiError } from "../../utils/ApiError.js";
+import { asyncHandler } from "#utils/asyncHandler.js";
+import { User } from "#models/user.model.js";
+import { ApiError } from "#utils/ApiError.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { RefreshToken } from "../../models/refreshToken.model.js";
+import { RefreshToken } from "#models/refreshToken.model.js";
 
 const userLogin = asyncHandler(async (req, res, next) => {
   console.log("I am in the auth controller of login");

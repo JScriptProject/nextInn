@@ -4,10 +4,10 @@ import coresMiddleware from "#middlewares/cors.middleware.js";
 import cookieParser from "cookie-parser";
 import loggerMiddleware from "#middlewares/logger.midleware.js";
 import { responseHandler } from "#middlewares/responseHandler.middleware.js";
-import roomsCategoryRouter from "./routers/roomsCategory.router.js";
-import authRouter from "./routers/auth.router.js";
-import bookingRouter from "./routers/booking.router.js";
-import roomsManagementRouter from "./routers/roomsManagement.router.js";
+import roomsCategoryRouter from "#routers/roomsCategory.router.js";
+import authRouter from "#routers/auth.router.js";
+import bookingRouter from "#routers/booking.router.js";
+import roomsManagementRouter from "#routers/roomsManagement.router.js";
 dotenv.config();
 const app = express();
 

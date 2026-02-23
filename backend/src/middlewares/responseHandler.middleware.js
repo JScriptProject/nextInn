@@ -1,4 +1,4 @@
-import { ApiResponse } from "../utils/ApiResponse.js";
+import { ApiResponse } from "#utils/ApiResponse.js";
 
 const  responseHandler=(req, res, next)=> {
   (res.success = (statusCode, data, message="Success") => {

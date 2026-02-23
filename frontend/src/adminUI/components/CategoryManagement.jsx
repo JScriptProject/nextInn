@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import RoomsCategoryTitle from "@admin/components/RoomsCategoryTitle.jsx";
 import RoomsCategoryInfo from "@admin/components/RoomsCategoryInfo.jsx";
 
-function CategoryManagement({ setErrors, errors, rooms, setRooms }) {
+function CategoryManagement({ rooms, setRooms }) {
  
   const [selectedCategory, setSelectedCategory] = useState(
     "Premium Deluxe Room"
@@ -11,7 +11,6 @@ function CategoryManagement({ setErrors, errors, rooms, setRooms }) {
   console.log("Roomsssss=>", rooms);
   const roomsObj = rooms.find((room) => room.name === selectedCategory);
   
- 
 
   return (
     <div>
