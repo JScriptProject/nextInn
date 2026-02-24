@@ -44,8 +44,8 @@ adminApi.interceptors.response.use(
 
     if (originalRequest?.url?.includes("/api/auth/admin-refresh")) {
       console.log("Return back to login");
-
-      if (currentPath === "/admin") {
+      console.log("CURRENT PATH=>", currentPath);
+      if (currentPath.startsWith("/admin/")) {
         window.location.href = "/admin-login";
       }
       return Promise.reject(error);

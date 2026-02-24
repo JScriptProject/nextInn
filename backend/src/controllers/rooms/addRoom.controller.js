@@ -42,7 +42,6 @@ export const addRoom = asyncHandler(async (req, res, next) => {
     cleaning_status,
     current_guest,
   });
-
   // 3. This line will now execute cleanly
   res.success(201, addedRoom, "Room created successfully!");
 });

@@ -13,20 +13,17 @@ import {
   User,
   FileText,
 } from "lucide-react";
-// Add this import to the top of ManageRooms.jsx
-import { getAllRoomsCategory } from "@api/roomsCategoryApi.js";
 import Hero from "@admin/components/Hero";
-// You can use a different image, reusing heroBookings for now
 import heroBookingImg from "@assets/media/heroBookings.jpg";
 import FullScreenLoader from "../../components-support/FullScreenLoader";
 import { getAllRooms, addRoom, updateRoom, deleteRoom } from "@api/roomApi.js"; // Import your APIs
-// import { getAllCategories } from "@api/categoryApi.js"; // You will need this to populate the category dropdown
-
+import { useContext } from "react";
+import { NotificationsContext } from "@user/context/NotificationsContext";
 // ==========================================
 // CONSTANTS FOR DROPDOWNS
 // ==========================================
 const ROOM_STATUSES = ["Available", "Checked-In", "Maintenance"];
-const CLEANING_STATUSES = ["Clean", "Dirty", "In Progress"];
+const CLEANING_STATUSES = ["Clean", "Dirty", "In-Progress"];
 
 function ManageRooms() {
   const [rooms, setRooms] = useState([]);
@@ -39,8 +36,14 @@ function ManageRooms() {
   const [modalType, setModalType] = useState(""); // 'add', 'view', 'edit', 'delete'
   const [selectedRoom, setSelectedRoom] = useState(null);
 
+  //pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 15;
   const { categories } = useOutletContext();
   const navigate = useNavigate();
+  const { showNotification } = useContext(NotificationsContext);
+
   const heroContent = {
     websiteTitle: "Manage Rooms",
     websiteSubtitle: "Add, update, and monitor hotel rooms.",
@@ -49,20 +52,18 @@ function ManageRooms() {
   // 1. Fetch Data on Load
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentPage, filterStatus]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterStatus]);
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      // Mocking fetch - Replace with your actual API calls
-
-      // if (roomsRes.success) setRooms(roomsRes.data);
-      // if (catRes.success) setCategories(catRes.data);
-
-      const roomsRes = await getAllRooms();
-      console.log("All rooms data=>", roomsRes);
+      const roomsRes = await getAllRooms(currentPage, limit, filterStatus);
       if (roomsRes.success) {
         setRooms(roomsRes.data);
+        setTotalPages(roomsRes.pagination.totalPages);
       }
     } catch (error) {
       console.error("Failed to fetch data", error);
@@ -70,18 +71,6 @@ function ManageRooms() {
       setIsLoading(false);
     }
   };
-
-  console.log("SELECTED ROOMS =>", selectedRoom);
-  // 2. Filtering Logic
-  const filteredRooms = rooms?.filter((room) => {
-    const matchesSearch = room.roomNumber
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const matchesStatus =
-      filterStatus === "all" ||
-      room.status.toLowerCase() === filterStatus.toLowerCase();
-    return matchesSearch && matchesStatus;
-  });
 
   // 3. Modal Controls
   const openModal = (room = null, type) => {
@@ -105,7 +94,6 @@ function ManageRooms() {
     setModalType(type);
     setIsModalOpen(true);
   };
-  console.log("Selected Room=>", selectedRoom);
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedRoom(null);
@@ -124,17 +112,51 @@ function ManageRooms() {
       let response;
       if (modalType === "add") {
         response = await addRoom(selectedRoom);
+        console.log("ADD ROOM API RESPONSE =>", response);
+        if (!response.success) {
+          showNotification(
+            true,
+            false,
+            response.message === "Duplicate Value"
+              ? "Opps Duplicate room data!"
+              : response.message
+          );
+          return;
+        }
+        await fetchData();
+        showNotification(
+          true,
+          true,
+          response.message || "Room Added successfully!"
+        );
       } else if (modalType === "edit") {
-        response = await updateRoom(selectedRoom._id, selectedRoom);
+        try {
+          setIsLoading(true);
+          console.log("SELECTED=>", selectedRoom);
+          response = await updateRoom(selectedRoom._id, selectedRoom);
+          if (!response.success) {
+            showNotification(true, false, response.message);
+            return;
+          } else {
+            await fetchData();
+            showNotification(true, true, response.message);
+          }
+        } catch (error) {
+          console.error("Error while updating room", error);
+          showNotification(true, false, error.message);
+        } finally {
+          setIsLoading(false);
+        }
       }
 
       // Refresh list after success
       // if (response.success) fetchData();
-      console.log("Submitted Data:", selectedRoom);
-      closeModal();
+
+      console.log("EXECUTED TILL HERE");
     } catch (error) {
       console.error(error);
     } finally {
+      closeModal();
       setIsLoading(false);
     }
   };
@@ -142,11 +164,19 @@ function ManageRooms() {
   const handleDelete = async (id) => {
     setIsLoading(true);
     try {
-      await deleteRoom(id);
-      // fetchData(); // Refresh list
+      const response = await deleteRoom(id);
       closeModal();
+      if(!response.success)
+      {
+        showNotification(true, false, response.message)
+        return;
+      }
+      await fetchData();
+      showNotification(true, true, response.message)
+      
     } catch (error) {
       console.error(error);
+      showNotification(true, false, error.message);
     } finally {
       setIsLoading(false);
     }
@@ -250,8 +280,8 @@ function ManageRooms() {
               </tr>
             </thead>
             <tbody>
-              {filteredRooms?.length > 0 ? (
-                filteredRooms.map((room) => (
+              {rooms?.length > 0 ? (
+                rooms.map((room) => (
                   <tr key={room._id} className="admin-table-row">
                     <td className="font-bold text-lg">{room.roomNumber}</td>
                     <td className="font-semibold text-[var(--primary-deep-teal)]">
@@ -320,6 +350,37 @@ function ManageRooms() {
               )}
             </tbody>
           </table>
+
+          {/* pagination */}
+          {totalPages > 1 && (
+            <div className="pagination-rooms">
+              <span className="pagination-rooms-page">
+                Page {currentPage} of {totalPages}
+              </span>
+
+              <div className="pagination-btn-group">
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  disabled={currentPage === 1}
+                  className="pagination-btn-pre"
+                >
+                  Previous
+                </button>
+
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                  className="pagination-btn-next"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

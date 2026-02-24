@@ -3,10 +3,12 @@ import { getAllRooms } from "#controllers/rooms/getAllRooms.controller.js";
 import { addRoom } from "#controllers/rooms/addRoom.controller.js";
 import { deleteRoom } from "#controllers/rooms/deleteRoom.controller.js";
 import { isAdminAuthenticated } from "#middlewares/isAdminAuthenticated.js";
+import { updateRoom } from "#controllers/rooms/updateRoom.controller.js";
 
 const router = express.Router();
 router.post("/add-room",isAdminAuthenticated, addRoom);
 router.get("/all", isAdminAuthenticated, getAllRooms);
-router.delete("/delete",isAdminAuthenticated, deleteRoom);
+router.delete("/delete/:roomId",isAdminAuthenticated, deleteRoom);
+router.put("/update/:roomId", isAdminAuthenticated, updateRoom);
 
 export default router;
