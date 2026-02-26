@@ -12,20 +12,19 @@ export const userUpdatePassword = asyncHandler(async (req, res, next) => {
 
   const currentUser = await User.findById(req.user.userId);
   //  check the current passowrd
-  console.log("Curr_pass =>", curr_pass);
-  console.log("CurrentUser pass =>", currentUser.password);
+ 
   const isOldPasswordMatch = await bcrypt.compare(
     curr_pass,
     currentUser.password,
   );
-  console.log("isOldPasswordMatch=>", isOldPasswordMatch);
+  
   if (!isOldPasswordMatch) {
     throw new ApiError(401, "Incorrect current passowrd enetered!");
   }
 
   currentUser.password = new_pass;
   const updateNewPassword = await currentUser.save();
-  console.log("Updaate New Passowrd =>", updateNewPassword);
+  
   if (!updateNewPassword) {
     throw new ApiError(
       401,

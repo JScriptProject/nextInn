@@ -10,6 +10,10 @@ const refreshTokenSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  tokenUser:{
+    type:String,
+    enum:["user", "admin"],
+  },
   expiresAt: {
     type: Date, 
     required: true,

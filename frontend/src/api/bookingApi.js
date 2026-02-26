@@ -79,7 +79,7 @@ export const getAllBookingsByDate = async (startDate, endDate) => {
     const response = await adminApi.get("/api/booking/all-booking", {
       params: { startDate: startDate, endDate: endDate },
     });
-     console.log("RESSSS", response);
+     
     return {
       success: true,
       message: response.data.message,

@@ -6,7 +6,7 @@ import { User } from '#models/user.model.js';
 const userSignUp = asyncHandler(async (req, res, next) => {
   const body = req.body || {};
   const {firstname, lastname, email, mobile, city, password} = body;
-  console.log("I am in the auth controller of signup ");
+ 
   //VALIDATIONS 
   //check if any field is empty
   if(!firstname || !lastname || !email || !mobile || !city || !password)
@@ -41,7 +41,7 @@ if(!createdUser)
   throw new ApiError(500, "Unable to create user");
 }
 
-console.log("Created User =>", createdUser);
+
 res.success(201, createdUser, "User created successfully!");
 
 });

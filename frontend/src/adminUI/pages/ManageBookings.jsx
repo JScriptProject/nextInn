@@ -20,8 +20,6 @@ import {
 } from "@api/bookingApi.js";
 import BookingTable from "@admin/components/BookingTable";
 import FullScreenLoader from "@component-support/FullScreenLoader";
-import { setLoading } from "@redux/userSlice";
-
 
 // ==========================================
 // 1. DEFINE STATE MACHINE RULES (CONSTANTS)
@@ -41,12 +39,12 @@ const PAYMENT_TRANSITIONS = {
 };
 
 // Helper for formatting labels (e.g., "checked-in" -> "Checked In")
-const formatStatusLabel = (status) => {
-  return status
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-};
+// const formatStatusLabel = (status) => {
+//   return status
+//     .split("-")
+//     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+//     .join(" ");
+// };
 
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString("en-US", {
@@ -87,7 +85,7 @@ function ManageBookings() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState("");
   const [selectedBooking, setSelectedBooking] = useState(null);
-  
+
   const [dateRange, setDateRange] = useState([
     {
       startDate: new Date(),
@@ -98,7 +96,7 @@ function ManageBookings() {
 
   const location = useLocation();
   const incomingBookingId = location.state?.searchBookingId || "";
-    const [searchTerm, setSearchTerm] = useState(incomingBookingId);
+  const [searchTerm, setSearchTerm] = useState(incomingBookingId);
 
   const heroContent = {
     websiteTitle: "Manage Bookings",
@@ -107,6 +105,8 @@ function ManageBookings() {
 
   //filtering logic
   const filteredBookings = bookings?.filter((booking) => {
+    if(!booking)
+      return false;
     const matchesSearch =
       booking.bookingId.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (booking.user.firstname &&
@@ -125,18 +125,15 @@ function ManageBookings() {
   useEffect(() => {
     async function getBookingData() {
       setIsLoading(true);
-      console.log("Lets load");
       const result = await getAllBookingsByDate(
         dateRange[0].startDate,
         dateRange[0].endDate
       );
-      console.log("RESULLLL",result);
       setBookings(result.data);
       setIsLoading(false);
     }
     getBookingData();
   }, []);
- console.log("Booking");
   const openModal = (booking, type) => {
     setSelectedBooking({ ...booking });
     setIsModalOpen(true);
@@ -158,18 +155,12 @@ function ManageBookings() {
       setIsLoading(true);
       const response = await updateBookingStatus(updatedData);
 
-      // Ideally, update the local state optimistically or re-fetch
-      // Here we assume response.data returns the full list or we update manualy
-      // For now, let's just update the specific item in the list if backend returns single item
-      // But based on your previous code, it returned the full list? Let's assume it returns updated list
-      if (Array.isArray(response.data)) {
-        setBookings(response.data);
-      } else {
-        // If it returns single object, update list manually (Better UX)
-        setBookings((prev) =>
-          prev.map((b) => (b._id === id ? response.data : b))
-        );
-      }
+      // SAFER APPROACH: Just re-fetch all the data to ensure UI matches DB exactly
+      const result = await getAllBookingsByDate(
+        dateRange[0].startDate,
+        dateRange[0].endDate
+      );
+      setBookings(result.data);
     } catch (error) {
       console.error("Error=>", error);
     } finally {
@@ -180,13 +171,13 @@ function ManageBookings() {
 
   const handleDelete = async (id) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const response = await cancelBooking({ idx: id });
       if (Array.isArray(response.data)) {
         setBookings(response.data);
       }
     } catch (error) {
-      console.log("error=>", error);
+      console.error("error=>", error);
     } finally {
       setIsModalOpen(false);
       setIsLoading(false);
@@ -225,6 +216,9 @@ function ManageBookings() {
     return <FullScreenLoader />;
   }
 
+  console.log("Booking=>", bookings);
+  console.log("Filtered Bookings =>", filteredBookings);
+  console.log("date range =>", dateRange);
   return (
     <div className="admin-container">
       <Hero
@@ -240,6 +234,8 @@ function ManageBookings() {
           setSearchTerm={setSearchTerm}
           dateRange={dateRange}
           setDateRange={setDateRange}
+          setIsLoading={setIsLoading}
+          setBookings={setBookings}
         />
         <BookingTable
           filteredBookings={filteredBookings}
@@ -365,7 +361,8 @@ function ManageBookings() {
                     >
                       {getOptions("booking").map((status) => (
                         <option key={status} value={status}>
-                          {formatStatusLabel(status)}
+                          {/* {formatStatusLabel(status)} */}
+                          {status}
                         </option>
                       ))}
                     </select>
@@ -387,7 +384,8 @@ function ManageBookings() {
                     >
                       {getOptions("payment").map((status) => (
                         <option key={status} value={status}>
-                          {formatStatusLabel(status)}
+                          {/* {formatStatusLabel(status)} */}
+                          {status}
                         </option>
                       ))}
                     </select>

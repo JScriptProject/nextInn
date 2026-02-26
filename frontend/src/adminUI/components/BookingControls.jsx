@@ -4,20 +4,26 @@ import { DateRange } from "react-date-range";
 import { format } from "date-fns";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import {getAllBookingsByDate} from "@api/bookingApi";
 
-function BookingControls({ filterStaus, setFilterStatus, searchTerm, setSearchTerm, dateRange, setDateRange }) {
- 
+function BookingControls({ setBookings, setIsLoading, filterStaus, setFilterStatus, searchTerm, setSearchTerm, dateRange, setDateRange }) {
 
   const [openDate, setOpenDate] = useState(false);
   
   const handleFetchBookings = () => {
     setOpenDate(false);
-    console.log("date range =>>>", dateRange);
-    console.log(
-      `fetching the booking from the API with date range ${dateRange[0].startDate} and ${dateRange[0].endDate}`
-    );
+    async function getBookingData() {
+          setIsLoading(true);
+          const result = await getAllBookingsByDate(
+            dateRange[0].startDate,
+            dateRange[0].endDate
+          );
+          setBookings(result.data);
+          setIsLoading(false);
+        }
+        getBookingData();
+    
   };
-  console.log("Search Tearms =>", searchTerm);
   return (
     <div className="admin-controls-wrapper flex-wrap">
       <div className="search-box-container">

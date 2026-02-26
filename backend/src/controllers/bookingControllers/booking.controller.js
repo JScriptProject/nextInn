@@ -80,7 +80,8 @@ export const createBooking = asyncHandler(async (req, res) => {
       );
     }
 
-    console.log("user=>", req.user);
+   
+  
 
     // 7. Create the Booking
     // Note: When providing a session, 'create' expects an ARRAY of documents.
@@ -119,8 +120,6 @@ export const createBooking = asyncHandler(async (req, res) => {
     if (!confirmedBooking) {
       throw new ApiError(500, "Failed to generate booking");
     }
-
-    console.log("Booking confirmed now will execute send email!");
     // Send email AFTER successful commit
     sendBookingConfirmation(req.user, confirmedBooking);
 

@@ -1,37 +1,39 @@
-
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-const userSchema = new mongoose.Schema({
-  firstname: {
-    type: String,
-    required: true
+const userSchema = new mongoose.Schema(
+  {
+    firstname: {
+      type: String,
+      required: true,
+    },
+    lastname: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    mobile: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    profile_photo: {
+      type: String,
+    },
   },
-  lastname: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  mobile: {
-    type: String,
-    required: true
-  },
-  city: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  profile_photo: {
-    type: String
-  }
-},{timestamps:true});
+  { timestamps: true },
+);
 
 userSchema.set("toJSON", {
   transform: (doc, ret) => {
@@ -41,13 +43,12 @@ userSchema.set("toJSON", {
   },
 });
 
-userSchema.pre("save", async function(next){
-  try{
-    if(!this.isModified("password")) return next();
+userSchema.pre("save", async function (next) {
+  try {
+    if (!this.isModified("password")) return next();
     this.password = await bcrypt.hash(this.password, 10);
     return next();
-  }
-  catch(error){
+  } catch (error) {
     return next(error);
   }
 });

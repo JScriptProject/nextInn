@@ -589,3 +589,76 @@ input[type="checkbox"]:disabled {
   @apply bg-transparent;
 }
 
+/* ==========================================
+   MANAGE REVIEWS SPECIFIC STYLES
+   ========================================== */
+
+/* Table: Guest Column */
+.review-guest-col {
+  @apply flex flex-col;
+}
+.review-guest-name {
+  @apply font-bold text-sm text-[var(--text-primary-dark-Charcoal)];
+}
+.review-guest-date {
+  @apply text-xs text-[var(--text-secondary-gray)];
+}
+
+/* Table & Modal: Star Ratings */
+.review-stars-wrapper {
+  @apply flex gap-1;
+}
+.review-star-filled {
+  @apply fill-[var(--accent-cta-sunset-orange)] text-[var(--accent-cta-sunset-orange)];
+}
+.review-star-empty {
+  @apply text-gray-300;
+}
+
+/* Table: Featured Button Toggle */
+.feature-btn {
+  @apply p-2 rounded-full transition-all;
+}
+.feature-btn-active {
+  @apply bg-yellow-100 text-yellow-600 hover:bg-yellow-200;
+}
+.feature-btn-inactive {
+  @apply bg-gray-100 text-gray-400 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+.feature-star-active {
+  @apply fill-yellow-600;
+}
+
+/* View Review Modal */
+.review-view-container {
+  @apply bg-gray-50 p-6 rounded-lg border border-gray-200;
+}
+.review-view-header {
+  @apply flex justify-between items-start mb-4;
+}
+.review-view-name {
+  @apply font-bold text-lg;
+}
+.review-view-email {
+  @apply text-sm text-gray-500;
+}
+.review-view-room-wrapper {
+  @apply mb-4;
+}
+.review-view-room {
+  @apply text-xs font-semibold uppercase tracking-wider text-[var(--primary-deep-teal)];
+}
+.review-view-comment {
+  @apply bg-white p-4 rounded border border-gray-100 italic text-gray-700;
+}
+.review-comment-icon {
+  @apply inline mr-2 text-gray-400;
+}
+
+/* Status/Delete Modal Helper Text */
+.review-status-warning {
+  @apply text-xs text-green-600 mt-2;
+}
+.review-delete-text {
+  @apply mb-6 text-gray-600;
+}

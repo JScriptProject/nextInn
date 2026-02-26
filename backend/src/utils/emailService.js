@@ -4,19 +4,26 @@ dotenv.config();
 //create a transport
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const formatDate = (dateString) => {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
+
 export const sendOTPEmail = async (email, otp) => {
   if (!otp || !email) {
     throw new Error("Opps OTP Backend having issue. ");
   }
 
-
   try {
-   
-      const { data, error } = await resend.emails.send({
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: "NextInn Admin Verification Code",
-        html: `
+    const { data, error } = await resend.emails.send({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "NextInn Admin Verification Code",
+      html: `
       <div style="font-family: Arial, sans-serif; padding: 20px;">
         <h2>Admin Verification</h2>
         <p>Your verification code for Super Admin access is:</p>
@@ -24,13 +31,12 @@ export const sendOTPEmail = async (email, otp) => {
         <p>This code expires in 5 minutes.</p>
       </div>
     `,
-      });
-    
-      if(error)
-      {
-        console.error("Resend error", error);
-        return;
-      }
+    });
+
+    if (error) {
+      console.error("Resend error", error);
+      return;
+    }
     console.log("OTP email sent succesfully!", data);
   } catch (err) {
     console.error("Error in sending email:", err);
@@ -39,24 +45,13 @@ export const sendOTPEmail = async (email, otp) => {
 };
 
 export const sendBookingConfirmation = async (user, booking) => {
-
   console.log("Performing the email sent!!!");
   // basic validation on place
-  
+
   if (!user || !booking) {
     console.error("Missing user or booking data for email confirmation.");
     return;
   }
-
-  //format the dates for readability
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
 
   const checkInDate = formatDate(booking.checkIn);
   const checkOutDate = formatDate(booking.checkOut);
@@ -130,8 +125,7 @@ export const sendBookingConfirmation = async (user, booking) => {
     `,
     });
 
-    if(error)
-    {
+    if (error) {
       console.error("Error while sending email", error);
       return;
     }
@@ -139,5 +133,67 @@ export const sendBookingConfirmation = async (user, booking) => {
     console.log("Booking confirmation email sent to user", data);
   } catch (error) {
     console.error("Error while sending booking confirmation email", error);
+  }
+};
+
+export const sendCheckoutEmail = async (booking, uniqueToken) => {
+  if (!booking || !uniqueToken) {
+    console.error(
+      "Oops cant send checkout email as missing booking or user info!",
+    );
+    return;
+  }
+  console.log("Here.. EMAIL SEND OPS");
+  const reviewLink = `${process.env.ORIGIN}/review/${uniqueToken}`;
+
+  const user = booking.user;
+  const checkInDate = formatDate(booking.checkIn);
+  const checkOutDate = formatDate(booking.checkOut);
+  console.log("Sending email!!!!");
+  try {
+    const { data, error } = await resend.emails.send({
+      from: `"NextInn Luxury Hotel" <${process.env.EMAIL_USER}>`,
+      to: user.email,
+      subject: "Thank You for Staying with NextInn!",
+      html: `
+      <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6; background-color: #f9fafb;">
+        
+        <div style="background-color: #1f2937; padding: 20px; text-align: center;">
+           <h1 style="color: #ea580c; margin: 0; font-family: 'Playfair Display', serif; font-size: 28px;">NextInn</h1>
+           <p style="color: #e5e7eb; margin: 5px 0 0; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;">Luxury Hotel</p>
+        </div>
+
+        <div style="padding: 30px 20px; background-color: #ffffff;">
+          <h2 style="color: #111827; margin-top: 0; text-align: center;">Hope You Enjoyed Your Stay!</h2>
+          <p style="color: #4b5563;">Dear <strong>${user.firstname} ${user.lastname}</strong>,</p>
+          <p style="color: #4b5563;">Thank you for choosing NextInn for your recent visit from <strong>${checkInDate}</strong> to <strong>${checkOutDate}</strong>. It was a pleasure having you as our guest, and we hope we were able to provide you with a comfortable and memorable experience.</p>
+          
+          <div style="background-color: #f8fafc; border-left: 4px solid #ea580c; padding: 20px; margin: 25px 0; text-align: center;">
+            <h3 style="color: #1f2937; margin-top: 0;">We Value Your Feedback</h3>
+            <p style="color: #4b5563; font-size: 14px; margin-bottom: 20px;">Your insights help us continuously improve our services. We would be incredibly grateful if you could take a brief moment to share your thoughts about your stay.</p>
+            
+            <a href="${reviewLink}" style="background-color: #ea580c; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Leave a Review</a>
+          </div>
+
+          <p style="color: #4b5563;">We look forward to welcoming you back to NextInn in the future.</p>
+          <p style="color: #4b5563; margin-bottom: 0;">Warm regards,<br><strong>The NextInn Team</strong></p>
+        </div>
+
+        <div style="background-color: #f3f4f6; padding: 20px; text-align: center; font-size: 12px; color: #9ca3af;">
+          <p>&copy; ${new Date().getFullYear()} NextInn Luxury Hotel. All rights reserved.</p>
+          <p>Questions? Contact us at support@nextinn.com</p>
+        </div>
+      </div>
+    `,
+    });
+
+    if (error) {
+      console.error("Error while sending CHECKOUT email", error);
+      return;
+    }
+
+    console.log("CHECKOUT email sent to user", data);
+  } catch (error) {
+    console.error("Error while sending checkout email", error);
   }
 };

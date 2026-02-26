@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 import { RefreshToken } from "#models/refreshToken.model.js";
 
 const userLogin = asyncHandler(async (req, res, next) => {
-  console.log("I am in the auth controller of login");
+  
   const body = req.body || {};
   const { email, password } = body;
 
@@ -16,7 +16,7 @@ const userLogin = asyncHandler(async (req, res, next) => {
 
   //check if any user available with same
   const user = await User.findOne({ email });
-  console.log("Inside Controller user info =>", user);
+
   if (!user) {
     throw new ApiError(404, "Unable to find account for this email");
   }
@@ -45,7 +45,7 @@ const userLogin = asyncHandler(async (req, res, next) => {
   res.cookie("access_token", access_token, {
     httpOnly: true,
     sameSite: isProd ? "none" : "lax",
-    secure: isProd ? true: false,
+    secure: isProd ? true : false,
     path: "/",
     maxAge: 1000 * 60 * 60 * 24,
   });
@@ -67,13 +67,14 @@ const userLogin = asyncHandler(async (req, res, next) => {
     { userId: user._id },
     {
       userId: user._id,
+      tokenUser: "user",
       refreshToken: refresh_token,
-      expiresAt: new Date(Date.now() + 24*60 * 60 * 1000),
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     },
-    {new: true, upsert: true}
+    { new: true, upsert: true },
   );
-  
-  console.log("Refresh Token =", updateRefreshToken);
+
+
 
   res.success(200, user, "User logged in successfully!");
 });

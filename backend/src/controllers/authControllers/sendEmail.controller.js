@@ -10,7 +10,7 @@ export const sendEmail = asyncHandler(async (req, res, next) => {
   try {
     //first we will generate the password
     const adminEmail = process.env.ADMIN_EMAIL;
-    console.log("Admin Email =>", adminEmail);
+
     const otpCode = crypto.randomInt(100000, 999999).toString();
     //store the otp in the database
     console.log("OTP COde=>", otpCode);

@@ -12,6 +12,8 @@ import FullScreenLoader from "@component-support/FullScreenLoader";
 import ProtectedRoute from "@user/components/userAuth-components/ProtectedRoute.jsx";
 import { verifySession } from "@api/authenticationApi.js";
 import { setUser, clearUser, setLoading } from "@redux/userSlice.js";
+import Reviews from "@user/pages/Reviews";
+import UserSubmitReview from "@user/pages/UserSubmitReview";
 
 // --- 2. LAZY IMPORTS (Load on Click) ---
 
@@ -86,6 +88,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forget" element={<ForgetPassword />} />
+            <Route path="/reviews" element={<Reviews/>} />
+            <Route path="/review/:id" element= {<UserSubmitReview />}/>
 
             <Route
               path="/user-dashboard"

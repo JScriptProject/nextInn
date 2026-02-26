@@ -10,8 +10,6 @@ import { RefreshToken } from "#models/refreshToken.model.js";
 const adminLogin = asyncHandler(async (req, res, next) => {
   const body = req.body || {};
   const { email, password } = body;
-  console.log("email =>", email);
-  console.log("password =>", password);
 
   const isProd = process.env.NODE_ENV === "production";
 
@@ -47,7 +45,7 @@ const adminLogin = asyncHandler(async (req, res, next) => {
     httpOnly: true,
     sameSite: isProd ? "none" : "lax",
     secure: isProd,
-    maxAge: 1000 * 60 * 2,
+    maxAge: 1000 * 60 * 15
   });
 
   const refresh_token_admin = jwt.sign(
@@ -59,16 +57,21 @@ const adminLogin = asyncHandler(async (req, res, next) => {
     httpOnly: true,
     sameSite: isProd ? "none" : "lax",
     secure: isProd,
-    maxAge: 1000 * 60 * 4,
+    maxAge: 1000 * 60 * 24 * 15,
   });
 
   //save the refresh token in DB
 
-  let updateAdminRefreshToken = await RefreshToken.findOneAndUpdate({userId: admin._id},{
-    userId: admin._id,
-    adminRefreshToken:refresh_token_admin,
-    expiresAt: new Date(Date.now() + 1000 * 60 * 4 ),
-  },{new:true, upsert:true})
+  let updateAdminRefreshToken = await RefreshToken.findOneAndUpdate(
+    { userId: admin._id },
+    {
+      userId: admin._id,
+      tokenUser:"admin",
+      refreshToken: refresh_token_admin,
+      expiresAt: new Date(Date.now() + 1000 * 60 * 24 * 15),
+    },
+    { new: true, upsert: true },
+  );
 
   res.success(200, admin, "Admin logged in successfully!");
 });

@@ -3,9 +3,9 @@ import { ApiError } from "#utils/ApiError.js";
 import { User } from "#models/user.model.js";
 const verifySession = asyncHandler(async (req, res, next) => {
   //pull the user info from DB and check if the same user logged in
-  console.log("VerifySession: Request object", req.user);
+ 
   const user = await User.findById(req.user.userId).select("-password");
-  console.log("VerifySession User =>", user);
+  
   if (!user) {
     throw new ApiError(404, "User not found");
   }

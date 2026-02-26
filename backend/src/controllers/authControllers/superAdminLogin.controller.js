@@ -12,8 +12,7 @@ import { RefreshToken } from "#models/refreshToken.model.js";
 export const superAdminLogin = asyncHandler(async(req, res, next)=>{
    
     const { email , password } = req.body || {};
-    console.log("Email", email);
-    console.log("Password", password);
+   
     const isProd = process.env.NODE_ENV === "production";
 
     if(!email || !password)

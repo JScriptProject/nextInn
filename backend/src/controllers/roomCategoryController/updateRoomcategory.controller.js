@@ -5,7 +5,6 @@ import { RoomCategory } from "#models/roomCategory.model.js";
 const updateRoomCategoryData = asyncHandler(async (req, res, next) => {
   const body = req.body || {};
   const { _id, changes } = body;
-  console.log("CONTROLLER CHANGES=> ", changes);
   const result = await RoomCategory.findByIdAndUpdate(
     { _id },
     { $set: changes },

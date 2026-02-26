@@ -9,6 +9,5 @@ export const getRoomCategoryById = asyncHandler(async (req, res, next) => {
   }
 
   const roomData = await RoomCategory.findById(roomId);
-  console.log("RoomData=>", roomData);
   res.success(200, roomData, "Room category Data fetched succssfully!");
 });

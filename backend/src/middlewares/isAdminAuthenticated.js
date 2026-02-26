@@ -6,13 +6,10 @@ import { ApiError } from "#utils/ApiError.js";
 
 
 const isAdminAuthenticated = asyncHandler(async(req, res, next)=>{
-    console.log("Request cookies", req.cookies);
+    
     try {
          const token = req.cookies?.access_token_admin;
-         console.log("Access Token  from middleware =>>>>", token);
-         console.log(
-           "REFRESH TOKEN  in middleware ==>",
-           req.cookies?.refresh_token_admin);
+         
          if (!token) {
            return next(new ApiError(401, "Unauthorized: No token provided"));
          }

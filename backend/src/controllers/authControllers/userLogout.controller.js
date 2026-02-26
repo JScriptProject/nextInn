@@ -8,7 +8,7 @@ const userLogout = asyncHandler(async (req, res, next) => {
 
   try {
     const isProd = process.env.NODE_ENV === "production";
-    console.log("Request object in logout", req.user);
+  
     const cookiesData = req.cookies;
 
     console.log("Cookies Data:", cookiesData);
@@ -16,7 +16,7 @@ const userLogout = asyncHandler(async (req, res, next) => {
     // delete the refresh token from db
     const currentToken = cookiesData?.refresh_token;
     const deleteResponse = await RefreshToken.findOneAndDelete({ refreshToken: currentToken });
-    console.log("Logout controller: deleteRespononse=>". deleteResponse);
+  
     
     const cookieOptions = {
       httpOnly: true,
@@ -27,7 +27,7 @@ const userLogout = asyncHandler(async (req, res, next) => {
     
     res.clearCookie("access_token", cookieOptions);
     res.clearCookie("refresh_token", cookieOptions);
-    console.log("User Logged out");
+    
     res.success(200, "User logged out successfully!");
     
   } catch (error) {

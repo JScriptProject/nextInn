@@ -6,7 +6,7 @@ import { ApiError } from "#utils/ApiError.js";
 const adminSignUp = asyncHandler(async(req, res, next)=>{
      const body = req.body || {};
      const {name, email, password, role} = body;
-     console.log("req.body =>", req.body);
+    
      if(!name || !email || !password || !role)
      {
         throw new ApiError(500, "All fields are required");
@@ -32,7 +32,6 @@ const adminSignUp = asyncHandler(async(req, res, next)=>{
       throw new ApiError(500, "Unable to create admin");
     }
 
-    console.log("Created Admin =>", createAdmin);
     res.success(201, createAdmin, "Admin created successfully!");
 })
 
