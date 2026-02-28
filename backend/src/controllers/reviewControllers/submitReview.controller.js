@@ -17,7 +17,7 @@ export const submitReview = asyncHandler(async (req, res, next) => {
       $set: {
         comment: reviewComment,
         status: "submitted",
-        rating: newRating,
+        rating: newRating,  
       },
     },
     { new: true, runValidators: true },

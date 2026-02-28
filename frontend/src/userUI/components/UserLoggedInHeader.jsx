@@ -10,7 +10,6 @@ function UserLoggedInHeader({ user }) {
   const { firstname } = user || {};
   const { name } = user || {}
   const location = useLocation();
-  console.log("LOCATION =>>>>", location.pathname);
   const isAdminPath = location.pathname.startsWith("/admin");
   
   

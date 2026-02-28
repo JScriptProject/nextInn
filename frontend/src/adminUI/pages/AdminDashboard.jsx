@@ -9,8 +9,7 @@ function AdminDashboard() {
   const location = useLocation();
   const { isLoading, setCategories, categories } =
     useOutletContext();
-  console.log("Admin Data =>", location.state?.admin);
-  console.log("Admin state =>", location.state);
+ 
 //  useEffect(() => {
 //    (async () => {
 //      try {

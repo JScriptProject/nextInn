@@ -27,15 +27,13 @@ export const checkReviewForTokenApi = async (tokenValue) => {
 };
 
 export const submitReviewApi = async (token, rating, comment) => {
-  console.log("TOKEN", token);
-  console.log("RATING", rating);
-  console.log("COMMENT", comment);
+ 
   try {
     const response = await axios.post(
       `${SERVER_URL}/api/review/submit-review`,
       { token, rating, comment }
     );
-    console.log("SUBMIT REVIEW RESPONSE =>", response);
+    
     return {
       success: true,
       message: response.data.message,
@@ -63,12 +61,80 @@ export const getAllReviews = async (
   try {
     const response = await adminApi.get(
       `${SERVER_URL}/api/review/all-reviews`,
-      { params: { currentPage, limit, filterStatus, searchTerm } }
+      {
+        params: {
+          currentPage: currentPage,
+          limit: limit,
+          filterStatus: filterStatus,
+          searchTerm: searchTerm,
+        },
+      }
     );
     console.log("response=>", response);
+    return {
+      success: true,
+      message: response.data.message,
+      data: response.data.data,
+      status: response.status,
+    };
   } catch (error) {
-    console.error("Error while fetching the reviews:", error)
+    console.error("Error while fetching the reviews:", error);
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      data: null,
+      status: error.response?.status || 404,
+    };
   }
 };
 
+export const toggleFeaturedReview = async (reviewId, isFeaturedReview) => {
+  try {
+   
+    const response = await adminApi.patch(
+      `${SERVER_URL}/api/review/toggle-featured`,
+      { reviewId: reviewId, isFeaturedReview: isFeaturedReview }
+    );
+   
+     return {
+       success: true,
+       message: response.data.message,
+       data: response.data.data,
+       status: response.status,
+     };
+  } catch (error) {
+    console.error("Error occured while review featured toggle", error);
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      data: null,
+      status: error.response?.status || 404,
+    };
+  }
+};
 
+export const updateReviewStatus = async (reviewId, reviewStatus) => {
+  try {
+   
+    const response = await adminApi.put(
+      `${SERVER_URL}/api/review/update-status`,
+      { reviewId: reviewId, reviewStatus: reviewStatus }
+    );
+    return {
+      success: true,
+      message: response.data.message,
+      data: response.data.data,
+      status: response.status,
+    };
+  } catch (error) {
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      data: null,
+      status: error.response?.status || 404,
+    };
+  }
+};

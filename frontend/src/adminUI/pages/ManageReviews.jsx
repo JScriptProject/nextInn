@@ -17,7 +17,12 @@ import heroBookingImg from "@assets/media/heroBookings.jpg";
 import FullScreenLoader from "@component-support/FullScreenLoader";
 import { useContext } from "react";
 import { NotificationsContext } from "@user/context/NotificationsContext";
-import { getAllReviews } from "@api/reviewApi.js";
+import {
+  getAllReviews,
+  updateReviewStatus,
+  toggleFeaturedReview,
+} from "@api/reviewApi.js";
+import e from "cors";
 // Import your APIs once created:
 // import { getAllReviews, updateReviewStatus, deleteReview, toggleFeaturedReview } from "@api/reviewApi.js";
 
@@ -49,60 +54,35 @@ function ManageReviews() {
 
   // 1. Fetch Data
   useEffect(() => {
-    fetchData();
-  }, [currentPage, filterStatus]);
+    const timer = setTimeout(() => {
+      fetchData();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [currentPage, filterStatus, searchTerm]);
 
   // Reset to page 1 on filter change
   useEffect(() => {
     setCurrentPage(1);
-  }, [filterStatus]);
+  }, [filterStatus, searchTerm]);
 
   const fetchData = async () => {
     setIsLoading(true);
     try {
-
-
       // TODO: Replace with your actual API call
-      const response = await getAllReviews(currentPage, limit, filterStatus, searchTerm);
+      const response = await getAllReviews(
+        currentPage,
+        limit,
+        filterStatus,
+        searchTerm
+      );
       console.log(response);
-    //   if (response.success) {
-      //   setReviews(response.data);
-      //   setTotalPages(response.pagination.totalPages);
-      // }
-
-      // MOCK DATA FOR UI TESTING
-      setReviews([
-        {
-          _id: "1",
-          user: {
-            firstname: "John",
-            lastname: "Doe",
-            email: "john@example.com",
-          },
-          category: { name: "Executive Suite" },
-          rating: 5,
-          comment:
-            "Absolutely wonderful stay! The room was spotless and the staff was amazing.",
-          status: "approved",
-          isFeatured: true,
-          createdAt: new Date().toISOString(),
-        },
-        {
-          _id: "2",
-          user: {
-            firstname: "Sarah",
-            lastname: "Smith",
-            email: "sarah@example.com",
-          },
-          category: { name: "Standard Room" },
-          rating: 4,
-          comment: "Great location, but the AC was a bit noisy.",
-          status: "submitted",
-          isFeatured: false,
-          createdAt: new Date().toISOString(),
-        },
-      ]);
-      setTotalPages(1);
+      if (!response.success) {
+        setReviews([]);
+        showNotification(true, false, response.message);
+      }
+      setReviews(response.data.allReviews);
+      setTotalPages(response.data.pagination.totalPages);
+      showNotification(true, true, response.message);
     } catch (error) {
       console.error("Failed to fetch reviews", error);
       showNotification(true, false, "Failed to load reviews.");
@@ -129,14 +109,21 @@ function ManageReviews() {
     setIsLoading(true);
     try {
       // TODO: Call your update API
-      // await updateReviewStatus(selectedReview._id, selectedReview.status);
-      showNotification(true, true, "Review status updated!");
+      const response = await updateReviewStatus(
+        selectedReview._id,
+        selectedReview.status
+      );
+      if (!response.success) {
+        showNotification(true, false, response.message);
+      }
+      showNotification(true, true, response.message);
       closeModal();
       fetchData();
     } catch (error) {
       console.error(error);
       showNotification(true, false, "Failed to update status.");
     } finally {
+      fetchData();
       setIsLoading(false);
     }
   };
@@ -166,13 +153,21 @@ function ManageReviews() {
     setIsLoading(true);
     try {
       // TODO: Call your feature toggle API
-      // await toggleFeaturedReview(review._id, !review.isFeatured);
-      showNotification(
-        true,
-        true,
-        `Review ${review.isFeatured ? "removed from" : "added to"} featured list.`
+      const response = await toggleFeaturedReview(
+        review._id,
+        !review.isFeatured
       );
-      fetchData();
+      if (response.success) {
+        showNotification(
+          true,
+          true,
+          `Review ${review.isFeatured ? "removed from" : "added to"} featured list.`
+        );
+        fetchData();
+      } else {
+        showNotification(true, false, "Error while toggeling the review");
+        return;
+      }
     } catch (error) {
       console.error(error);
       showNotification(
@@ -484,7 +479,14 @@ function ManageReviews() {
                     >
                       Cancel
                     </button>
-                    <button type="submit" className="btn-modal-save">
+                    <button
+                      type="submit"
+                      className="btn-modal-save"
+                      disabled={
+                        selectedReview.status === "pending" ||
+                        selectedReview.status === "submitted"
+                      }
+                    >
                       Update Status
                     </button>
                   </div>

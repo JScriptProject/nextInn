@@ -8,7 +8,6 @@ function CategoryManagement({ rooms, setRooms }) {
     "Premium Deluxe Room"
   );
   const [localErrors, setLocalErrors] = useState(null);
-  console.log("Roomsssss=>", rooms);
   const roomsObj = rooms.find((room) => room.name === selectedCategory);
   
 

@@ -15,7 +15,6 @@ function LayoutAdmin() {
       try {
         setIsLoading(true);
         const roomsData = await getAllRoomsCategory();
-        console.log("Here is the data", roomsData);
         if (roomsData.success) {
           setCategories(roomsData.data);
         }
