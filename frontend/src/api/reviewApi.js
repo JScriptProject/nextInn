@@ -138,3 +138,24 @@ export const updateReviewStatus = async (reviewId, reviewStatus) => {
     };
   }
 };
+
+export const deleteReview = async(reviewId) => {
+  try {
+    const response = await adminApi.delete(
+      `${SERVER_URL}/api/review/delete/${reviewId}`);
+      return {
+        success: true,
+        message: response.data.message,
+        data: response.data.data,
+        status: response.status,
+      };
+  } catch (error) {
+    const errorMessage = error.response.data.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      data: null,
+      status: error.response?.status || 404,
+    };
+  }
+};

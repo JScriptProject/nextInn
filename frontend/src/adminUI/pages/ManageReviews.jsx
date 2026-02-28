@@ -21,10 +21,8 @@ import {
   getAllReviews,
   updateReviewStatus,
   toggleFeaturedReview,
+  deleteReview,
 } from "@api/reviewApi.js";
-import e from "cors";
-// Import your APIs once created:
-// import { getAllReviews, updateReviewStatus, deleteReview, toggleFeaturedReview } from "@api/reviewApi.js";
 
 const REVIEW_STATUSES = ["Pending", "Submitted", "Approved", "Rejected"];
 
@@ -128,17 +126,23 @@ function ManageReviews() {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (reviewId) => {
     setIsLoading(true);
     try {
       // TODO: Call your delete API
-      // await deleteReview(id);
-      showNotification(true, true, "Review deleted successfully.");
-      closeModal();
-      fetchData();
+      const response = await deleteReview(reviewId);
+      if (response.success) {
+        showNotification(true, true, response.message);
+        closeModal();
+        fetchData();
+      }else
+      {
+        showNotification(true, false, response.message);
+        closeModal();
+      }
     } catch (error) {
       console.error(error);
-      showNotification(true, false, "Failed to delete review.");
+      showNotification(true, false, error.message);
     } finally {
       setIsLoading(false);
     }
