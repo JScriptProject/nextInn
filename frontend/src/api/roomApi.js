@@ -17,7 +17,7 @@ export const getAllRooms = async (page = 1, limit = 15, status = "all") => {
     };
   } catch (error) {
     console.error("An error occured while loading rooms data", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -41,7 +41,7 @@ export const addRoom = async (roomData) => {
   } catch (error) {
     console.error("An error occurred while Adding room", error);
     const errorMessage =
-      error.response.data.message || "Issue while adding room";
+      error.response?.data?.message || "Issue while adding room";
     return {
       success: false,
       message: errorMessage,
@@ -69,7 +69,7 @@ export const updateRoom = async (roomId, roomData) => {
     };
   } catch (error) {
     console.error("An error occurred while updating rooms", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -93,7 +93,7 @@ export const deleteRoom = async (roomId) => {
     };
   } catch (error) {
     console.error("An error occurred while deleting room", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,

@@ -6,8 +6,10 @@ import AdminDashboard from "@admin/pages/AdminDashboard.jsx";
 import FullScreenLoader from "@component-support/FullScreenLoader";
 const ManageRooms = lazy(() => import("@admin/pages/ManageRooms"));
 const ManageReviews = lazy(() => import("@admin/pages/ManageReviews"));
-const GuestList = lazy(() => import("@admin/pages/GuestList"));
 const ManageBookings = lazy(()=> import("@admin/pages/ManageBookings"));
+const SuperAdminProtected =  lazy(()=> import("@admin/components/admin-auth/SuperAdminProtected"));
+const CreateAdmin = lazy(()=>import("@admin/pages/CreateAdmin"));
+const Logs = lazy(()=>import("@admin/pages/Logs"));
 
 function AdminConsole() {
 //initiate a API call to get all room category
@@ -21,8 +23,12 @@ function AdminConsole() {
         <Route path="/" element={<LayoutAdmin />}>
           <Route index element={<AdminDashboard />} />
           <Route path="/rooms" element={<ManageRooms />} />
+
           <Route path="/reviews" element={<ManageReviews />} />
-          <Route path="/guest-list" element={<GuestList />} />
+          <Route path="/superadmin" element={<SuperAdminProtected />}>
+            <Route path="/superadmin/create-admin" element={<CreateAdmin />} />
+            <Route path="/superadmin/logs" element={<Logs />} />
+          </Route>
           <Route path="/bookings" element={<ManageBookings />} />
         </Route>
       </Routes>

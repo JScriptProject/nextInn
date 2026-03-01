@@ -16,7 +16,7 @@ export const checkReviewForTokenApi = async (tokenValue) => {
     };
   } catch (error) {
     console.error("Error occured while checking review");
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -27,13 +27,12 @@ export const checkReviewForTokenApi = async (tokenValue) => {
 };
 
 export const submitReviewApi = async (token, rating, comment) => {
- 
   try {
     const response = await axios.post(
       `${SERVER_URL}/api/review/submit-review`,
       { token, rating, comment }
     );
-    
+
     return {
       success: true,
       message: response.data.message,
@@ -42,7 +41,7 @@ export const submitReviewApi = async (token, rating, comment) => {
     };
   } catch (error) {
     console.error("Error occured while submitting the review!!", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -59,17 +58,14 @@ export const getAllReviews = async (
   searchTerm
 ) => {
   try {
-    const response = await adminApi.get(
-      `${SERVER_URL}/api/review/all-reviews`,
-      {
-        params: {
-          currentPage: currentPage,
-          limit: limit,
-          filterStatus: filterStatus,
-          searchTerm: searchTerm,
-        },
-      }
-    );
+    const response = await adminApi.get("/api/review/all-reviews", {
+      params: {
+        currentPage: currentPage,
+        limit: limit,
+        filterStatus: filterStatus,
+        searchTerm: searchTerm,
+      },
+    });
     console.log("response=>", response);
     return {
       success: true,
@@ -79,7 +75,7 @@ export const getAllReviews = async (
     };
   } catch (error) {
     console.error("Error while fetching the reviews:", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -91,21 +87,20 @@ export const getAllReviews = async (
 
 export const toggleFeaturedReview = async (reviewId, isFeaturedReview) => {
   try {
-   
-    const response = await adminApi.patch(
-      `${SERVER_URL}/api/review/toggle-featured`,
-      { reviewId: reviewId, isFeaturedReview: isFeaturedReview }
-    );
-   
-     return {
-       success: true,
-       message: response.data.message,
-       data: response.data.data,
-       status: response.status,
-     };
+    const response = await adminApi.patch("/api/review/toggle-featured", {
+      reviewId: reviewId,
+      isFeaturedReview: isFeaturedReview,
+    });
+
+    return {
+      success: true,
+      message: response.data.message,
+      data: response.data.data,
+      status: response.status,
+    };
   } catch (error) {
     console.error("Error occured while review featured toggle", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -117,11 +112,10 @@ export const toggleFeaturedReview = async (reviewId, isFeaturedReview) => {
 
 export const updateReviewStatus = async (reviewId, reviewStatus) => {
   try {
-   
-    const response = await adminApi.put(
-      `${SERVER_URL}/api/review/update-status`,
-      { reviewId: reviewId, reviewStatus: reviewStatus }
-    );
+    const response = await adminApi.put("/api/review/update-status", {
+      reviewId: reviewId,
+      reviewStatus: reviewStatus,
+    });
     return {
       success: true,
       message: response.data.message,
@@ -129,7 +123,7 @@ export const updateReviewStatus = async (reviewId, reviewStatus) => {
       status: response.status,
     };
   } catch (error) {
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -139,18 +133,17 @@ export const updateReviewStatus = async (reviewId, reviewStatus) => {
   }
 };
 
-export const deleteReview = async(reviewId) => {
+export const deleteReview = async (reviewId) => {
   try {
-    const response = await adminApi.delete(
-      `${SERVER_URL}/api/review/delete/${reviewId}`);
-      return {
-        success: true,
-        message: response.data.message,
-        data: response.data.data,
-        status: response.status,
-      };
+    const response = await adminApi.delete(`/api/review/delete/${reviewId}`);
+    return {
+      success: true,
+      message: response.data.message,
+      data: response.data.data,
+      status: response.status,
+    };
   } catch (error) {
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,

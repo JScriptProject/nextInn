@@ -1,35 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import adminImg from "@assets/media/admin-Dashboard.jpg";
 import AdminDashboardCards from "@admin/components/AdminDashboardCards";
 import CategoryManagement from "@admin/components/CategoryManagement";
 import FullScreenLoader from "@component-support/FullScreenLoader";
-import { useLocation, useOutletContext } from "react-router-dom";
+import {  useOutletContext } from "react-router-dom";
 function AdminDashboard() {
-  
-  const location = useLocation();
   const { isLoading, setCategories, categories } =
     useOutletContext();
- 
-//  useEffect(() => {
-//    (async () => {
-//      try {
-//       setIsLoading(true);
-//        const roomsData = await getAllRoomsCategory();
-//        console.log("Here is the data", roomsData);
-//        if(roomsData.success)
-//        {
-//         setIsLoading(false);
-//        }
-//        setRooms(roomsData.data);
-
-//      } catch (error) {
-//        console.error("failed to fetch rooms:", error);
-//        setErrors(error.message);
-//        setLocalErrors(error.message);
-//      }
-//    })();
-//  }, []);
-
  if(isLoading)
  {
   return(<FullScreenLoader />)

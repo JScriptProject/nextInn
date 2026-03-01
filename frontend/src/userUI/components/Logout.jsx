@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "@api/authenticationApi.js";
+import { userlogout } from "@api/authenticationApi.js";
+import { adminLogout } from "@api/adminAthenticationApi.js";
 import { clearUser, setLoading } from "@redux/userSlice";
 import { NotificationsContext } from "@user/context/NotificationsContext";
 import { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-function Logout() {
+import FullScreenLoader from "@component-support/FullScreenLoader";
+import { clearAdmin } from "@redux/adminSlice";
+
+function Logout({ user }) {
+  const [isLoading, setIsLoading] = useState(false);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { showNotification } = useContext(NotificationsContext);
@@ -13,23 +19,40 @@ function Logout() {
   const fromPath = location.pathname || "/";
   console.log("LOCATION =>", location);
   const fromState = location.state;
+  console.log("USER in LOGOUT =>", user);
   const onLogoutClick = async () => {
+    setIsLoading(true);
     try {
       dispatch(setLoading(true));
-      const response = await logout();
-      console.log(response);
-      if (response.success) {
-        dispatch(setLoading(false));
-        dispatch(clearUser());
-        navigate(fromPath, { replace: true, state:fromState });
-        showNotification(true, true, "User logged out!");
+      if (user.role) {
+        const response = await adminLogout();
+        if (response.success) {
+          dispatch(clearAdmin());
+          navigate(fromPath, { replace: true, state: fromState });
+          showNotification(true, true, response.message);
+        } else {
+          showNotification(true, false, response.message);
+        }
+      } else {
+        const response = await userlogout();
+        if (response.success) {
+          dispatch(clearUser());
+          navigate(fromPath, { replace: true, state: fromState });
+          showNotification(true, true, response.message);
+        } else {
+          showNotification(true, false, response.message);
+        }
       }
     } catch (error) {
       showNotification(true, false, error.message);
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
-
+  if (isLoading) {
+    return <FullScreenLoader />;
+  }
   return (
     <button onClick={onLogoutClick} className="logout-btn">
       Logout

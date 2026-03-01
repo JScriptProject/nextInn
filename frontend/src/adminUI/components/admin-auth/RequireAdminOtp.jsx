@@ -6,6 +6,7 @@ function RequireAdminOtp() {
     const isOtpVerified = useSelector(
       (state) => state.admin.isOtpVerified
     );
+    console.log("VERIFY ADMIN", isOtpVerified);
     if(!isOtpVerified)
     {
         return <Navigate to="/admin-verify" replace />;

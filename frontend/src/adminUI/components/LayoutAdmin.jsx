@@ -17,8 +17,9 @@ function LayoutAdmin() {
         const roomsData = await getAllRoomsCategory();
         if (roomsData.success) {
           setCategories(roomsData.data);
+        } else {
+          showNotification(true, false, roomsData.message);
         }
-        showNotification(true, true, roomsData.message);
       } catch (error) {
         console.error("failed to fetch rooms:", error);
         showNotification(true, false, error.message);

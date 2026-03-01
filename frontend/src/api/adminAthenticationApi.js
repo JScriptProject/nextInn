@@ -1,6 +1,7 @@
 import adminApi from "@api/adminAxiosInstance.js";
 import axios from "axios";
 
+
 export const verifyAdminSession = async () => {
   try {
     const response = await adminApi.post("/api/auth/admin-me");
@@ -38,7 +39,7 @@ export const loginAdmin = async (loginData) => {
     };
   } catch (error) {
     console.error("Error in login", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -47,6 +48,29 @@ export const loginAdmin = async (loginData) => {
   }
 };
 
+
+export const adminLogout = async()=>{
+
+  try {
+    const response = await adminApi.post("/api/auth/admin-logout");
+    console.log("RESPOSNE=>", response);
+    return {
+      success: true,
+      message: response.data.message,
+      data: response.data.data,
+      status: response.status,
+    };
+
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      status: error.response?.status || 520,
+    };
+    
+  }
+}
 export const adminVerifySendEmail = async () => {
   console.log("Calling API for to generate OTP");
   try {
@@ -61,12 +85,12 @@ export const adminVerifySendEmail = async () => {
   } catch (error) {
     console.log("API EROOO =>", error);
     const errorMessage =
-      error.response.data.message ||
+      error.response?.data?.message ||
       "Unable to trigger the OTP, please try again..";
     return {
       success: false,
       message: errorMessage,
-      status: error.response.data.statusCode || 520,
+      status: error.response?.data?.statusCode || 520,
     };
   }
 };
@@ -93,11 +117,11 @@ export const adminVerifyOTP = async (otp) => {
   } catch (error) {
     console.log("API Error after vaildating OTP =>", error);
     const errorMessage =
-      error.response.data.message || "Something went wrong!!";
+      error.response?.data?.message || "Something went wrong!!";
     return {
       success: false,
       message: errorMessage,
-      status: error.response.data.statusCode || 520,
+      status: error.response?.data?.statusCode || 520,
     };
   }
 };
@@ -119,7 +143,7 @@ export const superAdminLogin = async(loginData) => {
     };
   } catch (error) {
     console.error("Error in login", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,

@@ -17,12 +17,13 @@ export const getAllRoomsCategory = async () => {
     };
   } catch (error) {
     console.error("An Error occured while getting data", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage =
+      error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
       data: null,
-      status: error.response?.status || 404,
+      status: error.response?.status || 500,
     };
   }
 };
@@ -46,7 +47,7 @@ export const fetchRoomById = async (roomId) => {
     const response = await axios.post(`${API}/api/category/get-room`, {
       roomId: roomId,
     });
-    console.log("Response =>",response);
+    console.log("Response =>", response);
     return {
       success: true,
       data: response.data.data,
@@ -55,12 +56,13 @@ export const fetchRoomById = async (roomId) => {
     };
   } catch (error) {
     console.error("An error occurred while booking", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage =
+      error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
       data: null,
-      status: error.response?.status || 404,
+      status: error.response?.status || 500,
     };
   }
 };

@@ -56,7 +56,7 @@ function AdminLogin() {
         showNotification(true, true, response.message);
       } else {
         dispatch(clearAdmin());
-        showNotification(true, false, response.message);
+        showNotification(true, false, response?.message);
       }
     } catch (error) {
       console.error("Error while login into the admin panel", error);

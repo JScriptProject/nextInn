@@ -48,7 +48,7 @@ router.post("/refresh", refreshSession);
 
 router.post("/admin-signup", adminSignUp);
 router.post("/admin-login", adminLogin);
-//router.post("/admin-logout", adminLogout)
+router.post("/admin-logout",isAdminAuthenticated, adminLogout)
 router.options("/admin-me", cors(corsOptions));
 router.post(
   "/admin-me",

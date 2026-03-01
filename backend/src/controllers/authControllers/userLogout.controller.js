@@ -28,7 +28,7 @@ const userLogout = asyncHandler(async (req, res, next) => {
     res.clearCookie("access_token", cookieOptions);
     res.clearCookie("refresh_token", cookieOptions);
     
-    res.success(200, "User logged out successfully!");
+    res.success(200, null, "User logged out successfully!");
     
   } catch (error) {
     console.error("error occured while logout!", error);

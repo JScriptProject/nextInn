@@ -5,6 +5,7 @@ const initialState = {
     isAdminLoading:true,
     isAdminAthenticated:false,
     isOtpVerified:false,
+    isSuperAdmin:false
 };
 
 const adminSlice = createSlice(

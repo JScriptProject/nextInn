@@ -15,7 +15,7 @@ export const confirmBooking = async (payload) => {
     };
   } catch (error) {
     console.error("An error occurred while booking", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -38,7 +38,7 @@ export const getBookingsByUser = async () => {
     };
   } catch (error) {
     console.error("An error occurred while booking", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -63,7 +63,7 @@ export const getRoomsAvailability = async (categoryId, checkIn, checkOut) => {
     };
   } catch (error) {
     console.error("An error occurred while booking", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -88,7 +88,7 @@ export const getAllBookingsByDate = async (startDate, endDate) => {
     };
   } catch (error) {
     console.error("An error occurred while booking", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -113,7 +113,7 @@ export const updateBookingStatus = async (data)=>{
     };
   } catch (error) {
     console.error("An error occurred while booking", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -137,7 +137,7 @@ export const cancelBooking=async(idx)=>{
      };
   } catch (error) {
     console.error("An error occurred while booking", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,

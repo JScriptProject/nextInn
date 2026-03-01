@@ -25,11 +25,18 @@ function Header({websiteHeader}) {
   const navRef = useRef();
   const headerRef = useRef();
   const logoRef = useRef();
-  
+
+  const adminHeader =websiteHeader.webNav.filter((item)=> !item.highlight);
   function handleNavToggle() {
     const nextState = !isNavOpen;
     setIsNavOpen((pre) => !pre);
     headerAnimation(navRef.current, nextState);
+  }
+  function closeNav() {
+    if (isNavOpen) {
+      setIsNavOpen(false);
+      headerAnimation(navRef.current, false);
+    }
   }
 
   useEffect(()=>{
@@ -54,15 +61,20 @@ function Header({websiteHeader}) {
 
         <div className="cta-section">
           {/* {websiteHeader.login === null && <p className="text-[#fff]">Admin</p>} */}
+          {/* {websiteHeader.login &&
+            websiteHeader.user === null && websiteHeader.user.role === "admin" && } */}
           {websiteHeader.login &&
             websiteHeader.user === null &&
-            websiteHeader?.login?.map((navLoginItem, index) => (
-              <Link to={navLoginItem.to} key={index}>
-                <Button className={websiteHeader.login[index].btnClass}>
-                  {navLoginItem.label}
-                </Button>
-              </Link>
-            ))}
+            websiteHeader?.login?.map((navLoginItem, index) => {
+
+              return (
+                <Link to={navLoginItem.to} key={index} onClick={closeNav}>
+                  <Button className={websiteHeader.login[index].btnClass}>
+                    {navLoginItem.label}
+                  </Button>
+                </Link>
+              );
+            })}
           {websiteHeader.login && websiteHeader.user !== null && (
             <UserLoggedInHeader user={websiteHeader.user} />
           )}
@@ -72,13 +84,31 @@ function Header({websiteHeader}) {
         </div>
         <hr className="nav-hr" />
         <ul className="nav-links">
-          {websiteHeader?.webNav?.map((navItem, index) => (
-            <li key={index}>
-              <Link to={navItem.to} className="nav-link">
-                <House className="nav-icon" /> {navItem.label}
-              </Link>
-            </li>
-          ))}
+          {websiteHeader?.user?.role === "admin" &&
+            adminHeader.map((navItem, index) => (
+              <li key={index}>
+                <Link to={navItem.to} className="nav-link" onClick={closeNav}>
+                  {navItem.label}
+                </Link>
+              </li>
+            ))}
+          {websiteHeader?.user?.role === "superadmin" &&
+            websiteHeader?.webNav?.map((navItem, index) => (
+              <li key={index}>
+                <Link
+                  to={navItem.to}
+                  className={`${
+                    navItem.label === "Create-Admin" ||
+                    navItem.label === "Logs"
+                      ? "nav-link superadmin-nav-link"
+                      : "nav-link"
+                  }`}
+                  onClick={closeNav}
+                >
+                  {navItem.label}
+                </Link>
+              </li>
+            ))}
         </ul>
         <hr className="nav-hr" />
         <h3 className="block md:hidden text-[var(--text-secondary-gray)] text-[0.8rem] font-normal">

@@ -105,7 +105,7 @@ main {
     rgba(31, 41, 55, 1) 1%,
     rgba(45, 60, 84, 1) 100%
   );
-  z-index: 99;
+  z-index: 9999;
   @apply flex flex-col relative  px-[2rem] py-[2rem] gap-[1.4rem] md:flex-row  rounded-tr-3xl rounded-br-3xl  translate-x-[-100%] transform  md:!translate-x-0  md:items-center md:justify-between md:py-[0.5rem] md:px-[4rem] md:h-[74px];
 }
 
@@ -203,6 +203,10 @@ nav .nav-links {
 nav .nav-links .nav-link {
   color: var(--background-offWhite-linen);
   @apply flex flex-row items-center gap-4 text-[0.9rem];
+}
+
+.superadmin-nav-link{
+  @apply text-amber-400!;
 }
 
 .nav-hr {

@@ -11,7 +11,7 @@ export const signup = async (signUpData) => {
     };
   } catch (error) {
     console.error("Error in signup", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -34,7 +34,7 @@ export const login = async (loginData) => {
     console.error("Error in login", error);
     return {
       success: false,
-      message: error.response.data.message || "Something went wrong",
+      message: error.response?.data?.message || "Something went wrong",
     };
   }
 };
@@ -51,7 +51,7 @@ export const verifySession = async () => {
     };
   } catch (error) {
     console.error("Error in verifySession", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -60,7 +60,7 @@ export const verifySession = async () => {
   }
 };
 
-export const logout = async () => {
+export const userlogout = async () => {
   try {
     const response = await api.post("/api/auth/logout");
     return {
@@ -70,7 +70,7 @@ export const logout = async () => {
     };
   } catch (error) {
     console.error("Error in logout", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
@@ -95,7 +95,7 @@ export const updatePassoword = async(passObj)=>{
      };
   } catch (error) {
     console.error("Issue while updating password", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,

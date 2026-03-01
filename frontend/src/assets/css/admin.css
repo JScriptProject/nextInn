@@ -304,6 +304,7 @@ input[type="checkbox"]:disabled {
 
 .otp-input-wrapper{
   display: flex;
+  flex-direction: row;
   gap:12px;
   justify-content: center;
   margin: 20px 0;

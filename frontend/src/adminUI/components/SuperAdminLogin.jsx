@@ -2,29 +2,27 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { clearAdmin, setAdmin, setAdminLoading } from "@redux/adminSlice";
+import { clearAdmin, setAdmin} from "@redux/adminSlice";
 import { superAdminLogin } from "@api/adminAthenticationApi.js";
 import { useContext } from "react";
 import { NotificationsContext } from "@user/context/NotificationsContext";
 import FullScreenLoader from "@component-support/FullScreenLoader";
 
 function SuperAdminLogin() {
-  //state decalre
-
+  
+  const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
+  
   //destructured variables
   const { email, password } = form;
 
   //redux store communication
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { admin, isAdminLoading, isAdminAthenticated } = useSelector(
-    (state) => state.admin
-  );
+  const { isOtpVerified } = useSelector((state) => state.admin);
 
   //context variables
   const { showNotification } = useContext(NotificationsContext);
@@ -39,7 +37,7 @@ function SuperAdminLogin() {
   //onsubmit
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setAdminLoading(true));
+    setIsLoading(true);
 
     try {
       const response = await superAdminLogin(form);
@@ -57,43 +55,14 @@ function SuperAdminLogin() {
       console.error("Error while login into the admin panel", error);
       showNotification(true, false, error.message);
     } finally {
-      dispatch(setAdminLoading(false));
+      setIsLoading(false);
     }
   };
-
-  // useEffect(() => {
-  //   const checkSession = async () => {
-  //     try {
-  //       if (!isAdminAthenticated) {
-  //         const response = await verifyAdminSession();
-  //         console.log("response back to component =>", response);
-  //         if (response.success) {
-  //           navigate("/admin", { replace: true });
-  //           showNotification(true, true, response.message);
-  //         } else {
-  //           navigate("/admin-login", { replace: true });
-  //           if(response.status === 520){
-  //             showNotification(true, false, response.message);
-  //           }
-  //         }
-  //       }
-
-  //       if (isAdminAthenticated) {
-  //         navigate("/admin", { replace: true });
-  //         showNotification(true, true, response.message);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error in session validation");
-  //       showNotification(true, false, error.message);
-  //     } finally {
-  //       console.log("inside admin finally");
-  //       dispatch(setAdminLoading(false));
-  //     }
-  //   };
-  //   checkSession();
-  // }, []);
-
-  if (isAdminLoading) {
+  if(!isOtpVerified)
+  {
+    navigate("/admin-login");
+  }
+  if (isLoading) {
     return <FullScreenLoader />;
   }
 

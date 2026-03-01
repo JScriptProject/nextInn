@@ -7,10 +7,15 @@ function AdminHeader() {
   const websiteHeader = {
     webNav: [
       { to: "/admin", label: "Dasboard" },
-      { to: "/admin/guest-list", label: "Guest" },
       { to: "/admin/rooms", label: "Rooms" },
       { to: "/admin/reviews", label: "Reviews" },
-      { to: "/admin/bookings", label: "Bookings"}
+      { to: "/admin/bookings", label: "Bookings" },
+      {
+        to: "/admin/superadmin/create-admin",
+        label: "Create-Admin",
+        highlight: true,
+      },
+      { to: "/admin/superadmin/logs", label: "Logs", highlight: true },
     ],
     login: null,
     user: admin,

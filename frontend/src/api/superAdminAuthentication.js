@@ -15,7 +15,7 @@ export const verifyAdminSession = async () => {
   } catch (error) {
     console.error("Error in the Verification", error);
     const errorMessageVrify =
-      error.response.data?.message || "Something went wrong";
+      error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessageVrify,
@@ -35,7 +35,7 @@ export const loginAdmin = async (loginData) => {
     };
   } catch (error) {
     console.error("Error in login", error);
-    const errorMessage = error.response.data.message || "Something went wrong";
+    const errorMessage = error.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessage,
