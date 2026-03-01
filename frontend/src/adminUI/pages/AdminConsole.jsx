@@ -26,8 +26,8 @@ function AdminConsole() {
 
           <Route path="/reviews" element={<ManageReviews />} />
           <Route path="/superadmin" element={<SuperAdminProtected />}>
-            <Route path="/superadmin/create-admin" element={<CreateAdmin />} />
-            <Route path="/superadmin/logs" element={<Logs />} />
+            <Route path="create-admin" element={<CreateAdmin />} />
+            <Route path="logs" element={<Logs />} />
           </Route>
           <Route path="/bookings" element={<ManageBookings />} />
         </Route>

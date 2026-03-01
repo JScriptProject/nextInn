@@ -71,25 +71,25 @@ function AdminLogin() {
     const checkSession = async () => {
       try {
          setIsLoading(true);
-        if (!isAdminAthenticated) {
+          if (isAdminAthenticated) {
+            console.log("ADMIN AUTHENTICATED ---");
+            navigate("/admin", { replace: true });
+            return;
+          }
+
+        
           const response = await verifyAdminSession();
-          console.log("response back to component =>", response);
           if (response.success) {
+           
             navigate("/admin", { replace: true });
             showNotification(true, true, response.message);
           } else {
+           
             navigate("/admin-login", { replace: true });
             if(response.status === 520){
               showNotification(true, false, response.message);
             }
           }
-        }
-
-        if (isAdminAthenticated) {
-          console.log("ADMIN AUTHENTICATED ---");
-          navigate("/admin", { replace: true });
-          showNotification(true, true, response.message);
-        }
       } catch (error) {
         console.error("Error in session validation");
         showNotification(true, false, error.message);

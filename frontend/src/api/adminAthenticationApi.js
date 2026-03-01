@@ -6,7 +6,7 @@ export const verifyAdminSession = async () => {
   try {
     const response = await adminApi.post("/api/auth/admin-me");
     console.log("Verify Session: ", response);
-
+   
     return {
       success: true,
       message: response.data.message,
@@ -18,11 +18,11 @@ export const verifyAdminSession = async () => {
     const errorMessageVrify =
       error.code === "ERR_NETWORK"
         ? "Opps backend Server is down"
-        : error.response?.data?.message || "Something went wrong";
+        : error?.response?.data?.message || "Something went wrong";
     return {
       success: false,
       message: errorMessageVrify,
-      status: error.response?.status || 520,
+      status: error?.response?.status || 520,
     };
   }
 };
