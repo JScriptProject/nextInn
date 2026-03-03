@@ -15,7 +15,7 @@ export const checkReview = asyncHandler(async(req, res, next) => {
     throw new ApiError(404, "No Review Sent!");
   }
   const reviewStatus = fetchedReview.status;
-  console.log("REview ststus=>", reviewStatus);
+  
   res.success(200,{status:reviewStatus}, "Review fetched succesfully!");
 });
 

@@ -10,7 +10,7 @@ function AdminProtectedRoute({ children }) {
   const location = useLocation();
   const dispatch = useDispatch();
   const { isAdminAthenticated } = useSelector((state) => state.admin);
-  console.log("LOGGER");
+  console.log("Admin Protected Route");
   useEffect(() => {
     if (!isAdminAthenticated) {
       setIsLoading(true);

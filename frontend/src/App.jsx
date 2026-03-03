@@ -61,11 +61,8 @@ function App() {
     };
 
     if (
-      location.pathname !== "/admin" &&
-      location.pathname !== "/verify-admin" &&
-      location.pathname !== "/admin-login" &&
-      location.pathname !== "/admin-verify" &&
-      location.pathname !== "/verify-admin/login"
+      !location.pathname.startsWith("/admin") &&
+      !location.pathname.startsWith("/verify-admin")
     ) {
       initiateSession();
     }
@@ -88,8 +85,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forget" element={<ForgetPassword />} />
-            <Route path="/reviews" element={<Reviews/>} />
-            <Route path="/review/:id" element= {<UserSubmitReview />}/>
+            <Route path="/reviews" element={<Reviews />} />
+            <Route path="/review/:id" element={<UserSubmitReview />} />
 
             <Route
               path="/user-dashboard"

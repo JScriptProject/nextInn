@@ -6,6 +6,8 @@ import { Room } from "#models/room.models.js";
 import  crypto  from "crypto";
 import { Review } from "#models/review.model.js";
 import {sendCheckoutEmail } from "#utils/emailService.js";
+import { createAuditLog } from "#utils/auditLogger.js";
+
 export const updateBookingStatus = asyncHandler(async (req, res, next) => {
   const { bookingStatus, paymentStatus, idx } = req.body;
   if (idx === undefined) {
@@ -106,5 +108,11 @@ export const updateBookingStatus = asyncHandler(async (req, res, next) => {
       `partial updated. Success saved, but some errors occured ${errors.join(" | ")}`,
     );
   }
+  createAuditLog(
+              req.admin.userId,
+              "UPDATE",
+              "Bookings",
+              `Booking status has been updated by admin.`,
+            );
   res.success(200, updatedBooking, "All status updated successfully!");
 });

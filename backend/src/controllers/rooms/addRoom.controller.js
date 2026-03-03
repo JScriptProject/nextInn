@@ -2,6 +2,7 @@ import { ApiError } from "#utils/ApiError.js";
 import { asyncHandler } from "#utils/asyncHandler.js";
 import { Room } from "#models/room.models.js";
 import { RoomCategory } from "#models/roomCategory.model.js";
+import { createAuditLog } from "#utils/auditLogger.js";
 
 export const addRoom = asyncHandler(async (req, res, next) => {
   const {
@@ -43,5 +44,11 @@ export const addRoom = asyncHandler(async (req, res, next) => {
     current_guest,
   });
   // 3. This line will now execute cleanly
+   createAuditLog(
+     req.admin.userId,
+     "CREATE",
+     "Rooms",
+     `New Room added in ${category} with room number ${roomNumber} `,
+   );
   res.success(201, addedRoom, "Room created successfully!");
 });

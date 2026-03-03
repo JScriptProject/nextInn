@@ -3,18 +3,20 @@ import adminImg from "@assets/media/admin-Dashboard.jpg";
 import AdminDashboardCards from "@admin/components/AdminDashboardCards";
 import CategoryManagement from "@admin/components/CategoryManagement";
 import FullScreenLoader from "@component-support/FullScreenLoader";
-import {  useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 function AdminDashboard() {
-  const { isLoading, setCategories, categories } =
-    useOutletContext();
- if(isLoading)
- {
-  return(<FullScreenLoader />)
- }
+  const context = useOutletContext();
+  // Safely destructure context to avoid crashes if LayoutAdmin doesn't provide it
+  const { isLoading, setCategories, categories } = context || {};
+  if (isLoading) {
+    return <FullScreenLoader />;
+  }
 
+  console.log("Admin Dashboard");
   return (
     <div className="admin-container">
       <div
+      
         className="admin-header"
         style={{ backgroundImage: `url(${adminImg})` }}
       >
@@ -22,10 +24,9 @@ function AdminDashboard() {
       </div>
       <div className="admin-body-container">
         <AdminDashboardCards />
-        <CategoryManagement
-          rooms={categories}
-          setRooms={setCategories}
-        />
+        {categories && (
+          <CategoryManagement rooms={categories} setRooms={setCategories} />
+        )}
       </div>
     </div>
   );

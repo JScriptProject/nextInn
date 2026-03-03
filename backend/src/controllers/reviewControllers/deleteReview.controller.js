@@ -1,7 +1,7 @@
 import { Review } from "#models/review.model.js";
 import { ApiError } from "#utils/ApiError.js";
 import { asyncHandler } from "#utils/asyncHandler.js";
-
+import { createAuditLog } from "#utils/auditLogger.js";
 
 export const deleteReview = asyncHandler(async(req, res, next)=>{
 
@@ -19,5 +19,11 @@ export const deleteReview = asyncHandler(async(req, res, next)=>{
     }
    console.log("THE DELETED REVIEW=>", deletedReview);
     //find review and delete
+    createAuditLog(
+      req.admin.userId,
+      "DELETE",
+      "Reviews",
+      `Review deleted `,
+    );
     res.success(200,deleteReview,  "Review deleted successfully!!");
 });

@@ -6,6 +6,7 @@ import { ApiError } from "#utils/ApiError.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { RefreshToken } from "#models/refreshToken.model.js";
+import { createAuditLog } from "#utils/auditLogger.js";
 
 const adminLogin = asyncHandler(async (req, res, next) => {
   const body = req.body || {};
@@ -73,6 +74,12 @@ const adminLogin = asyncHandler(async (req, res, next) => {
     { new: true, upsert: true },
   );
 
+  createAuditLog(
+    admin._id,
+    "AUTH",
+    "Admins",
+    `Admin logged in with email ${admin.email} `,
+  );
   res.success(200, admin, "Admin logged in successfully!");
 });
 

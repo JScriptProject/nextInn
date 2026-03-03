@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import "./assets/fonts/fonts.css";
 import "./assets/css/index.css";
+import "./assets/css/admin.css"
 
 import App from "./App.jsx";
 import SmoothScrollProvider from "./SmoothScrollWrapper.jsx";

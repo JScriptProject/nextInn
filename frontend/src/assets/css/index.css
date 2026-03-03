@@ -44,7 +44,7 @@ img {
 
 /* navigation */
 #portal {
-  z-index: 2000;
+  z-index: 9000;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -98,6 +98,7 @@ main {
   @apply w-[3rem] h-[3rem] block md:hidden absolute top-[0.5rem] right-[2rem];
 }
 
+
 .nav-container {
   background: #1f2937;
   background: linear-gradient(
@@ -105,8 +106,8 @@ main {
     rgba(31, 41, 55, 1) 1%,
     rgba(45, 60, 84, 1) 100%
   );
-  z-index: 9999;
-  @apply flex flex-col relative  px-[2rem] py-[2rem] gap-[1.4rem] md:flex-row  rounded-tr-3xl rounded-br-3xl  translate-x-[-100%] transform  md:!translate-x-0  md:items-center md:justify-between md:py-[0.5rem] md:px-[4rem] md:h-[74px];
+ z-index: 1000;
+  @apply flex flex-col relative px-[2rem] py-[2rem] gap-[1.4rem] md:flex-row  rounded-tr-3xl rounded-br-3xl  translate-x-[-100%] transform  md:!translate-x-0  md:items-center md:justify-between md:py-[0.5rem] md:px-[4rem] md:h-[74px];
 }
 
 @media screen and (min-width: 768px) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearAdmin, setAdmin, setAdminLoading } from "@redux/adminSlice";
 import { loginAdmin, verifyAdminSession } from "@api/adminAthenticationApi.js";
@@ -16,19 +16,20 @@ function AdminLogin() {
     password: "",
     remember: false,
   });
-
+  console.log("Inside the login ");
   //destructured variables
   const { email, password, remember } = form;
 
   //redux store communication
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
-  const { isAdminAthenticated } = useSelector(
-    (state) => state.admin
-  );
+  const { isAdminAthenticated } = useSelector((state) => state.admin);
 
   //context variables
   const { showNotification } = useContext(NotificationsContext);
+
+  const from = location.state?.from?.pathname || "/admin";
 
   //onchange
   const onChange = (e) => {
@@ -41,19 +42,17 @@ function AdminLogin() {
   //onsubmit
   const onSubmit = async (e) => {
     e.preventDefault();
-   
 
     try {
-       setIsLoading(true);
+      setIsLoading(true);
       const response = await loginAdmin(form);
-      
+
       if (response.success) {
         const admin = response.data;
         console.log("RESPONSE =>", response);
         console.log("SET ADMIN HERE=>", admin);
         dispatch(setAdmin(admin));
-        navigate("/admin", { replace: true });
-        showNotification(true, true, response.message);
+        navigate(from, { replace: true });
       } else {
         dispatch(clearAdmin());
         showNotification(true, false, response?.message);
@@ -62,7 +61,7 @@ function AdminLogin() {
       console.error("Error while login into the admin panel", error);
       showNotification(true, false, error.message);
     } finally {
-       setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -70,32 +69,27 @@ function AdminLogin() {
     console.log("Here is the loading login useEffect");
     const checkSession = async () => {
       try {
-         setIsLoading(true);
-          if (isAdminAthenticated) {
-            console.log("ADMIN AUTHENTICATED ---");
-            navigate("/admin", { replace: true });
-            return;
+        setIsLoading(true);
+        if (isAdminAthenticated) {
+          console.log("ADMIN AUTHENTICATED ---");
+          navigate(from, { replace: true });
+          return;
+        }
+        const response = await verifyAdminSession();
+        if (response.success) {
+          navigate(from, { replace: true });
+        } else {
+          navigate("/admin-login", { replace: true });
+          if (response.status === 520) {
+            showNotification(true, false, response.message);
           }
-
-        
-          const response = await verifyAdminSession();
-          if (response.success) {
-           
-            navigate("/admin", { replace: true });
-            showNotification(true, true, response.message);
-          } else {
-           
-            navigate("/admin-login", { replace: true });
-            if(response.status === 520){
-              showNotification(true, false, response.message);
-            }
-          }
+        }
       } catch (error) {
         console.error("Error in session validation");
         showNotification(true, false, error.message);
       } finally {
         console.log("inside admin finally");
-         setIsLoading(false);
+        setIsLoading(false);
       }
     };
     checkSession();

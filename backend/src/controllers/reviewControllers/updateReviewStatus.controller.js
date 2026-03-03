@@ -1,6 +1,7 @@
 import { Review } from "#models/review.model.js";
 import { ApiError } from "#utils/ApiError.js";
 import { asyncHandler } from "#utils/asyncHandler.js";
+import { createAuditLog } from "#utils/auditLogger.js";
 
 export const updateReviewStatus = asyncHandler(async (req, res, next) => {
   const { reviewId, reviewStatus } = req.body || {};
@@ -25,5 +26,11 @@ export const updateReviewStatus = asyncHandler(async (req, res, next) => {
   console.log("Before update selectedReview=>", selectedReview);
   const updatedReview = await selectedReview.save();
   console.log("Updated Review", updatedReview);
+  createAuditLog(
+    req.admin.userId,
+    "UPDATE",
+    "Reviews",
+    `Review status updated to ${reviewStatus} `,
+  );
   res.success(200, updatedReview, "Review status updated succesfully!");
 });

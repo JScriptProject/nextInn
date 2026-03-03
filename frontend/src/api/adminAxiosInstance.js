@@ -25,7 +25,7 @@ const processQueue = (error, token = null) => {
 };
 
 // Catch the response of the axios request
-
+console.log("AdminaxiosInstance");
 adminApi.interceptors.response.use(
   //if response without error then send it back as it is
   (response) => response,
@@ -74,7 +74,6 @@ adminApi.interceptors.response.use(
       //refresh the session
 
       try {
-        console.log("REFEEEEEEEEEEEEEEEE");
         await adminApi.post("/api/auth/admin-refresh");
         isRefreshing = false;
         processQueue(null);

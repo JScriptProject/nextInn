@@ -84,6 +84,14 @@ function Header({websiteHeader}) {
         </div>
         <hr className="nav-hr" />
         <ul className="nav-links">
+          {(!websiteHeader?.user?.role || websiteHeader?.user?.role === 'user') &&
+            websiteHeader?.webNav?.map((navItem, index) => (
+              <li key={index}>
+                <Link to={navItem.to} className="nav-link" onClick={closeNav}>
+                  {navItem.label}
+                </Link>
+              </li>
+            ))}
           {websiteHeader?.user?.role === "admin" &&
             adminHeader.map((navItem, index) => (
               <li key={index}>

@@ -24,7 +24,7 @@
 }
 
 .admin-header p{
-  @apply text-[#fff] z-1000 font-light;
+  @apply text-[#fff] z-100 font-light;
 }
 
 .admin-header::before {
@@ -40,7 +40,7 @@
 .admin-header h1 {
   font-weight: 700;
   filter: drop-shadow(0, 0, 50px, #3125d3);
-  @apply text-[2rem] md:text-[3rem] text-[#fff] relative block z-1000;
+  @apply text-[2rem] md:text-[3rem] text-[#fff] relative block z-100;
 }
 
 .admin-body-container {
@@ -303,8 +303,8 @@ input[type="checkbox"]:disabled {
 /* admin Verify section */
 
 .otp-input-wrapper{
-  display: flex;
-  flex-direction: row;
+  display: flex !important;
+  flex-direction: row !important;
   gap:12px;
   justify-content: center;
   margin: 20px 0;
@@ -662,4 +662,91 @@ input[type="checkbox"]:disabled {
 }
 .review-delete-text {
   @apply mb-6 text-gray-600;
+}
+
+/* ==========================================
+   MANAGE ADMINS SPECIFIC STYLES
+   ========================================== */
+
+.admin-directory-title {
+  @apply flex items-center gap-2 text-[var(--primary-deep-teal)] font-bold text-xl;
+}
+
+.btn-add-admin {
+  @apply flex items-center gap-2 px-4 py-2 bg-[var(--primary-deep-teal)] hover:bg-[#0f3d3a] text-white rounded-lg transition-colors font-semibold;
+}
+
+.admin-error-banner {
+  @apply mb-6 p-4 bg-red-100 border border-red-200 text-red-700 rounded-lg font-medium;
+}
+
+.admin-table-name {
+  @apply font-semibold text-[var(--text-primary-dark-Charcoal)];
+}
+
+.admin-table-email {
+  @apply text-[var(--text-secondary-gray)];
+}
+
+.admin-form-error-msg {
+  @apply text-xs text-red-500 mt-1;
+}
+
+/* ==========================================
+   PASSWORD VISIBILITY TOGGLE STYLES
+   ========================================== */
+
+.admin-password-wrapper {
+  @apply relative w-full;
+}
+
+.admin-password-input {
+  /* Same as admin-form-input, but with pr-10 to make room for the icon */
+  @apply w-full p-3 pr-10 border border-[var(--border-lightUI-softGray)] rounded-lg outline-none focus:border-[var(--accent-cta-sunset-orange)] bg-white;
+}
+
+.admin-password-toggle {
+  @apply absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--text-secondary-gray)] hover:text-[var(--primary-deep-teal)] transition-colors focus:outline-none bg-transparent border-none cursor-pointer p-1 flex items-center justify-center;
+}
+
+/* ==========================================
+   ACTIVITY LOGS SPECIFIC STYLES
+   ========================================== */
+
+.log-directory-title {
+  @apply flex items-center gap-2 text-[var(--primary-deep-teal)] font-bold text-xl;
+}
+
+/* Action Badges */
+.log-badge {
+  @apply px-2.5 py-1 rounded-md text-[0.7rem] font-bold uppercase tracking-wider w-fit;
+}
+
+.log-badge-create {
+  @apply bg-[#dcfce7] text-[#166534] border border-[#bbf7d0];
+}
+
+.log-badge-update {
+  @apply bg-[#e0f2fe] text-[#0369a1] border border-[#bae6fd];
+}
+
+.log-badge-delete {
+  @apply bg-[#fee2e2] text-[#991b1b] border border-[#fecaca];
+}
+
+.log-badge-auth {
+  @apply bg-[#f3e8ff] text-[#6b21a8] border border-[#e9d5ff]; /* For Logins/Logouts */
+}
+
+/* Table Text Formats */
+.log-module-text {
+  @apply font-bold text-[var(--primary-deep-teal)] text-sm uppercase tracking-wide;
+}
+
+.log-time-text {
+  @apply text-xs text-[var(--text-secondary-gray)] font-medium block mt-1;
+}
+
+.log-desc-text {
+  @apply text-sm text-[var(--text-primary-dark-Charcoal)] italic;
 }

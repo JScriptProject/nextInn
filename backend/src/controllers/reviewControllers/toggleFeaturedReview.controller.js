@@ -1,7 +1,7 @@
 import { Review } from "#models/review.model.js";
 import { ApiError } from "#utils/ApiError.js";
 import { asyncHandler } from "#utils/asyncHandler.js";
-
+import { createAuditLog } from "#utils/auditLogger.js";
 
 export const toggleFeaturedReview = asyncHandler(async(req, res, next)=>{
     const { reviewId, isFeaturedReview } = req.body || {};
@@ -33,9 +33,21 @@ export const toggleFeaturedReview = asyncHandler(async(req, res, next)=>{
    }
    if(updatedReview.isFeatured)
    {
+    createAuditLog(
+      req.admin.userId,
+      "UPDATE",
+      "Reviews",
+      `Review set as featured`,
+    );
     res.success(201, updatedReview, "Review set as featured!");
    }
    else{
+    createAuditLog(
+      req.admin.userId,
+      "UPDATE",
+      "Reviews",
+      `Review removed as featured`,
+    );
     res.success(201, updatedReview, "Review removed as featured!")
    }
 })

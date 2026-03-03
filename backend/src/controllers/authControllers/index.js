@@ -3,7 +3,6 @@
 export { adminLogin } from "./adminLogin.controller.js";
 export { adminLogout } from "./adminLogout.controller.js";
 export { adminRefreshSession } from "./adminRefreshSession.controller.js";
-export { adminSignUp } from "./adminSignUp.controller.js";
 export { adminVerifySession } from "./adminVerifySession.controller.js";
 export { refreshSession } from "./refreshSession.controller.js";
 export { sendEmail } from "./sendEmail.controller.js";

@@ -10,6 +10,7 @@ function LayoutAdmin() {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const { showNotification } = useContext(NotificationsContext); 
+  console.log("Layout admin");
   useEffect(() => {
     (async () => {
       try {

@@ -6,7 +6,6 @@ import {
   refreshSession,
   verifySession,
   userLogout,
-  adminSignUp,
   adminLogin,
   adminLogout,
   adminVerifySession,
@@ -18,7 +17,6 @@ import {
 } from "#controllers/authControllers/index.js";
 import { isAuthenticated } from "#middlewares/isAuthenticated.js";
 import { isAdminAuthenticated } from "#middlewares/isAdminAuthenticated.js";
-
 
 const router = express.Router();
 
@@ -46,9 +44,8 @@ router.post("/refresh", refreshSession);
 
 // admin
 
-router.post("/admin-signup", adminSignUp);
 router.post("/admin-login", adminLogin);
-router.post("/admin-logout",isAdminAuthenticated, adminLogout)
+router.post("/admin-logout", isAdminAuthenticated, adminLogout);
 router.options("/admin-me", cors(corsOptions));
 router.post(
   "/admin-me",
