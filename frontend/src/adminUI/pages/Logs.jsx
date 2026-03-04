@@ -4,6 +4,7 @@ import { Search, ActivitySquare, ShieldAlert } from "lucide-react";
 import Hero from "@admin/components/Hero";
 // You can use the same hero image or a new one
 import heroBookingImg from "@assets/media/heroBookings.jpg";
+import { getAdminLogs } from "@api/manageAdmin.js"
 
 // import { getAdminLogs } from "@api/adminLogsApi.js"; // You will create this later
 
@@ -50,47 +51,54 @@ function Logs() {
   const fetchLogs = async () => {
     setIsLoading(true);
     try {
+      const response = await getAdminLogs(
+        currentPage,
+        limit,
+        filterModule,
+        searchTerm
+      );
+      console.log(response);
+      setLogs(response.data.logs);
+      setTotalPages(response.data.pagination.totalPages);
       // TODO: Replace with actual API Call
       // const response = await getAdminLogs(currentPage, limit, filterModule, searchTerm);
-      // setLogs(response.data.logs);
-      // setTotalPages(response.data.pagination.totalPages);
 
       // --- MOCK DATA FOR UI PREVIEW ---
-      setLogs([
-        {
-          _id: "1",
-          admin: { name: "Jacob Smith", email: "jacob@nextinn.com" },
-          actionType: "UPDATE",
-          module: "Bookings",
-          description: "Changed booking status to Confirmed for Guest ID: 8932",
-          createdAt: new Date().toISOString(),
-        },
-        {
-          _id: "2",
-          admin: { name: "Ravi Kamble", email: "ravi@blogspage.com" },
-          actionType: "DELETE",
-          module: "Reviews",
-          description: "Deleted inappropriate review from user ID: 1234",
-          createdAt: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
-        },
-        {
-          _id: "3",
-          admin: { name: "Ravi Kamble", email: "ravi@blogspage.com" },
-          actionType: "CREATE",
-          module: "Rooms",
-          description: "Added new room: Presidential Suite 401",
-          createdAt: new Date(Date.now() - 7200000).toISOString(), // 2 hours ago
-        },
-        {
-          _id: "4",
-          admin: { name: "Jane Doe", email: "jane@nextinn.com" },
-          actionType: "AUTH",
-          module: "Auth",
-          description: "Admin successfully logged in",
-          createdAt: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
-        },
-      ]);
-      setTotalPages(1);
+      // setLogs([
+      //   {
+      //     _id: "1",
+      //     admin: { name: "Jacob Smith", email: "jacob@nextinn.com" },
+      //     actionType: "UPDATE",
+      //     module: "Bookings",
+      //     description: "Changed booking status to Confirmed for Guest ID: 8932",
+      //     createdAt: new Date().toISOString(),
+      //   },
+      //   {
+      //     _id: "2",
+      //     admin: { name: "Ravi Kamble", email: "ravi@blogspage.com" },
+      //     actionType: "DELETE",
+      //     module: "Reviews",
+      //     description: "Deleted inappropriate review from user ID: 1234",
+      //     createdAt: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
+      //   },
+      //   {
+      //     _id: "3",
+      //     admin: { name: "Ravi Kamble", email: "ravi@blogspage.com" },
+      //     actionType: "CREATE",
+      //     module: "Rooms",
+      //     description: "Added new room: Presidential Suite 401",
+      //     createdAt: new Date(Date.now() - 7200000).toISOString(), // 2 hours ago
+      //   },
+      //   {
+      //     _id: "4",
+      //     admin: { name: "Jane Doe", email: "jane@nextinn.com" },
+      //     actionType: "AUTH",
+      //     module: "Auth",
+      //     description: "Admin successfully logged in",
+      //     createdAt: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
+      //   },
+      // ]);
+      // setTotalPages(1);
     } catch (error) {
       console.error("Failed to fetch logs", error);
     } finally {

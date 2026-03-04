@@ -6,6 +6,7 @@ import {
   addAdmin,
   updateAdmin,
   deleteAdmin,
+  getAllLogs,
 } from "#controllers/adminControllers/index.js";
 
 const router = Router();
@@ -16,5 +17,6 @@ router.use(isAdminAuthenticated, isSuperAdmin);
 router.route("/").get(getAllAdmins);
 router.route("/add").post(addAdmin);
 router.route("/:id").patch(updateAdmin).delete(deleteAdmin);
+router.route("/logs").get(getAllLogs);
 
 export default router;

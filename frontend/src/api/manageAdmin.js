@@ -87,3 +87,39 @@ export const deleteAdmin = async (id) => {
     };
   }
 };
+
+// get admin logs
+
+export const getAdminLogs = async (
+  currentPage,
+  limit,
+  filterModule,
+  searchTerm
+) => {
+  try {
+    const response = await adminApi.get("/api/admin/logs", {
+      params: {
+        currentPage,
+        limit,
+        filterModule,
+        searchTerm,
+      },
+    });
+    return {
+      success: true,
+      message: response.data.message,
+      data: response.data.data,
+      status: response.status,
+    };
+  } catch (error) {
+    console.error("An error occurred while deleting admin", error);
+    const errorMessage =
+      error.response?.data?.message || "Something went wrong";
+    return {
+      success: false,
+      message: errorMessage,
+      data: null,
+      status: error.response?.status || 400,
+    };
+  }
+};
