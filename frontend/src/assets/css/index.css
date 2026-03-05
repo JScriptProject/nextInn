@@ -1949,3 +1949,73 @@ CSS
 .btn-active {
   @apply bg-[var(--primary-deep-teal)] hover:bg-[var(--accent-cta-sunset-orange)];
 }
+
+
+/* ==========================================
+   PUBLIC STATIC PAGES (ABOUT & CONTACT)
+   ========================================== */
+
+/* Hero Section */
+.static-hero-section {
+  @apply bg-[var(--primary-deep-teal)] text-white pt-32 pb-20 text-center px-4 relative;
+}
+
+.static-hero-title {
+  @apply text-4xl md:text-5xl font-bold mb-4 drop-shadow-md;
+}
+
+.static-hero-subtitle {
+  @apply text-lg md:text-xl max-w-2xl mx-auto text-gray-200 drop-shadow-sm;
+}
+
+/* Page Layout */
+.static-page-wrapper {
+  @apply bg-gray-50 min-h-screen pb-16;
+}
+
+.static-content-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12;
+}
+
+/* About Page Specific */
+.about-grid-wrapper {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-12 items-center;
+}
+
+.about-feature-grid {
+  @apply grid grid-cols-2 gap-4;
+}
+
+.about-feature-card {
+  @apply bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center transition-transform hover:-translate-y-1;
+}
+
+.about-feature-title {
+  @apply font-bold text-[var(--text-primary-dark-Charcoal)] mt-3;
+}
+
+/* Contact Page Specific */
+.contact-grid-wrapper {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-8;
+}
+
+.contact-info-card {
+  @apply bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start gap-4;
+}
+
+.contact-form-container {
+  @apply lg:col-span-2 bg-white p-8 rounded-xl shadow-sm border border-gray-100;
+}
+
+.contact-form-label {
+  @apply block text-sm font-medium text-[var(--text-primary-dark-Charcoal)] mb-1;
+}
+
+.contact-form-input {
+  @apply w-full p-3 border border-gray-300 rounded-lg outline-none focus:border-[var(--primary-deep-teal)] focus:ring-1 focus:ring-[var(--primary-deep-teal)] transition-all;
+}
+
+.contact-submit-btn {
+  @apply px-6 py-3 bg-[var(--primary-deep-teal)] text-white font-bold rounded-lg hover:bg-[#0f3d3a] transition-colors w-full md:w-auto mt-4;
+}
+

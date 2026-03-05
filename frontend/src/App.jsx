@@ -21,6 +21,7 @@ import UserSubmitReview from "@user/pages/UserSubmitReview";
 const RoomDetails = lazy(() => import("@user/pages/RoomDetails.jsx"));
 const BookingPage = lazy(() => import("@user/pages/BookingPage.jsx"));
 const About = lazy(() => import("@user/pages/About.jsx"));
+const Contact = lazy(()=> import("@user/pages/Contact.jsx"))
 const Login = lazy(() => import("@user/pages/Login.jsx"));
 const Register = lazy(() => import("@user/pages/Register.jsx"));
 const ForgetPassword = lazy(() => import("@user/pages/ForgetPassword.jsx"));
@@ -82,12 +83,13 @@ function App() {
             <Route path="/rooms/:id" element={<RoomDetails />} />
             <Route path="/book" element={<BookingPage />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forget" element={<ForgetPassword />} />
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/review/:id" element={<UserSubmitReview />} />
-
+            
             <Route
               path="/user-dashboard"
               element={
