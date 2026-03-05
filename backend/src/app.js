@@ -10,6 +10,7 @@ import bookingRouter from "#routers/booking.router.js";
 import roomsManagementRouter from "#routers/roomsManagement.router.js";
 import reviewRouter from "#routers/review.router.js"
 import adminRouter from "#routers/admin.router.js";
+import dashboardRouter from "#routers/dashboard.router.js";
 dotenv.config();
 const app = express();
 
@@ -31,5 +32,6 @@ app.use("/api/booking", bookingRouter);
 app.use("/api/rooms", roomsManagementRouter);
 app.use("/api/review", reviewRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/dashboard", dashboardRouter);
 
 export default app;

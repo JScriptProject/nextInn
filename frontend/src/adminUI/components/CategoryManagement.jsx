@@ -12,7 +12,7 @@ function CategoryManagement({ rooms, setRooms }) {
   
 
   return (
-    <div>
+    <div className="admin-body-container">
       <h3 className="page-internal-title">Rooms Category management</h3>
       {rooms.length !== 0 ? (
         <div className="roomsCategoryBlock">

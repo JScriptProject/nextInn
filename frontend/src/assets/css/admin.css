@@ -750,3 +750,41 @@ input[type="checkbox"]:disabled {
 .log-desc-text {
   @apply text-sm text-[var(--text-primary-dark-Charcoal)] italic;
 }
+
+
+/* ==========================================
+   SAAS DASHBOARD STYLES
+   ========================================== */
+
+.saas-kpi-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8;
+}
+
+.saas-kpi-card {
+  @apply bg-white p-6 rounded-xl shadow-sm border border-[var(--border-lightUI-softGray)] flex items-center justify-between transition-transform hover:-translate-y-1 hover:shadow-md cursor-pointer;
+}
+
+.saas-module-grid {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10;
+}
+
+.saas-module-card {
+  @apply bg-white rounded-xl shadow-sm border border-[var(--border-lightUI-softGray)] flex flex-col overflow-hidden;
+}
+
+.saas-module-header {
+  @apply px-6 py-4 border-b border-[var(--border-lightUI-softGray)] flex items-center justify-between bg-gray-50;
+}
+
+.saas-module-body {
+  @apply p-6 flex-grow flex flex-col gap-4;
+}
+
+.saas-module-footer {
+  @apply px-6 py-4 bg-gray-50 border-t border-[var(--border-lightUI-softGray)] flex justify-end;
+}
+
+.saas-footer-link {
+  @apply text-[var(--primary-deep-teal)] font-semibold flex items-center gap-2 hover:text-[var(--accent-cta-sunset-orange)] transition-colors text-sm;
+}
+

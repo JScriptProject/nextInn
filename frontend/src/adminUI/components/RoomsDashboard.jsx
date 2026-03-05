@@ -1,0 +1,641 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import {
+  Check,
+  Clock,
+  Edit,
+  Eye,
+  Trash2,
+  XCircle,
+  X,
+  Search,
+  Plus,
+  User,
+  FileText,
+} from "lucide-react";
+import Hero from "@admin/components/Hero";
+import heroBookingImg from "@assets/media/heroBookings.jpg";
+import FullScreenLoader from "@component-support/FullScreenLoader";
+import { getAllRooms, addRoom, updateRoom, deleteRoom } from "@api/roomApi.js"; // Import your APIs
+import { useContext } from "react";
+import { NotificationsContext } from "@user/context/NotificationsContext";
+// ==========================================
+// CONSTANTS FOR DROPDOWNS
+// ==========================================
+const ROOM_STATUSES = ["Available", "Checked-In", "Maintenance"];
+const CLEANING_STATUSES = ["Clean", "Dirty", "In-Progress"];
+
+function RoomsDashboard() {
+  const [rooms, setRooms] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Modal State
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState(""); // 'add', 'view', 'edit', 'delete'
+  const [selectedRoom, setSelectedRoom] = useState(null);
+
+  //pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 15;
+  const { categories } = useOutletContext();
+  const navigate = useNavigate();
+  const { showNotification } = useContext(NotificationsContext);
+
+  const heroContent = {
+    websiteTitle: "Manage Rooms",
+    websiteSubtitle: "Add, update, and monitor hotel rooms.",
+  };
+
+  // 1. Fetch Data on Load
+  useEffect(() => {
+    fetchData();
+  }, [currentPage, filterStatus]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterStatus]);
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const roomsRes = await getAllRooms(currentPage, limit, filterStatus);
+      if (roomsRes.success) {
+        setRooms(roomsRes.data);
+        setTotalPages(roomsRes.pagination.totalPages);
+      }
+    } catch (error) {
+      console.error("Failed to fetch data", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // 3. Modal Controls
+  const openModal = (room = null, type) => {
+    if (type === "add") {
+      // Empty state for new room
+      setSelectedRoom({
+        roomNumber: "",
+        floor: "",
+        category: "",
+        status: "available",
+        cleaning_status: "clean",
+      });
+    } else {
+      // Clone existing room for edit/view/delete
+      // We extract category._id if it's populated so the <select> default value works
+      setSelectedRoom({
+        ...room,
+        category: room.category,
+      });
+    }
+    setModalType(type);
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedRoom(null);
+  };
+
+  // 4. Form Handlers
+  const handleInputChange = (e) => {
+    setSelectedRoom({ ...selectedRoom, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      let response;
+      if (modalType === "add") {
+        response = await addRoom(selectedRoom);
+        console.log("ADD ROOM API RESPONSE =>", response);
+        if (!response.success) {
+          showNotification(
+            true,
+            false,
+            response.message === "Duplicate Value"
+              ? "Opps Duplicate room data!"
+              : response.message
+          );
+          return;
+        }
+        await fetchData();
+        showNotification(
+          true,
+          true,
+          response.message || "Room Added successfully!"
+        );
+      } else if (modalType === "edit") {
+        try {
+          setIsLoading(true);
+          console.log("SELECTED=>", selectedRoom);
+          response = await updateRoom(selectedRoom._id, selectedRoom);
+          if (!response.success) {
+            showNotification(true, false, response.message);
+            return;
+          } else {
+            await fetchData();
+            showNotification(true, true, response.message);
+          }
+        } catch (error) {
+          console.error("Error while updating room", error);
+          showNotification(true, false, error.message);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+
+      // Refresh list after success
+      // if (response.success) fetchData();
+
+      console.log("EXECUTED TILL HERE");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      closeModal();
+      setIsLoading(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    setIsLoading(true);
+    try {
+      const response = await deleteRoom(id);
+      closeModal();
+      if (!response.success) {
+        showNotification(true, false, response.message);
+        return;
+      }
+      await fetchData();
+      showNotification(true, true, response.message);
+    } catch (error) {
+      console.error(error);
+      showNotification(true, false, error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleViewBooking = (bookingId) => {
+    navigate("/admin/bookings", {
+      state: { searchBookingId: bookingId },
+    });
+  };
+  // 5. UI Helpers
+  const getStatusBadge = (status) => {
+    if (status === "Available" || status === "Clean")
+      return (
+        <span className="admin-status-badge badge-booking-confirmed">
+          <Check size={12} /> {status}
+        </span>
+      );
+    if (status === "Checked-In" || status === "Dirty")
+      return (
+        <span className="admin-status-badge badge-booking-cancelled">
+          <XCircle size={12} /> {status}
+        </span>
+      );
+    if (status === "Maintenance" || status === "In Progress")
+      return (
+        <span className="admin-status-badge badge-booking-pending">
+          <Clock size={12} /> {status}
+        </span>
+      );
+    return (
+      <span className="admin-status-badge badge-payment-refunded">
+        {status}
+      </span>
+    );
+  };
+
+  if (isLoading) return <FullScreenLoader />;
+
+  return (
+    <div>
+      <div className="admin-body-container">
+        <h3 className="page-internal-title">Rooms Inventory management</h3>
+
+        {/* --- CONTROLS SECTION --- */}
+        <div className="admin-controls-wrapper flex-wrap">
+          <div className="search-box-container">
+            <Search className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search by Room Number..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="admin-search-input"
+            />
+          </div>
+
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="filter-box-container">
+              <label>Status:</label>
+              <select
+                className="admin-select-input"
+                onChange={(e) => setFilterStatus(e.target.value)}
+                value={filterStatus}
+              >
+                <option value="all">All Rooms</option>
+                {ROOM_STATUSES.map((s) => (
+                  <option key={s} value={s.toLowerCase()}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* ADD ROOM BUTTON */}
+            <button
+              onClick={() => openModal(null, "add")}
+              className="btn-modal-save flex items-center gap-2"
+            >
+              <Plus size={18} /> Add New Room
+            </button>
+          </div>
+        </div>
+
+        {/* --- TABLE SECTION --- */}
+        <div className="admin-table-container">
+          <table className="admin-data-table">
+            <thead>
+              <tr>
+                <th>Room No.</th>
+                <th>Category</th>
+                <th>Floor</th>
+                <th>Room Status</th>
+                <th>Cleaning Status</th>
+                <th>Current Stay</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rooms?.length > 0 ? (
+                rooms.map((room) => (
+                  <tr key={room._id} className="admin-table-row">
+                    <td className="font-bold text-lg">{room.roomNumber}</td>
+                    <td className="font-semibold text-[var(--primary-deep-teal)]">
+                      {room.category?.name || "N/A"}
+                    </td>
+                    <td>{room.floor}</td>
+                    <td>{getStatusBadge(room.status)}</td>
+                    <td>{getStatusBadge(room.cleaning_status)}</td>
+                    <td>
+                      {room.status === "checked-in" ? (
+                        <div className="flex flex-col items-start gap-2">
+                          <button
+                            onClick={() => openModal(room, "view-guest")}
+                            className="text-xs font-bold text-[var(--primary-deep-teal)] flex items-center gap-1 hover:underline"
+                          >
+                            <User size={14} /> Guest Details
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleViewBooking(room.current_booking?.bookingId)
+                            }
+                            className="text-xs font-bold text-[var(--accent-cta-sunset-orange)] flex items-center gap-1 hover:underline"
+                          >
+                            <FileText size={14} /> Booking Info
+                          </button>
+                        </div>
+                      ) : (
+                        <span className="text-[var(--text-secondary-gray)] text-xs font-medium">
+                          Not Checked-In
+                        </span>
+                      )}
+                    </td>
+                    <td>
+                      <div className="admin-action-buttons">
+                        <button
+                          className="action-btn view-btn"
+                          onClick={() => openModal(room, "view")}
+                        >
+                          <Eye size={18} />
+                        </button>
+                        <button
+                          className="action-btn edit-btn"
+                          onClick={() => openModal(room, "edit")}
+                        >
+                          <Edit size={18} />
+                        </button>
+                        <button
+                          className="action-btn delete-btn"
+                          onClick={() => openModal(room, "delete")}
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan="6"
+                    className="text-center py-10 text-[var(--text-secondary-gray)]"
+                  >
+                    No rooms found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+
+          {/* pagination */}
+          {totalPages > 1 && (
+            <div className="pagination-rooms">
+              <span className="pagination-rooms-page">
+                Page {currentPage} of {totalPages}
+              </span>
+
+              <div className="pagination-btn-group">
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  disabled={currentPage === 1}
+                  className="pagination-btn-pre"
+                >
+                  Previous
+                </button>
+
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                  className="pagination-btn-next"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* --- MODALS --- */}
+      {isModalOpen && selectedRoom && (
+        <div className="admin-modal-overlay">
+          <div
+            className={`admin-modal-content ${modalType === "view" ? "modal-lg" : "modal-md"}`}
+          >
+            <div className="admin-modal-header">
+              <h2>
+                {modalType === "add" && "Add New Room"}
+                {modalType === "edit" &&
+                  `Edit Room: ${selectedRoom.roomNumber}`}
+                {modalType === "view" &&
+                  `Room Details: ${selectedRoom.roomNumber}`}
+                {modalType === "delete" && "Delete Room"}
+              </h2>
+              <button className="modal-close-btn" onClick={closeModal}>
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* VIEW MODAL */}
+            {modalType === "view" && (
+              <div className="admin-modal-body">
+                <div className="booking-details-grid">
+                  <div className="details-card">
+                    <h3>Room Information</h3>
+                    <p>
+                      <strong>Room Number:</strong> {selectedRoom.roomNumber}
+                    </p>
+                    <p>
+                      <strong>Floor:</strong> {selectedRoom.floor}
+                    </p>
+                    <p>
+                      <strong>Category:</strong>{" "}
+                      {selectedRoom.category?.name || "Unknown"}
+                    </p>
+                  </div>
+                  <div className="details-card">
+                    <h3>Current Status</h3>
+                    <div className="flex flex-col gap-3 mt-2">
+                      <div className="flex justify-between items-center pb-2">
+                        <span>Room Status:</span>{" "}
+                        {getStatusBadge(selectedRoom.status)}
+                      </div>
+                      <div className="flex justify-between items-center pb-2">
+                        <span>Cleaning Status:</span>{" "}
+                        {getStatusBadge(selectedRoom.cleaning_status)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ADD / EDIT MODAL FORM */}
+            {(modalType === "add" || modalType === "edit") && (
+              <div className="admin-modal-body">
+                <form onSubmit={handleSubmit} className="admin-form">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="form-group">
+                      <label>Room Number *</label>
+                      <input
+                        type="text"
+                        name="roomNumber"
+                        required
+                        value={selectedRoom.roomNumber}
+                        onChange={handleInputChange}
+                        className="admin-form-input"
+                        placeholder="e.g., 101"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Floor *</label>
+                      <input
+                        type="text"
+                        name="floor"
+                        required
+                        value={selectedRoom.floor}
+                        onChange={handleInputChange}
+                        className="admin-form-input"
+                        placeholder="e.g., 1st Floor"
+                      />
+                    </div>
+
+                    <div className="form-group col-span-2">
+                      <label>Room Category *</label>
+                      <select
+                        name="category"
+                        required
+                        value={selectedRoom.category}
+                        onChange={handleInputChange}
+                        className="admin-form-input"
+                      >
+                        <option value="" disabled>
+                          Select a Category
+                        </option>
+                        {categories.map((cat) => (
+                          <option key={cat._id} value={cat._id}>
+                            {cat.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="form-group">
+                      <label>Room Status *</label>
+                      {selectedRoom.status === "checked-in" &&
+                      modalType === "edit" ? (
+                        <div className="flex flex-col">
+                          <select
+                            className="admin-form-input bg-gray-100 text-gray-500 cursor-not-allowed"
+                            disabled
+                          >
+                            <option>Checked-In</option>
+                          </select>
+                          <span className="text-xs text-[var(--accent-cta-sunset-orange)] mt-1 font-medium">
+                            * Wait till checkout to update status.
+                          </span>
+                        </div>
+                      ) : (
+                        <select
+                          name="status"
+                          value={selectedRoom.status}
+                          onChange={handleInputChange}
+                          className="admin-form-input"
+                        >
+                          {ROOM_STATUSES.filter((s) => s !== "Checked-In").map(
+                            (s) => (
+                              <option key={s} value={s.toLowerCase()}>
+                                {s}
+                              </option>
+                            )
+                          )}
+                        </select>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label>Cleaning Status *</label>
+                      <select
+                        name="cleaning_status"
+                        required
+                        value={selectedRoom.cleaning_status}
+                        onChange={handleInputChange}
+                        className="admin-form-input"
+                      >
+                        {CLEANING_STATUSES.map((s) => (
+                          <option key={s} value={s.toLowerCase()}>
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="admin-modal-footer">
+                    <button
+                      type="button"
+                      onClick={closeModal}
+                      className="btn-modal-cancel"
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn-modal-save">
+                      {modalType === "add" ? "Create Room" : "Save Changes"}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+
+            {/* DELETE MODAL */}
+            {modalType === "delete" && (
+              <div className="admin-modal-body text-center py-6">
+                <div className="delete-warning-icon">
+                  <Trash2 size={48} />
+                </div>
+                <h3 className="text-xl font-bold mb-2">
+                  Are you absolutely sure?
+                </h3>
+                <p className="mb-6">
+                  This will permanently delete Room {selectedRoom.roomNumber}.
+                </p>
+                <div className="admin-modal-footer justify-center">
+                  <button onClick={closeModal} className="btn-modal-cancel">
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() => handleDelete(selectedRoom._id)}
+                    className="btn-modal-danger"
+                  >
+                    Yes, Delete
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* GUEST DETAILS MODAL */}
+            {modalType === "view-guest" && (
+              <div className="admin-modal-body">
+                <div className="details-card">
+                  <h3>
+                    <User size={18} className="inline mr-2" />
+                    Guest Information (Room {selectedRoom.roomNumber})
+                  </h3>
+                  {selectedRoom.current_guest ? (
+                    <div className="flex flex-col gap-3 mt-4">
+                      <p>
+                        <strong>Name:</strong>{" "}
+                        {selectedRoom.current_guest.firstname}{" "}
+                        {selectedRoom.current_guest.lastname}
+                      </p>
+                      <p>
+                        <strong>Email:</strong>{" "}
+                        {selectedRoom.current_guest.email}
+                      </p>
+                      <p>
+                        <strong>Phone:</strong>{" "}
+                        {selectedRoom.current_guest.mobile}
+                      </p>
+                      <p>
+                        <strong>City:</strong> {selectedRoom.current_guest.city}
+                      </p>
+
+                      <div className="mt-4 pt-4 border-t border-[var(--border-lightUI-softGray)]">
+                        <p>
+                          <strong>Associated Booking ID:</strong>{" "}
+                          {selectedRoom.current_booking?.bookingId}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-red-500 mt-4">
+                      Error: Guest details missing.
+                    </p>
+                  )}
+                </div>
+                <div className="admin-modal-footer">
+                  <button onClick={closeModal} className="btn-modal-cancel">
+                    Close
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleViewBooking(selectedRoom.current_booking?.bookingId)
+                    }
+                    className="btn-modal-save"
+                  >
+                    Go to Booking
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default RoomsDashboard;
