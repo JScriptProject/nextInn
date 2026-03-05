@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { userlogout } from "@api/authenticationApi.js";
 import { adminLogout } from "@api/adminAthenticationApi.js";
-import { clearUser, setLoading } from "@redux/userSlice";
+import { clearUser } from "@redux/userSlice";
 import { NotificationsContext } from "@user/context/NotificationsContext";
 import { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -23,7 +23,7 @@ function Logout({ user }) {
   const onLogoutClick = async () => {
     setIsLoading(true);
     try {
-      dispatch(setLoading(true));
+      setIsLoading(true);
       if (user.role) {
         const response = await adminLogout();
         if (response.success) {
