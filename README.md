@@ -258,7 +258,7 @@ NextInn/
 | `expiresAt` | Date | Token expiry date |
 
 ### Log
-| Field | Type | Description |
+| Fields | Type | Description |
 |---|---|---|
 | `admin` | ObjectId | Reference to Admin |
 | `module` | String | Module where the action occurred |
