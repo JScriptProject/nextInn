@@ -264,7 +264,7 @@ NextInn/
 | `module` | String | Module where the action occurred |
 | `actionType` | String | Type of action |
 | `description` | String | Description of the action |
-
+|---|---|---|
 ## Deployment
 
 The application is deployed and can be accessed at the following URL:
