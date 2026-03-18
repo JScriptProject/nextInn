@@ -267,6 +267,6 @@ NextInn/
 |---|---|---|
 ## Deployment
 
-The application is deployed and can be accessed at the following URL:
+The application is deployed and can be accessed at the following URL mentioned:
 
 [Live Application] (https://next-inn.vercel.app/)
