@@ -7,6 +7,7 @@ import RoomAmenities from "@user/components/booking-components/RoomAmenities";
 import BookingForm from "@user/components/booking-components/BookingForm";
 import { BookingProvider } from "@user/context/BookingContext";
 import { fetchRoomById } from "@api/roomsCategoryApi.js";
+import { resolveMediaUrl } from "@utils/mediaUrl.js";
 import FullScreenLoader from "@component-support/FullScreenLoader";
 
 function RoomDetails() {
@@ -43,7 +44,7 @@ function RoomDetails() {
     return (
       <BookingProvider>
         <div className="page-container">
-          <PageBanner img={room?.roomImages[0]} heading={room?.name} />
+          <PageBanner img={resolveMediaUrl(room?.roomImages[0])} heading={room?.name} />
           <div className="page-container-wrapper">
             <div className="room-details-section">
               <div className="room-info">
@@ -53,16 +54,16 @@ function RoomDetails() {
                   <p className="room-desc">{room?.description}</p>
                 </div>
                 <div className="room-details-images">
-                  <ParallaxImageBox imgSrc={room?.roomImages[1]} />
+                  <ParallaxImageBox imgSrc={resolveMediaUrl(room?.roomImages[1])} />
 
                   <div className="fixed-image">
-                    <img src={room?.bannerImg} alt={room?.name} />
+                    <img src={resolveMediaUrl(room?.bannerImg)} alt={room?.name} />
                   </div>
                 </div>
                 <h3 className="page-internal-title">Room Amenities</h3>
                 <RoomAmenities amenities={room?.amenities || []} />
                 <div className="sliding-moving-image">
-                  <ParallaxImageBox imgSrc={room?.roomImages[2]} />
+                  <ParallaxImageBox imgSrc={resolveMediaUrl(room?.roomImages[2])} />
                 </div>
               </div>
               <div className="room-features">

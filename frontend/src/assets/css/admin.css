@@ -788,3 +788,45 @@ input[type="checkbox"]:disabled {
   @apply text-[var(--primary-deep-teal)] font-semibold flex items-center gap-2 hover:text-[var(--accent-cta-sunset-orange)] transition-colors text-sm;
 }
 
+.category-images-block {
+  @apply mt-[1rem];
+}
+
+.category-images-preview-grid {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-[1rem] my-[1rem];
+}
+
+.category-image-preview-item img {
+  @apply w-full h-[180px] object-cover rounded-md border border-[var(--border-lightUI-softGray)];
+}
+
+.category-image-preview-label {
+  @apply text-[0.9rem] font-semibold mb-[0.5rem] text-[var(--text-primary-dark-Charcoal)];
+}
+
+.category-image-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  @apply gap-[0.5rem];
+}
+
+.category-image-gallery-grid img {
+  @apply h-[120px];
+}
+
+.category-image-placeholder {
+  @apply w-full h-[120px] rounded-md border border-dashed border-[var(--border-lightUI-softGray)] flex items-center justify-center text-[var(--text-secondary-gray)] text-[0.85rem];
+}
+
+.category-images-upload-fields {
+  @apply flex flex-col gap-[0.75rem];
+}
+
+.category-image-upload-field input[type="file"] {
+  @apply block w-full text-[0.85rem] mt-[0.25rem];
+}
+
+.category-image-upload-label {
+  @apply text-[0.9rem] font-medium text-[var(--text-primary-dark-Charcoal)];
+}
+

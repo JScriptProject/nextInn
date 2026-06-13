@@ -15,7 +15,8 @@
   "scripts": {
     "test": "Testing of my application",
     "dev": "node --watch src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "migrate:images": "node scripts/migrateCategoryImagesToCloudinary.js"
   },
   "keywords": [],
   "author": "",

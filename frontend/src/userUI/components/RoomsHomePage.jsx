@@ -1,4 +1,5 @@
 import React from "react";
+import { resolveMediaUrl } from "@utils/mediaUrl.js";
 import { Link } from "react-router-dom";
 import { UserRound } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -54,7 +55,7 @@ function RoomsHomePage({ rooms }) {
                   key={room._id}
                   className="room-swiper-slide"
                   style={{
-                    backgroundImage: `url(${room.bannerImg})`,
+                    backgroundImage: `url(${resolveMediaUrl(room.bannerImg)})`,
                   }}
                 >
                   <div className="room-slider-inside">
@@ -82,7 +83,7 @@ function RoomsHomePage({ rooms }) {
             })}
           </Swiper>
         ) : (
-          <div className="text-center py-10">Loading Luxury Rooms...</div>
+          <div className="rooms-loading-state">Loading Luxury Rooms...</div>
         )}
       </div>
     </section>

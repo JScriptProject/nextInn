@@ -5,6 +5,7 @@ import CategoryInfoBlock from "@admin/components/CategoryInfoBlock.jsx";
 import CategoryCapacityBlock from "@admin/components/CategoryCapacityBlock.jsx";
 import CategoryAddonChargesBlock from "@admin/components/CategoryAddonChargesBlock.jsx";
 import CategoryAmenitiesBlock from "@admin/components/CategoryAmenitiesBlock.jsx";
+import CategoryImagesBlock from "@admin/components/CategoryImagesBlock.jsx";
 
 
 function RoomscategoryInfo({ roomsObj,setRooms  }) {
@@ -37,6 +38,11 @@ function RoomscategoryInfo({ roomsObj,setRooms  }) {
         isEditing={isEditing}
         roomsObj={roomsObj}
         setSuccessMessage={setSuccessMessage}
+      />
+      <CategoryImagesBlock
+        roomsObj={roomsObj}
+        setSuccessMessage={setSuccessMessage}
+        setRooms={setRooms}
       />
       <CategoryAmenitiesBlock
         setIsEditing={setIsEditing}
